@@ -144,7 +144,7 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/14/2023 20:41:22'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 01:57:37'!
 test01SentenceFinderThrowsErrorWithEmptyPrefix
 
 	| stack sentenceFinder |
@@ -158,7 +158,7 @@ test01SentenceFinderThrowsErrorWithEmptyPrefix
 		should: [ sentenceFinder findSentencesByPrefix: '' onStack: stack ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = SentenceFinderByPrefix prefixCannotBeEmptyErrorDescription ]
+			self assert: anError messageText = PrefixString prefixCannotBeEmptyErrorDescription ]
 		
 	
 	
@@ -201,7 +201,7 @@ test03SentenceFinderCanFindExistingSentenceByPrefix
 	self assert: expectedResult equals: result
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/14/2023 22:09:18'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 16:46:01'!
 test04SentenceFinderCanFindMultipleExistingSentencesByPrefix
 
 	| stack sentenceFinder result expectedResult |
@@ -211,8 +211,9 @@ test04SentenceFinderCanFindMultipleExistingSentencesByPrefix
 	stack push: 'holaqtal'.
 	
 	expectedResult := OrderedCollection new.
-	expectedResult add: 'hola'.
 	expectedResult add: 'holaqtal'.
+	expectedResult add: 'hola'.
+
 	
 	sentenceFinder := SentenceFinderByPrefix new.
 	result := sentenceFinder findSentencesByPrefix: 'hola' onStack: stack.
@@ -248,7 +249,7 @@ test06SentenceFinderCanDistinguishCapitalLetters
 	self assert: result isEmpty
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/14/2023 20:37:25'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'eze 9/17/2023 17:26:08'!
 test07SentenceFinderThrowsErrorWithEmptySpaces
 
 	| stack sentenceFinder |
@@ -262,7 +263,7 @@ test07SentenceFinderThrowsErrorWithEmptySpaces
 		should: [ sentenceFinder findSentencesByPrefix: 'ho la' onStack: stack ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = SentenceFinderByPrefix prefixCannotContainEmptySpacesErrorDescription ]
+			self assert: anError messageText = PrefixWithSeparators prefixCannotContainEmptySpacesErrorDescription ]
 		
 	
 	
@@ -307,16 +308,11 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:40:42'!
-initialize
-	size := 0.
-	elementOnTop := NullOOStackElement new! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:19:13'!
+!OOStack methodsFor: 'operations' stamp: 'Sof D 9/14/2023 19:19:13'!
 isEmpty
 	^size isZero! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:13:35'!
+!OOStack methodsFor: 'operations' stamp: 'Sof D 9/14/2023 21:13:35'!
 pop
 	| valueToReturn |
 	
@@ -328,7 +324,7 @@ pop
 	
 	^valueToReturn ! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:04:40'!
+!OOStack methodsFor: 'operations' stamp: 'Sof D 9/14/2023 21:04:40'!
 push: anElementToPush
 
 	| newElementOnTop |
@@ -337,13 +333,19 @@ push: anElementToPush
 	size := size + 1.
 	elementOnTop := newElementOnTop ! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:45:11'!
+!OOStack methodsFor: 'operations' stamp: 'Sof D 9/14/2023 19:45:11'!
 size
 	^size! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:37:15'!
+!OOStack methodsFor: 'operations' stamp: 'Sof D 9/14/2023 19:37:15'!
 top
 	^elementOnTop value! !
+
+
+!OOStack methodsFor: 'initialization' stamp: 'Sof D 9/14/2023 19:40:42'!
+initialize
+	size := 0.
+	elementOnTop := NullOOStackElement new! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -364,11 +366,11 @@ Object subclass: #OOStackElement
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackElement methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:05:18'!
+!OOStackElement methodsFor: 'getters' stamp: 'Sof D 9/14/2023 21:05:18'!
 previousElement
 	^self subclassResponsibility ! !
 
-!OOStackElement methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:05:34'!
+!OOStackElement methodsFor: 'getters' stamp: 'Sof D 9/14/2023 21:05:34'!
 value
 	^self subclassResponsibility ! !
 
@@ -380,11 +382,11 @@ OOStackElement subclass: #NullOOStackElement
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!NullOOStackElement methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:52:21'!
+!NullOOStackElement methodsFor: 'getters' stamp: 'Sof D 9/14/2023 19:52:21'!
 previousElement
 	^self error: OOStack stackEmptyErrorDescription ! !
 
-!NullOOStackElement methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:51:56'!
+!NullOOStackElement methodsFor: 'getters' stamp: 'Sof D 9/14/2023 19:51:56'!
 value
 	^self error: OOStack stackEmptyErrorDescription ! !
 
@@ -396,20 +398,21 @@ OOStackElement subclass: #OOStackElementWithContent
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackElementWithContent methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:32:42'!
+!OOStackElementWithContent methodsFor: 'getters' stamp: 'Sof D 9/14/2023 19:38:26'!
+previousElement
+	^previousElement ! !
+
+!OOStackElementWithContent methodsFor: 'getters' stamp: 'Sof D 9/14/2023 19:36:05'!
+value
+	^value ! !
+
+
+!OOStackElementWithContent methodsFor: 'initialization' stamp: 'Sof D 9/14/2023 19:32:42'!
 initializeWith: anElementValue previousElementIs: thePreviousStackElement
 	value := anElementValue.
 	previousElement  := thePreviousStackElement 
 	
 ! !
-
-!OOStackElementWithContent methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:38:26'!
-previousElement
-	^previousElement ! !
-
-!OOStackElementWithContent methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 19:36:05'!
-value
-	^value ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -417,9 +420,147 @@ value
 OOStackElementWithContent class
 	instanceVariableNames: ''!
 
-!OOStackElementWithContent class methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:15:02'!
+!OOStackElementWithContent class methodsFor: 'initialization' stamp: 'Sof D 9/14/2023 21:15:02'!
 with: anElementValue previousElementIs: thePreviousStackElement
 	^self new initializeWith: anElementValue previousElementIs: thePreviousStackElement! !
+
+
+!classDefinition: #PrefixString category: 'Stack-Exercise'!
+Object subclass: #PrefixString
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!PrefixString methodsFor: 'prefix messages' stamp: 'eze 9/17/2023 04:08:51'!
+isPrefixOf: aStringToEvaluate
+	"| substringOfStringToEvaluate |
+	
+	substringOfStringToEvaluate := aStringToEvaluate first: self size.
+	^self = substringOfStringToEvaluate "
+	^self subclassResponsibility 
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PrefixString class' category: 'Stack-Exercise'!
+PrefixString class
+	instanceVariableNames: ''!
+
+!PrefixString class methodsFor: 'instance creators' stamp: 'eze 9/17/2023 17:05:40'!
+hasEmptySpaces: aStringToEvaluate
+	| emptySpacesInString |
+	emptySpacesInString := aStringToEvaluate select: [ : aCharacter | aCharacter isSeparator].
+	^((emptySpacesInString isEmpty) not)! !
+
+!PrefixString class methodsFor: 'instance creators' stamp: 'eze 9/17/2023 03:48:49'!
+with: aPrefix
+	"(aPrefix isEmpty) ifTrue: [self error: self prefixCannotBeEmptyErrorDescription].
+	(self hasEmptySpaces: aPrefix) ifTrue: [self error: self prefixCannotContainEmptySpacesErrorDescription]."
+	"^PrefixString new initializeWith: aPrefix"
+	^(PrefixString allSubclasses detect:[:aClass | aClass canHandle: aPrefix]) for: aPrefix ! !
+
+
+!PrefixString class methodsFor: 'error descriptors' stamp: 'Sof D 9/17/2023 01:57:19'!
+prefixCannotBeEmptyErrorDescription
+	^'Prefix cannot be empty!!'! !
+
+!PrefixString class methodsFor: 'error descriptors' stamp: 'Sof D 9/17/2023 01:57:10'!
+prefixCannotContainEmptySpacesErrorDescription
+	^'Prefix cannot contain empty spaces!!'! !
+
+
+!classDefinition: #EmptyPrefix category: 'Stack-Exercise'!
+PrefixString subclass: #EmptyPrefix
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!EmptyPrefix methodsFor: 'prefix operators' stamp: 'Sof D 9/17/2023 16:30:07'!
+isPrefixOf: aStringToEvaluate
+	^self error: self class prefixCannotBeEmptyErrorDescription ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'EmptyPrefix class' category: 'Stack-Exercise'!
+EmptyPrefix class
+	instanceVariableNames: ''!
+
+!EmptyPrefix class methodsFor: 'initialization' stamp: 'eze 9/17/2023 04:11:41'!
+canHandle: aPrefixToEvaluate
+	^ '' = aPrefixToEvaluate! !
+
+!EmptyPrefix class methodsFor: 'initialization' stamp: 'Sof D 9/17/2023 16:39:45'!
+for: aStringValue
+	^self error: self prefixCannotBeEmptyErrorDescription ! !
+
+
+!EmptyPrefix class methodsFor: 'error handling' stamp: 'Sof D 9/17/2023 16:26:30'!
+prefixCannotBeEmptyErrorDescription
+	^'Prefix cannot be empty!!'! !
+
+
+!classDefinition: #PrefixWithSeparators category: 'Stack-Exercise'!
+PrefixString subclass: #PrefixWithSeparators
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!PrefixWithSeparators methodsFor: 'string evaluation' stamp: 'eze 9/17/2023 17:02:13'!
+isPrefixOf: aStringToEvaluate
+	^self error: self class prefixCannotContainEmptySpacesErrorDescription ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PrefixWithSeparators class' category: 'Stack-Exercise'!
+PrefixWithSeparators class
+	instanceVariableNames: ''!
+
+!PrefixWithSeparators class methodsFor: 'initialization' stamp: 'eze 9/17/2023 04:12:07'!
+canHandle: aPrefixToEvaluate
+	^self hasEmptySpaces: aPrefixToEvaluate! !
+
+!PrefixWithSeparators class methodsFor: 'initialization' stamp: 'Sof D 9/17/2023 16:39:55'!
+for: aStringValue
+	^self error: self prefixCannotContainEmptySpacesErrorDescription ! !
+
+
+!PrefixWithSeparators class methodsFor: 'error handling' stamp: 'eze 9/17/2023 17:01:43'!
+prefixCannotContainEmptySpacesErrorDescription
+	^'Prefix cannot contain empty spaces!!'! !
+
+
+!classDefinition: #WellFormedPrefix category: 'Stack-Exercise'!
+PrefixString subclass: #WellFormedPrefix
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!WellFormedPrefix methodsFor: 'prefix operators' stamp: 'Sof D 9/17/2023 16:43:43'!
+isPrefixOf: aStringToEvaluate
+	^aStringToEvaluate beginsWith: value! !
+
+
+!WellFormedPrefix methodsFor: 'initialization' stamp: 'Sof D 9/17/2023 16:43:05'!
+initializeWith: aStringValue
+	value := aStringValue ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'WellFormedPrefix class' category: 'Stack-Exercise'!
+WellFormedPrefix class
+	instanceVariableNames: 'value'!
+
+!WellFormedPrefix class methodsFor: 'instance creators' stamp: 'Sof D 9/17/2023 16:53:58'!
+canHandle: aPrefixToEvaluate
+	^( '' = aPrefixToEvaluate and: (self hasEmptySpaces: aPrefixToEvaluate)) not! !
+
+!WellFormedPrefix class methodsFor: 'instance creators' stamp: 'Sof D 9/17/2023 16:40:29'!
+for: aStringValue
+	^self new initializeWith: aStringValue ! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
@@ -429,49 +570,29 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:55:50'!
-findSentencesByPrefix: aPrefixToSearchFor onStack: aStackToSearch
-	| searchResults |
-	searchResults := OrderedCollection new.
-	self storeStack: aStackToSearch.
-	searchResults := storage select: [ : aStringToEvaluate | self isString: aPrefixToSearchFor aPrefixOf: aStringToEvaluate ]. 
-	^searchResults ! !
+!SentenceFinderByPrefix methodsFor: 'auxiliaries' stamp: 'eze 9/17/2023 17:21:02'!
+popAndPreserveStack: aStackToExplore in: listOfStackElements
+	| stackBackup |
+	stackBackup := aStackToExplore.
+	^ self popStack: stackBackup in: listOfStackElements! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 22:00:43'!
-initialize
-	storage := OrderedCollection new! !
+!SentenceFinderByPrefix methodsFor: 'auxiliaries' stamp: 'eze 9/17/2023 17:20:32'!
+popStack: stackBackup in: listOfStackElements
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 22:13:01'!
-isString: aPrefixString aPrefixOf: aStringToEvaluate
-	| substringOfStringToEvaluate |
-	self checkStringIsntEmpty: aPrefixString .
-	self checkStringDoesnthaveSpaces: aPrefixString .
-	substringOfStringToEvaluate := aStringToEvaluate copyFrom: 1 to: aPrefixString size.
-	^aPrefixString = substringOfStringToEvaluate ! !
-
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 21:59:31'!
-rebuildStack: aStackToRebuild
-	
-	storage do: [ : aStackElementToPush | aStackToRebuild push: aStackElementToPush ]! !
-
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 22:11:06'!
-storeStack: aStackToStore
-	|elementoActual |
-	[aStackToStore size > 0] whileTrue: [
-		elementoActual := aStackToStore pop.
-		storage addFirst: elementoActual
+	^ [stackBackup isEmpty not] whileTrue: [
+		listOfStackElements add: stackBackup pop.
 	]! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+!SentenceFinderByPrefix methodsFor: 'auxiliaries' stamp: 'eze 9/17/2023 17:22:12'!
+showAsCollectionTheStack: aStackToExplore
+	| listOfStackElements |
+	listOfStackElements := OrderedCollection new.
+	self popAndPreserveStack: aStackToExplore in: listOfStackElements.
+	^ listOfStackElements ! !
 
-!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
-SentenceFinderByPrefix class
-	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 20:31:03'!
-prefixCannotBeEmptyErrorDescription
-	^'Prefix cannot be empty!!'! !
-
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'Sof D 9/14/2023 20:36:43'!
-prefixCannotContainEmptySpacesErrorDescription
-	^'Prefix cannot contain empty spaces!!'! !
+!SentenceFinderByPrefix methodsFor: 'string finder' stamp: 'eze 9/17/2023 17:09:58'!
+findSentencesByPrefix: aPrefixToSearchFor onStack: aStackToSearch
+	| aPrefixToUse |
+	aPrefixToUse := PrefixString with: aPrefixToSearchFor.
+	^(self showAsCollectionTheStack: aStackToSearch) select: [ : aStringToEvaluate | aPrefixToUse isPrefixOf: aStringToEvaluate ].! !
