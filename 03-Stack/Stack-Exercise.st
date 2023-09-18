@@ -144,7 +144,7 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 01:57:37'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 18:22:30'!
 test01SentenceFinderThrowsErrorWithEmptyPrefix
 
 	| stack sentenceFinder |
@@ -158,22 +158,22 @@ test01SentenceFinderThrowsErrorWithEmptyPrefix
 		should: [ sentenceFinder findSentencesByPrefix: '' onStack: stack ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = PrefixString prefixCannotBeEmptyErrorDescription ]
+			self assert: anError messageText = EmptyPrefix prefixCannotBeEmptyErrorDescription ]
 		
 	
 	
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/14/2023 22:05:17'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 21:23:15'!
 test02SentenceFinderCanFindExistingSentence
 
 	| stack sentenceFinder result expectedResult |
 	
-	stack := OOStack new.
-	stack push: 'hola'.
 	
 	expectedResult := OrderedCollection new.
 	expectedResult add: 'hola'.
+	
+	stack := self setUpTestStackWithWords: expectedResult .
 	
 	sentenceFinder := SentenceFinderByPrefix new.
 	result := sentenceFinder findSentencesByPrefix: 'hola' onStack: stack.
@@ -183,16 +183,15 @@ test02SentenceFinderCanFindExistingSentence
 	
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/14/2023 22:05:49'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 21:24:31'!
 test03SentenceFinderCanFindExistingSentenceByPrefix
 
 	| stack sentenceFinder result expectedResult |
 	
-	stack := OOStack new.
-	stack push: 'hola'.
-	
 	expectedResult := OrderedCollection new.
 	expectedResult add: 'hola'.
+	
+	stack := self setUpTestStackWithWords: expectedResult .
 	
 	sentenceFinder := SentenceFinderByPrefix new.
 	result := sentenceFinder findSentencesByPrefix: 'ho' onStack: stack.
@@ -201,18 +200,17 @@ test03SentenceFinderCanFindExistingSentenceByPrefix
 	self assert: expectedResult equals: result
 	! !
 
-!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 16:46:01'!
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'Sof D 9/17/2023 21:24:53'!
 test04SentenceFinderCanFindMultipleExistingSentencesByPrefix
 
 	| stack sentenceFinder result expectedResult |
-	
-	stack := OOStack new.
-	stack push: 'hola'.
-	stack push: 'holaqtal'.
+
 	
 	expectedResult := OrderedCollection new.
 	expectedResult add: 'holaqtal'.
 	expectedResult add: 'hola'.
+	
+	stack := self setUpTestStackWithWords: expectedResult .
 
 	
 	sentenceFinder := SentenceFinderByPrefix new.
@@ -299,6 +297,16 @@ test09SentenceFinderOnlyFindsSentencesByTheirPrefix
 	
 	
 	! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'test setup' stamp: 'Sof D 9/17/2023 21:26:55'!
+setUpTestStackWithWords: aListOfWordsToPushOnTheStack
+	| stack |
+	stack := OOStack new.
+	aListOfWordsToPushOnTheStack reverseDo: [ : aWordToPush |
+		stack push: aWordToPush 
+	].
+	^stack! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -460,15 +468,6 @@ with: aPrefix
 	"^PrefixString new initializeWith: aPrefix"
 	^(PrefixString allSubclasses detect:[:aClass | aClass canHandle: aPrefix]) for: aPrefix ! !
 
-
-!PrefixString class methodsFor: 'error descriptors' stamp: 'Sof D 9/17/2023 01:57:19'!
-prefixCannotBeEmptyErrorDescription
-	^'Prefix cannot be empty!!'! !
-
-!PrefixString class methodsFor: 'error descriptors' stamp: 'Sof D 9/17/2023 01:57:10'!
-prefixCannotContainEmptySpacesErrorDescription
-	^'Prefix cannot contain empty spaces!!'! !
-
 
 !classDefinition: #EmptyPrefix category: 'Stack-Exercise'!
 PrefixString subclass: #EmptyPrefix
@@ -508,7 +507,7 @@ PrefixString subclass: #PrefixWithSeparators
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!PrefixWithSeparators methodsFor: 'string evaluation' stamp: 'eze 9/17/2023 17:02:13'!
+!PrefixWithSeparators methodsFor: 'prefix operators' stamp: 'eze 9/17/2023 17:02:13'!
 isPrefixOf: aStringToEvaluate
 	^self error: self class prefixCannotContainEmptySpacesErrorDescription ! !
 
