@@ -355,6 +355,88 @@ test20PortfolioCantAddPortfolioThatsInItsParentPortfolio
 	
 ! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 12:54:48'!
+test21PortfolioWithAccountCantAddPortfolioWithTheSameAccount
+	
+	| portfolio  anotherPortfolio account |
+	
+	portfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	
+	portfolio addReceptiveAccount: account .
+	anotherPortfolio addReceptiveAccount: account .
+	
+	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	raise: Error
+	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 13:20:12'!
+test22PortfolioWithPortfolioCantAddPortfolioWithOnlyTheSamePortfolio
+	
+	| portfolio  anotherPortfolio aChildPortfolio |
+	
+	portfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	aChildPortfolio := Portfolio new.
+	
+	portfolio addPortfolio: aChildPortfolio .
+	anotherPortfolio addPortfolio: aChildPortfolio .
+	
+	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	raise: Error
+	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 13:23:05'!
+test23PortfolioWithPortfoliosCantAddPortfolioWithTheSamePortfolios
+	
+	| portfolio  anotherPortfolio aChildPortfolio anotherChildPortfolio yetAnotherChildPortfolio |
+	
+	portfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	aChildPortfolio := Portfolio new.
+	anotherChildPortfolio := Portfolio new.
+	yetAnotherChildPortfolio := Portfolio new.
+	
+	portfolio addPortfolio: yetAnotherChildPortfolio .
+	portfolio addPortfolio: aChildPortfolio .
+	anotherPortfolio addPortfolio: aChildPortfolio .
+	anotherPortfolio addPortfolio: anotherChildPortfolio .
+	
+	
+	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	raise: Error
+	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 14:29:46'!
+test24
+	
+	| portfolio  anotherPortfolio aChildPortfolio anotherChildPortfolio yetAnotherChildPortfolio |
+	
+	portfolio := Portfolio new.
+	anotherPortfolio := Portfolio new.
+	aChildPortfolio := Portfolio new.
+	anotherChildPortfolio := Portfolio new.
+	yetAnotherChildPortfolio := Portfolio new.
+	
+	portfolio addPortfolio: yetAnotherChildPortfolio .
+	yetAnotherChildPortfolio addPortfolio: aChildPortfolio .
+	anotherPortfolio addPortfolio: aChildPortfolio .
+	anotherPortfolio addPortfolio: anotherChildPortfolio .
+	
+	
+	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	raise: Error
+	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	
+! !
+
 !PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 01:56:32'!
 xxx
 	
@@ -615,14 +697,14 @@ transactions
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 FinancialAsset subclass: #Portfolio
-	instanceVariableNames: 'receptiveAccounts portfolios parentPortfolio'
+	instanceVariableNames: 'financialAssets receptiveAccounts portfolios parentPortfolio'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'balance' stamp: 'eaam 10/16/2023 13:41:49'!
+!Portfolio methodsFor: 'balance' stamp: 'eaam 10/18/2023 14:02:18'!
 balance
-	^  (self totalBalanceOf: receptiveAccounts ) +(self totalBalanceOf: portfolios )! !
+	^  (self totalBalanceOf: financialAssets )! !
 
 !Portfolio methodsFor: 'balance' stamp: 'eaam 10/11/2023 14:26:58'!
 totalBalanceOf: aCollectionOfFinancialAssets
@@ -636,18 +718,20 @@ accountIsIncludedInPortfolioOrItsPortfolios: aReceptiveAccountToRegister
 	^(receptiveAccounts includes: aReceptiveAccountToRegister) or: (portfolios anySatisfy: [:aPortfolio | aPortfolio accountIsIncludedInPortfolioOrItsPortfolios: aReceptiveAccountToRegister])
 			! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 02:15:18'!
+!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 13:59:30'!
 addPortfolio: portfolioToAdd
 
 	self canAddPortfolioToPortfolio: portfolioToAdd .
 	portfolioToAdd setAsParentPortfolio: self.
 	
-	portfolios add: portfolioToAdd.! !
+	portfolios add: portfolioToAdd.
+	financialAssets add: portfolioToAdd.! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 00:38:24'!
+!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 13:59:38'!
 addReceptiveAccount: aReceptiveAccountToRegister
 	self canAddAccountToPortfolio: aReceptiveAccountToRegister.
-	receptiveAccounts add: aReceptiveAccountToRegister.! !
+	receptiveAccounts add: aReceptiveAccountToRegister.
+	financialAssets add: aReceptiveAccountToRegister.! !
 
 !Portfolio methodsFor: 'transactions' stamp: 'eaam 10/11/2023 14:29:24'!
 allTheTransactionsOf: aCollectionOfFinancialAssets
@@ -675,17 +759,17 @@ portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister
 	(portfolios do: [:aPortfolio | aPortfolio portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister])
 			! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/16/2023 13:42:27'!
+!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 14:01:45'!
 transactions
 	| allTransactions |
 	allTransactions := OrderedCollection new.
-	allTransactions addAll: (self allTheTransactionsOf: receptiveAccounts).
-	allTransactions addAll: (self allTheTransactionsOf: portfolios).
+	allTransactions addAll: (self allTheTransactionsOf: financialAssets ).
 	^allTransactions ! !
 
 
-!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/17/2023 11:31:52'!
+!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/18/2023 14:02:06'!
 initialize 
+	financialAssets := OrderedCollection new.
 	receptiveAccounts := OrderedCollection new.
 	portfolios := OrderedCollection new.
 	parentPortfolio := OrderedCollection new.! !
@@ -695,26 +779,34 @@ setAsParentPortfolio: aParentPortfolio
 	parentPortfolio add: aParentPortfolio.! !
 
 
-!Portfolio methodsFor: 'testing' stamp: 'eaam 10/16/2023 13:47:29'!
+!Portfolio methodsFor: 'testing' stamp: 'eaam 10/18/2023 14:03:49'!
 hasRegistered: aDeposit 
-	^(self hasRegistered: aDeposit in: receptiveAccounts) or: (self hasRegistered: aDeposit in: portfolios )! !
+	^(self hasRegistered: aDeposit in: financialAssets )! !
 
 !Portfolio methodsFor: 'testing' stamp: 'eaam 10/11/2023 14:29:49'!
 hasRegistered: aDeposit in: aCollectionOfFinancialAssets
 	^(aCollectionOfFinancialAssets anySatisfy: [:aReceptiveAccount | aReceptiveAccount hasRegistered: aDeposit])! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'Sof D 10/18/2023 02:38:01'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'eaam 10/18/2023 14:31:41'!
 canAddPortfolioToPortfolio: aPortfolioToRegister
 
 
-	
+	receptiveAccounts do: [:aAccount | aPortfolioToRegister canAddAccountToPortfolio: aAccount].
 	(parentPortfolio isEmpty) 
-		ifTrue:[ self portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister ]
+		ifTrue:[ self portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister. 
+			self iAmInPortfolio: aPortfolioToRegister.
+				"este ciclo esta muy cerca del root 'emoji de asco' "]
 		ifFalse: [ parentPortfolio do: [ : aPortfolio | aPortfolio canAddPortfolioToPortfolio: aPortfolioToRegister ]]
 		
 
 ! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'eaam 10/18/2023 14:32:21'!
+iAmInPortfolio: aPortfolioToRegister
+
+	aPortfolioToRegister portfolioIsIncludedInPortfolioOrItsPortfolios: self.
+	portfolios do: [:aPortfolio | aPortfolioToRegister iAmInPortfolio: aPortfolio]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
