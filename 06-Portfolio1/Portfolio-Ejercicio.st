@@ -1,462 +1,454 @@
 !classDefinition: #PortfolioTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #PortfolioTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'portfolio1 portfolio2 portfolio3 portfolio4 portfolio5 account1 account2 transaction orderedCollection'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/9/2023 21:39:33'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:33'!
 test01PortfolioHasZeroAsBalanceWhenCreated 
 
-	| portfolio |
 	
-	portfolio := Portfolio new.
+	portfolio1 := Portfolio new.
 
-	self assert: 0 equals: portfolio balance.
+	self assert: 0 equals: portfolio1 balance.
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:15:36'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
 test02PortfolioBalanceChangesWhenAccountInItRegistersTransaction
 	
-	| portfolio account |
 	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
-	Deposit register: 50 on: account.
 	
-	portfolio addReceptiveAccount: account.
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	Deposit register: 50 on: account1.
+	
+	portfolio1 addReceptiveAccount: account1.
 
-	self assert: 50 equals: portfolio balance.
+	self assert: 50 equals: portfolio1 balance.
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:28:33'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
 test03PortfolioBalanceIsCorrectAfterMultipleTransactionsFromAccountInIt
 	
-	| portfolio account |
 	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
-	Deposit register: 520 on: account.
-	Withdraw register: 20 on: account.
-	portfolio addReceptiveAccount: account.
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	Deposit register: 520 on: account1.
+	Withdraw register: 20 on: account1.
+	portfolio1 addReceptiveAccount: account1.
 	
-	self assert: 500 equals: portfolio balance.
+	self assert: 500 equals: portfolio1 balance.
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:28:22'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:28'!
 test04PortfolioBalanceIsCorrectAfterChangesOnMultipleTransactionsFromDifferentAccountsInIt
 	
-	| portfolio firstAccount secondAccount |
 	
-	portfolio := Portfolio new.
-	firstAccount := ReceptiveAccount new.
-	Deposit register: 520 on: firstAccount.
-	Withdraw register: 20 on: firstAccount.
 	
-	secondAccount := ReceptiveAccount new.
-	Deposit register: 100 on: secondAccount.
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	Deposit register: 520 on: account1.
+	Withdraw register: 20 on: account1.
 	
-	portfolio addReceptiveAccount: firstAccount.
-	portfolio addReceptiveAccount: secondAccount.
+	account2 := ReceptiveAccount new.
+	Deposit register: 100 on: account2.
 	
-	self assert: 600 equals: portfolio balance.
+	portfolio1 addReceptiveAccount: account1.
+	portfolio1 addReceptiveAccount: account2.
+	
+	self assert: 600 equals: portfolio1 balance.
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:24:50'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:02:26'!
 test05PortfolioHasTransactionFromAccountInItRegistered
 	
-	| portfolio  account deposit|
 	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
 	
-	portfolio addReceptiveAccount: account.
-	deposit := Deposit register: 5 on: account .
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
 	
-	self assert: ( portfolio hasRegistered: deposit)
+	portfolio1 addReceptiveAccount: account1.
+	transaction := Deposit register: 5 on: account1 .
+	
+	self assert: ( portfolio1 hasRegistered: transaction)
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:28:58'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 17:31:20'!
 test06PortfolioBalanceIsCorrectAfterTransactionFromPortfolioInIt
 	
-	| portfolio portfolioToAdd aPortfolioInOtherPortfolio account|
+	| portfolio anotherPortfolio yetAnotherPortfolio account|
 	
 	portfolio := Portfolio new.
-	portfolioToAdd := Portfolio new.
+	anotherPortfolio := Portfolio new.
 	account := ReceptiveAccount new.
-	aPortfolioInOtherPortfolio := Portfolio new.
+	yetAnotherPortfolio := Portfolio new.
 	
 	Deposit register: 520 on: account.
 	Withdraw register: 20 on: account.
-	portfolioToAdd addReceptiveAccount: account.
-	portfolio addPortfolio: portfolioToAdd.
+	anotherPortfolio addReceptiveAccount: account.
+	portfolio addPortfolio: anotherPortfolio.
 	
 	self assert: 500 equals: portfolio balance.
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:28:49'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:28'!
 test07PortfolioBalanceIsCorrectAfterTransactionsFromMultiplePortfoliosInIt
 	
-	| portfolio firstPortfolioToAdd secondPortfolioToAdd firstAccount secondAccount|
 	
-	portfolio := Portfolio new.
-	firstPortfolioToAdd := Portfolio new.
-	firstAccount := ReceptiveAccount new.
-	secondAccount := ReceptiveAccount new.
-	secondPortfolioToAdd := Portfolio new.
-	
-	Deposit register: 450 on: firstAccount.
-	Deposit register: 50 on: secondAccount.
-	
-	firstPortfolioToAdd addReceptiveAccount: firstAccount.
-	secondPortfolioToAdd addReceptiveAccount: secondAccount.
-	
-	portfolio addPortfolio: firstPortfolioToAdd.
-	portfolio addPortfolio: secondPortfolioToAdd.
-	
-	self assert: 500 equals: portfolio balance.
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:25:10'!
-test08PortfolioHasTransactionFromPortfoliosInItRegistered
-	
-	| portfolio portfolioToAdd account transaction|
-	
-	portfolio := Portfolio new.
-	portfolioToAdd := Portfolio new.
-	account := ReceptiveAccount new.
-	transaction := Deposit register: 500 on: account. 
-	
-	portfolioToAdd addReceptiveAccount: account .
-	portfolio addPortfolio: portfolioToAdd.
-	
-	self assert: (portfolio hasRegistered: transaction).
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:29:18'!
-test09PortfolioHasNoTransactionsWhenCreated
-	
-	| portfolio anOrderedCollection|
-	
-	portfolio := Portfolio new.
-	anOrderedCollection := OrderedCollection new.
-	
-	
-	self assert: anOrderedCollection equals: portfolio transactions .
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:25:47'!
-test10PortfolioKnowsTransactionsOfAccountInIt
-	
-	| portfolio anOrderedCollection account aTransaction|
-	
-	portfolio := Portfolio new.
-	account := ReceptiveAccount new.
-	anOrderedCollection := OrderedCollection new.
-	aTransaction := Deposit register: 10 on: account.
-	
-	
-	anOrderedCollection add: aTransaction.
-	portfolio addReceptiveAccount: account.
-	
-	
-	self assert: anOrderedCollection equals: portfolio transactions .
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:27:03'!
-test11PortfolioKnowsTransactionsOfPortfoliosInIt
-	
-	| portfolio anOrderedCollection aportfolioToAdd account aTransaction|
-	
-	portfolio := Portfolio new.
-	aportfolioToAdd := Portfolio new.
-	anOrderedCollection := OrderedCollection new.
-	account := ReceptiveAccount new.
-	aTransaction := Deposit register: 10 on: account.
-	
-	anOrderedCollection add: aTransaction.
-	aportfolioToAdd addReceptiveAccount: account.
-	portfolio addPortfolio: aportfolioToAdd.
-	
-	
-	self assert: anOrderedCollection equals: portfolio transactions .
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:36:46'!
-test12PortfolioCantAddAlreadyAddedAccount
-	
-	| portfolio anAccount|
-	
-	portfolio := Portfolio new.
-	anAccount := ReceptiveAccount new.
-	
-	portfolio addReceptiveAccount: anAccount.
-	
-	
-	self should: [portfolio addReceptiveAccount: anAccount]
-	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:36:39'!
-test13PortfolioCantAddPortfolioThatHasAnAccountItAlreadyHas
-	
-	| portfolio anAccount aParentPortfolio|
-	
-	portfolio := Portfolio new.
-	aParentPortfolio := Portfolio new.
-	anAccount := ReceptiveAccount new.
-	
-	portfolio addReceptiveAccount: anAccount.
-	aParentPortfolio addPortfolio: portfolio.
-	
-	
-	self should: [aParentPortfolio addReceptiveAccount: anAccount]
-	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
-	
-! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:47:19'!
-test14PortfolioCantAddAPortfolioThatHasAnAccountItAlreadyHas
-	
-	| portfolio1 portfolio2 anAccount aParentPortfolio|
 	
 	portfolio1 := Portfolio new.
 	portfolio2 := Portfolio new.
-	aParentPortfolio := Portfolio new.
-	anAccount := ReceptiveAccount new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	portfolio3 := Portfolio new.
 	
-	portfolio1 addReceptiveAccount: anAccount.
-	aParentPortfolio addPortfolio: portfolio2.
-	aParentPortfolio addPortfolio: portfolio1.
+	Deposit register: 450 on: account1.
+	Deposit register: 50 on: account2.
 	
+	portfolio2 addReceptiveAccount: account1.
+	portfolio3 addReceptiveAccount: account2.
 	
-	self should: [aParentPortfolio addReceptiveAccount: anAccount]
-	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	portfolio1 addPortfolio: portfolio2.
+	portfolio1 addPortfolio: portfolio3.
+	
+	self assert: 500 equals: portfolio1 balance.
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 00:47:29'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:02:26'!
+test08PortfolioHasTransactionFromPortfoliosInItRegistered
+	
+	
+	
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	transaction := Deposit register: 500 on: account1. 
+	
+	portfolio2 addReceptiveAccount: account1 .
+	portfolio1 addPortfolio: portfolio2.
+	
+	self assert: (portfolio1 hasRegistered: transaction).
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:40'!
+test09PortfolioHasNoTransactionsWhenCreated
+	
+	
+	
+	portfolio1 := Portfolio new.
+	orderedCollection := OrderedCollection new.
+	
+	
+	self assert: orderedCollection equals: portfolio1 transactions .
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:02:26'!
+test10PortfolioKnowsTransactionsOfAccountInIt
+	
+	
+	
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	orderedCollection := OrderedCollection new.
+	transaction := Deposit register: 10 on: account1.
+	
+	
+	orderedCollection add: transaction.
+	portfolio1 addReceptiveAccount: account1.
+	
+	
+	self assert: orderedCollection equals: portfolio1 transactions .
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:02:26'!
+test11PortfolioKnowsTransactionsOfPortfoliosInIt
+	
+	
+	
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	orderedCollection := OrderedCollection new.
+	account1 := ReceptiveAccount new.
+	transaction := Deposit register: 10 on: account1.
+	
+	orderedCollection add: transaction.
+	portfolio2 addReceptiveAccount: account1.
+	portfolio1 addPortfolio: portfolio2.
+	
+	
+	self assert: orderedCollection equals: portfolio1 transactions .
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
+test12PortfolioCantAddAlreadyAddedAccount
+	
+	
+	
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	
+	portfolio1 addReceptiveAccount: account1.
+	
+	
+	self should: [portfolio1 addReceptiveAccount: account1]
+	raise: Error
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
+test13PortfolioCantAddPortfolioThatHasAnAccountItAlreadyHas
+	
+	
+	
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	
+	portfolio1 addReceptiveAccount: account1.
+	portfolio2 addPortfolio: portfolio1.
+	
+	
+	self should: [portfolio2 addReceptiveAccount: account1]
+	raise: Error
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:22'!
+test14PortfolioCantAddAPortfolioThatHasAnAccountItAlreadyHas
+	
+	
+	
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	
+	portfolio1 addReceptiveAccount: account1.
+	portfolio3 addPortfolio: portfolio2.
+	portfolio3 addPortfolio: portfolio1.
+	
+	
+	self should: [portfolio3 addReceptiveAccount: account1]
+	raise: Error
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
+	
+! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
 test15PortfolioCantAddAccountThatsAlreadyInPortfolioItsIn
 	
-	| portfolio anAccount aParentPortfolio1 aParentPortfolio2|
-	
-	portfolio := Portfolio new.
-	aParentPortfolio1 := Portfolio new.
-	aParentPortfolio2 := Portfolio new.
-	anAccount := ReceptiveAccount new.
-	
-	aParentPortfolio1 addReceptiveAccount: anAccount.
-	aParentPortfolio1 addPortfolio: portfolio.
-	aParentPortfolio2 addPortfolio: portfolio.
 	
 	
-	self should: [portfolio addReceptiveAccount: anAccount]
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	
+	portfolio2 addReceptiveAccount: account1.
+	portfolio2 addPortfolio: portfolio1.
+	portfolio3 addPortfolio: portfolio1.
+	
+	
+	self should: [portfolio1 addReceptiveAccount: account1]
 	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 01:12:27'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:22'!
 test16PortfolioCantAddAccountThatsIncludedInParentPortfolio
 	
-	| portfolio anAccount aParentPortfolio1 aParentPortfolio2|
-	
-	portfolio := Portfolio new.
-	aParentPortfolio1 := Portfolio new.
-	aParentPortfolio2 := Portfolio new.
-	anAccount := ReceptiveAccount new.
-	
-	aParentPortfolio2 addReceptiveAccount: anAccount.
-	aParentPortfolio1 addPortfolio: portfolio.
-	aParentPortfolio2 addPortfolio: aParentPortfolio1.
 	
 	
-	self should: [portfolio addReceptiveAccount: anAccount]
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	
+	portfolio3 addReceptiveAccount: account1.
+	portfolio2 addPortfolio: portfolio1.
+	portfolio3 addPortfolio: portfolio2.
+	
+	
+	self should: [portfolio1 addReceptiveAccount: account1]
 	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 02:39:08'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:33'!
 test17PortfolioCantAddItselfToItsPortfolios
 	
-	| portfolio  |
 	
-	portfolio := Portfolio new.
 	
-	self should: [ portfolio addPortfolio: portfolio . ]
+	portfolio1 := Portfolio new.
+	
+	self should: [ portfolio1 addPortfolio: portfolio1 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 01:45:55'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:47'!
 test18PortfolioCantAddRepeatedPortfolio
 	
-	| portfolio  anotherPortfolio |
 	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	portfolio addPortfolio: anotherPortfolio .
 	
-	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio1 addPortfolio: portfolio2 .
+	
+	self should: [ portfolio1 addPortfolio: portfolio2 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 01:56:12'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:56'!
 test19PortfolioCantAddPortfolioAlreadyInItsPortfolios
 	
-	| portfolio  anotherPortfolio yetAnotherPortfolio |
 	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	yetAnotherPortfolio := Portfolio new.
 	
-	portfolio addPortfolio: anotherPortfolio .
-	anotherPortfolio addPortfolio: yetAnotherPortfolio .
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
 	
-	self should: [ portfolio addPortfolio: yetAnotherPortfolio . ]
+	portfolio1 addPortfolio: portfolio2 .
+	portfolio2 addPortfolio: portfolio3 .
+	
+	self should: [ portfolio1 addPortfolio: portfolio3 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 02:02:12'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:56'!
 test20PortfolioCantAddPortfolioThatsInItsParentPortfolio
 	
-	| portfolio  anotherPortfolio yetAnotherPortfolio |
 	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	yetAnotherPortfolio := Portfolio new.
 	
-	portfolio addPortfolio: anotherPortfolio .
-	portfolio addPortfolio: yetAnotherPortfolio .
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
 	
-	self should: [ anotherPortfolio addPortfolio: yetAnotherPortfolio . ]
+	portfolio1 addPortfolio: portfolio2 .
+	portfolio1 addPortfolio: portfolio3 .
+	
+	self should: [ portfolio2 addPortfolio: portfolio3 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 12:54:48'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:21'!
 test21PortfolioWithAccountCantAddPortfolioWithTheSameAccount
 	
-	| portfolio  anotherPortfolio account |
 	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	account := ReceptiveAccount new.
 	
-	portfolio addReceptiveAccount: account .
-	anotherPortfolio addReceptiveAccount: account .
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	account1 := ReceptiveAccount new.
 	
-	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	portfolio1 addReceptiveAccount: account1 .
+	portfolio2 addReceptiveAccount: account1 .
+	
+	self should: [ portfolio1 addPortfolio: portfolio2 . ]
 	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
+	withMessageText: FinancialAsset alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 13:20:12'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:00:56'!
 test22PortfolioWithPortfolioCantAddPortfolioWithOnlyTheSamePortfolio
 	
-	| portfolio  anotherPortfolio aChildPortfolio |
 	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	aChildPortfolio := Portfolio new.
 	
-	portfolio addPortfolio: aChildPortfolio .
-	anotherPortfolio addPortfolio: aChildPortfolio .
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
 	
-	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	portfolio1 addPortfolio: portfolio3 .
+	portfolio2 addPortfolio: portfolio3 .
+	
+	self should: [ portfolio1 addPortfolio: portfolio2 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 13:23:05'!
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 18:01:12'!
 test23PortfolioWithPortfoliosCantAddPortfolioWithTheSamePortfolios
 	
-	| portfolio  anotherPortfolio aChildPortfolio anotherChildPortfolio yetAnotherChildPortfolio |
-	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	aChildPortfolio := Portfolio new.
-	anotherChildPortfolio := Portfolio new.
-	yetAnotherChildPortfolio := Portfolio new.
-	
-	portfolio addPortfolio: yetAnotherChildPortfolio .
-	portfolio addPortfolio: aChildPortfolio .
-	anotherPortfolio addPortfolio: aChildPortfolio .
-	anotherPortfolio addPortfolio: anotherChildPortfolio .
 	
 	
-	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	portfolio4 := Portfolio new.
+	portfolio5 := Portfolio new.
+	
+	portfolio1 addPortfolio: portfolio5 .
+	portfolio1 addPortfolio: portfolio3 .
+	portfolio2 addPortfolio: portfolio3 .
+	portfolio2 addPortfolio: portfolio4 .
+	
+	
+	self should: [ portfolio1 addPortfolio: portfolio2 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/18/2023 14:29:46'!
-test24
-	
-	| portfolio  anotherPortfolio aChildPortfolio anotherChildPortfolio yetAnotherChildPortfolio |
-	
-	portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	aChildPortfolio := Portfolio new.
-	anotherChildPortfolio := Portfolio new.
-	yetAnotherChildPortfolio := Portfolio new.
-	
-	portfolio addPortfolio: yetAnotherChildPortfolio .
-	yetAnotherChildPortfolio addPortfolio: aChildPortfolio .
-	anotherPortfolio addPortfolio: aChildPortfolio .
-	anotherPortfolio addPortfolio: anotherChildPortfolio .
+!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 22:47:37'!
+test24PortfolioCantAddPortfolioThatHasPortfolioThatIsInOneOfItsPortfolios
 	
 	
-	self should: [ portfolio addPortfolio: anotherPortfolio . ]
+	
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	portfolio4 := Portfolio new.
+	portfolio5 := Portfolio new.
+	
+	portfolio1 addPortfolio: portfolio5 .
+	portfolio5 addPortfolio: portfolio3 .
+	portfolio2 addPortfolio: portfolio3 .
+	portfolio2 addPortfolio: portfolio4 .
+	
+	
+	self should: [ portfolio1 addPortfolio: portfolio2 . ]
 	raise: Error
 	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
 	
 ! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'Sof D 10/18/2023 01:56:32'!
-xxx
+
+!PortfolioTest methodsFor: 'setup' stamp: 'Sof D 10/18/2023 18:01:40'!
+setUp
+
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	portfolio4 := Portfolio new.
+	portfolio5 := Portfolio new.
 	
-	| portfolio anotherPortfolio yetAnotherPortfolio  anAccount |
+	account1 := 	ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
 	
-	"portfolio := Portfolio new.
-	anotherPortfolio := Portfolio new.
-	yetAnotherPortfolio := Portfolio new.
-	
-	anAccount := ReceptiveAccount new.
-	anotherPortfolio addReceptiveAccount: anAccount .
-	
-	portfolio addPortfolio: yetAnotherPortfolio.
-	portfolio addPortfolio: anotherPortfolio .
-	
-	self should: [ yetAnotherPortfolio addReceptiveAccount: anAccount . ]
-	raise: Error
-	withMessageText: Portfolio alreadyInPortfolioErrorDescription 
-	"
-! !
+	orderedCollection := 	OrderedCollection new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -682,22 +674,49 @@ Object subclass: #FinancialAsset
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!FinancialAsset methodsFor: 'as yet unclassified' stamp: 'eaam 10/15/2023 11:13:27'!
-balance
+!FinancialAsset methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 22:49:34'!
+addTransactionsInto: aListOfTransactions
+	self subclassResponsibility ! !
+
+!FinancialAsset methodsFor: 'transactions' stamp: 'eaam 10/15/2023 11:14:16'!
+transactions
 	^self subclassResponsibility.! !
 
-!FinancialAsset methodsFor: 'as yet unclassified' stamp: 'eaam 10/15/2023 12:42:41'!
+
+!FinancialAsset methodsFor: 'asset maangement' stamp: 'Sof D 10/18/2023 18:05:36'!
+assetIsIncludedInPortfolioCollection: aFinancialAssetToRegister
+	self subclassResponsibility ! !
+
+!FinancialAsset methodsFor: 'asset maangement' stamp: 'Sof D 10/18/2023 21:55:48'!
+isAssetOrItsAssetsAlreadyInPortfolio: aPortfolioToAddTheAssetTo
+
+	self subclassResponsibility 
+	! !
+
+
+!FinancialAsset methodsFor: 'testing' stamp: 'eaam 10/15/2023 12:42:41'!
 hasRegistered: aTransaction
 	^self subclassResponsibility.! !
 
-!FinancialAsset methodsFor: 'as yet unclassified' stamp: 'eaam 10/15/2023 11:14:16'!
-transactions
+
+!FinancialAsset methodsFor: 'balance' stamp: 'eaam 10/15/2023 11:13:27'!
+balance
 	^self subclassResponsibility.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FinancialAsset class' category: 'Portfolio-Ejercicio'!
+FinancialAsset class
+	instanceVariableNames: ''!
+
+!FinancialAsset class methodsFor: 'as yet unclassified' stamp: 'Sof D 10/18/2023 17:25:09'!
+alreadyInPortfolioErrorDescription
+	^'Asset is already in portfolio or its portfolios'! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 FinancialAsset subclass: #Portfolio
-	instanceVariableNames: 'financialAssets receptiveAccounts portfolios parentPortfolio'
+	instanceVariableNames: 'financialAssets parentPortfolios portfolioState'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
@@ -712,71 +731,26 @@ totalBalanceOf: aCollectionOfFinancialAssets
 	^ aCollectionOfFinancialAssets sum: [:aFinancialAsset | aFinancialAsset balance] ifEmpty: [0]! !
 
 
-!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 00:41:22'!
-accountIsIncludedInPortfolioOrItsPortfolios: aReceptiveAccountToRegister
+!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 22:49:17'!
+addTransactionsInto: aListOfTransactions
+	financialAssets do: [ : aFinancialAsset | aFinancialAsset addTransactionsInto: aListOfTransactions ]! !
 
-	^(receptiveAccounts includes: aReceptiveAccountToRegister) or: (portfolios anySatisfy: [:aPortfolio | aPortfolio accountIsIncludedInPortfolioOrItsPortfolios: aReceptiveAccountToRegister])
-			! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 13:59:30'!
-addPortfolio: portfolioToAdd
-
-	self canAddPortfolioToPortfolio: portfolioToAdd .
-	portfolioToAdd setAsParentPortfolio: self.
-	
-	portfolios add: portfolioToAdd.
-	financialAssets add: portfolioToAdd.! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 13:59:38'!
-addReceptiveAccount: aReceptiveAccountToRegister
-	self canAddAccountToPortfolio: aReceptiveAccountToRegister.
-	receptiveAccounts add: aReceptiveAccountToRegister.
-	financialAssets add: aReceptiveAccountToRegister.! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/11/2023 14:29:24'!
-allTheTransactionsOf: aCollectionOfFinancialAssets
-
-	^ aCollectionOfFinancialAssets inject: OrderedCollection new into: [:anCollection :aChild | anCollection addAll: (aChild transactions)]! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 00:41:22'!
-canAddAccountToPortfolio: aReceptiveAccountToRegister
-
-	^(parentPortfolio isEmpty) 
-		ifTrue: 
-		[
-			(self accountIsIncludedInPortfolioOrItsPortfolios: aReceptiveAccountToRegister) ifTrue: [self error: self class alreadyInPortfolioErrorDescription]
-			]
-		ifFalse: 
-		[
-			(parentPortfolio anySatisfy: [:aParentPortfolio | aParentPortfolio canAddAccountToPortfolio: aReceptiveAccountToRegister ]) ifTrue: [self error: self class alreadyInPortfolioErrorDescription].
-			]! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 02:38:55'!
-portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister
-
-	(aPortfolioToRegister = self) ifTrue: [ self error: self class alreadyInPortfolioErrorDescription ].
-	
-	(portfolios do: [:aPortfolio | aPortfolio portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister])
-			! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'eaam 10/18/2023 14:01:45'!
+!Portfolio methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 23:09:51'!
 transactions
 	| allTransactions |
 	allTransactions := OrderedCollection new.
-	allTransactions addAll: (self allTheTransactionsOf: financialAssets ).
+	
+	self addTransactionsInto: allTransactions .
 	^allTransactions ! !
 
 
-!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/18/2023 14:02:06'!
+!Portfolio methodsFor: 'initialize' stamp: 'Sof D 10/18/2023 23:02:04'!
 initialize 
 	financialAssets := OrderedCollection new.
-	receptiveAccounts := OrderedCollection new.
-	portfolios := OrderedCollection new.
-	parentPortfolio := OrderedCollection new.! !
-
-!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/17/2023 11:31:59'!
-setAsParentPortfolio: aParentPortfolio 
-	parentPortfolio add: aParentPortfolio.! !
+	
+	parentPortfolios := OrderedCollection new.
+	
+	portfolioState := RootPortfolio new.! !
 
 
 !Portfolio methodsFor: 'testing' stamp: 'eaam 10/18/2023 14:03:49'!
@@ -788,25 +762,49 @@ hasRegistered: aDeposit in: aCollectionOfFinancialAssets
 	^(aCollectionOfFinancialAssets anySatisfy: [:aReceptiveAccount | aReceptiveAccount hasRegistered: aDeposit])! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'eaam 10/18/2023 14:31:41'!
-canAddPortfolioToPortfolio: aPortfolioToRegister
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 23:19:45'!
+addPortfolio: aPortfolioToAdd
 
+	
+	
+	self canAddFinancialAssetToPortfolio: aPortfolioToAdd .
+	aPortfolioToAdd setAsParentPortfolio: self.
+	financialAssets add: aPortfolioToAdd ! !
 
-	receptiveAccounts do: [:aAccount | aPortfolioToRegister canAddAccountToPortfolio: aAccount].
-	(parentPortfolio isEmpty) 
-		ifTrue:[ self portfolioIsIncludedInPortfolioOrItsPortfolios: aPortfolioToRegister. 
-			self iAmInPortfolio: aPortfolioToRegister.
-				"este ciclo esta muy cerca del root 'emoji de asco' "]
-		ifFalse: [ parentPortfolio do: [ : aPortfolio | aPortfolio canAddPortfolioToPortfolio: aPortfolioToRegister ]]
-		
-
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 23:20:08'!
+addReceptiveAccount: aReceptiveAccountToRegister
+	self canAddFinancialAssetToPortfolio: aReceptiveAccountToRegister.
+	financialAssets add: aReceptiveAccountToRegister.
+	
 ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'eaam 10/18/2023 14:32:21'!
-iAmInPortfolio: aPortfolioToRegister
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 17:28:20'!
+assetIsIncludedInPortfolioCollection: aFinancialAssetToRegister
+	
+	(aFinancialAssetToRegister = self) ifTrue: [ self error: self class alreadyInPortfolioErrorDescription ].
 
-	aPortfolioToRegister portfolioIsIncludedInPortfolioOrItsPortfolios: self.
-	portfolios do: [:aPortfolio | aPortfolioToRegister iAmInPortfolio: aPortfolio]! !
+	(financialAssets do: [:aPortfolio | aPortfolio assetIsIncludedInPortfolioCollection: aFinancialAssetToRegister])! !
+
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 18:27:35'!
+canAddFinancialAssetToPortfolio: aFinancialAssetToRegister
+
+	portfolioState canAddAsset: aFinancialAssetToRegister toPortfolio: self! !
+
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 21:55:49'!
+isAssetOrItsAssetsAlreadyInPortfolio: aPortfolioToAddTheAssetTo
+
+	aPortfolioToAddTheAssetTo assetIsIncludedInPortfolioCollection: self.
+	financialAssets do: [ : aFinancialAsset | aFinancialAsset isAssetOrItsAssetsAlreadyInPortfolio: aPortfolioToAddTheAssetTo ]! !
+
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 23:02:04'!
+isFinancialAssetInAParentPortfolio: aFinancialAssetToRegister
+	parentPortfolios do: [:aParentPortfolio | aParentPortfolio canAddFinancialAssetToPortfolio: aFinancialAssetToRegister ]! !
+
+!Portfolio methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 23:02:04'!
+setAsParentPortfolio: aParentPortfolio 
+	parentPortfolios add: aParentPortfolio.
+	
+	portfolioState := NonRootPortfolio new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -836,6 +834,10 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'Sof D 10/18/2023 22:49:50'!
+addTransactionsInto: aListOfTransactions
+	aListOfTransactions addAll: transactions ! !
+
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
 
@@ -859,3 +861,56 @@ hasRegistered: aTransaction
 
 	^ transactions includes: aTransaction 
 ! !
+
+
+!ReceptiveAccount methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 17:28:20'!
+assetIsIncludedInPortfolioCollection: aFinancialAssetToRegister
+	
+	(aFinancialAssetToRegister = self) ifTrue: [ self error: self class alreadyInPortfolioErrorDescription ].
+
+	! !
+
+!ReceptiveAccount methodsFor: 'asset management' stamp: 'Sof D 10/18/2023 21:55:49'!
+isAssetOrItsAssetsAlreadyInPortfolio: aPortfolioToAddTheAssetTo
+
+	aPortfolioToAddTheAssetTo assetIsIncludedInPortfolioCollection: self
+	! !
+
+
+!classDefinition: #PortfolioState category: 'Portfolio-Ejercicio'!
+Object subclass: #PortfolioState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!PortfolioState methodsFor: 'asset registration' stamp: 'Sof D 10/18/2023 18:27:58'!
+canAddAsset: aFinancialAssetToRegister toPortfolio: aPortfolioToAddTheAssetTo
+	self subclassResponsibility ! !
+
+
+!classDefinition: #NonRootPortfolio category: 'Portfolio-Ejercicio'!
+PortfolioState subclass: #NonRootPortfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!NonRootPortfolio methodsFor: 'asset registration' stamp: 'Sof D 10/18/2023 21:36:32'!
+canAddAsset: aFinancialAssetToRegister toPortfolio: aPortfolioToAddTheAssetTo
+
+	aPortfolioToAddTheAssetTo isFinancialAssetInAParentPortfolio: aFinancialAssetToRegister ! !
+
+
+!classDefinition: #RootPortfolio category: 'Portfolio-Ejercicio'!
+PortfolioState subclass: #RootPortfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!RootPortfolio methodsFor: 'asset registration' stamp: 'Sof D 10/18/2023 21:55:49'!
+canAddAsset: aFinancialAssetToRegister toPortfolio: aPortfolioToAddTheAssetTo
+
+	
+	aFinancialAssetToRegister isAssetOrItsAssetsAlreadyInPortfolio: aPortfolioToAddTheAssetTo ! !
