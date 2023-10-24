@@ -16387,3 +16387,978 @@ PASSED!
 PASSED!
 
 ----QUIT----(24 October 2023 15:16:15) CuisUniversity-5981.image priorSource: 11102725!
+
+----STARTUP---- (24 October 2023 15:25:33) as /home/ezfloat/ing-software-1-c2-2023/linux64/CuisUniversity-5981.image!
+
+
+!classRemoval: #Transfer stamp: 'eaam 10/24/2023 15:27:48'!
+Object subclass: #Transfer
+	instanceVariableNames: 'value from to'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #NetTransferReport stamp: 'eaam 10/24/2023 15:27:48'!
+Object subclass: #NetTransferReport
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Withdraw stamp: 'eaam 10/24/2023 15:27:48'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #OutgoingLegTransfer stamp: 'eaam 10/24/2023 15:27:48'!
+AccountTransaction subclass: #OutgoingLegTransfer
+	instanceVariableNames: 'transfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #IncomingLegTransfer stamp: 'eaam 10/24/2023 15:27:49'!
+AccountTransaction subclass: #IncomingLegTransfer
+	instanceVariableNames: 'transfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Deposit stamp: 'eaam 10/24/2023 15:27:49'!
+AccountTransaction subclass: #Deposit
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #AccountTransaction stamp: 'eaam 10/24/2023 15:27:49'!
+Object subclass: #AccountTransaction
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #AccountSummaryReport stamp: 'eaam 10/24/2023 15:27:50'!
+Object subclass: #AccountSummaryReport
+	instanceVariableNames: 'account accountSummary'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #ReceptiveAccount stamp: 'eaam 10/24/2023 15:27:50'!
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Portfolio stamp: 'eaam 10/24/2023 15:27:50'!
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Account stamp: 'eaam 10/24/2023 15:27:51'!
+Object subclass: #Account
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #TransferTest stamp: 'eaam 10/24/2023 15:27:51'!
+TestCase subclass: #TransferTest
+	instanceVariableNames: 'account1 account2 transfer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #ReceptiveAccountTest stamp: 'eaam 10/24/2023 15:27:51'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #PortfolioTest stamp: 'eaam 10/24/2023 15:27:52'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #AccountSummaryTests stamp: 'eaam 10/24/2023 15:27:52'!
+TestCase subclass: #AccountSummaryTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #AccountNetTransferTests stamp: 'eaam 10/24/2023 15:27:52'!
+TestCase subclass: #AccountNetTransferTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+----End fileIn of /home/ezfloat/ing-software-1-c2-2023/linux64/Portfolio-Solucion.st----!
+!TransferTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:43:55'!
+test09TransferChangesAccountsBalance
+
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new..
+	
+	Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: -1 equals: account1 balance .
+	self assert: 1 equals: account2 balance .
+! !
+!TransferTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:44:40'!
+test10transferIsRegistered
+
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new.
+	
+	transfer := Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: (account1 hasRegistered: transfer from).
+	self assert:  (account2 hasRegistered: transfer to).
+! !
+
+!methodRemoval: ReceptiveAccountTest #test09transferIsRegistered stamp: 'eaam 10/24/2023 15:44:48'!
+test09transferIsRegistered
+
+	| account1 account2 transfer |
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new.
+	
+	transfer := Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: (account1 hasRegistered: transfer from).
+	self assert:  (account2 hasRegistered: transfer to).
+!
+
+!methodRemoval: ReceptiveAccountTest #test08TransferChangesAccountsBalance stamp: 'eaam 10/24/2023 15:44:51'!
+test08TransferChangesAccountsBalance
+
+	| account1 account2 |
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new..
+	
+	Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: -1 equals: account1 balance .
+	self assert: 1 equals: account2 balance .
+!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:46:38'!
+test08AccountHasName
+
+	| account1 deposit1 |
+	
+	account1 := ReceptiveAccount new.
+	
+	deposit1 := Deposit register: 100 on: account1.
+		
+	self assert: 1 equals: account1 transactions size .
+	self assert: (account1 transactions includes: deposit1).
+! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:47:42' prior: 50674428!
+test08AccountHasName
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
+		
+	self assert: account1 nombre equals: 'Cuenta de leo'.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:47:49' prior: 50674439!
+test08AccountHasName
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
+		
+	self assert: account1 name equals: 'Cuenta de leo'.! !
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:47:52'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:48:18' prior: 50674447!
+test08AccountHasName
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
+		
+	self assert: account1 accountName equals: 'Cuenta de leo'.! !
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:51:27'!
+ERROR!
+!ReceptiveAccount class methodsFor: 'category-name' stamp: 'eaam 10/24/2023 15:51:42'!
+named: aRenameMe1 
+	self shouldBeImplemented.! !
+!ReceptiveAccount class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 15:52:43' prior: 50674469!
+named: aAccountName
+	self new initializeFor: aAccountName.! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 15:53:59'!
+initializeFor: aAccountName
+
+	| accountName |
+	accountName := aAccountName
+	super initialize.
+	transactions := OrderedCollection new.! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 15:54:09' prior: 50674479!
+initializeFor: aAccountName
+
+	| accountName2 |
+	accountName2 := aAccountName
+	super initialize.
+	transactions := OrderedCollection new.! !
+
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #ReceptiveAccount category: 'Portfolio-Solucion' stamp: 'eaam 10/24/2023 15:54:17'!
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 15:54:50' prior: 50674487!
+initializeFor: aAccountName
+
+	accountName := aAccountName
+	super initialize.
+	transactions := OrderedCollection new.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'eaam 10/24/2023 15:54:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:54:52'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:54:52'!
+ERROR!
+!ReceptiveAccount class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 15:55:15' prior: 50674474!
+named: aAccountName
+	^self new initializeFor: aAccountName.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'eaam 10/24/2023 15:55:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:55:16'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:55:16'!
+ERROR!
+!ReceptiveAccount methodsFor: 'category-name' stamp: 'eaam 10/24/2023 15:55:51'!
+accountName
+	self shouldBeImplemented.
+	^accountName! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/24/2023 15:56:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:56:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:56:02'!
+PASSED!
+!ReceptiveAccount methodsFor: 'testing' stamp: 'eaam 10/24/2023 15:56:23' prior: 50674587!
+accountName
+	^accountName! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:56:24'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:59:00'!
+test16PortfolioCanBeInitializedWithName
+
+	| portfolioToName |
+	
+	portfolioToName := Portfolio named: 'Porfolio de guilliman'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:59:11' prior: 50674638!
+test16PortfolioCanBeInitializedWithName
+
+	| portfolioToName |
+	
+	portfolioToName := Portfolio named: 'Porfolio de Guilliman'.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:59:33'!
+test08AccountCanInitializeWithName
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
+		
+	self assert: account1 accountName equals: 'Cuenta de leo'.! !
+
+!methodRemoval: ReceptiveAccountTest #test08AccountHasName stamp: 'eaam 10/24/2023 15:59:33'!
+test08AccountHasName
+
+	| account1 |
+	
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
+		
+	self assert: account1 accountName equals: 'Cuenta de leo'.!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:10:17' prior: 50674645!
+test16PortfolioCanBeInitializedWithName
+
+	| portfolioToName |
+	
+	portfolioToName := Portfolio named: 'Porfolio de Robute'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:10:24' prior: 50674668!
+test16PortfolioCanBeInitializedWithName
+
+	| portfolioToName |
+	
+	portfolioToName := Portfolio named: 'Porfolio de Robute'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.! !
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 16:10:25'!
+ERROR!
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:10:35'!
+named: aRenameMe1 
+	self shouldBeImplemented.! !
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:10:56' prior: 50674690!
+named: aAccountName 
+	self new initializeWith: aAccountName.! !
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 16:11:05'!
+ERROR!
+
+!classDefinition: #Portfolio category: 'Portfolio-Solucion' stamp: 'eaam 10/24/2023 16:11:15'!
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents accountName'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:11:15'!
+initializeWith: aAccountName 
+	self shouldBeImplemented.
+	accountName := aAccountName.! !
+!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:11:26' prior: 50674711!
+initializeWith: aAccountName 
+	accountName := aAccountName.
+	self initialize.! !
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 16:11:30'!
+ERROR!
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:12:07' prior: 50674695!
+named: aAccountName 
+	^self new initializeWith: aAccountName.! !
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 16:24:29' prior: 50674509!
+initializeFor: aAccountName
+
+	accountName := aAccountName.
+	super initialize.
+	transactions := OrderedCollection new.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'eaam 10/24/2023 16:24:32'!
+PASSED!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 16:24:54'!
+setName: aAccountName
+
+	accountName := aAccountName.
+	super initialize.
+	transactions := OrderedCollection new.! !
+!ReceptiveAccount class methodsFor: 'as yet unclassified' stamp: 'eaam 10/24/2023 16:24:54' prior: 50674549!
+named: aAccountName
+	^self new setName: aAccountName.! !
+
+!methodRemoval: ReceptiveAccount #initializeFor: stamp: 'eaam 10/24/2023 16:24:54'!
+initializeFor: aAccountName
+
+	accountName := aAccountName.
+	super initialize.
+	transactions := OrderedCollection new.!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 16:25:08' prior: 50674769!
+setName: aAccountName
+	accountName := aAccountName.! !
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:30'!
+named: aAccountName with: anAccount with: anotherAccount
+	^self new 
+		setName: aAccountName;
+		add: anAccount;
+		add: anotherAccount;
+		yourself! !
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:39' prior: 50674726!
+named: aAccountName 
+	^self new setName: aAccountName.! !
+!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:52'!
+setName: aAccountName 
+	accountName := aAccountName.
+	self initialize.! !
+
+!methodRemoval: Portfolio #initializeWith: stamp: 'eaam 10/24/2023 16:26:52'!
+initializeWith: aAccountName 
+	accountName := aAccountName.
+	self initialize.!
+!Portfolio methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:59' prior: 50674806!
+setName: aAccountName 
+	accountName := aAccountName.! !
+!Portfolio methodsFor: 'testing' stamp: 'eaam 10/24/2023 16:38:02'!
+accountName
+	^accountName ! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 16:38:03'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:52:23'!
+test16PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:52:34' prior: 50674886!
+test16PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:58:37'!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.! !
+
+!methodRemoval: PortfolioTest #test16PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 16:58:37'!
+test16PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:59:11' prior: 50674915!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	
+	self assert: ((portfolioToName isComposedBy: accountToAdd) and:(portfolioToName isComposedBy: anotherAccountToAdd)).! !
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 16:59:12'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:59:38' prior: 50674946!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn'.
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	
+	self assert: (portfolioToName isComposedBy: accountToAdd).! !
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 16:59:41'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:00:16' prior: 50674966!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: (portfolioToName isComposedBy: accountToAdd).! !
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:00:17'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:00:25' prior: 50674985!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: (portfolioToName isComposedBy: accountToAdd).
+	self assert: (portfolioToName isComposedBy: anotherAccountToAdd).! !
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:00:26'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:01:11'!
+test18PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Trazyn'.! !
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:01:13'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:01:30'!
+test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Trazyn'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:01:46' prior: 50675248!
+test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
+
+	| portfolioToName accountToAdd portfolioToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	portfolioToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: portfolioToAdd.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Trazyn'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:02:04' prior: 50675265!
+test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
+
+	| portfolioToName accountToAdd portfolioToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	portfolioToAdd := Portfolio named: 'Portfolio de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: portfolioToAdd.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Trazyn'.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:02:16' prior: 50675281!
+test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
+
+	| portfolioToName accountToAdd portfolioToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	portfolioToAdd := Portfolio named: 'Portfolio de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: portfolioToAdd.
+	
+	self assert: (portfolioToName isComposedBy: portfolioToAdd).! !
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/24/2023 17:02:17'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/24/2023 17:13:52'!
+PASSED!
+
+----QUIT----(24 October 2023 17:14:02) CuisUniversity-5981.image priorSource: 11165469!

@@ -373,6 +373,49 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: Portfolio canNotAddAccountErrorMessage equals: anError messageText.
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 16:10:24'!
+test16PortfolioCanBeInitializedWithName
+
+	| portfolioToName |
+	
+	portfolioToName := Portfolio named: 'Porfolio de Robute'.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Robute'.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:00:25'!
+test17PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: (portfolioToName isComposedBy: accountToAdd).
+	self assert: (portfolioToName isComposedBy: anotherAccountToAdd).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:01:11'!
+test18PortfolioCanBeInitializedWithANameAndTwoAccounts
+
+	| portfolioToName accountToAdd anotherAccountToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	anotherAccountToAdd := ReceptiveAccount named: 'Cuenta de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: anotherAccountToAdd.
+	
+	self assert: portfolioToName accountName equals: 'Porfolio de Trazyn'.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 17:02:16'!
+test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
+
+	| portfolioToName accountToAdd portfolioToAdd|
+	
+	accountToAdd := ReceptiveAccount named: 'Cuenta de Trazyn'.
+	portfolioToAdd := Portfolio named: 'Portfolio de Krispekh'.
+	portfolioToName := Portfolio named: 'Porfolio de Trazyn' with: accountToAdd with: portfolioToAdd.
+	
+	self assert: (portfolioToName isComposedBy: portfolioToAdd).! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
@@ -464,35 +507,14 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'Sof D 10/23/2023 20:22:02'!
-test08TransferChangesAccountsBalance
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:59:33'!
+test08AccountCanInitializeWithName
 
-	| account1 account2 |
+	| account1 |
 	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new..
-	
-	Transfer from: account1 to: account2 amount: 1.
+	account1 := ReceptiveAccount named: 'Cuenta de leo'.
 		
-	self assert: -1 equals: account1 balance .
-	self assert: 1 equals: account2 balance .
-! !
-
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/23/2023 21:37:02'!
-test09transferIsRegistered
-
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
-		
-	self assert: (account1 hasRegistered: transfer from).
-	self assert:  (account2 hasRegistered: transfer to).
-! !
+	self assert: account1 accountName equals: 'Cuenta de leo'.! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -501,7 +523,6 @@ TestCase subclass: #TransferTest
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
-
 
 !TransferTest methodsFor: 'setup' stamp: 'Sof D 10/24/2023 02:27:18'!
 setUp
@@ -568,6 +589,34 @@ test08TransferFromAccountToItselfIsntAllowed
 
 	withMessageText: Transfer cantTransferToItselfErrorDescription.! !
 
+!TransferTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:43:55'!
+test09TransferChangesAccountsBalance
+
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new..
+	
+	Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: -1 equals: account1 balance .
+	self assert: 1 equals: account2 balance .
+! !
+
+!TransferTest methodsFor: 'tests' stamp: 'eaam 10/24/2023 15:44:40'!
+test10transferIsRegistered
+
+	
+	account1 := ReceptiveAccount new.
+	
+	account2 := ReceptiveAccount new.
+	
+	transfer := Transfer from: account1 to: account2 amount: 1.
+		
+	self assert: (account1 hasRegistered: transfer from).
+	self assert:  (account2 hasRegistered: transfer to).
+! !
+
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
@@ -612,7 +661,7 @@ addedTo: aPortfolio
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
 Account subclass: #Portfolio
-	instanceVariableNames: 'accounts parents'
+	instanceVariableNames: 'accounts parents accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -658,6 +707,10 @@ initialize
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
 
+!Portfolio methodsFor: 'initialization' stamp: 'eaam 10/24/2023 16:26:59'!
+setName: aAccountName 
+	accountName := aAccountName.! !
+
 
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
 balance
@@ -686,6 +739,10 @@ addedTo: aPortfolio
 	
 	parents add: aPortfolio ! !
 
+
+!Portfolio methodsFor: 'testing' stamp: 'eaam 10/24/2023 16:38:02'!
+accountName
+	^accountName ! !
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
 anyRootParentIsComposedBy: accountToAdd
@@ -727,19 +784,32 @@ signalCanNotAddAccount
 Portfolio class
 	instanceVariableNames: ''!
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:48:55'!
+!Portfolio class methodsFor: 'error description' stamp: 'HAW 5/25/2019 11:48:55'!
 canNotAddAccountErrorMessage
 	
 	^'Can not add repeated account to a portfolio'! !
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:18:21'!
+
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:39'!
+named: aAccountName 
+	^self new setName: aAccountName.! !
+
+!Portfolio class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:26:30'!
+named: aAccountName with: anAccount with: anotherAccount
+	^self new 
+		setName: aAccountName;
+		add: anAccount;
+		add: anotherAccount;
+		yourself! !
+
+!Portfolio class methodsFor: 'initialize' stamp: 'HAW 5/25/2019 11:18:21'!
 with: anAccount
 
 	^self new 
 		add: anAccount;
 		yourself! !
 
-!Portfolio class methodsFor: 'as yet unclassified' stamp: 'HAW 5/25/2019 11:23:59'!
+!Portfolio class methodsFor: 'initialize' stamp: 'HAW 5/25/2019 11:23:59'!
 with: anAccount with: anotherAccount
 
 	^self new 
@@ -750,7 +820,7 @@ with: anAccount with: anotherAccount
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Solucion'!
 Account subclass: #ReceptiveAccount
-	instanceVariableNames: 'transactions'
+	instanceVariableNames: 'transactions accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -760,6 +830,10 @@ initialize
 
 	super initialize.
 	transactions := OrderedCollection new.! !
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'eaam 10/24/2023 16:25:08'!
+setName: aAccountName
+	accountName := aAccountName.! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
@@ -786,6 +860,10 @@ balance
 		inject: 0
 		into: [ :currentBalance :transaction | transaction affectBalance: currentBalance ]! !
 
+
+!ReceptiveAccount methodsFor: 'testing' stamp: 'eaam 10/24/2023 15:56:23'!
+accountName
+	^accountName! !
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
 hasRegistered: aTransaction
@@ -814,6 +892,16 @@ netTransfers
 summary: aReport
 	transactions do: [:aTransaction | aTransaction dataPrintIn: aReport]
 	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio-Solucion'!
+ReceptiveAccount class
+	instanceVariableNames: ''!
+
+!ReceptiveAccount class methodsFor: 'initialize' stamp: 'eaam 10/24/2023 16:24:54'!
+named: aAccountName
+	^self new setName: aAccountName.! !
 
 
 !classDefinition: #AccountSummaryReport category: 'Portfolio-Solucion'!
