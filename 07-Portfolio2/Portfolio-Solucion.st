@@ -5,22 +5,23 @@ TestCase subclass: #AccountNetTransferTests
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:36:12'!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52'!
 test01NetTransferForNewAccountIsZero
-	| account netTransfer report|
+	| account report|
 	account := ReceptiveAccount new.
-	netTransfer := 'Neto de transferencias: 0'.
-	report := account netTransfers.
-	self assert: report equals: netTransfer! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:42:11'!
+	report := account netTransfers.
+	self assert: report equals: 0! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02'!
 test02NetTransferReportStartsReportingZero
-	| accounttoExtractFrom accountToDeposit netTransfer report|
+	| accounttoExtractFrom accountToDeposit netTransfer report account|
 	accounttoExtractFrom := ReceptiveAccount new.
 	accountToDeposit := ReceptiveAccount new.
+	account := ReceptiveAccount new.
 	netTransfer := 'Neto de transferencias: 0'.
 	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := NetTransferReport new.
+	report := NetTransferReport for: account.
 	self assert: report content equals: netTransfer! !
 
 !AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:15:43'!
@@ -31,6 +32,47 @@ test03NetTransferReportChangesForIncomingTransfer
 	netTransfer := 'Neto de transferencias: 1'.
 	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
 	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48'!
+test04NetTransferReportChangesForOutgoingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: -1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accounttoExtractFrom .
+	self assert: report content equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:38'!
+test05NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:51'!
+test06NetTransferReportDoesntChangeForWithdraw
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:55:08'!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
 	self assert: report content equals: netTransfer! !
 
 
@@ -763,11 +805,10 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 02:36:23'!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:15:39'!
 netTransfers
-	| netTransfer |
-	netTransfer := 'Neto de transferencias: 0'.
-	^netTransfer! !
+	^transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction affectNetTransferAmount: accumulatedAmmount ]
+	! !
 
 !ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/23/2023 02:29:33'!
 summary: aReport
@@ -847,6 +888,11 @@ dataPrintIn: aReport
 
 	self subclassResponsibility! !
 
+
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:13:55'!
+affectNetTransferAmount: anAmountToAddTo
+	self subclassResponsibility ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'AccountTransaction class' category: 'Portfolio-Solucion'!
@@ -893,6 +939,11 @@ affectBalance: aBalance
 dataPrintIn: aReport
 	aReport printDepositWithValue: value! !
 
+
+!Deposit methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:12'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo ! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Deposit class' category: 'Portfolio-Solucion'!
@@ -916,6 +967,10 @@ AccountTransaction subclass: #IncomingLegTransfer
 affectBalance: aBalance
 
 	^aBalance + transfer value ! !
+
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:47'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo + transfer value! !
 
 !IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:20:03'!
 dataPrintIn: aReport 
@@ -963,6 +1018,10 @@ AccountTransaction subclass: #OutgoingLegTransfer
 affectBalance: aBalance
 
 	^aBalance - transfer value ! !
+
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:57'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo - transfer value! !
 
 !OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:17:27'!
 dataPrintIn: aReport 
@@ -1026,6 +1085,11 @@ affectBalance: aBalance
 !Withdraw methodsFor: 'print' stamp: 'eaam 10/23/2023 01:54:06'!
 dataPrintIn: aReport
 	aReport printWithdrawWithValue: value! !
+
+
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:20'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 

@@ -15032,3 +15032,1358 @@ test02NetTransferReportChangesForIncomingTransfer
 	self assert: report content equals: netTransfer!
 
 ----QUIT----(24 October 2023 14:16:20) CuisUniversity-5981.image priorSource: 11101581!
+
+----STARTUP---- (24 October 2023 14:37:44) as C:\Users\sofia\Downloads\windows64 (1)\windows64\CuisUniversity-5981.image!
+
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:37:50'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:37:50'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:03' prior: 50678285!
+netTransfers
+	| netTransfer |
+	transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ]
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:20' prior: 50678627!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ].
+	^netTransfer! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08TransferChangesAccountsBalance stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegistered stamp: 'Sof D 10/24/2023 14:39:21'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:39:25'!
+PASSED!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48'!
+test04NetTransferReportChangesForOutgoingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: -1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accounttoExtractFrom .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:39:48'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:41:28' prior: 50678635!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		].
+	^netTransfer! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08TransferChangesAccountsBalance stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegistered stamp: 'Sof D 10/24/2023 14:41:29'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:41:32'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:41:32'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:41:32'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:41:32'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:41:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:41:39'!
+FAILURE!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52' prior: 50678274!
+test01NetTransferForNewAccountIsZero
+	| account report|
+	account := ReceptiveAccount new.
+
+	report := account netTransfers.
+	self assert: report equals: 0! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:41:56'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:41:56'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:41:56'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:41:56'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:41:56'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:42:02'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:42:02'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:42:24'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:42:24'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:42:29'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:42:29'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:42:50'!
+PASSED!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02' prior: 50678452!
+test02NetTransferReportStartsReportingZero
+	| accounttoExtractFrom accountToDeposit netTransfer report account|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: account.
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:44:04'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:44:04'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:44:04'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:44:04'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:44:04'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:44:04'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:44:45' prior: 50678702!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:44:48'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:44:50'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:44:50'!
+ERROR!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:03' prior: 50678869!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08TransferChangesAccountsBalance stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegistered stamp: 'Sof D 10/24/2023 14:45:04'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:45:07'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:45:10'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:45:10'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:21' prior: 50678894!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ((aTransaction value) negated) ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:45:25'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:45:25'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:46:16' prior: 50678953!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:46:19'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:46:19'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:46:46'!
+FAILURE!
+
+----STARTUP---- (24 October 2023 14:47:04) as C:\Users\sofia\Downloads\windows64 (1)\windows64\CuisUniversity-5981.image!
+
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:03' prior: 50678285!
+netTransfers
+	| netTransfer |
+	transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ]
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:20' prior: 50679003!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48'!
+test04NetTransferReportChangesForOutgoingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: -1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accounttoExtractFrom .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:41:28' prior: 50679011!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52' prior: 50678274!
+test01NetTransferForNewAccountIsZero
+	| account report|
+	account := ReceptiveAccount new.
+
+	report := account netTransfers.
+	self assert: report equals: 0! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02' prior: 50678452!
+test02NetTransferReportStartsReportingZero
+	| accounttoExtractFrom accountToDeposit netTransfer report account|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: account.
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:44:45' prior: 50679036!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:03' prior: 50679074!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:21' prior: 50679087!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ((aTransaction value) negated) ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:46:16' prior: 50679100!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:47:10'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:47:10'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:47:50'!
+FAILURE!
+
+self transactions !
+
+self balance!
+
+self transactions first!
+
+self transactions first value!
+
+self transactions first value negated!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:49:03' prior: 50679113!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:49:11'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:49:11'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:49:26' prior: 50679142!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:49:28'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:49:31'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:49:31'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:50:02' prior: 50679163!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:50:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:50:06'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:50:09'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:50:09'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:50:09'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:50:09'!
+PASSED!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:01'!
+test04NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:51:03'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:51:31' prior: 50679188!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ ^0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:51:34'!
+PASSED!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:38'!
+test05NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!methodRemoval: AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:51:38'!
+test04NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:51'!
+test06NetTransferReportDoesntChangeForWithdraw
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 14:51:52'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:52:07' prior: 50679240!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ ^0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ ^0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 14:52:10'!
+PASSED!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:52:37'!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:14' prior: 50679339!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 2.
+	report := NetTransferReport for: accounttoExtractFrom .
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: accountToDeposit .
+	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:30' prior: 50679352!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 accountToDeposit netTransfer report|
+	account1 := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: accountToDeposit amount: 2.
+	report := NetTransferReport for: account1 .
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: accountToDeposit .
+	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:37' prior: 50679375!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	report := NetTransferReport for: account1 .
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:54:31' prior: 50679397!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	report := NetTransferReport for: account1 .
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:54:38'!
+FAILURE!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:54:52' prior: 50679417!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	report := NetTransferReport for: account2 .
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:54:53'!
+FAILURE!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:55:08' prior: 50679442!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:55:16'!
+FAILURE!
+
+self transactions !
+
+self transactions first value .!
+
+self transactions second value  !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:56:26' prior: 50679300!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:56:28'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:56:28'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:56:28'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:56:28'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:56:28'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 14:56:29'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:56:29'!
+ERROR!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:57:15' prior: 50679493!
+netTransfers
+	| netTransfer |
+	netTransfer := self inject: 0 into: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:58:14' prior: 50679537!
+netTransfers
+	^ self 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:58:17'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:58:22'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:58:22'!
+ERROR!
+
+----STARTUP---- (24 October 2023 14:58:55) as C:\Users\sofia\Downloads\windows64 (1)\windows64\CuisUniversity-5981.image!
+
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:03' prior: 50678285!
+netTransfers
+	| netTransfer |
+	transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ]
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:20' prior: 50679606!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48'!
+test04NetTransferReportChangesForOutgoingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: -1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accounttoExtractFrom .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:41:28' prior: 50679614!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52' prior: 50678274!
+test01NetTransferForNewAccountIsZero
+	| account report|
+	account := ReceptiveAccount new.
+
+	report := account netTransfers.
+	self assert: report equals: 0! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02' prior: 50678452!
+test02NetTransferReportStartsReportingZero
+	| accounttoExtractFrom accountToDeposit netTransfer report account|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: account.
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:44:45' prior: 50679639!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:03' prior: 50679677!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:21' prior: 50679690!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ((aTransaction value) negated) ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:46:16' prior: 50679703!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:03' prior: 50679716!
+netTransfers
+	| netTransfer |
+	transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ]
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:39:20' prior: 50679729!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction value ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48' prior: 50679622!
+test04NetTransferReportChangesForOutgoingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: -1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accounttoExtractFrom .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:41:28' prior: 50679737!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52' prior: 50679652!
+test01NetTransferForNewAccountIsZero
+	| account report|
+	account := ReceptiveAccount new.
+
+	report := account netTransfers.
+	self assert: report equals: 0! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02' prior: 50679660!
+test02NetTransferReportStartsReportingZero
+	| accounttoExtractFrom accountToDeposit netTransfer report account|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: account.
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:44:45' prior: 50679762!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : accumulatedAmmount : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:03' prior: 50679800!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:45:21' prior: 50679813!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ((aTransaction value) negated) ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:46:16' prior: 50679826!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ (aTransaction value) negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:49:03' prior: 50679839!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:49:26' prior: 50679852!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:50:02' prior: 50679865!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:01'!
+test04NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:51:31' prior: 50679878!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ ^0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:38'!
+test05NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+
+!methodRemoval: AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:59:04'!
+test04NetTransferReportDoesntChangeForDeposit
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Deposit register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer!
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:51'!
+test06NetTransferReportDoesntChangeForWithdraw
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:52:07' prior: 50679902!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ ^0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ ^0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:52:37'!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account .
+	report := NetTransferReport for: account .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:14' prior: 50679969!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 2.
+	report := NetTransferReport for: accounttoExtractFrom .
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: accountToDeposit .
+	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:30' prior: 50679982!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 accountToDeposit netTransfer report|
+	account1 := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: accountToDeposit amount: 2.
+	report := NetTransferReport for: account1 .
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: accountToDeposit .
+	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:53:37' prior: 50680005!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	report := NetTransferReport for: account1 .
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Withdraw register: 1 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:54:31' prior: 50680027!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	report := NetTransferReport for: account1 .
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:54:52' prior: 50680047!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	report := NetTransferReport for: account2 .
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:55:08' prior: 50680067!
+test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer report|
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: account1 to: account2 amount: 2.
+	Transfer from: account2 to: account1 amount: 1.
+	Withdraw register: 100 on: account2 .
+	Deposit register: 500 on: account2 .
+	report := NetTransferReport for: account2 .
+	self assert: report content equals: netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:56:26' prior: 50679954!
+netTransfers
+	| netTransfer |
+	netTransfer := transactions sum: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		] ifEmpty: [ 0 ].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:57:15' prior: 50680106!
+netTransfers
+	| netTransfer |
+	netTransfer := self inject: 0 into: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ 	aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	^netTransfer! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:58:14' prior: 50680122!
+netTransfers
+	^ self 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:59:06'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:59:06'!
+ERROR!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:59:34' prior: 50680137!
+netTransfers
+	^ transactions 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 14:59:37'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 14:59:37'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:59:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 14:59:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 14:59:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 14:59:37'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 14:59:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:59:42'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:59:42'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 14:59:50' prior: 50680160!
+netTransfers
+	^ transactions 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ ^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 14:59:52'!
+PASSED!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:00:02' prior: 50680212!
+netTransfers
+	^ transactions 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ ^aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ ^aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ ^0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ ^0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:00:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:00:05'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:00:05'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:00:39' prior: 50680231!
+netTransfers
+	^ transactions 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ 0 ].
+		].
+	! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:03:05' prior: 50680279!
+netTransfers
+	^ transactions 
+	inject: 0 
+	into: [ : accumulatedValue : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ accumulatedValue + aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ accumulatedValue + aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ accumulatedValue + 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ accumulatedValue + 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:03:08'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:03:08'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:03:08'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:03:08'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:03:08'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:03:08'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:03:08'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:03:15'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:03:15'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:04:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:04:37'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:05:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:05:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:05:05'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:05:05'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:05:05'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:05:05'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:05:05'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:05:12'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:05:15'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:05:15'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:07:33' prior: 50680294!
+netTransfers
+	| accumulatedValue |
+	accumulatedValue := 0.
+	 transactions 
+	do: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ accumulatedValue := accumulatedValue + aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ accumulatedValue := accumulatedValue + aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ accumulatedValue := accumulatedValue + 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ accumulatedValue := accumulatedValue + 0 ].
+		].
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:07:39'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:07:42'!
+FAILURE!
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:07:42'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:07:53' prior: 50680397!
+netTransfers
+	| accumulatedValue |
+	accumulatedValue := 0.
+	transactions 
+	do: [ : aTransaction | 
+		
+		(aTransaction isKindOf: IncomingLegTransfer) ifTrue: [ accumulatedValue := accumulatedValue + aTransaction value ].
+		(aTransaction isKindOf: OutgoingLegTransfer) ifTrue: [ accumulatedValue := accumulatedValue + aTransaction value negated ].
+		(aTransaction isKindOf: Deposit) ifTrue: [ accumulatedValue := accumulatedValue + 0 ].
+		(aTransaction isKindOf: Withdraw ) ifTrue: [ accumulatedValue := accumulatedValue + 0 ].
+		].
+	
+	^accumulatedValue 
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:07:58'!
+PASSED!
+!AccountTransaction methodsFor: 'nil' stamp: 'Sof D 10/24/2023 15:13:55'!
+affectNetTransferAmount: anAmountToAddTo
+	self subclassResponsibility ! !
+!Deposit methodsFor: 'nil' stamp: 'Sof D 10/24/2023 15:14:12' overrides: 50680502!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo ! !
+!Withdraw methodsFor: 'nil' stamp: 'Sof D 10/24/2023 15:14:20' overrides: 50680502!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo ! !
+!IncomingLegTransfer methodsFor: 'nil' stamp: 'Sof D 10/24/2023 15:14:34' overrides: 50680502!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo + self value! !
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:47' prior: 50680517 overrides: 50680502!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo + transfer value! !
+!OutgoingLegTransfer methodsFor: 'nil' stamp: 'Sof D 10/24/2023 15:14:57' overrides: 50680502!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo - transfer value! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:15:39' prior: 50680453!
+netTransfers
+	^transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction affectNetTransferAmount: accumulatedAmmount ]
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferForNewAccountIsZero stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportStartsReportingZero stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/24/2023 15:15:54'!
+PASSED!
+
+----QUIT----(24 October 2023 15:16:15) CuisUniversity-5981.image priorSource: 11102725!
