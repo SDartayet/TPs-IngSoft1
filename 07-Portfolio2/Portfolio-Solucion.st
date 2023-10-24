@@ -1,3 +1,39 @@
+!classDefinition: #AccountNetTransferTests category: 'Portfolio-Solucion'!
+TestCase subclass: #AccountNetTransferTests
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:36:12'!
+test01NetTransferForNewAccountIsZero
+	| account netTransfer report|
+	account := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	report := account netTransfers.
+	self assert: report equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:42:11'!
+test02NetTransferReportStartsReportingZero
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 0'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport new.
+	self assert: report content equals: netTransfer! !
+
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:15:43'!
+test03NetTransferReportChangesForIncomingTransfer
+	| accounttoExtractFrom accountToDeposit netTransfer report|
+	accounttoExtractFrom := ReceptiveAccount new.
+	accountToDeposit := ReceptiveAccount new.
+	netTransfer := 'Neto de transferencias: 1'.
+	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
+	report := NetTransferReport for: accountToDeposit .
+	self assert: report content equals: netTransfer! !
+
+
 !classDefinition: #AccountSummaryTests category: 'Portfolio-Solucion'!
 TestCase subclass: #AccountSummaryTests
 	instanceVariableNames: ''
@@ -5,79 +41,79 @@ TestCase subclass: #AccountSummaryTests
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 01:56:36'!
-test01
-	| account resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:17:58'!
+test01SummaryOfNewAccountReportsZeroBalance
+	| account summary report|
 	account := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	report := AccountSummaryReport sumaryOf: account.
-	resumen add: 'Balance = 0'.
+	summary add: 'Balance = 0'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 01:56:30'!
-test02
-	| account resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:27'!
+test02SummaryReportsDepositCorrectly
+	| account summary report|
 	account := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	Deposit register: 10 on: account.
 	report := AccountSummaryReport sumaryOf: account. 
-	resumen add: 'Depósito por 10'.
-	resumen add: 'Balance = 10'.
+	summary add: 'Depósito por 10'.
+	summary add: 'Balance = 10'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 02:06:35'!
-test03
-	| account resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:42'!
+test03SummaryReportsWithdrawalCorrectly
+	| account summary report|
 	account := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	Withdraw register: 10 on: account. 
 	report := AccountSummaryReport sumaryOf: account.
-	resumen add: 'Extracción por 10'.
-	resumen add: 'Balance = -10'.
+	summary add: 'Extracción por 10'.
+	summary add: 'Balance = -10'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 02:20:27'!
-test04
-	| accounttoExtractFrom accountToDeposit resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:55'!
+test04SummaryReportsOutgoingTransferCorrectly
+	| accounttoExtractFrom accountToDeposit summary report|
 	accounttoExtractFrom := ReceptiveAccount new.
 	accountToDeposit := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
 	report := AccountSummaryReport sumaryOf: accounttoExtractFrom.
-	resumen add: 'Salida por transferencia de 1'.
-	resumen add: 'Balance = -1'.
+	summary add: 'Salida por transferencia de 1'.
+	summary add: 'Balance = -1'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 02:20:48'!
-test05
-	| accounttoExtractFrom accountToDeposit resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:19:08'!
+test05SummaryReportsIncomingTransferCorrectly
+	| accounttoExtractFrom accountToDeposit summary report|
 	accounttoExtractFrom := ReceptiveAccount new.
 	accountToDeposit := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
 	report := AccountSummaryReport sumaryOf: accountToDeposit.
-	resumen add: 'Entrada por transferencia de 1'.
-	resumen add: 'Balance = 1'.
+	summary add: 'Entrada por transferencia de 1'.
+	summary add: 'Balance = 1'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'eaam 10/23/2023 02:27:59'!
-test06
-	| account resumen report|
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:19:22'!
+test06SummaryReportsMultipleTransactionsCorrectly
+	| account summary report|
 	account := ReceptiveAccount new.
-	resumen := OrderedCollection new.
+	summary := OrderedCollection new.
 	Deposit register: 100 on: account.
 	Withdraw register: 50 on: account. 
 	report := AccountSummaryReport sumaryOf: account.
-	resumen add: 'Depósito por 100'.
-	resumen add: 'Extracción por 50'.
-	resumen add: 'Balance = 50'.
+	summary add: 'Depósito por 100'.
+	summary add: 'Extracción por 50'.
+	summary add: 'Balance = 50'.
 	report summary.
-	self assert: report content equals: resumen! !
+	self assert: report content equals: summary! !
 
 
 !classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
@@ -386,8 +422,8 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/19/2023 21:52:59'!
-test08TransferChangesBalance
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'Sof D 10/23/2023 20:22:02'!
+test08TransferChangesAccountsBalance
 
 	| account1 account2 |
 	
@@ -401,7 +437,7 @@ test08TransferChangesBalance
 	self assert: 1 equals: account2 balance .
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/20/2023 01:29:33'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'eaam 10/23/2023 21:37:02'!
 test09transferIsRegistered
 
 	| account1 account2 transfer |
@@ -412,111 +448,68 @@ test09transferIsRegistered
 	
 	transfer := Transfer from: account1 to: account2 amount: 1.
 		
-	self assert: (account1 hasRegistered: transfer).
-	self assert:  (account2 hasRegistered: transfer) .
+	self assert: (account1 hasRegistered: transfer from).
+	self assert:  (account2 hasRegistered: transfer to).
 ! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
 TestCase subclass: #TransferTest
-	instanceVariableNames: 'value from to'
+	instanceVariableNames: 'account1 account2 transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:48:08'!
-test01
 
-	| account1 account2 transfer |
-	
+!TransferTest methodsFor: 'setup' stamp: 'Sof D 10/24/2023 02:27:18'!
+setUp
+
 	account1 := ReceptiveAccount new.
-	
 	account2 := ReceptiveAccount new.
 	
-	transfer := Transfer from: account1 to: account2 amount: 1.
+	transfer := Transfer from: account1 to: account2 amount: 1! !
+
+
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test01TransferToLegHasReceivingAccount
 	
 		
 	self assert: (transfer to) equals: account2 transactions first .
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:48:05'!
-test02
-
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test02TransferFromLegHasSendingAccount
 		
 	self assert: (transfer from) equals: account1 transactions first.
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:48:01'!
-test03
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test03FromLegCanAccessItsTransfer
 
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
 		
 	self assert: (transfer from) transfer equals: transfer.
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:50:02'!
-test04
-
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test04ToLegCanAccessItsTransfer
 		
 	self assert: (transfer to) transfer equals: transfer.
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:51:29'!
-test05
-
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test05ToLegCanAccessFromLegOfItsTransfer
 		
 	self assert: (transfer to) from equals: (transfer from).
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:52:15'!
-test06
-
-	| account1 account2 transfer |
-	
-	account1 := ReceptiveAccount new.
-	
-	account2 := ReceptiveAccount new.
-	
-	transfer := Transfer from: account1 to: account2 amount: 1.
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:18'!
+test06FromLegCanAccessToLegOfItsTransfer
 		
 	self assert: (transfer from) to equals: (transfer to).
 ! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:47:58'!
-test07
-
-	| account1 account2|
-	
-	account1 := ReceptiveAccount new.
-	account2 := ReceptiveAccount new.
-	
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:11'!
+test07TransferOfAmountZeroIsntAllowed
 	
 	self should: [Transfer from: account1 to: account2 amount: 0. ]
 
@@ -524,14 +517,9 @@ test07
 
 	withMessageText: Transfer cantTransferZeroErrorDescription.! !
 
-!TransferTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:50:56'!
-test08
+!TransferTest methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:27:06'!
+test08TransferFromAccountToItselfIsntAllowed
 
-	| account1 |
-	
-	account1 := ReceptiveAccount new.
-	
-	
 	self should: [Transfer from: account1 to: account1 amount: 1. . ]
 
 	raise: Error
@@ -775,11 +763,16 @@ addedTo: aPortfolio
 	! !
 
 
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 02:36:23'!
+netTransfers
+	| netTransfer |
+	netTransfer := 'Neto de transferencias: 0'.
+	^netTransfer! !
+
 !ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/23/2023 02:29:33'!
 summary: aReport
 	transactions do: [:aTransaction | aTransaction dataPrintIn: aReport]
 	! !
-
 
 
 !classDefinition: #AccountSummaryReport category: 'Portfolio-Solucion'!
@@ -849,10 +842,10 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
-!AccountTransaction methodsFor: 'balance' stamp: 'eaam 10/23/2023 02:19:24'!
+!AccountTransaction methodsFor: 'balance' stamp: 'eaam 10/23/2023 21:31:23'!
 dataPrintIn: aReport
 
-	self subclassResponsibility ! !
+	self subclassResponsibility! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -912,94 +905,94 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #IncomingTransfer category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #IncomingTransfer
+!classDefinition: #IncomingLegTransfer category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #IncomingLegTransfer
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!IncomingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:50:22'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:50:22'!
 affectBalance: aBalance
 
 	^aBalance + transfer value ! !
 
-!IncomingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:20:03'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:20:03'!
 dataPrintIn: aReport 
 	aReport printIncomingTransferWithValue: self value! !
 
-!IncomingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:42'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:42'!
 initializeFor: aTransfer
 
 	transfer := aTransfer ! !
 
-!IncomingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/21/2023 00:52:13'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/21/2023 00:52:13'!
 transfer
 	^transfer! !
 
-!IncomingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:19'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:19'!
 value 
 
 	^transfer value! !
 
 
-!IncomingTransfer methodsFor: 'category-name' stamp: 'eaam 10/22/2023 23:51:55'!
+!IncomingLegTransfer methodsFor: 'category-name' stamp: 'eaam 10/22/2023 23:51:55'!
 from
 	^transfer from.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'IncomingTransfer class' category: 'Portfolio-Solucion'!
-IncomingTransfer class
+!classDefinition: 'IncomingLegTransfer class' category: 'Portfolio-Solucion'!
+IncomingLegTransfer class
 	instanceVariableNames: ''!
 
-!IncomingTransfer class methodsFor: 'nil' stamp: 'eaam 10/20/2023 13:51:41'!
+!IncomingLegTransfer class methodsFor: 'nil' stamp: 'eaam 10/20/2023 13:51:41'!
 for: aTransfer
 
 	^ self new initializeFor: aTransfer ! !
 
 
-!classDefinition: #OutgoingTransfer category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #OutgoingTransfer
+!classDefinition: #OutgoingLegTransfer category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #OutgoingLegTransfer
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:52'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:52'!
 affectBalance: aBalance
 
 	^aBalance - transfer value ! !
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:17:27'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:17:27'!
 dataPrintIn: aReport 
 	aReport printOutgoingTransferWithValue: self value! !
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:46'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:46'!
 initializeFor: aTransfer
 
 	transfer := aTransfer ! !
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:52:32'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:52:32'!
 to
 	^transfer to.! !
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:50:45'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:50:45'!
 transfer
 	^transfer ! !
 
-!OutgoingTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:26'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:26'!
 value 
 
 	^transfer value! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'OutgoingTransfer class' category: 'Portfolio-Solucion'!
-OutgoingTransfer class
+!classDefinition: 'OutgoingLegTransfer class' category: 'Portfolio-Solucion'!
+OutgoingLegTransfer class
 	instanceVariableNames: ''!
 
-!OutgoingTransfer class methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:51:45'!
+!OutgoingLegTransfer class methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:51:45'!
 for: aTransfer
 
 	^ self new initializeFor: aTransfer ! !
@@ -1046,6 +1039,39 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
+!classDefinition: #NetTransferReport category: 'Portfolio-Solucion'!
+Object subclass: #NetTransferReport
+	instanceVariableNames: 'account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!NetTransferReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:45:56'!
+content
+	
+	| netTransferAmount |
+	
+	netTransferAmount := account netTransfers .
+	
+	^'Neto de transferencias: ', netTransferAmount asString! !
+
+!NetTransferReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:44:38'!
+with: anAccountToReportOn
+	
+	account := anAccountToReportOn ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'NetTransferReport class' category: 'Portfolio-Solucion'!
+NetTransferReport class
+	instanceVariableNames: ''!
+
+!NetTransferReport class methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:44:15'!
+for: anAccountToReportOn
+
+	^NetTransferReport new with: anAccountToReportOn ! !
+
+
 !classDefinition: #Transfer category: 'Portfolio-Solucion'!
 Object subclass: #Transfer
 	instanceVariableNames: 'value from to'
@@ -1087,7 +1113,7 @@ from
 Transfer class
 	instanceVariableNames: ''!
 
-!Transfer class methodsFor: 'initialize' stamp: 'eaam 10/21/2023 01:05:28'!
+!Transfer class methodsFor: 'initialize' stamp: 'eaam 10/23/2023 21:45:25'!
 from: aAccountToTransferFrom to: aAccountToTransferTo amount: aAmountToTransfer
 	| transfer outgoingTransfer incomingTransfer |
 	
@@ -1095,13 +1121,11 @@ from: aAccountToTransferFrom to: aAccountToTransferTo amount: aAmountToTransfer
 	
 	transfer := self new.
 	
-	outgoingTransfer := OutgoingTransfer register: transfer on: aAccountToTransferFrom.
-	incomingTransfer := IncomingTransfer register: transfer on: aAccountToTransferTo.
+	outgoingTransfer := OutgoingLegTransfer register: transfer on: aAccountToTransferFrom.
+	incomingTransfer := IncomingLegTransfer register: transfer on: aAccountToTransferTo.
 	
 	transfer initializeFrom: outgoingTransfer to: incomingTransfer forAmount: aAmountToTransfer.
-	
-	aAccountToTransferFrom register: transfer.
-	aAccountToTransferTo register: transfer.
+
 	^transfer.
 	! !
 
