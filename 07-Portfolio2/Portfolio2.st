@@ -1,70 +1,51 @@
-!classDefinition: #AccountNetTransferTests category: 'Portfolio-Solucion'!
+!classDefinition: #AccountNetTransferTests category: 'Portfolio2-Tests'!
 TestCase subclass: #AccountNetTransferTests
-	instanceVariableNames: ''
+	instanceVariableNames: 'zeroNetTransferReport report account sendingAccount receivingAccount'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Tests'!
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:41:52'!
-test01NetTransferForNewAccountIsZero
-	| account report|
-	account := ReceptiveAccount new.
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:01:19'!
+test01NetTransferReportStartsReportingZero
 
-	report := account netTransfers.
-	self assert: report equals: 0! !
+	self assert: report content equals: zeroNetTransferReport ! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:44:02'!
-test02NetTransferReportStartsReportingZero
-	| accounttoExtractFrom accountToDeposit netTransfer report account|
-	accounttoExtractFrom := ReceptiveAccount new.
-	accountToDeposit := ReceptiveAccount new.
-	account := ReceptiveAccount new.
-	netTransfer := 'Neto de transferencias: 0'.
-	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := NetTransferReport for: account.
-	self assert: report content equals: netTransfer! !
-
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:15:43'!
-test03NetTransferReportChangesForIncomingTransfer
-	| accounttoExtractFrom accountToDeposit netTransfer report|
-	accounttoExtractFrom := ReceptiveAccount new.
-	accountToDeposit := ReceptiveAccount new.
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:00:23'!
+test02NetTransferReportChangesForIncomingTransfer
+	| netTransfer reportForReceivingAccount|
+	sendingAccount := ReceptiveAccount new.
+	receivingAccount := ReceptiveAccount new.
 	netTransfer := 'Neto de transferencias: 1'.
-	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := NetTransferReport for: accountToDeposit .
-	self assert: report content equals: netTransfer! !
+	Transfer from: sendingAccount to: receivingAccount amount: 1.
+	reportForReceivingAccount := AccountNetTransferReport for: receivingAccount .
+	self assert: reportForReceivingAccount content equals: netTransfer! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:39:48'!
-test04NetTransferReportChangesForOutgoingTransfer
-	| accounttoExtractFrom accountToDeposit netTransfer report|
-	accounttoExtractFrom := ReceptiveAccount new.
-	accountToDeposit := ReceptiveAccount new.
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:00:37'!
+test03NetTransferReportChangesForOutgoingTransfer
+	| netTransfer reportForSendingAccount|
+	sendingAccount := ReceptiveAccount new.
+	receivingAccount := ReceptiveAccount new.
 	netTransfer := 'Neto de transferencias: -1'.
-	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := NetTransferReport for: accounttoExtractFrom .
-	self assert: report content equals: netTransfer! !
+	Transfer from: sendingAccount to: receivingAccount amount: 1.
+	reportForSendingAccount := AccountNetTransferReport for: sendingAccount .
+	self assert: reportForSendingAccount content equals: netTransfer! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:38'!
-test05NetTransferReportDoesntChangeForDeposit
-	| account netTransfer report|
-	account := ReceptiveAccount new.
-	netTransfer := 'Neto de transferencias: 0'.
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:01:19'!
+test04NetTransferReportDoesntChangeForDeposit
+
 	Deposit register: 1 on: account .
-	report := NetTransferReport for: account .
-	self assert: report content equals: netTransfer! !
+	self assert: report content equals: zeroNetTransferReport ! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:51:51'!
-test06NetTransferReportDoesntChangeForWithdraw
-	| account netTransfer report|
-	account := ReceptiveAccount new.
-	netTransfer := 'Neto de transferencias: 0'.
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:01:19'!
+test05NetTransferReportDoesntChangeForWithdraw
+
 	Withdraw register: 1 on: account .
-	report := NetTransferReport for: account .
-	self assert: report content equals: netTransfer! !
+	report := AccountNetTransferReport for: account .
+	self assert: report content equals: zeroNetTransferReport ! !
 
-!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 14:55:08'!
-test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
-	| account1 account2 netTransfer report|
+!AccountNetTransferTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:01:13'!
+test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions
+	| account1 account2 netTransfer reportForAccount2|
 	account1 := ReceptiveAccount new.
 	account2 := ReceptiveAccount new.
 	netTransfer := 'Neto de transferencias: 1'.
@@ -72,98 +53,167 @@ test07NetTransferReportIsCorrectOnAccountWithMultipleTransactions
 	Transfer from: account2 to: account1 amount: 1.
 	Withdraw register: 100 on: account2 .
 	Deposit register: 500 on: account2 .
-	report := NetTransferReport for: account2 .
-	self assert: report content equals: netTransfer! !
+	reportForAccount2 := AccountNetTransferReport for: account2 .
+	self assert: reportForAccount2 content equals: netTransfer! !
+
+
+!AccountNetTransferTests methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:01:19'!
+setUp
+
+	account := ReceptiveAccount new.
+	sendingAccount := ReceptiveAccount new.
+	receivingAccount := ReceptiveAccount new.
+	
+	report := AccountNetTransferReport for: account	.
+	
+	zeroNetTransferReport := 'Neto de transferencias: 0'.
+! !
 
 
-!classDefinition: #AccountSummaryTests category: 'Portfolio-Solucion'!
+!classDefinition: #AccountSummaryTests category: 'Portfolio2-Tests'!
 TestCase subclass: #AccountSummaryTests
-	instanceVariableNames: ''
+	instanceVariableNames: 'account sendingAccount receivingAccount summary report'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Tests'!
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:17:58'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 01:52:51'!
 test01SummaryOfNewAccountReportsZeroBalance
-	| account summary report|
-	account := ReceptiveAccount new.
-	summary := OrderedCollection new.
-	report := AccountSummaryReport sumaryOf: account.
+	
+	
 	summary add: 'Balance = 0'.
 	report summary.
 	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:27'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 01:53:16'!
 test02SummaryReportsDepositCorrectly
-	| account summary report|
-	account := ReceptiveAccount new.
-	summary := OrderedCollection new.
+	
 	Deposit register: 10 on: account.
-	report := AccountSummaryReport sumaryOf: account. 
 	summary add: 'Depósito por 10'.
 	summary add: 'Balance = 10'.
 	report summary.
 	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:42'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 01:53:16'!
 test03SummaryReportsWithdrawalCorrectly
-	| account summary report|
-	account := ReceptiveAccount new.
-	summary := OrderedCollection new.
+	
 	Withdraw register: 10 on: account. 
-	report := AccountSummaryReport sumaryOf: account.
 	summary add: 'Extracción por 10'.
 	summary add: 'Balance = -10'.
 	report summary.
 	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:18:55'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:08:35'!
 test04SummaryReportsOutgoingTransferCorrectly
-	| accounttoExtractFrom accountToDeposit summary report|
-	accounttoExtractFrom := ReceptiveAccount new.
-	accountToDeposit := ReceptiveAccount new.
-	summary := OrderedCollection new.
-	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := AccountSummaryReport sumaryOf: accounttoExtractFrom.
+	
+	
+	Transfer from: sendingAccount to: receivingAccount amount: 1.
+	report := AccountSummaryReport for: sendingAccount.
 	summary add: 'Salida por transferencia de 1'.
 	summary add: 'Balance = -1'.
 	report summary.
 	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:19:08'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 02:08:35'!
 test05SummaryReportsIncomingTransferCorrectly
-	| accounttoExtractFrom accountToDeposit summary report|
-	accounttoExtractFrom := ReceptiveAccount new.
-	accountToDeposit := ReceptiveAccount new.
-	summary := OrderedCollection new.
-	Transfer from: accounttoExtractFrom to: accountToDeposit amount: 1.
-	report := AccountSummaryReport sumaryOf: accountToDeposit.
+	
+	Transfer from: sendingAccount to: receivingAccount amount: 1.
+	report := AccountSummaryReport for: receivingAccount.
 	summary add: 'Entrada por transferencia de 1'.
 	summary add: 'Balance = 1'.
 	report summary.
 	self assert: report content equals: summary! !
 
-!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/24/2023 02:19:22'!
+!AccountSummaryTests methodsFor: 'tests' stamp: 'Sof D 10/25/2023 01:53:16'!
 test06SummaryReportsMultipleTransactionsCorrectly
-	| account summary report|
-	account := ReceptiveAccount new.
-	summary := OrderedCollection new.
+	
 	Deposit register: 100 on: account.
 	Withdraw register: 50 on: account. 
-	report := AccountSummaryReport sumaryOf: account.
 	summary add: 'Depósito por 100'.
 	summary add: 'Extracción por 50'.
 	summary add: 'Balance = 50'.
 	report summary.
 	self assert: report content equals: summary! !
 
+
+!AccountSummaryTests methodsFor: 'setup' stamp: 'Sof D 10/25/2023 02:08:35'!
+setUp 
+	account := ReceptiveAccount new.
+	sendingAccount := ReceptiveAccount new.
+	receivingAccount := ReceptiveAccount new.
+	
+	summary := OrderedCollection new.
+	report := AccountSummaryReport for: account.! !
+
 
-!classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio anotherPortfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:29:36'!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	anotherPortfolio := Portfolio named: 'Portfolio de Kent'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.! !
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:14:15'!
+test01PortfolioReportPrintsPortfoliosName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:14:38'!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Cuenta de Nico'.
+	
+	portfolio add: account.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:27:45'!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Cuenta de Nico'.
+	expectedReport add: '   Cuenta de Chris'.
+	
+	portfolio add: account.
+	portfolio add: anotherAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:29:42'!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio de Kent'.
+	
+	portfolio add: anotherPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+
+!classDefinition: #PortfolioTest category: 'Portfolio2-Tests'!
 TestCase subclass: #PortfolioTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Tests'!
 
 !PortfolioTest methodsFor: 'tests' stamp: 'HAW 5/25/2019 11:16:26'!
 test01BalanceOfPortfolioWithoutAccountsIsZero
@@ -417,12 +467,12 @@ test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio
 	self assert: (portfolioToName isComposedBy: portfolioToAdd).! !
 
 
-!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio2-Tests'!
 TestCase subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Tests'!
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:19:48'!
 test01ReceptiveAccountHaveZeroAsBalanceWhenCreated 
@@ -517,12 +567,12 @@ test08AccountCanInitializeWithName
 	self assert: account1 accountName equals: 'Cuenta de leo'.! !
 
 
-!classDefinition: #TransferTest category: 'Portfolio-Solucion'!
+!classDefinition: #TransferTest category: 'Portfolio2-Tests'!
 TestCase subclass: #TransferTest
 	instanceVariableNames: 'account1 account2 transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Tests'!
 
 !TransferTest methodsFor: 'setup' stamp: 'Sof D 10/24/2023 02:27:18'!
 setUp
@@ -616,14 +666,12 @@ test10transferIsRegistered
 	self assert: (account1 hasRegistered: transfer from).
 	self assert:  (account2 hasRegistered: transfer to).
 ! !
-
-
-!classDefinition: #Account category: 'Portfolio-Solucion'!
+!classDefinition: #Account category: 'Portfolio2-Ejercicio'!
 Object subclass: #Account
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:23:47'!
 hasRegistered: aTransaction
@@ -659,12 +707,12 @@ addedTo: aPortfolio
 	self subclassResponsibility ! !
 
 
-!classDefinition: #Portfolio category: 'Portfolio-Solucion'!
+!classDefinition: #Portfolio category: 'Portfolio2-Ejercicio'!
 Account subclass: #Portfolio
 	instanceVariableNames: 'accounts parents accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 11:49:20'!
 accountsIncludes: anAccount
@@ -778,9 +826,15 @@ signalCanNotAddAccount
 	
 	self error: self class canNotAddAccountErrorMessage! !
 
+
+!Portfolio methodsFor: 'report generation' stamp: 'Sof D 10/25/2023 02:28:20'!
+processAccountsForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ : anAccount | aReportToGenerate reportProcessAccount: anAccount ]! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Portfolio class' category: 'Portfolio-Solucion'!
+!classDefinition: 'Portfolio class' category: 'Portfolio2-Ejercicio'!
 Portfolio class
 	instanceVariableNames: ''!
 
@@ -818,12 +872,12 @@ with: anAccount with: anotherAccount
 		yourself! !
 
 
-!classDefinition: #ReceptiveAccount category: 'Portfolio-Solucion'!
+!classDefinition: #ReceptiveAccount category: 'Portfolio2-Ejercicio'!
 Account subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions accountName'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
 initialize
@@ -883,19 +937,14 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/24/2023 15:15:39'!
-netTransfers
-	^transactions inject: 0 into: [ : accumulatedAmmount : aTransaction | aTransaction affectNetTransferAmount: accumulatedAmmount ]
-	! !
-
-!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/23/2023 02:29:33'!
-summary: aReport
-	transactions do: [:aTransaction | aTransaction dataPrintIn: aReport]
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/25/2023 01:24:43'!
+processTransactionsForReport: aReportToGenerate
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ReceptiveAccount class' category: 'Portfolio-Solucion'!
+!classDefinition: 'ReceptiveAccount class' category: 'Portfolio2-Ejercicio'!
 ReceptiveAccount class
 	instanceVariableNames: ''!
 
@@ -904,61 +953,141 @@ named: aAccountName
 	^self new setName: aAccountName.! !
 
 
-!classDefinition: #AccountSummaryReport category: 'Portfolio-Solucion'!
-Object subclass: #AccountSummaryReport
+!classDefinition: #AccountReport category: 'Portfolio2-Ejercicio'!
+Object subclass: #AccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!AccountReport methodsFor: 'content' stamp: 'Sof D 10/25/2023 01:26:10'!
+content
+	self subclassResponsibility ! !
+
+
+!AccountReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:26:55'!
+reportProcessesDeposit: aDepositToReportOn 
+	self subclassResponsibility ! !
+
+!AccountReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:31:20'!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn
+	self subclassResponsibility ! !
+
+!AccountReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:29:04'!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+	self subclassResponsibility ! !
+
+!AccountReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:28:23'!
+reportProcessesWithdraw: aWithdrawToReportOn
+	self subclassResponsibility ! !
+
+
+!classDefinition: #AccountNetTransferReport category: 'Portfolio2-Ejercicio'!
+AccountReport subclass: #AccountNetTransferReport
+	instanceVariableNames: 'account amount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!AccountNetTransferReport methodsFor: 'content' stamp: 'Sof D 10/25/2023 01:27:45'!
+content
+	
+	account processTransactionsForReport: self.
+	
+	^'Neto de transferencias: ', amount asString! !
+
+
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:27:05'!
+reportProcessesDeposit: aDepositToReportOn 
+	! !
+
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:30:23'!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn
+	amount := amount + anIncomingTransferToReportOn value! !
+
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:29:16'!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+	amount := amount - anOutgoingTransferToReportOn value! !
+
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:28:16'!
+reportProcessesWithdraw: aWithdrawToReportOn
+! !
+
+
+!AccountNetTransferReport methodsFor: 'initialization' stamp: 'Sof D 10/25/2023 01:27:13'!
+with: anAccountToReportOn
+	
+	account := anAccountToReportOn .
+	amount := 0! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'AccountNetTransferReport class' category: 'Portfolio2-Ejercicio'!
+AccountNetTransferReport class
+	instanceVariableNames: ''!
+
+!AccountNetTransferReport class methodsFor: 'instance creation' stamp: 'Sof D 10/25/2023 02:09:02'!
+for: anAccountToReportOn
+
+	^self new with: anAccountToReportOn ! !
+
+
+!classDefinition: #AccountSummaryReport category: 'Portfolio2-Ejercicio'!
+AccountReport subclass: #AccountSummaryReport
 	instanceVariableNames: 'account accountSummary'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
-!AccountSummaryReport methodsFor: 'initialization' stamp: 'eaam 10/23/2023 01:57:39'!
-initializeSumary: aAccount
+!AccountSummaryReport methodsFor: 'initialization' stamp: 'Sof D 10/25/2023 02:08:54'!
+with: aAccount
 	account := aAccount.
 	accountSummary := OrderedCollection new.! !
 
 
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 01:57:39'!
+!AccountSummaryReport methodsFor: 'contents' stamp: 'eaam 10/23/2023 01:57:39'!
 content
 	^accountSummary! !
 
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 02:02:40'!
-printDepositWithValue: aValue 
-	accountSummary add: ('Depósito por ', aValue asString).! !
-
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 02:21:31'!
-printIncomingTransferWithValue: aValue 
-	accountSummary add: ('Entrada por transferencia de ', aValue asString).! !
-
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 02:18:30'!
-printOutgoingTransferWithValue: aValue 
-	accountSummary add: ('Salida por transferencia de ', aValue asString).! !
-
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 02:03:31'!
-printWithdrawWithValue: aValue 
-	accountSummary add: ('Extracción por ', aValue asString).! !
-
-!AccountSummaryReport methodsFor: 'evaluating' stamp: 'eaam 10/23/2023 02:01:15'!
+!AccountSummaryReport methodsFor: 'contents' stamp: 'Sof D 10/25/2023 01:24:38'!
 summary
-	account summary: self.
+	account processTransactionsForReport: self.
 	accountSummary add: ('Balance = ', account balance asString).! !
+
+
+!AccountSummaryReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:26:47'!
+reportProcessesDeposit: aDepositToReportOn 
+	accountSummary add: ('Depósito por ', aDepositToReportOn value asString).! !
+
+!AccountSummaryReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:29:44'!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn 
+	accountSummary add: ('Entrada por transferencia de ', anIncomingTransferToReportOn value asString).! !
+
+!AccountSummaryReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:28:56'!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+	accountSummary add: ('Salida por transferencia de ', anOutgoingTransferToReportOn value asString).! !
+
+!AccountSummaryReport methodsFor: 'transaction reporting' stamp: 'Sof D 10/25/2023 01:28:12'!
+reportProcessesWithdraw: aWithdrawToReportOn 
+	accountSummary add: ('Extracción por ', aWithdrawToReportOn value asString).! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'AccountSummaryReport class' category: 'Portfolio-Solucion'!
+!classDefinition: 'AccountSummaryReport class' category: 'Portfolio2-Ejercicio'!
 AccountSummaryReport class
 	instanceVariableNames: ''!
 
-!AccountSummaryReport class methodsFor: 'instance creation' stamp: 'eaam 10/23/2023 00:03:51'!
-sumaryOf: aAccount
-	^self new initializeSumary: aAccount! !
+!AccountSummaryReport class methodsFor: 'instance creation' stamp: 'Sof D 10/25/2023 02:08:54'!
+for: aAccount
+	^self new with: aAccount! !
 
 
-!classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
+!classDefinition: #AccountTransaction category: 'Portfolio2-Ejercicio'!
 Object subclass: #AccountTransaction
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
 value 
@@ -971,8 +1100,8 @@ affectBalance: aBalance
 
 	self subclassResponsibility ! !
 
-!AccountTransaction methodsFor: 'balance' stamp: 'eaam 10/23/2023 21:31:23'!
-dataPrintIn: aReport
+!AccountTransaction methodsFor: 'balance' stamp: 'Sof D 10/25/2023 01:24:18'!
+sendToReport: aReport
 
 	self subclassResponsibility! !
 
@@ -983,7 +1112,7 @@ affectNetTransferAmount: anAmountToAddTo
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'AccountTransaction class' category: 'Portfolio-Solucion'!
+!classDefinition: 'AccountTransaction class' category: 'Portfolio2-Ejercicio'!
 AccountTransaction class
 	instanceVariableNames: ''!
 
@@ -998,12 +1127,12 @@ register: aValue on: account
 	^ transaction! !
 
 
-!classDefinition: #Deposit category: 'Portfolio-Solucion'!
+!classDefinition: #Deposit category: 'Portfolio2-Ejercicio'!
 AccountTransaction subclass: #Deposit
 	instanceVariableNames: 'value'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !Deposit methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:45'!
 initializeFor: aValue
@@ -1011,10 +1140,10 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
+!Deposit methodsFor: 'value' stamp: 'Sof D 10/25/2023 01:32:57'!
 value
 
-	^ value! !
+	^ value copy! !
 
 
 !Deposit methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:02'!
@@ -1023,9 +1152,9 @@ affectBalance: aBalance
 	^aBalance + value ! !
 
 
-!Deposit methodsFor: 'print' stamp: 'eaam 10/23/2023 01:52:51'!
-dataPrintIn: aReport
-	aReport printDepositWithValue: value! !
+!Deposit methodsFor: 'print' stamp: 'Sof D 10/25/2023 01:26:36'!
+sendToReport: aReport
+	aReport reportProcessesDeposit: value! !
 
 
 !Deposit methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:12'!
@@ -1034,7 +1163,7 @@ affectNetTransferAmount: anAmountToAddTo
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Deposit class' category: 'Portfolio-Solucion'!
+!classDefinition: 'Deposit class' category: 'Portfolio2-Ejercicio'!
 Deposit class
 	instanceVariableNames: ''!
 
@@ -1044,12 +1173,12 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #IncomingLegTransfer category: 'Portfolio-Solucion'!
+!classDefinition: #IncomingLegTransfer category: 'Portfolio2-Ejercicio'!
 AccountTransaction subclass: #IncomingLegTransfer
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:50:22'!
 affectBalance: aBalance
@@ -1060,23 +1189,23 @@ affectBalance: aBalance
 affectNetTransferAmount: anAmountToAddTo
 	^anAmountToAddTo + transfer value! !
 
-!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:20:03'!
-dataPrintIn: aReport 
-	aReport printIncomingTransferWithValue: self value! !
-
 !IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:42'!
 initializeFor: aTransfer
 
 	transfer := aTransfer ! !
 
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 01:29:31'!
+sendToReport: aReport 
+	aReport reportProcessesIncomingTransfer: self value! !
+
 !IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/21/2023 00:52:13'!
 transfer
 	^transfer! !
 
-!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:19'!
+!IncomingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 01:33:02'!
 value 
 
-	^transfer value! !
+	^transfer value copy! !
 
 
 !IncomingLegTransfer methodsFor: 'category-name' stamp: 'eaam 10/22/2023 23:51:55'!
@@ -1085,7 +1214,7 @@ from
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'IncomingLegTransfer class' category: 'Portfolio-Solucion'!
+!classDefinition: 'IncomingLegTransfer class' category: 'Portfolio2-Ejercicio'!
 IncomingLegTransfer class
 	instanceVariableNames: ''!
 
@@ -1095,12 +1224,12 @@ for: aTransfer
 	^ self new initializeFor: aTransfer ! !
 
 
-!classDefinition: #OutgoingLegTransfer category: 'Portfolio-Solucion'!
+!classDefinition: #OutgoingLegTransfer category: 'Portfolio2-Ejercicio'!
 AccountTransaction subclass: #OutgoingLegTransfer
 	instanceVariableNames: 'transfer'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:52'!
 affectBalance: aBalance
@@ -1111,14 +1240,14 @@ affectBalance: aBalance
 affectNetTransferAmount: anAmountToAddTo
 	^anAmountToAddTo - transfer value! !
 
-!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/23/2023 02:17:27'!
-dataPrintIn: aReport 
-	aReport printOutgoingTransferWithValue: self value! !
-
 !OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:46'!
 initializeFor: aTransfer
 
 	transfer := aTransfer ! !
+
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 01:28:42'!
+sendToReport: aReport 
+	aReport reportProcessesOutgoingTransfer: self value! !
 
 !OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/22/2023 23:52:32'!
 to
@@ -1128,14 +1257,14 @@ to
 transfer
 	^transfer ! !
 
-!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 13:52:26'!
+!OutgoingLegTransfer methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 01:33:08'!
 value 
 
-	^transfer value! !
+	^transfer value copy! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'OutgoingLegTransfer class' category: 'Portfolio-Solucion'!
+!classDefinition: 'OutgoingLegTransfer class' category: 'Portfolio2-Ejercicio'!
 OutgoingLegTransfer class
 	instanceVariableNames: ''!
 
@@ -1145,12 +1274,12 @@ for: aTransfer
 	^ self new initializeFor: aTransfer ! !
 
 
-!classDefinition: #Withdraw category: 'Portfolio-Solucion'!
+!classDefinition: #Withdraw category: 'Portfolio2-Ejercicio'!
 AccountTransaction subclass: #Withdraw
 	instanceVariableNames: 'value'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
 initializeFor: aValue
@@ -1158,10 +1287,10 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+!Withdraw methodsFor: 'value' stamp: 'Sof D 10/25/2023 01:33:20'!
 value
 
-	^ value! !
+	^ value copy! !
 
 
 !Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
@@ -1170,18 +1299,14 @@ affectBalance: aBalance
 	^aBalance - value! !
 
 
-!Withdraw methodsFor: 'print' stamp: 'eaam 10/23/2023 01:54:06'!
-dataPrintIn: aReport
-	aReport printWithdrawWithValue: value! !
+!Withdraw methodsFor: 'print' stamp: 'Sof D 10/25/2023 01:28:00'!
+sendToReport: aReport
+	aReport reportProcessesWithdraw: value! !
 
-
-!Withdraw methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 15:14:20'!
-affectNetTransferAmount: anAmountToAddTo
-	^anAmountToAddTo ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
+!classDefinition: 'Withdraw class' category: 'Portfolio2-Ejercicio'!
 Withdraw class
 	instanceVariableNames: ''!
 
@@ -1191,45 +1316,53 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #NetTransferReport category: 'Portfolio-Solucion'!
-Object subclass: #NetTransferReport
-	instanceVariableNames: 'account'
+!classDefinition: #PortfolioReport category: 'Portfolio2-Ejercicio'!
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
-!NetTransferReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:45:56'!
+!PortfolioReport methodsFor: 'initialization' stamp: 'Sof D 10/25/2023 02:22:12'!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.! !
+
+
+!PortfolioReport methodsFor: 'content' stamp: 'Sof D 10/25/2023 02:22:46'!
 content
-	
-	| netTransferAmount |
-	
-	netTransferAmount := account netTransfers .
-	
-	^'Neto de transferencias: ', netTransferAmount asString! !
+	portfolio processAccountsForReport: self.
+	^content ! !
 
-!NetTransferReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:44:38'!
-with: anAccountToReportOn
-	
-	account := anAccountToReportOn ! !
+
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:25:03'!
+reportProcessAccount: anAccountToReportOn
+
+	content add: ('   ', (anAccountToReportOn accountName) asString )! !
+
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:20:24'!
+reportProcessPortfolio: aPortfolioToReportOn
+
+	content add: aPortfolioToReportOn accountName ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'NetTransferReport class' category: 'Portfolio-Solucion'!
-NetTransferReport class
+!classDefinition: 'PortfolioReport class' category: 'Portfolio2-Ejercicio'!
+PortfolioReport class
 	instanceVariableNames: ''!
 
-!NetTransferReport class methodsFor: 'as yet unclassified' stamp: 'Sof D 10/24/2023 02:44:15'!
-for: anAccountToReportOn
+!PortfolioReport class methodsFor: 'instance creation' stamp: 'Sof D 10/25/2023 02:06:17'!
+for: aPortfolioToReportAbout 
 
-	^NetTransferReport new with: anAccountToReportOn ! !
+	^self new with: aPortfolioToReportAbout ! !
 
 
-!classDefinition: #Transfer category: 'Portfolio-Solucion'!
+!classDefinition: #Transfer category: 'Portfolio2-Ejercicio'!
 Object subclass: #Transfer
 	instanceVariableNames: 'value from to'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
+	category: 'Portfolio2-Ejercicio'!
 
 !Transfer methodsFor: 'as yet unclassified' stamp: 'eaam 10/20/2023 03:17:23'!
 affectBalance: aBalance
@@ -1251,17 +1384,17 @@ value
 	^value! !
 
 
-!Transfer methodsFor: 'category-name' stamp: 'eaam 10/23/2023 02:11:02'!
-dataPrintIn: aReport! !
-
 !Transfer methodsFor: 'category-name' stamp: 'eaam 10/20/2023 14:35:18'!
 from
 	
 	^from! !
 
+!Transfer methodsFor: 'category-name' stamp: 'Sof D 10/25/2023 01:24:18'!
+sendToReport: aReport! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Transfer class' category: 'Portfolio-Solucion'!
+!classDefinition: 'Transfer class' category: 'Portfolio2-Ejercicio'!
 Transfer class
 	instanceVariableNames: ''!
 
