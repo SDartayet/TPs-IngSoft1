@@ -21622,3 +21622,120 @@ PASSED!
 
 !testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:16:57'!
 PASSED!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:34:41' prior: 50682177 overrides: 50682543!
+reportProcessReceptiveAccount: anAccountToReportOn
+
+	content add: (self tabulation, (anAccountToReportOn accountName) )! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:34:44'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:34:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:34:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:34:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:34:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:34:45'!
+PASSED!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:41:11'!
+test07PortfolioReportDoestPrintTransactions
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:42:46' prior: 50682744!
+test07PortfolioReportDoestPrintTransactions
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'eaam 10/26/2023 01:42:48'!
+ERROR!
+
+Object subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #ReceptiveAccountReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:44:37'!
+Object subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Object subclass: #ReportsForPortfolios
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #ReportsForPortfolios category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:44:57'!
+Object subclass: #ReportsForPortfolios
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classRemoval: #ReportsForPortfolios stamp: 'eaam 10/26/2023 01:45:09'!
+Object subclass: #ReportsForPortfolios
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!ReceptiveAccountReport methodsFor: 'transaction reporting' stamp: 'eaam 10/26/2023 01:46:09'!
+reportProcessReceptiveAccount: aReceptiveAccount
+! !
+!ReceptiveAccountReport methodsFor: 'transaction reporting' stamp: 'eaam 10/26/2023 01:46:20' prior: 50682815!
+reportProcessReceptiveAccount: aReceptiveAccount
+	^self subclassResponsibility .! !
+
+AccountReport subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #ReceptiveAccountReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:50:03'!
+AccountReport subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!AccountReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:50:13'!
+reportProcessesDeposit: aDepositToReportOn 
+	self subclassResponsibility ! !
+!AccountReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:50:33'!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn
+	self subclassResponsibility ! !
+!AccountReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:50:40'!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+	self subclassResponsibility ! !
+!AccountReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:50:47'!
+reportProcessesWithdraw: aWithdrawToReportOn
+	self subclassResponsibility ! !
+
+----QUIT----(26 October 2023 01:51:22) CuisUniversity-5981.image priorSource: 11159134!
