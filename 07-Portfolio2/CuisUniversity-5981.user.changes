@@ -24843,3 +24843,274 @@ test01ReportPrintsPortfoliosNameAndBalance
 	self assert: report content equals: expectedReport !
 
 ----QUIT----(26 October 2023 04:53:34) CuisUniversity-5981.image priorSource: 11238797!
+
+----STARTUP---- (26 October 2023 14:27:23) as C:\Users\sofia\Documents\SmalltalkVM\windows64\CuisUniversity-5981.image!
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:09'!
+test04PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: nicoAccount.
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 14:28:09'!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: nicoAccount.
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:13'!
+test07PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: nicoAccount.
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test04PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 14:28:13'!
+test04PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: nicoAccount.
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:18'!
+test08PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 14:28:18'!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:27'!
+test09PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 14:28:28'!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:42'!
+test10PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 14:28:42'!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:59'!
+test07PortfolioReportDoesNothingOnDeposit
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 14:28:59'!
+test07PortfolioReportDoestPrintTransactions
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:29:03'!
+test03PortfolioReportDoesNothingOnDeposit
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportTest #test07PortfolioReportDoesNothingOnDeposit stamp: 'Sof D 10/26/2023 14:29:03'!
+test07PortfolioReportDoesNothingOnDeposit
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:29:21'!
+test04PortfolioReportDoesNothingOnWithdraw
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test04PortfolioReportDoesNothingOnWithdraw stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportDoesNothingOnDeposit stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportDoesNothingOnWithdraw stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test08PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test09PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test10PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 14:29:22'!
+PASSED!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:29:31' prior: 50687120!
+test03PortfolioReportDoesNothingOnDeposit
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Deposit register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:30:32'!
+test05PortfolioReportDoesNothingOnIncomingTransaction
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Transfer from: chrisAccount to: nicoAccount amount: 10000.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test05PortfolioReportDoesNothingOnIncomingTransaction stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportDoesNothingOnDeposit stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportDoesNothingOnWithdraw stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportDoesNothingOnIncomingTransaction stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test08PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test09PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test10PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 14:30:34'!
+PASSED!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:30:51'!
+test06PortfolioReportDoesNothingOnOutgoingTransaction
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Transfer from: nicoAccount to: chrisAccount amount: 10000.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+----QUIT----(26 October 2023 14:31:12) CuisUniversity-5981.image priorSource: 11369072!

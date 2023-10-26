@@ -171,8 +171,52 @@ test02PortfolioReportPrintsItsAccountsName
 	
 	self assert: report content equals: expectedReport ! !
 
-!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:54:12'!
-test03PortfolioReportPrintsMultipleAccountsName
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:29:31'!
+test03PortfolioReportDoesNothingOnDeposit
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Deposit register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:29:21'!
+test04PortfolioReportDoesNothingOnWithdraw
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Withdraw register: 100000 on: nicoAccount.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:30:32'!
+test05PortfolioReportDoesNothingOnIncomingTransaction
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Transfer from: chrisAccount to: nicoAccount amount: 10000.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:30:51'!
+test06PortfolioReportDoesNothingOnOutgoingTransaction
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	Transfer from: nicoAccount to: chrisAccount amount: 10000.
+	
+	parentPortfolio add: nicoAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:13'!
+test07PortfolioReportPrintsMultipleAccountsName
 	
 	expectedReport add: 'Portfolio de Hernan'.
 	expectedReport add: (String tab,'Cuenta de Nico').
@@ -184,8 +228,8 @@ test03PortfolioReportPrintsMultipleAccountsName
 	
 	self assert: report content equals: expectedReport ! !
 
-!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:54:12'!
-test04PortfolioReportPrintsItsPortfoliosNames
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:18'!
+test08PortfolioReportPrintsItsPortfoliosNames
 	
 	expectedReport add: 'Portfolio de Hernan'.
 	expectedReport add: (String tab,'Portfolio de Maximiliano').
@@ -195,8 +239,8 @@ test04PortfolioReportPrintsItsPortfoliosNames
 	
 	self assert: report content equals: expectedReport ! !
 
-!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:59:43'!
-test05PortfolioReportPrintsAComposedPortfolio
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:27'!
+test09PortfolioReportPrintsAComposedPortfolio
 
 	expectedReport add: 'Portfolio de Hernan'.
 	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
@@ -207,8 +251,8 @@ test05PortfolioReportPrintsAComposedPortfolio
 	
 	self assert: report content equals: expectedReport ! !
 
-!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:16:50'!
-test06PortfolioReportPrintsMultipleComposedPortfolio
+!PortfolioReportTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 14:28:42'!
+test10PortfolioReportPrintsMultipleComposedPortfolio
 
 	expectedReport add: 'Portfolio de Hernan'.
 	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
@@ -221,17 +265,6 @@ test06PortfolioReportPrintsMultipleComposedPortfolio
 	parentPortfolio add: aComposedChildPotfolio .
 	parentPortfolio add: anotherComposedChildPortfolio .
 	
-	
-	self assert: report content equals: expectedReport ! !
-
-!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:42:46'!
-test07PortfolioReportDoestPrintTransactions
-
-	expectedReport add: 'Portfolio de Hernan'.
-	expectedReport add: (String tab,'Cuenta de Nico').
-	Withdraw register: 100000 on: nicoAccount.
-	
-	parentPortfolio add: nicoAccount .
 	
 	self assert: report content equals: expectedReport ! !
 
