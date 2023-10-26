@@ -21739,3 +21739,3107 @@ reportProcessesWithdraw: aWithdrawToReportOn
 	self subclassResponsibility ! !
 
 ----QUIT----(26 October 2023 01:51:22) CuisUniversity-5981.image priorSource: 11159134!
+
+----STARTUP---- (26 October 2023 02:27:02) as C:\Users\sofia\Documents\SmalltalkVM\windows64\CuisUniversity-5981.image!
+
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 02:27:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:27:35'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:27:35'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 02:29:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:29:35'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:29:35'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 02:29:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+ERROR!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 02:29:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:29:46'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 02:29:56'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 02:29:58'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 02:30:00'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 02:30:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:31:04'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:31:04'!
+ERROR!
+!PortfolioReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:31:43' overrides: 50682840!
+reportProcessesDeposit: aDepositToReportOn 
+! !
+!PortfolioReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:31:54' overrides: 50682846!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn
+! !
+!PortfolioReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:32:03' overrides: 50682852!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+! !
+!PortfolioReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:32:10' overrides: 50682858!
+reportProcessesWithdraw: aWithdrawToReportOn
+! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 02:32:26'!
+PASSED!
+
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:36:14'!
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioReportWithSummaries methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 02:36:45' overrides: 50680578!
+content
+	portfolio processAccountForReport: self.
+	^content ! !
+
+!methodRemoval: PortfolioReportWithSummaries #content stamp: 'Sof D 10/26/2023 02:37:05'!
+content
+	portfolio processAccountForReport: self.
+	^content !
+
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:37:24'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:39:07'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:39:08'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportWithSummariesTest methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 02:39:05'!
+test01ReportPrintsPortfoliosName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReport methodsFor: 'report generation' stamp: 'Sof D 10/26/2023 02:50:01'!
+reportEndForPortfolio
+	timesToTab := timesToTab - 1.! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 02:50:01' prior: 50682296!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ :anAccount | anAccount processAccountForReport: aReportToGenerate ].
+	aReportToGenerate reportEndForPortfolio.! !
+
+!methodRemoval: PortfolioReport #reportEnd stamp: 'Sof D 10/26/2023 02:50:01'!
+reportEnd
+	timesToTab := timesToTab - 1.!
+
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:50:43'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:50:49'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:42'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:43'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:45'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:46'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount chrisAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:47'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount chrisAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:49'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount chrisAccount isw1Account deboraAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:50'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount chrisAccount isw1Account deboraAccount aComposedChildPotfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportWithSummariesTest category: 'Portfolio2-Tests' stamp: 'Sof D 10/26/2023 02:51:51'!
+TestCase subclass: #PortfolioReportWithSummariesTest
+	instanceVariableNames: 'expectedReport report parentPortfolio aChildPortfolio nicoAccount chrisAccount isw1Account deboraAccount aComposedChildPotfolio anotherComposedChildPortfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportWithSummariesTest methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:51:40' overrides: 16961394!
+setUp
+	parentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: parentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Agustin' with: deboraAccount with: chrisAccount.! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:51:54'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'setup' stamp: 'Sof D 10/26/2023 02:52:04' prior: 50683502 overrides: 16961394!
+setUp
+	parentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReportWithSummaries for: parentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Agustin' with: deboraAccount with: chrisAccount.! !
+!PortfolioReportWithSummaries class methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 02:52:46'!
+for: aPortfolioToReportAbout 
+
+	^self new with: aPortfolioToReportAbout ! !
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:53:08'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:53:09'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioReportWithSummaries methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 02:53:06'!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:53:15'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:53:15'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 02:53:51'!
+content
+	content add: portfolio accountName 
+	^content ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:53:55'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:53:55'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 02:54:01' prior: 50683597!
+content
+	content add: portfolio accountName .
+	^content ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 02:54:04'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 02:54:45'!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 02:54:46'!
+FAILURE!
+
+!methodRemoval: PortfolioReportWithSummaries #content stamp: 'Sof D 10/26/2023 02:56:23'!
+content
+	content add: portfolio accountName .
+	^content !
+
+!methodRemoval: PortfolioReportWithSummaries #with: stamp: 'Sof D 10/26/2023 02:56:25'!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.!
+
+!methodRemoval: PortfolioReportWithSummaries class #for: stamp: 'Sof D 10/26/2023 02:56:28'!
+for: aPortfolioToReportAbout 
+
+	^self new with: aPortfolioToReportAbout !
+
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 02:56:39'!
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 04:11:31'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioReportWithSummaries class methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 04:12:26'!
+for: aPortfolioToReportAbout 
+
+	^self new with: aPortfolioToReportAbout ! !
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 04:12:43'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 04:12:44'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 04:12:46'!
+Object subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioReportWithSummaries methodsFor: 'no messages' stamp: 'Sof D 10/26/2023 04:12:42'!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.! !
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:13:11'!
+content
+	content add: portfolio accountName .
+	^content! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:13:14'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:13:25'!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:13:43' prior: 50683729!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:14:17' prior: 50683741!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:14:23'!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:14:47'!
+test01ReportPrintsPortfoliosNameAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: 'Balance = 0'.	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:14:48'!
+FAILURE!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:15:07' prior: 50683780!
+test01ReportPrintsPortfoliosNameAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Balance = 0').	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:15:27' prior: 50683720!
+content
+	content add: portfolio accountName .
+	content add: (String tab, portfolio balance).
+	^content! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:15:31'!
+test01ReportPrintsPortfoliosName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	
+	self assert: report content equals: expectedReport !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:15:32'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:15:32'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:15:42' prior: 50683804!
+content
+	content add: portfolio accountName .
+	content add: (String tab, portfolio balance asString).
+	^content! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:15:45'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:15:45'!
+FAILURE!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:16:09' prior: 50683828!
+content
+	content add: portfolio accountName .
+	content add: (String tab, 'Balance = ', portfolio balance asString).
+	^content! !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:16:12'!
+PASSED!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:17:01' prior: 50683844!
+content
+	portfolio processAccountForReport: self.
+	^content! !
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:17:26'!
+reportProcessPortfolio: aPortfolioToReportOn
+
+	content add: (self tabulation, aPortfolioToReportOn accountName).
+	timesToTab :=  timesToTab + 1.! !
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:19:51'!
+reportEndForPortfolio
+	content add: (self tabulation, 'Balance = ' aPortfolioToReportOn balance).
+	timesToTab := timesToTab - 1.
+	! !
+!PortfolioReport methodsFor: 'report generation' stamp: 'Sof D 10/26/2023 04:20:07'!
+reportEndForPortfolio: aPortfolioToReportOn
+	timesToTab := timesToTab - 1.! !
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:20:07'!
+reportEndForPortfolio: aPortfolioToReportOn
+	content add: (self tabulation, 'Balance = ' aPortfolioToReportOn balance).
+	timesToTab := timesToTab - 1.
+	! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:20:08' prior: 50683369!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ :anAccount | anAccount processAccountForReport: aReportToGenerate ].
+	aReportToGenerate reportEndForPortfolio: self.! !
+
+!methodRemoval: PortfolioReport #reportEndForPortfolio stamp: 'Sof D 10/26/2023 04:20:08'!
+reportEndForPortfolio
+	timesToTab := timesToTab - 1.!
+
+!methodRemoval: PortfolioReportWithSummaries #reportEndForPortfolio stamp: 'Sof D 10/26/2023 04:20:08'!
+reportEndForPortfolio
+	content add: (self tabulation, 'Balance = ' aPortfolioToReportOn balance).
+	timesToTab := timesToTab - 1.
+	!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:20:20' prior: 50683882!
+reportEndForPortfolio: aPortfolioToReportOn
+	content add: (self tabulation, 'Balance = ', aPortfolioToReportOn balance asString).
+	timesToTab := timesToTab - 1.
+	! !
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:20:29'!
+tabulation
+	| tabulation |
+	tabulation := ''.
+	timesToTab timesRepeat: [tabulation := tabulation, String tab].
+	^tabulation! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'Sof D 10/26/2023 04:21:04' prior: 50681775!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessReceptiveAccount: self.
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate].
+	aReportToGenerate reportEndForReceptiveAccount: self.
+	! !
+!PortfolioReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:21:23'!
+reportEndForReceptiveAccount: aReceptiveAccountToReportOn! !
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:21:44'!
+reportEndForReceptiveAccount: aReceptiveAccountToReportOn! !
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:22:22'!
+reportProcessReceptiveAccount: anAccountToReportOn
+
+	content add: (self tabulation, (anAccountToReportOn accountName) ).
+	timesToTab := timesToTab + 1! !
+!PortfolioReportWithSummaries methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:23:09'!
+reportProcessesDeposit: aDepositToReportOn 
+
+	content add: (self tabulation, 'Deposito por ', aDepositToReportOn value)! !
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndTransactions stamp: 'Sof D 10/26/2023 04:23:15'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:23:23' prior: 50683957!
+reportProcessesDeposit: aDepositToReportOn 
+
+	content add: (self tabulation, 'Deposito por ', aDepositToReportOn value asString)! !
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndTransactions stamp: 'Sof D 10/26/2023 04:23:26'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndTransactions stamp: 'Sof D 10/26/2023 04:23:26'!
+FAILURE!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:23:59' prior: 50683754!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	expectedReport add: (String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:24:13' prior: 50683987!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:24:46' prior: 50683943!
+reportEndForReceptiveAccount: aReceptiveAccountToReportOn
+	content add: (self tabulation, 'Balance = ', aReceptiveAccountToReportOn balance asString).
+	timesToTab := timesToTab - 1.! !
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndTransactions stamp: 'Sof D 10/26/2023 04:24:53'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:25:04'!
+test02PortfolioReportPrintsItsAccountsNameTransactionsAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndTransactions stamp: 'Sof D 10/26/2023 04:25:04'!
+test02PortfolioReportPrintsItsAccountsNameAndTransactions
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:26:23'!
+test03PortfolioReportPrintsItsPortfoliosNamesAndBalances
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+	expectedReport add: (String tab,'Balance = 0').
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:26:25'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:27:19'!
+test04PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Balance = 0').
+	
+	
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:28:13'!
+test03333PortfolioReportPrintsItsPortfoliosNamesAndBalances
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+	expectedReport add: (String tab,'Balance = 0').
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:28:13'!
+test03PortfolioReportPrintsItsPortfoliosNamesAndBalances
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+	expectedReport add: (String tab,'Balance = 0').
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:28:31'!
+test02PortfolioReportPrintsItsAccountsNameAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Balance = 0').	
+	expectedReport add: (String tab, 'Balance = 0').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:28:32'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:28:32'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:28:33'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameTransactionsAndBalance stamp: 'Sof D 10/26/2023 04:28:33'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03333PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:28:33'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:28:33'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:28:33'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:28:39'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:28:56'!
+test03PortfolioReportPrintsItsAccountsNameAndDeposit
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsNameAndDeposit stamp: 'Sof D 10/26/2023 04:28:58'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsNameAndDeposit stamp: 'Sof D 10/26/2023 04:28:58'!
+FAILURE!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:29:09' prior: 50684194!
+test03PortfolioReportPrintsItsAccountsNameAndDeposit
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsNameAndDeposit stamp: 'Sof D 10/26/2023 04:29:10'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:29:18'!
+test04PortfolioReportPrintsItsAccountsNameAndWithdraw
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test04PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:29:20'!
+test04PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Balance = 0').
+	
+	
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport !
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameTransactionsAndBalance stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03333PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsNameAndDeposit stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:29:23'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:29:26'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:29:42' prior: 50684242!
+test04PortfolioReportPrintsItsAccountsNameAndWithdraw
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Extraccion por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Withdraw register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:29:43'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:30:08'!
+reportProcessesWithdraw: aWithdrawToReportOn 
+
+	content add: (self tabulation, 'Extraccion por ', aWithdrawToReportOn value asString)! !
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:30:14'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:30:14'!
+FAILURE!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:30:37' prior: 50684315!
+test04PortfolioReportPrintsItsAccountsNameAndWithdraw
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Extraccion por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Withdraw register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:30:38'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:30:47'!
+test04PortfolioReportPrintsItsAccountsWithdraw
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Extraccion por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Withdraw register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsNameAndWithdraw stamp: 'Sof D 10/26/2023 04:30:47'!
+test04PortfolioReportPrintsItsAccountsNameAndWithdraw
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Extraccion por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Withdraw register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:30:53'!
+test03PortfolioReportPrintsItsAccountsDeposit
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsNameAndDeposit stamp: 'Sof D 10/26/2023 04:30:53'!
+test03PortfolioReportPrintsItsAccountsNameAndDeposit
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:31:40'!
+test04PortfolioReportPrintsItsAccountsIncomingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Entrada por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	Withdraw register: 1 on: nicoAccount .
+	
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:32:05' prior: 50684452!
+test04PortfolioReportPrintsItsAccountsIncomingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Entrada por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	chrisAccount to: nicoAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:32:10'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:32:10'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:32:40'!
+reportProcessesIncomingTransfer: anIncomingTransferToReportOn 
+
+	content add: (self tabulation, 'Entrada por transferencia de ', anIncomingTransferToReportOn value asString)! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:32:49'!
+test05PortfolioReportPrintsItsAccountsIncomingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Entrada por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	chrisAccount to: nicoAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:32:49'!
+test04PortfolioReportPrintsItsAccountsIncomingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Entrada por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	chrisAccount to: nicoAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport !
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:32:51'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:33:16'!
+test05PortfolioReportPrintsItsAccountsOutgoingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Entrada por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	nicoAccount to: chrisAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:33:24' prior: 50684552!
+test05PortfolioReportPrintsItsAccountsOutgoingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Salida por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	nicoAccount to: chrisAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:33:27'!
+test06PortfolioReportPrintsItsAccountsOutgoingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Salida por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	nicoAccount to: chrisAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:33:27'!
+test05PortfolioReportPrintsItsAccountsOutgoingTransfer
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Salida por transferencia de 1').
+
+	expectedReport add: (String tab, String tab, 'Balance = -1').	
+	expectedReport add: (String tab, 'Balance = -1').	
+
+	
+	parentPortfolio add: nicoAccount.
+
+	Transfer from: 	nicoAccount to: chrisAccount amount: 1.	
+	
+	
+	self assert: report content equals: expectedReport !
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:33:29'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:33:29'!
+ERROR!
+!PortfolioReportWithSummaries methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 04:33:53'!
+reportProcessesOutgoingTransfer: anOutgoingTransferToReportOn 
+
+	content add: (self tabulation, 'Salida por transferencia de ', anOutgoingTransferToReportOn value asString)! !
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:33:59'!
+PASSED!
+
+!methodRemoval: PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameTransactionsAndBalance stamp: 'Sof D 10/26/2023 04:34:10'!
+test02PortfolioReportPrintsItsAccountsNameTransactionsAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, 'Deposito por 1').
+	expectedReport add: (String tab, String tab, 'Balance = 1').	
+	expectedReport add: (String tab, 'Balance = 1').	
+
+	
+	parentPortfolio add: nicoAccount.
+	
+	Deposit register: 1 on: nicoAccount .
+	
+	
+	self assert: report content equals: expectedReport !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:34:23'!
+test07PortfolioReportPrintsItsPortfoliosNamesAndBalances
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+	expectedReport add: (String tab,'Balance = 0').
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test03333PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:34:24'!
+test03333PortfolioReportPrintsItsPortfoliosNamesAndBalances
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+	expectedReport add: (String tab,'Balance = 0').
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport !
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:34:26'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:37:07'!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	
+	
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:38:39' prior: 50684709!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab, String tab, String tab, 'Deposito por 5000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 5000000').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	expectedReport add: (String tab, String tab, String tab, 'Extraccion por 9999').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -9999').
+	expectedReport add: (String tab, String tab, 'Balance = 4000001').
+
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:39:07' prior: 50684747!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab, String tab, String tab, 'Deposito por 5000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 5000000').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	expectedReport add: (String tab, String tab, String tab, 'Extraccion por 9999').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -9999').
+	expectedReport add: (String tab, String tab, 'Balance = 4000001').
+	expectedReport add: (String tab, 'Balance = 4000001').
+
+
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:39:11'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:39:11'!
+FAILURE!
+
+expectedReport !
+
+report !
+
+report content!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:40:48' prior: 50684797!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab, String tab, String tab, 'Deposito por 5000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 5000000').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	expectedReport add: (String tab, String tab, String tab, 'Extraccion por 9999').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -9999').
+	expectedReport add: (String tab, String tab, 'Balance = 4000001').
+	expectedReport add: (String tab, 'Balance = 4000001').
+
+
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	Transfer from: isw1Account to: nicoAccount amount: 1000000.
+	Deposit register: 5000000 on: deboraAccount .
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:40:58' prior: 50684859!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab, String tab, String tab, 'Deposito por 5000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 5000000').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	expectedReport add: (String tab, String tab, String tab, 'Extraccion por 9999').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -9999').
+	expectedReport add: (String tab, String tab, 'Balance = 4000001').
+	expectedReport add: (String tab, 'Balance = 4000001').
+
+
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	Transfer from: isw1Account to: nicoAccount amount: 1000000.
+	Deposit register: 5000000 on: deboraAccount .
+	Withdraw register: 9999 on: chrisAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:41:00'!
+FAILURE!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:41:00'!
+FAILURE!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:42:00' prior: 50684914!
+test08PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab, String tab, String tab, 'Entrada por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 1000000').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, String tab, String tab, 'Salida por transferencia de 1000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -1000000').
+	expectedReport add: (String tab, String tab, 'Balance = 0').
+
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab, String tab, String tab, 'Deposito por 5000000').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = 5000000').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	expectedReport add: (String tab, String tab, String tab, 'Extraccion por 9999').
+	expectedReport add: (String tab, String tab, String tab, 'Balance = -9999').
+	expectedReport add: (String tab, String tab, 'Balance = 4990001').
+	expectedReport add: (String tab, 'Balance = 4990001').
+
+
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	Transfer from: isw1Account to: nicoAccount amount: 1000000.
+	Deposit register: 5000000 on: deboraAccount .
+	Withdraw register: 9999 on: chrisAccount .
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:42:03'!
+PASSED!
+
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReportWithSummaries category: 'Portfolio2-Ejercicio' stamp: 'Sof D 10/26/2023 04:43:31'!
+PortfolioReport subclass: #PortfolioReportWithSummaries
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!methodRemoval: PortfolioReportWithSummaries #content stamp: 'Sof D 10/26/2023 04:44:18'!
+content
+	portfolio processAccountForReport: self.
+	^content!
+
+!methodRemoval: PortfolioReportWithSummaries #with: stamp: 'Sof D 10/26/2023 04:44:21'!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.!
+
+!methodRemoval: PortfolioReportWithSummaries #tabulation stamp: 'Sof D 10/26/2023 04:44:23'!
+tabulation
+	| tabulation |
+	tabulation := ''.
+	timesToTab timesRepeat: [tabulation := tabulation, String tab].
+	^tabulation!
+
+!methodRemoval: PortfolioReportWithSummaries class #for: stamp: 'Sof D 10/26/2023 04:44:26'!
+for: aPortfolioToReportAbout 
+
+	^self new with: aPortfolioToReportAbout !
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:44:29'!
+PASSED!
+
+!methodRemoval: Transfer #affectBalance: stamp: 'Sof D 10/26/2023 04:45:44'!
+affectBalance: aBalance
+	^aBalance.	!
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:45:45'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:45:46'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:45:46'!
+PASSED!
+!Transfer methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:46:09'!
+affectBalance: aBalanceToChange
+	^aBalanceToChange ! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:46:11'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:46:11'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:46:38'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:46:49'!
+ERROR!
+!AccountReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:47:21'!
+reportEndForReceptiveAccount: aReceptiveAccountToReportOn
+	self subclassResponsibility ! !
+!ReceptiveAccountReport methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:47:34' overrides: 50685629!
+reportEndForReceptiveAccount: aReceptiveAccountToReportOn
+	! !
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:47:39'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:47:40'!
+PASSED!
+
+!methodRemoval: Transfer #affectBalance: stamp: 'Sof D 10/26/2023 04:47:45'!
+affectBalance: aBalanceToChange
+	^aBalanceToChange !
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:47:46'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:47:47'!
+PASSED!
+
+!methodRemoval: Transfer #value stamp: 'Sof D 10/26/2023 04:47:57'!
+value
+
+	^value!
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:47:59'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:47:59'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:47:59'!
+ERROR!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:48:00'!
+ERROR!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:48:00'!
+PASSED!
+!Transfer methodsFor: 'nil' stamp: 'Sof D 10/26/2023 04:48:13' overrides: 16902254!
+value
+	^value! !
+
+!methodRemoval: Transfer #sendToReport: stamp: 'Sof D 10/26/2023 04:49:00'!
+sendToReport: aReport!
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:49:02'!
+PASSED!
+
+!methodRemoval: OutgoingLegTransfer #affectNetTransferAmount: stamp: 'Sof D 10/26/2023 04:50:26'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo - transfer value!
+
+!methodRemoval: IncomingLegTransfer #affectNetTransferAmount: stamp: 'Sof D 10/26/2023 04:50:54'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo + transfer value!
+
+!methodRemoval: Deposit #affectNetTransferAmount: stamp: 'Sof D 10/26/2023 04:51:33'!
+affectNetTransferAmount: anAmountToAddTo
+	^anAmountToAddTo !
+
+!methodRemoval: AccountTransaction #affectNetTransferAmount: stamp: 'Sof D 10/26/2023 04:51:40'!
+affectNetTransferAmount: anAmountToAddTo
+	self subclassResponsibility !
+
+!testRun: #AccountNetTransferTests #test01NetTransferReportStartsReportingZero stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test02NetTransferReportChangesForIncomingTransfer stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test03NetTransferReportChangesForOutgoingTransfer stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test04NetTransferReportDoesntChangeForDeposit stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test05NetTransferReportDoesntChangeForWithdraw stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountNetTransferTests #test06NetTransferReportIsCorrectOnAccountWithMultipleTransactions stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test01SummaryOfNewAccountReportsZeroBalance stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test02SummaryReportsDepositCorrectly stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test03SummaryReportsWithdrawalCorrectly stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test04SummaryReportsOutgoingTransferCorrectly stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test05SummaryReportsIncomingTransferCorrectly stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #AccountSummaryTests #test06SummaryReportsMultipleTransactionsCorrectly stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test07PortfolioReportDoestPrintTransactions stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test02PortfolioReportPrintsItsAccountsNameAndBalance stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test03PortfolioReportPrintsItsAccountsDeposit stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test04PortfolioReportPrintsItsAccountsWithdraw stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test05PortfolioReportPrintsItsAccountsIncomingTransfer stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test06PortfolioReportPrintsItsAccountsOutgoingTransfer stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test07PortfolioReportPrintsItsPortfoliosNamesAndBalances stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioReportWithSummariesTest #test08PortfolioReportPrintsMultipleComposedPortfolio stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:51:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferToLegHasReceivingAccount stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test02TransferFromLegHasSendingAccount stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test03FromLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test04ToLegCanAccessItsTransfer stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test05ToLegCanAccessFromLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test06FromLegCanAccessToLegOfItsTransfer stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test07TransferOfAmountZeroIsntAllowed stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test08TransferFromAccountToItselfIsntAllowed stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test09TransferChangesAccountsBalance stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+
+!testRun: #TransferTest #test10transferIsRegistered stamp: 'Sof D 10/26/2023 04:51:43'!
+PASSED!
+!PortfolioReportWithSummariesTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 04:53:02'!
+test01PortfolioReportPrintsPortfoliosNameAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Balance = 0').	
+	self assert: report content equals: expectedReport ! !
+
+!methodRemoval: PortfolioReportWithSummariesTest #test01ReportPrintsPortfoliosNameAndBalance stamp: 'Sof D 10/26/2023 04:53:02'!
+test01ReportPrintsPortfoliosNameAndBalance
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Balance = 0').	
+	self assert: report content equals: expectedReport !
+
+----QUIT----(26 October 2023 04:53:34) CuisUniversity-5981.image priorSource: 11238797!
