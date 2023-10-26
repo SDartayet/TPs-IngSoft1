@@ -19691,3 +19691,1934 @@ PASSED!
 
 
 ----QUIT----(25 October 2023 02:30:25) CuisUniversity-5981.image priorSource: 11149707!
+
+----STARTUP---- (25 October 2023 14:26:17) as /home/ezfloat/ing-software-1-c2-2023/linux64/CuisUniversity-5981.image!
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:26:56'!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio para ferrari'.
+	expectedReport add: '      Cuenta de Nico'.
+	expectedReport add: '      Cuenta de Chris'.
+	anotherPortfolio add: anotherPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/25/2023 14:27:21'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:27:21' prior: 50680036 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Kent'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:27:21' prior: 50680093!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio para ferrari'.
+	expectedReport add: '      Cuenta de Nico'.
+	expectedReport add: '      Cuenta de Chris'.
+	aChildPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:27:21' prior: 50680050!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio de Kent'.
+	
+	portfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/25/2023 14:27:41'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:28:26' prior: 50680118 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Kent'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari' with: account with: anotherAccount.! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:28:38' prior: 50680132!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio para ferrari'.
+	expectedReport add: '      Cuenta de Nico'.
+	expectedReport add: '      Cuenta de Chris'.
+	portfolio add: aComposedChildPotfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:28:39' prior: 50680193!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio para ferrari'.
+	expectedReport add: '      Cuenta de Nico'.
+	expectedReport add: '      Cuenta de Chris'.
+	portfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content tabulation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/25/2023 14:29:22'!
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content tabulation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:32:42'!
+tabulation
+	tabulation ! !
+
+!classDefinition: #PortfolioReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/25/2023 14:33:04'!
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+hola := 'h', String tab, 'o'.!
+
+hola!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+ 'h	o' .!
+
+hola := String tab, 'o'.
+hola.!
+
+hola.!
+
+ '	o' .!
+
+ '	o' .!
+
+hola := String tab, 'o'.!
+
+ '	o' .!
+
+hola := String tab, 'o\n'.!
+
+hola := String tab, 'o', String cr, String tab, 'o'.!
+
+hola := String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := String tab, 'o', Character cr asString, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := String tab, 'o', Character cr asString, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola!
+
+ '	o	o	o' .!
+
+ '	o	o	o' .!
+
+hola.!
+
+hola. '	o	o	o' .!
+
+hola := Character cr, String tab, 'o', Character cr asString, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character cr asString, String tab, 'o', Character cr asString, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character cr asString, String tab, 'o', Character cr asString, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character cr asString, String tab, 'o', Character cr asString, String tab, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character cr asString, String tab, 'o', Character cr asString, String tab, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character cr asString, String tab, 'o', Character cr asString, String tab, String tab, 'o', Character cr asString, String tab, 'o'.!
+
+hola := Character enter asString, String tab, 'o', Character enter asString, String tab, String tab, 'o', Character enter asString, String tab, 'o'.!
+
+hola := Character enter asString, String tab, 'o', Character enter asString, String tab, String tab, 'o', Character enter asString, String tab, 'o'.!
+
+hola := Character enter asString, String tab, 'o', Character enter asString, String tab, String tab, 'o', Character enter asString, String tab, 'o'.!
+
+hola!
+
+hola := Character insert asString, String tab, 'o', Character insert asString, String tab, String tab, 'o', Character insert asString, String tab, 'o'.!
+
+hola := Character insert asString, String tab, 'o', Character insert asString, String tab, String tab, 'o', Character insert asString, String tab, 'o'.!
+
+hola := Character insert asString, String tab, 'o', Character insert asString, String tab, String tab, 'o', Character insert asString, String tab, 'o'.!
+
+hola := Character newLineCharacter asString, String tab, 'o', Character newLineCharacter asString, String tab, String tab, 'o', Character newLineCharacter asString, String tab, 'o'.!
+
+hola := Character newLineCharacter asString, String tab, 'o', Character newLineCharacter asString, String tab, String tab, 'o', Character newLineCharacter asString, String tab, 'o'.!
+
+hola := Character newLineCharacter asString, String tab, 'o', Character newLineCharacter asString, String tab, String tab, 'o', Character newLineCharacter asString, String tab, 'o'.!
+
+hola := Character newLineCharacter asString, String tab, 'o', Character newLineCharacter asString, String tab, String tab, 'o', Character newLineCharacter asString, String tab, 'o'.!
+
+hola := Character newLineCharacter asString, String tab, 'o', Character newLineCharacter asString, String tab, String tab, 'o', Character newLineCharacter asString, String tab, 'o'.!
+
+hola := String newLineString, String tab, 'o', String newLineString, String tab, String tab, 'o', String newLineString, String tab, 'o'.!
+
+hola := String newLineString, String tab, 'o', String newLineString, String tab, String tab, 'o', String newLineString, String tab, 'o'.!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 15:33:49' prior: 50680234!
+tabulation
+	| tabulation |
+	tabulation := ''.
+	timesToTab timesRepeat: [tabulation := tabulation, String tab].
+	^tabulation! !
+
+----QUIT----(25 October 2023 15:34:04) CuisUniversity-5981.image priorSource: 11149918!
+
+----STARTUP---- (25 October 2023 23:40:53) as /home/ezfloat/ing-software-1-c2-2023/linux64/CuisUniversity-5981.image!
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:05:14' prior: 50680207!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	portfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:05:28' prior: 50680146!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Kent').
+	
+	portfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:05:49' prior: 50679971!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	portfolio add: account.
+	portfolio add: anotherAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:05:58' prior: 50679342!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	portfolio add: account.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:06:25' prior: 50679874!
+reportProcessAccount: anAccountToReportOn
+
+	content add: (String tab, (anAccountToReportOn accountName) asString )! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:06:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:06:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:06:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:06:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:06:29'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:06:29'!
+FAILURE!
+!PortfolioReport methodsFor: 'initialization' stamp: 'eaam 10/26/2023 00:09:30' prior: 50679575!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := -1.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:10:37' prior: 50679442!
+reportProcessPortfolio: aPortfolioToReportOn
+
+	timesToTab :=  timesToTab + 1.
+	content add: (self tabulation, aPortfolioToReportOn accountName) ! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:13:21' prior: 50680433!
+reportProcessAccount: anAccountToReportOn
+
+	content add: (String tab,, (anAccountToReportOn accountName) asString )! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:13:22' prior: 50680479!
+reportProcessAccount: anAccountToReportOn
+
+	content add: (String tab, (anAccountToReportOn accountName) asString )! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:13:23'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:13:23'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:13:23'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:13:23'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:13:23'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:13:23'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:13:55' prior: 50680176 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Kent'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:13:59' prior: 50680381!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	portfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 00:15:13' prior: 50679988!
+processAccountsForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ : anAccount | aReportToGenerate reportProcess: anAccount ]! !
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 00:17:59' prior: 50680551!
+processAccountsForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ : anAccount | aReportToGenerate processAccountForReport: anAccount ]! !
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 00:18:19'!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ : anAccount | aReportToGenerate processAccountForReport: anAccount ]! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:18:19' prior: 50679668!
+content
+	portfolio processAccountForReport: self.
+	^content ! !
+
+!methodRemoval: Portfolio #processAccountsForReport: stamp: 'eaam 10/26/2023 00:18:19'!
+processAccountsForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ : anAccount | aReportToGenerate processAccountForReport: anAccount ]!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/26/2023 00:18:43'!
+processAccountForReport: aReportToGenerate
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
+	! !
+!AccountNetTransferReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:18:43' prior: 50677300 overrides: 50677244!
+content
+	
+	account processAccountForReport: self.
+	
+	^'Neto de transferencias: ', amount asString! !
+!AccountSummaryReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:18:43' prior: 50677074!
+summary
+	account processAccountForReport: self.
+	accountSummary add: ('Balance = ', account balance asString).! !
+
+!methodRemoval: ReceptiveAccount #processTransactionsForReport: stamp: 'eaam 10/26/2023 00:18:43'!
+processTransactionsForReport: aReportToGenerate
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
+	!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/26/2023 00:19:22' prior: 50680591!
+processAccountForReport: aReportToGenerate
+	self .
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
+	! !
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'eaam 10/26/2023 00:19:47'!
+reportProcessAccount: aReceptiveAccount
+! !
+!AccountNetTransferReport methodsFor: 'transaction reporting' stamp: 'eaam 10/26/2023 00:20:05'!
+reportProcessReceptiveAccount: aReceptiveAccount
+! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:20:05'!
+reportProcessReceptiveAccount: anAccountToReportOn
+
+	content add: (String tab, (anAccountToReportOn accountName) asString )! !
+
+!methodRemoval: AccountNetTransferReport #reportProcessAccount: stamp: 'eaam 10/26/2023 00:20:05'!
+reportProcessAccount: aReceptiveAccount
+!
+
+!methodRemoval: PortfolioReport #reportProcessAccount: stamp: 'eaam 10/26/2023 00:20:05'!
+reportProcessAccount: anAccountToReportOn
+
+	content add: (String tab, (anAccountToReportOn accountName) asString )!
+!AccountSummaryReport methodsFor: 'transaction reporting' stamp: 'eaam 10/26/2023 00:20:25'!
+reportProcessReceptiveAccount: aReceptiveAccount! !
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/26/2023 00:20:44' prior: 50680621!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessReceptiveAccount: self.
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
+	! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08AccountCanInitializeWithName stamp: 'eaam 10/26/2023 00:20:45'!
+PASSED!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:21:12'!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	portfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:22:24'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport account anotherAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:23:57' prior: 50680517 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maxi'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de '! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:24:09' prior: 50680397!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maxi').
+	
+	portfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:24:20' prior: 50680759!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	portfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:24:23' prior: 50680739 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de '! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:25:38' prior: 50680782 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:25:59' prior: 50680803 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:30:49' prior: 50680824 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:31:57' prior: 50680845 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	"isw1Account := ReceptiveAccount named: 'cuenta de la materia'".
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:32:02' prior: 50680866 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	"isw1Account := ReceptiveAccount named: 'Cuenta de la materia'".
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport account anotherAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:32:10'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport account anotherAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:32:22' prior: 50680889 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: anotherAccount.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:32:28' prior: 50680933 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:32:38' prior: 50680702!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	portfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:35:41' prior: 50680956 overrides: 16961394!
+ setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:04' prior: 50680995 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:36:12'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport account chrissAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:12' prior: 50681018 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	account := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrissAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: account with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:12' prior: 50680408!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	portfolio add: account.
+	portfolio add: chrissAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:36:19'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrissAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:19' prior: 50681053 overrides: 16961394!
+setUp
+	portfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: portfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrissAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:19' prior: 50680422!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	portfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:19' prior: 50681075!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	portfolio add: nicoAccount.
+	portfolio add: chrissAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:36:30'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report hernanPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrissAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50681134!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	hernanPortfolio add: nicoAccount.
+	hernanPortfolio add: chrissAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50680770!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	hernanPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50681101 overrides: 16961394!
+setUp
+	hernanPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: hernanPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrissAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50681123!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	hernanPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50680978!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	hernanPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:30' prior: 50680535!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	hernanPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:36:55'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report patentPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrissAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681160!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	patentPortfolio add: nicoAccount.
+	patentPortfolio add: chrissAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681174!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	patentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681186 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrissAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681209!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	patentPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681220!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	patentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:36:55' prior: 50681237!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	patentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:37:13'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report patentPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrisAccount isw1Account'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:37:13' prior: 50681291 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:37:13' prior: 50681265!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	patentPortfolio add: nicoAccount.
+	patentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:37:48' prior: 50681371 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report patentPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrisAccount isw1Account deboraAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:38:03'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report patentPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrisAccount isw1Account deboraAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:39:21' prior: 50681409 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Debora'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:39:30' prior: 50681454 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Agustin'! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:39:58' prior: 50681479 overrides: 16961394!
+setUp
+	patentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: patentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Agustin' with: deboraAccount with: chrisAccount.! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:40:24' prior: 50681325!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	
+	patentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:40:43' prior: 50681530!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	
+	patentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:40:58' prior: 50681553!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	patentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:41:01'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:41:50'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:41:50'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:41:50'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:41:50'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:41:50'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:41:50'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:41:52'!
+ERROR!
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 00:43:02' prior: 50680569!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ :anAccount | aReportToGenerate processAccountForReport: anAccount ]! !
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 00:43:31' prior: 50681629!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ :anAccount | anAccount processAccountForReport: aReportToGenerate ]! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/26/2023 00:43:32'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:43:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:43:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:43:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:43:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:43:45'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:43:45'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:43:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:47:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:47:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:47:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:47:29'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:47:29'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:47:29'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:47:42'!
+PASSED!
+!ReceptiveAccount methodsFor: 'sumaryReport' stamp: 'eaam 10/26/2023 00:48:02' prior: 50680662!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessReceptiveAccount: self.
+	transactions do: [:aTransaction | aTransaction sendToReport: aReportToGenerate]
+	! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:48:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:48:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:48:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:48:34'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:48:34'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:48:34'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:48:36'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:49:44'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:52:43' prior: 50681576!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	patentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:52:48'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:52:48'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:52:48'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:52:48'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:52:48'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:52:48'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:52:51'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:54:08' prior: 50681815!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	"parentPortfolio add:"
+	patentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests' stamp: 'eaam 10/26/2023 00:54:12'!
+TestCase subclass: #PortfolioReportTest
+	instanceVariableNames: 'report parentPortfolio aChildPortfolio aComposedChildPotfolio anotherComposedChildPortfolio expectedReport nicoAccount chrisAccount isw1Account deboraAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Tests'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681394!
+test03PortfolioReportPrintsMultipleAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: nicoAccount.
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681279!
+test04PortfolioReportPrintsItsPortfoliosNames
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Portfolio de Maximiliano').
+	
+	parentPortfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681504 overrides: 16961394!
+setUp
+	parentPortfolio := Portfolio named: 'Portfolio de Hernan'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Maximiliano'.
+	
+	report := PortfolioReport for: parentPortfolio .
+	
+	expectedReport := OrderedCollection new.
+	
+	nicoAccount := ReceptiveAccount named: 'Cuenta de Nico'.
+	chrisAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	isw1Account := ReceptiveAccount named: 'Cuenta de la materia'.
+	deboraAccount := ReceptiveAccount named: 'Cuenta de Debora'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari de Hernan' with: nicoAccount with: isw1Account.
+	anotherComposedChildPortfolio := Portfolio named: 'Portfolio de Agustin' with: deboraAccount with: chrisAccount.! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681314!
+test02PortfolioReportPrintsItsAccountsName
+	
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab,'Cuenta de Nico').
+	
+	parentPortfolio add: nicoAccount.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681864!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	"parentPortfolio add:"
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 00:54:12' prior: 50681342!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:54:23' prior: 50681963!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:54:24'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:54:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:54:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:54:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:54:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:54:33'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:54:33'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:54:35'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:56:07'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:57:10' prior: 50681986!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:57:11'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:57:22'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:58:13' prior: 50682061!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio para ferrari de Hernan').
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de la materia').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:58:18'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:58:33'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:59:17' prior: 50682084!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,'Cuenta de la materia').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:59:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 00:59:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 00:59:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 00:59:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 00:59:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:59:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:59:18'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 00:59:18'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 00:59:43' prior: 50682107!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	parentPortfolio add: aComposedChildPotfolio.
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:59:53'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 00:59:53'!
+FAILURE!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:01:10' prior: 50680639!
+reportProcessReceptiveAccount: anAccountToReportOn
+
+	content add: (self tabulation, (anAccountToReportOn accountName) asString )! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:01:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:01:11'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:01:11'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:01:11'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:01:11'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:01:11'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:01:14'!
+FAILURE!
+!PortfolioReport methodsFor: 'initialization' stamp: 'eaam 10/26/2023 01:02:48' prior: 50680463!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:02:49'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:03:13'!
+FAILURE!
+!PortfolioReport methodsFor: 'initialization' stamp: 'eaam 10/26/2023 01:03:46' prior: 50682211!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := -1.! !
+!PortfolioReport methodsFor: 'initialization' stamp: 'eaam 10/26/2023 01:04:02' prior: 50682245!
+with: aPortfolioToReportAbout 
+	portfolio := aPortfolioToReportAbout .
+	content := OrderedCollection new.
+	timesToTab := 0.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:04:18' prior: 50680471!
+reportProcessPortfolio: aPortfolioToReportOn
+
+	content add: (self tabulation, aPortfolioToReportOn accountName).
+	timesToTab :=  timesToTab + 1.! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:04:19'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:04:19'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:04:19'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:04:19'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:04:19'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:04:19'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:04:19'!
+FAILURE!
+!Portfolio methodsFor: 'report generation' stamp: 'eaam 10/26/2023 01:07:25' prior: 50681638!
+processAccountForReport: aReportToGenerate
+	aReportToGenerate reportProcessPortfolio: self.
+	accounts do: [ :anAccount | anAccount processAccountForReport: aReportToGenerate ].
+	aReportToGenerate reportEnd.! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test16PortfolioCanBeInitializedWithName stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test17PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test18PortfolioCanBeInitializedWithANameAndTwoAccounts stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioTest #test19PortfolioCanBeInitializedWithANameAAccountAndAPortfolio stamp: 'eaam 10/26/2023 01:07:28'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:07:42'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:07:45'!
+ERROR!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:07:50'!
+reportEnd
+	self shouldBeImplemented.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:08:11' prior: 50682406!
+reportEnd
+	timesToTab := timesToTab - 1.! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:08:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:08:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:08:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:08:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:08:17'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:08:17'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:08:17'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:09:17' prior: 50682002!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:09:18'!
+PASSED!
+
+!classRenamed: #AccountReport as: #ReceptiveAccountReport stamp: 'eaam 10/26/2023 01:11:50'!
+Smalltalk renameClassNamed: #AccountReport as: #ReceptiveAccountReport!
+
+Object subclass: #AccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #AccountReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:12:04'!
+Object subclass: #AccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+AccountReport subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #ReceptiveAccountReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:12:14'!
+AccountReport subclass: #ReceptiveAccountReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+AccountReport subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+
+!classDefinition: #PortfolioReport category: 'Portfolio2-Ejercicio' stamp: 'eaam 10/26/2023 01:12:21'!
+AccountReport subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio content timesToTab'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio2-Ejercicio'!
+!AccountReport methodsFor: 'no messages' stamp: 'eaam 10/26/2023 01:12:41'!
+reportProcessReceptiveAccount: aReceptiveAccount! !
+!AccountReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/26/2023 01:12:51' prior: 50682538!
+reportProcessReceptiveAccount: aReceptiveAccount
+	self subclassResponsibility ! !
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:13:31'!
+PASSED!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:14:24' prior: 50682443!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: chrisAccount .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:14:25'!
+PASSED!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:14:33' prior: 50682572!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:14:34'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:14:42'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:14:51'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:15:55'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:16:00'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:16:00'!
+FAILURE!
+!PortfolioReportTest methodsFor: 'tests' stamp: 'eaam 10/26/2023 01:16:50' prior: 50682618!
+test06PortfolioReportPrintsMultipleComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: (String tab, 'Portfolio de ferrari de Hernan').
+	expectedReport add: (String tab,String tab,'Cuenta de Nico').
+	expectedReport add: (String tab,String tab,'Cuenta de la materia').
+	expectedReport add: (String tab, 'Portfolio de Agustin').
+	expectedReport add: (String tab,String tab,'Cuenta de Debora').
+	expectedReport add: (String tab,String tab,'Cuenta de Chris').
+	
+	parentPortfolio add: aComposedChildPotfolio .
+	parentPortfolio add: anotherComposedChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test01PortfolioReportPrintsPortfoliosName stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02PortfolioReportPrintsItsAccountsName stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03PortfolioReportPrintsMultipleAccountsName stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04PortfolioReportPrintsItsPortfoliosNames stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05PortfolioReportPrintsAComposedPortfolio stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06PortfolioReportPrintsMultipleComposedPortfolio stamp: 'eaam 10/26/2023 01:16:57'!
+PASSED!

@@ -148,22 +148,24 @@ setUp
 
 !classDefinition: #PortfolioReportTest category: 'Portfolio2-Tests'!
 TestCase subclass: #PortfolioReportTest
-	instanceVariableNames: 'report portfolio anotherPortfolio expectedReport account anotherAccount'
+	instanceVariableNames: 'report portfolio aChildPortfolio aComposedChildPotfolio expectedReport account anotherAccount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Tests'!
 
-!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:29:36'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:28:26'!
 setUp
 	portfolio := Portfolio named: 'Portfolio de Hernan'.
-	anotherPortfolio := Portfolio named: 'Portfolio de Kent'.
+	aChildPortfolio := Portfolio named: 'Portfolio de Kent'.
 	
 	report := PortfolioReport for: portfolio .
 	
 	expectedReport := OrderedCollection new.
 	
 	account := ReceptiveAccount named: 'Cuenta de Nico'.
-	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.! !
+	anotherAccount := ReceptiveAccount named: 'Cuenta de Chris'.
+	
+	aComposedChildPotfolio := Portfolio named: 'Portfolio de ferrari' with: account with: anotherAccount.! !
 
 !PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:14:15'!
 test01PortfolioReportPrintsPortfoliosName
@@ -196,13 +198,25 @@ test03PortfolioReportPrintsMultipleAccountsName
 	
 	self assert: report content equals: expectedReport ! !
 
-!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/25/2023 02:29:42'!
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:27:21'!
 test04PortfolioReportPrintsItsPortfoliosNames
 	
 	expectedReport add: 'Portfolio de Hernan'.
 	expectedReport add: '   Portfolio de Kent'.
 	
-	portfolio add: anotherPortfolio .
+	portfolio add: aChildPortfolio .
+	
+	
+	self assert: report content equals: expectedReport ! !
+
+!PortfolioReportTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 14:28:39'!
+test05PortfolioReportPrintsAComposedPortfolio
+
+	expectedReport add: 'Portfolio de Hernan'.
+	expectedReport add: '   Portfolio para ferrari'.
+	expectedReport add: '      Cuenta de Nico'.
+	expectedReport add: '      Cuenta de Chris'.
+	portfolio add: aComposedChildPotfolio.
 	
 	
 	self assert: report content equals: expectedReport ! !
@@ -1318,7 +1332,7 @@ for: aValue
 
 !classDefinition: #PortfolioReport category: 'Portfolio2-Ejercicio'!
 Object subclass: #PortfolioReport
-	instanceVariableNames: 'portfolio content'
+	instanceVariableNames: 'portfolio content timesToTab'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio2-Ejercicio'!
@@ -1344,6 +1358,13 @@ reportProcessAccount: anAccountToReportOn
 reportProcessPortfolio: aPortfolioToReportOn
 
 	content add: aPortfolioToReportOn accountName ! !
+
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'eaam 10/25/2023 15:33:49'!
+tabulation
+	| tabulation |
+	tabulation := ''.
+	timesToTab timesRepeat: [tabulation := tabulation, String tab].
+	^tabulation! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
