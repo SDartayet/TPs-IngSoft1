@@ -349,15 +349,159 @@ TestCase subclass: #MarsRoverWindowTest
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/26/2023 21:12:06'!
-test01WindowStartsOutShowingRoverPositionAndDirection
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:08:43'!
+test01WindowStartsOutShowingRoverPositionAndDirectionNorth
 
-	| expectedWindow rover |! !
+	| rover  |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	
+	self assert: (rover window) position equals: (0@0) asString.
+	self assert: (rover window) direction equals: 'North'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:10'!
+test02WindowStartsOutShowingRoverPositionAndDirectionSouth
+
+	| rover  |
+	rover := MarsRover at: 0@1heading: MarsRoverHeadingSouth .
+	
+	self assert: (rover window) position equals: (0@1) asString.
+	self assert: (rover window) direction equals: 'South'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:01'!
+test03WindowStartsOutShowingRoverPositionAndDirectionWest
+
+	| rover  |
+	rover := MarsRover at: 1@0 heading: MarsRoverHeadingWest .
+	
+	self assert: (rover window) position equals: (1@0) asString.
+	self assert: (rover window) direction equals: 'West'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:42'!
+test04WindowStartsOutShowingRoverPositionAndDirectionEast
+
+	| rover  |
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingEast .
+	
+	self assert: (rover window) position equals: (1@1) asString.
+	self assert: (rover window) direction equals: 'East'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:13:24'!
+test05WindowChangesWestwardMovement
+	| rover  |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (-1@0) asString.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:15:23'!
+test06WindowChangesNorthwardMovement
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (0@1) asString.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:16:12'!
+test07WindowChangesEastwardMovement
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (1@0) asString.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:16:27'!
+test08WindowChangesEastwardMovement
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (1@0) asString.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:17:09'!
+test09WindowChangesSouthwardMovement
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (0@-1) asString.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:19:01'!
+test10LogRegisterWestwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'West'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:19:15'!
+test11LogRegisterNorthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'North'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:20:46'!
+test12LogRegisterSouthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'South'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:20:41'!
+test13LogRegisterEastwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'East'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:21:45'!
+test14LogRegisterMultipleRotations
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'rr'.
+	
+	self assert: rover window direction equals: 'South'.
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:23:57'!
+test15LogRegisterMultipleMovements
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fbf'.
+	
+	self assert: rover window position equals: (0@1) asString .
+	! !
+
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:25:41'!
+test16LogRegistersMovementAndRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+
+	self assert: rover window direction equals: 'East'.
+	self assert: rover window position equals: (0@1) asString .
+! !
 
 
 !classDefinition: #MarsRover category: 'MarsRover-WithHeading'!
 Object subclass: #MarsRover
-	instanceVariableNames: 'position head log directionLog positionLog'
+	instanceVariableNames: 'position head generalLog directionLog positionLog window'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
@@ -373,46 +517,54 @@ signalInvalidCommand
 	self error: self invalidCommandErrorDescription ! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/26/2023 21:09:27'!
+!MarsRover methodsFor: 'initialization' stamp: 'eaam 10/27/2023 02:04:08'!
 initializeAt: aPosition heading: aHeadingType
 
 	position := aPosition.
 	head := aHeadingType for: self .
 	
-	log := OrderedCollection new.
+	generalLog := MarsRoverLog new.
 	
-	directionLog := OrderedCollection new.
+	directionLog := MarsRoverLog new.
 	
-	positionLog := OrderedCollection new.! !
+	positionLog := MarsRoverLog new.
+	
+	window := RoverWindow new.
+	window actualizePosition: position asString.
+	window actualizeDirection: head name.! !
 
 
-!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/26/2023 21:05:38'!
+!MarsRover methodsFor: 'heading' stamp: 'eaam 10/27/2023 01:54:10'!
 headEast
 	
 	head := MarsRoverHeadingEast for: self.
 	
-	log add: 'East'. directionLog add: 'East'.! !
+	generalLog registerToLog: 'East'. directionLog registerToLog: 'East'.
+	window actualizeDirection: 'East'.! !
 
-!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/26/2023 21:05:44'!
+!MarsRover methodsFor: 'heading' stamp: 'eaam 10/27/2023 01:54:28'!
 headNorth
 	
 	head := MarsRoverHeadingNorth for: self .
 	
-	log add: 'North'. 	directionLog add: 'North'! !
+	generalLog registerToLog: 'North'. 	directionLog registerToLog: 'North'.
+	window actualizeDirection: 'North'.! !
 
-!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/26/2023 21:05:50'!
+!MarsRover methodsFor: 'heading' stamp: 'eaam 10/27/2023 01:54:44'!
 headSouth
 	
 	head := MarsRoverHeadingSouth for: self.
 	
-	log add: 'South'. 	directionLog add: 'South'! !
+	generalLog registerToLog: 'South'. 	directionLog registerToLog: 'South'.
+	window actualizeDirection: 'South'.! !
 
-!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/26/2023 21:05:57'!
+!MarsRover methodsFor: 'heading' stamp: 'eaam 10/27/2023 01:54:59'!
 headWest
 	
 	head := MarsRoverHeadingWest for: self .
 	
-	log add: 'West'. 	directionLog add: 'West'! !
+	generalLog registerToLog: 'West'. 	directionLog registerToLog: 'West'.
+	window actualizeDirection: 'West'.! !
 
 !MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:14:20'!
 rotateLeft
@@ -456,38 +608,46 @@ moveBackward
 	
 	head moveBackward! !
 
-!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/26/2023 21:09:38'!
+!MarsRover methodsFor: 'moving' stamp: 'eaam 10/27/2023 01:53:52'!
 moveEast
 	
 	position := position + (1@0).
 	
-	log add: (position asString). 	positionLog add: (position asString)! !
+	generalLog registerToLog: (position asString). 
+	positionLog registerToLog: (position asString).
+	window actualizePosition: (position asString).! !
 
 !MarsRover methodsFor: 'moving' stamp: 'HAW 10/7/2021 20:13:53'!
 moveForward
 	
 	head moveForward! !
 
-!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/26/2023 21:09:48'!
+!MarsRover methodsFor: 'moving' stamp: 'eaam 10/27/2023 01:53:48'!
 moveNorth
 	
 	position := position + (0@1).
 	
-	log add: (position asString ). 	positionLog add: (position asString ).! !
+	generalLog registerToLog: (position asString ). 
+	positionLog registerToLog: (position asString ).
+	window actualizePosition: (position asString).! !
 
-!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/26/2023 21:10:00'!
+!MarsRover methodsFor: 'moving' stamp: 'eaam 10/27/2023 01:53:45'!
 moveSouth
 	
 	position := position + (0@-1).
 	
-	log add: (position asString). 	positionLog add: (position asString)! !
+	generalLog registerToLog: (position asString).
+	positionLog registerToLog: (position asString).
+	window actualizePosition: (position asString).! !
 
-!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/26/2023 21:10:03'!
+!MarsRover methodsFor: 'moving' stamp: 'eaam 10/27/2023 01:53:39'!
 moveWest
 	
 	position := position + (-1@0).
 	
-	log add: (position asString). 	positionLog add: (position asString)! !
+	generalLog registerToLog: (position asString).
+	positionLog registerToLog: (position asString).
+	window actualizePosition: (position asString).! !
 
 
 !MarsRover methodsFor: 'command processing' stamp: 'HAW 6/30/2018 19:48:26'!
@@ -507,17 +667,21 @@ processCommand: aCommand
 	self signalInvalidCommand.! !
 
 
-!MarsRover methodsFor: 'category-name' stamp: 'Sof D 10/26/2023 21:05:03'!
+!MarsRover methodsFor: 'category-name' stamp: 'eaam 10/27/2023 01:37:04'!
 directionLog
-	^directionLog! !
+	^directionLog contents! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Sof D 10/26/2023 20:38:09'!
+!MarsRover methodsFor: 'category-name' stamp: 'eaam 10/27/2023 01:36:58'!
 log
-	^log! !
+	^generalLog contents ! !
 
-!MarsRover methodsFor: 'category-name' stamp: 'Sof D 10/26/2023 21:08:39'!
+!MarsRover methodsFor: 'category-name' stamp: 'eaam 10/27/2023 01:37:01'!
 positionLog
-	^positionLog! !
+	^positionLog contents! !
+
+!MarsRover methodsFor: 'category-name' stamp: 'eaam 10/27/2023 01:49:20'!
+window
+	^window! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -611,6 +775,11 @@ rotateRight
 	
 	^marsRover headSouth! !
 
+
+!MarsRoverHeadingEast methodsFor: 'category-name' stamp: 'eaam 10/27/2023 02:04:37'!
+name
+	^'East'! !
+
 
 !classDefinition: #MarsRoverHeadingNorth category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingNorth
@@ -639,6 +808,11 @@ rotateLeft
 rotateRight
 	
 	^marsRover headEast! !
+
+
+!MarsRoverHeadingNorth methodsFor: 'category-name' stamp: 'eaam 10/27/2023 02:04:57'!
+name
+	^'North'! !
 
 
 !classDefinition: #MarsRoverHeadingSouth category: 'MarsRover-WithHeading'!
@@ -669,6 +843,11 @@ rotateRight
 	
 	^marsRover headWest! !
 
+
+!MarsRoverHeadingSouth methodsFor: 'category-name' stamp: 'eaam 10/27/2023 02:05:26'!
+name
+	^'South'! !
+
 
 !classDefinition: #MarsRoverHeadingWest category: 'MarsRover-WithHeading'!
 MarsRoverHeading subclass: #MarsRoverHeadingWest
@@ -688,6 +867,11 @@ moveForward
 	^marsRover moveWest! !
 
 
+!MarsRoverHeadingWest methodsFor: 'category-name' stamp: 'eaam 10/27/2023 02:05:54'!
+name
+	^'West'! !
+
+
 !MarsRoverHeadingWest methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:14:20'!
 rotateLeft
 	
@@ -701,32 +885,55 @@ rotateRight
 
 !classDefinition: #MarsRoverLog category: 'MarsRover-WithHeading'!
 Object subclass: #MarsRoverLog
-	instanceVariableNames: 'rover content'
+	instanceVariableNames: 'content'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/26/2023 20:30:49'!
+!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:40:55'!
+attachToRover: aRover
+	"Cada tipo de log debe tener su attach correspondiente, este es un log genérico y por ahora no lo tiene, pero seguramente los tres sean polimorficos"! !
+
+!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:05:43'!
 contents
-	
+	^content 
 	! !
 
-!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/26/2023 20:18:45'!
-directionChanges
-	^OrderedCollection new.! !
+!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:07:27'!
+registerToLog: objectToAdd
+	content add: objectToAdd ! !
 
 
-!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/26/2023 20:29:30'!
-initializeFor: aRoverToLogTheActionsOf 
-	rover := aRoverToLogTheActionsOf.
+!MarsRoverLog methodsFor: 'initialization' stamp: 'eaam 10/27/2023 01:04:11'!
+initialize
 	content := OrderedCollection new! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: #RoverWindow category: 'MarsRover-WithHeading'!
+Object subclass: #RoverWindow
+	instanceVariableNames: 'position direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
 
-!classDefinition: 'MarsRoverLog class' category: 'MarsRover-WithHeading'!
-MarsRoverLog class
-	instanceVariableNames: ''!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:11'!
+actualizeDirection: aDirection
+	direction := aDirection .! !
 
-!MarsRoverLog class methodsFor: 'instance creation' stamp: 'Sof D 10/26/2023 20:27:25'!
-for: aRoverToLogTheActionsOf 
-	^self new initializeFor: aRoverToLogTheActionsOf ! !
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:47:46'!
+actualizePosition: aPosition
+	position := aPosition .! !
+
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:36'!
+direction
+	^direction! !
+
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 13:54:31'!
+generalActualize: aProxy
+	"mi idea de actualizador general para que el proxy sea genérico"
+	
+	aProxy execute: [:x | "genericProxyVariable" ]! !
+
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:46'!
+position
+	^position! !
