@@ -349,7 +349,7 @@ TestCase subclass: #MarsRoverWindowTest
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:08:43'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:08:43'!
 test01WindowStartsOutShowingRoverPositionAndDirectionNorth
 
 	| rover  |
@@ -359,7 +359,7 @@ test01WindowStartsOutShowingRoverPositionAndDirectionNorth
 	self assert: (rover window) direction equals: 'North'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:10'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:10:10'!
 test02WindowStartsOutShowingRoverPositionAndDirectionSouth
 
 	| rover  |
@@ -369,17 +369,17 @@ test02WindowStartsOutShowingRoverPositionAndDirectionSouth
 	self assert: (rover window) direction equals: 'South'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:01'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:38:56'!
 test03WindowStartsOutShowingRoverPositionAndDirectionWest
 
-	| rover  |
+	| rover |
 	rover := MarsRover at: 1@0 heading: MarsRoverHeadingWest .
 	
 	self assert: (rover window) position equals: (1@0) asString.
 	self assert: (rover window) direction equals: 'West'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:10:42'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:10:42'!
 test04WindowStartsOutShowingRoverPositionAndDirectionEast
 
 	| rover  |
@@ -389,7 +389,7 @@ test04WindowStartsOutShowingRoverPositionAndDirectionEast
 	self assert: (rover window) direction equals: 'East'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:13:24'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:13:24'!
 test05WindowChangesWestwardMovement
 	| rover  |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
@@ -398,7 +398,7 @@ test05WindowChangesWestwardMovement
 	self assert: rover window position equals: (-1@0) asString.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:15:23'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:15:23'!
 test06WindowChangesNorthwardMovement
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
@@ -407,7 +407,7 @@ test06WindowChangesNorthwardMovement
 	self assert: rover window position equals: (0@1) asString.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:16:12'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:16:12'!
 test07WindowChangesEastwardMovement
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
@@ -416,7 +416,7 @@ test07WindowChangesEastwardMovement
 	self assert: rover window position equals: (1@0) asString.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:16:27'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:16:27'!
 test08WindowChangesEastwardMovement
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
@@ -425,7 +425,7 @@ test08WindowChangesEastwardMovement
 	self assert: rover window position equals: (1@0) asString.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:17:09'!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/27/2023 02:17:09'!
 test09WindowChangesSouthwardMovement
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth .
@@ -434,8 +434,8 @@ test09WindowChangesSouthwardMovement
 	self assert: rover window position equals: (0@-1) asString.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:19:01'!
-test10LogRegisterWestwardRotation
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:42:35'!
+test10WindowRegisterWestwardRotation
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
 	rover process: 'r'.
@@ -443,8 +443,8 @@ test10LogRegisterWestwardRotation
 	self assert: rover window direction equals: 'West'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:19:15'!
-test11LogRegisterNorthwardRotation
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:42:48'!
+test11WindowRegisterNorthwardRotation
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest.
 	rover process: 'r'.
@@ -452,8 +452,8 @@ test11LogRegisterNorthwardRotation
 	self assert: rover window direction equals: 'North'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:20:46'!
-test12LogRegisterSouthwardRotation
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:43:07'!
+test12WindowRegisterSouthwardRotation
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
 	rover process: 'r'.
@@ -461,8 +461,8 @@ test12LogRegisterSouthwardRotation
 	self assert: rover window direction equals: 'South'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:20:41'!
-test13LogRegisterEastwardRotation
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:43:14'!
+test13WindowRegisterEastwardRotation
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
 	rover process: 'r'.
@@ -470,8 +470,8 @@ test13LogRegisterEastwardRotation
 	self assert: rover window direction equals: 'East'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:21:45'!
-test14LogRegisterMultipleRotations
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:43:20'!
+test14WindowRegisterMultipleRotations
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
 	rover process: 'rr'.
@@ -479,8 +479,8 @@ test14LogRegisterMultipleRotations
 	self assert: rover window direction equals: 'South'.
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:23:57'!
-test15LogRegisterMultipleMovements
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:43:25'!
+test15WindowRegisterMultipleMovements
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
 	rover process: 'fbf'.
@@ -488,8 +488,8 @@ test15LogRegisterMultipleMovements
 	self assert: rover window position equals: (0@1) asString .
 	! !
 
-!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 02:25:41'!
-test16LogRegistersMovementAndRotation
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 01:43:32'!
+test16WindowRegistersMovementAndRotation
 	| rover |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
 	rover process: 'fr'.
@@ -497,6 +497,73 @@ test16LogRegistersMovementAndRotation
 	self assert: rover window direction equals: 'East'.
 	self assert: rover window position equals: (0@1) asString .
 ! !
+
+
+!classDefinition: #ObserverProxyTest category: 'MarsRover-WithHeading'!
+TestCase subclass: #ObserverProxyTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 00:43:15'!
+test01AProxyInitializesWithAVariable
+	| observer |
+	observer := ObserverProxy with: 1.
+	self assert: observer variableValue equals: 1.! !
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 02:08:02'!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow.
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aWindow .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 02:07:56'!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow.
+	observer attach: aLog.
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aWindow. attachedCollection add: aLog.
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 02:09:05'!
+test04AProxyCanActualizeItsVariable
+	| observer |
+	observer := ObserverProxy with: 0@0.
+	observer actualize: 0@1.
+	self assert: observer variableValue equals: 0@1 .! !
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 02:10:39'!
+test05AProxyCanActualizeAObserver
+	| observer aWindow |
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow actualize: 0@0.
+	observer attach: aWindow.
+	observer actualize: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!ObserverProxyTest methodsFor: 'tests' stamp: 'eaam 10/29/2023 02:20:02'!
+test06AProxyCanActualizeMultipleObservers
+	| observer aWindow anotherWindow|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	anotherWindow := RoverWindowPosition new.
+	aWindow actualize: 0@0.
+	anotherWindow actualize: 10@10.
+	observer attach: aWindow.
+	observer attach: anotherWindow.
+	observer actualize: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .! !
 
 
 !classDefinition: #MarsRover category: 'MarsRover-WithHeading'!
@@ -909,9 +976,51 @@ initialize
 	content := OrderedCollection new! !
 
 
+!classDefinition: #ObserverProxy category: 'MarsRover-WithHeading'!
+Object subclass: #ObserverProxy
+	instanceVariableNames: 'variable attachedObservers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!ObserverProxy methodsFor: 'initialization' stamp: 'eaam 10/29/2023 02:20:53'!
+initializeWith: aVariableToStore 
+	variable := aVariableToStore.
+	attachedObservers := OrderedCollection new.! !
+
+
+!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 02:20:53'!
+actualize: aVariable
+	variable := aVariable .
+	attachedObservers do: [:aConcreteObserver | aConcreteObserver actualize: variable]
+	! !
+
+!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 02:20:53'!
+attach: aComplementToAttach
+	^attachedObservers add: aComplementToAttach.! !
+
+!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 02:20:53'!
+attachedComplements
+	^attachedObservers .! !
+
+!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 00:43:59'!
+variableValue
+	^variable .! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ObserverProxy class' category: 'MarsRover-WithHeading'!
+ObserverProxy class
+	instanceVariableNames: ''!
+
+!ObserverProxy class methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 00:43:32'!
+with: aVariable
+	^self new initializeWith: aVariable.! !
+
+
 !classDefinition: #RoverWindow category: 'MarsRover-WithHeading'!
 Object subclass: #RoverWindow
-	instanceVariableNames: 'position direction'
+	instanceVariableNames: 'positionWindow direction'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
@@ -920,20 +1029,37 @@ Object subclass: #RoverWindow
 actualizeDirection: aDirection
 	direction := aDirection .! !
 
-!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:47:46'!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:41:40'!
 actualizePosition: aPosition
-	position := aPosition .! !
+	positionWindow actualize: aPosition .! !
 
 !RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:36'!
 direction
 	^direction! !
 
-!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 13:54:31'!
-generalActualize: aProxy
-	"mi idea de actualizador general para que el proxy sea genérico"
-	
-	aProxy execute: [:x | "genericProxyVariable" ]! !
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:42:03'!
+initialize
+	positionWindow := RoverWindowPosition new.! !
 
-!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:46'!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:41:23'!
+position
+	^positionWindow position.! !
+
+
+!classDefinition: #RoverWindowPosition category: 'MarsRover-WithHeading'!
+Object subclass: #RoverWindowPosition
+	instanceVariableNames: 'position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:40:09'!
+aWindow! !
+
+!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:40:46'!
+actualize: aNewPosition
+	position := aNewPosition ! !
+
+!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:40:17'!
 position
 	^position! !
