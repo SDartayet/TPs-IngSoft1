@@ -31840,3 +31840,724 @@ PASSED!
 PASSED!
 
 ----QUIT----(30 October 2023 02:44:46) CuisUniversity-5981.image priorSource: 11872939!
+
+----STARTUP---- (30 October 2023 02:53:20) as C:\Users\sofia\Documents\SmalltalkVM\windows64\CuisUniversity-5981.image!
+
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:16:55' prior: 50697924!
+test01LogStartsOutEmpty
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	expectedLog := OrderedCollection new.
+	log := MarsRoverLog for: rover.
+	
+	self assert: expectedLog equals: rover log.! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:17:22' prior: 50704345!
+test01LogStartsOutEmpty
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	expectedLog := OrderedCollection new.
+	log := MarsRoverLog for: rover.
+	
+	self assert: expectedLog equals: log positionsAndDirections.! !
+!MarsRoverLog class methodsFor: 'no messages' stamp: 'Sof D 10/30/2023 14:18:02'!
+for: aRoverToLogTheActionsOf
+	^self new initializeWith: aRoverToLogTheActionsOf ! !
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:18:28' prior: 50698898!
+attachToRover: aRover
+	! !
+
+!classRemoval: #RoverWindowPosition stamp: 'Sof D 10/30/2023 14:18:35'!
+Object subclass: #RoverWindowPosition
+	instanceVariableNames: 'position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:19:14' prior: 50704373!
+attachToRover: aRoverToLogTheActionsOf
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].! !
+
+!classDefinition: #MarsRoverLog category: 'TheReturnOfMarsRover-Ejercicio' stamp: 'Sof D 10/30/2023 14:19:36'!
+Object subclass: #MarsRoverLog
+	instanceVariableNames: 'positionsAndDirections'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+!MarsRoverLog methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:19:36' prior: 50698910!
+registerToLog: objectToAdd
+	positionsAndDirections add: objectToAdd ! !
+!MarsRoverLog methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:19:36' prior: 50698915 overrides: 16920235!
+initialize
+	positionsAndDirections := OrderedCollection new! !
+!MarsRoverLog methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:19:36' prior: 50698906!
+contents
+	^positionsAndDirections 
+	! !
+
+Object subclass: #MarsRoverLog
+	instanceVariableNames: 'positionsAndDirections positions directions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+
+!classDefinition: #MarsRoverLog category: 'TheReturnOfMarsRover-Ejercicio' stamp: 'Sof D 10/30/2023 14:19:42'!
+Object subclass: #MarsRoverLog
+	instanceVariableNames: 'positionsAndDirections positions directions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:20:01'!
+positionsAndDirections
+	^positionsAndDirections 
+	! !
+
+!methodRemoval: MarsRoverLog #contents stamp: 'Sof D 10/30/2023 14:20:01'!
+contents
+	^positionsAndDirections 
+	!
+!MarsRover methodsFor: 'nil' stamp: 'Sof D 10/30/2023 14:20:20'!
+position
+	^position variableValue ! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:20:30'!
+direction
+	^head variableValue ! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 14:21:05' prior: 50703696!
+attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
+	attachedObservers at: aComplementToAttach put: aClosureWithActionToDoOnVariableUpdate .
+	! !
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:21:24' prior: 50703669!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	position := aRoverToObserve position .
+	direction := aRoverToObserve direction .
+	! !
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test09WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:21:27'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:21:33'!
+FAILURE!
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:21:53' prior: 50704464!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	position := aRoverToObserve position asString.
+	direction := aRoverToObserve direction name.
+	! !
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 14:21:56'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 14:21:56'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 14:21:56'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 14:21:56'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test09WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 14:21:56'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:21:56'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:22:00'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:23:54'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:23:54'!
+FAILURE!
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 14:24:26' prior: 50704540!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	position := aRoverToObserve position asString.
+	direction := aRoverToObserve direction directionName .
+	! !
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test09WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:24:29'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:24:33'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:24:33'!
+ERROR!
+!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:25:11'!
+initializeWith: aRoverToLogTheActionsOf
+
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	positionsAndDirections := OrderedCollection new! !
+!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:25:48' prior: 50704702!
+initializeWith: aRoverToLogTheActionsOf
+
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	positionsAndDirections := OrderedCollection new.
+	positions := OrderedCollection new.
+	directions := OrderedCollection new.! !
+
+!methodRemoval: MarsRoverLog #initialize stamp: 'Sof D 10/30/2023 14:25:53'!
+initialize
+	positionsAndDirections := OrderedCollection new!
+
+!methodRemoval: MarsRoverLog #attachToRover: stamp: 'Sof D 10/30/2023 14:27:24'!
+attachToRover: aRoverToLogTheActionsOf
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].!
+
+!methodRemoval: MarsRoverLog #registerToLog: stamp: 'Sof D 10/30/2023 14:28:10'!
+registerToLog: objectToAdd
+	positionsAndDirections add: objectToAdd !
+!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:28:37' prior: 50704717!
+initializeWith: aRoverToLogTheActionsOf
+
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver addPositionToLog: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver addDirectionToLog: aDirection ].
+	positionsAndDirections := OrderedCollection new.
+	positions := OrderedCollection new.
+	directions := OrderedCollection new.! !
+!MarsRoverLog methodsFor: 'updating' stamp: 'Sof D 10/30/2023 14:29:31'!
+addPositionToLog: aPositionOfTheRoverToLog
+	| position |
+	position := aPositionOfTheRoverToLog asString.
+	positionsAndDirections add: position .
+	positions add: position .! !
+!MarsRoverLog methodsFor: 'updating' stamp: 'Sof D 10/30/2023 14:29:52'!
+addDirectionToLog: aDirectionOfTheRoverToLog
+	| Direction |
+	Direction := aDirectionOfTheRoverToLog directionName .
+	positionsAndDirections add: Direction .
+	positions add: Direction .! !
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:29:59'!
+PASSED!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:30:16' prior: 50697933!
+test02LogRegisterNorthwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((0@1) asString).
+	
+	log := MarsRoverLog for: rover.
+	
+	self assert: expectedLog equals: log positionsAndDirections.! !
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:30:19'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:30:19'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:30:23'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:30:23'!
+FAILURE!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test09WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:31:34'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:31:37'!
+PASSED!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:31:58' prior: 50704791!
+test02LogRegisterNorthwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	log := MarsRoverLog for: rover.
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((0@1) asString).
+	
+	log := MarsRoverLog for: rover.
+	
+	self assert: expectedLog equals: log positionsAndDirections.! !
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:32:01'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:32:01'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:32:16'!
+FAILURE!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:32:16'!
+FAILURE!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:33:36' prior: 50704877!
+test02LogRegisterNorthwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	log := MarsRoverLog for: rover.
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((0@1) asString).
+	
+	
+	self assert: expectedLog equals: log positionsAndDirections.! !
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:33:37'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:33:37'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:33:37'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test03LogRegisterEastwardMovement stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test04LogRegisterWestwardMovement stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test05LogRegisterSouthwardMovement stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test06LogRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test07LogRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test08LogRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test09LogRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test10LogRegistersMultipleRotations stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test11LogRegistersMultipleMovements stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test12LogRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test13LogCanReturnJustTheDirections stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test14LogCanReturnJustThePositoins stamp: 'Sof D 10/30/2023 14:33:37'!
+ERROR!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:33:54' prior: 50697944!
+test03LogRegisterEastwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	log := MarsRoverLog for: rover.
+
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((1@0) asString).
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+
+!testRun: #MarsRoverLogTest #test03LogRegisterEastwardMovement stamp: 'Sof D 10/30/2023 14:33:57'!
+PASSED!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:06' prior: 50697954!
+test04LogRegisterWestwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
+	log := MarsRoverLog for: rover.
+
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((-1@0) asString).
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:16' prior: 50697965!
+test05LogRegisterSouthwardMovement
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'f'.
+	expectedLog := OrderedCollection with: ((0@-1) asString).
+	
+	self assert: expectedLog equals:  log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:26' prior: 50697976!
+test06LogRegisterWestwardRotation
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'r'.
+	expectedLog := OrderedCollection with: ('West').
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:38' prior: 50697986!
+test07LogRegisterEastwardRotation
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'l'.
+	expectedLog := OrderedCollection with: ('East').
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:53' prior: 50697996!
+test08LogRegisterNorthwardRotation
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'l'.
+	expectedLog := OrderedCollection with: ('North').
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:35:12' prior: 50698006!
+test09LogRegisterSouthwardRotation
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'r'.
+	expectedLog := OrderedCollection with: ('South').
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test03LogRegisterEastwardMovement stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test04LogRegisterWestwardMovement stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test05LogRegisterSouthwardMovement stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test06LogRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test07LogRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test08LogRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test09LogRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:35:19'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test10LogRegistersMultipleRotations stamp: 'Sof D 10/30/2023 14:35:19'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test11LogRegistersMultipleMovements stamp: 'Sof D 10/30/2023 14:35:19'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test12LogRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:35:19'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test13LogCanReturnJustTheDirections stamp: 'Sof D 10/30/2023 14:35:19'!
+ERROR!
+
+!testRun: #MarsRoverLogTest #test14LogCanReturnJustThePositoins stamp: 'Sof D 10/30/2023 14:35:19'!
+ERROR!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:35:39' prior: 50698016!
+test10LogRegistersMultipleRotations
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'r'.
+	rover process: 'r'.
+
+	expectedLog := OrderedCollection with: ('South') with: 'West'.
+	
+	self assert: expectedLog equals: log.! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:35:48' prior: 50705107!
+test10LogRegistersMultipleRotations
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'r'.
+	rover process: 'r'.
+
+	expectedLog := OrderedCollection with: ('South') with: 'West'.
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+
+!testRun: #MarsRoverLogTest #test10LogRegistersMultipleRotations stamp: 'Sof D 10/30/2023 14:35:51'!
+PASSED!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:02' prior: 50698027!
+test11LogRegistersMultipleMovements
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'fb'.
+
+	expectedLog := OrderedCollection with: ((0@1) asString) with: ((0@0) asString).
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:12' prior: 50698038!
+test12LogRegistersMovementAndRotation
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'fr'.
+
+	expectedLog := OrderedCollection with: ((0@1) asString) with: ('East').
+	
+	self assert: expectedLog equals: log positionsAndDirections .! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:32' prior: 50698049!
+test13LogCanReturnJustTheDirections
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
+	rover process: 'fr'.
+
+	expectedLog := OrderedCollection with: ('East').
+	
+	self assert: expectedLog equals: log directions.! !
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:36:52'!
+directions
+	^directions! !
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:36:58'!
+positions
+	^positions! !
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:37:08'!
+test14LogCanReturnJustThePositions
+	| rover expectedLog |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+
+	expectedLog := OrderedCollection with: ((0@1) asString) .
+	
+	self assert: expectedLog equals: rover positionLog.! !
+
+!methodRemoval: MarsRoverLogTest #test14LogCanReturnJustThePositoins stamp: 'Sof D 10/30/2023 14:37:08'!
+test14LogCanReturnJustThePositoins
+	| rover expectedLog |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+
+	expectedLog := OrderedCollection with: ((0@1) asString) .
+	
+	self assert: expectedLog equals: rover positionLog.!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:37:26' prior: 50705184!
+test14LogCanReturnJustThePositions
+	| rover expectedLog log |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+	rover process: 'fr'.
+
+	expectedLog := OrderedCollection with: ((0@1) asString) .
+	
+	self assert: expectedLog equals: log positions.! !
+
+!testRun: #MarsRoverLogTest #test14LogCanReturnJustThePositions stamp: 'Sof D 10/30/2023 14:37:28'!
+FAILURE!
+!MarsRoverLog methodsFor: 'updating' stamp: 'Sof D 10/30/2023 14:37:55' prior: 50704779!
+addDirectionToLog: aDirectionOfTheRoverToLog
+	| direction |
+	direction := aDirectionOfTheRoverToLog directionName .
+	positionsAndDirections add: direction .
+	directions add: direction .! !
+
+!testRun: #MarsRoverLogTest #test01LogStartsOutEmpty stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test02LogRegisterNorthwardMovement stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test03LogRegisterEastwardMovement stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test04LogRegisterWestwardMovement stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test05LogRegisterSouthwardMovement stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test06LogRegisterWestwardRotation stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test07LogRegisterEastwardRotation stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test08LogRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test09LogRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test10LogRegistersMultipleRotations stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test11LogRegistersMultipleMovements stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test12LogRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test13LogCanReturnJustTheDirections stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!
+
+!testRun: #MarsRoverLogTest #test14LogCanReturnJustThePositions stamp: 'Sof D 10/30/2023 14:37:57'!
+PASSED!

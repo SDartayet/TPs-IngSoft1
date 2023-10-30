@@ -5,136 +5,162 @@ TestCase subclass: #MarsRoverLogTest
 	poolDictionaries: ''
 	category: 'TheReturnOfMarsRover-Tests'!
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:40:02'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:17:22'!
 test01LogStartsOutEmpty
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
 	expectedLog := OrderedCollection new.
+	log := MarsRoverLog for: rover.
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections.! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:39:37'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:33:36'!
 test02LogRegisterNorthwardMovement
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	log := MarsRoverLog for: rover.
 	rover process: 'f'.
 	expectedLog := OrderedCollection with: ((0@1) asString).
 	
-	self assert: expectedLog equals: rover log.! !
+	
+	self assert: expectedLog equals: log positionsAndDirections.! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:41:03'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:33:54'!
 test03LogRegisterEastwardMovement
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	log := MarsRoverLog for: rover.
+
 	rover process: 'f'.
 	expectedLog := OrderedCollection with: ((1@0) asString).
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:41:31'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:06'!
 test04LogRegisterWestwardMovement
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
+	log := MarsRoverLog for: rover.
+
 	rover process: 'f'.
 	expectedLog := OrderedCollection with: ((-1@0) asString).
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:41:51'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:16'!
 test05LogRegisterSouthwardMovement
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'f'.
 	expectedLog := OrderedCollection with: ((0@-1) asString).
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals:  log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:46:52'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:26'!
 test06LogRegisterWestwardRotation
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'r'.
 	expectedLog := OrderedCollection with: ('West').
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:47:26'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:38'!
 test07LogRegisterEastwardRotation
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'l'.
 	expectedLog := OrderedCollection with: ('East').
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:48:26'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:34:53'!
 test08LogRegisterNorthwardRotation
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'l'.
 	expectedLog := OrderedCollection with: ('North').
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:49:26'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:35:12'!
 test09LogRegisterSouthwardRotation
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'r'.
 	expectedLog := OrderedCollection with: ('South').
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:57:59'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:35:48'!
 test10LogRegistersMultipleRotations
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'r'.
 	rover process: 'r'.
 
 	expectedLog := OrderedCollection with: ('South') with: 'West'.
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:59:14'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:02'!
 test11LogRegistersMultipleMovements
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'fb'.
 
 	expectedLog := OrderedCollection with: ((0@1) asString) with: ((0@0) asString).
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 20:59:37'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:12'!
 test12LogRegistersMovementAndRotation
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'fr'.
 
 	expectedLog := OrderedCollection with: ((0@1) asString) with: ('East').
 	
-	self assert: expectedLog equals: rover log.! !
+	self assert: expectedLog equals: log positionsAndDirections .! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 21:03:24'!
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:36:32'!
 test13LogCanReturnJustTheDirections
-	| rover expectedLog |
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
+
 	rover process: 'fr'.
 
 	expectedLog := OrderedCollection with: ('East').
 	
-	self assert: expectedLog equals: rover directionLog.! !
+	self assert: expectedLog equals: log directions.! !
 
-!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/26/2023 21:08:28'!
-test14LogCanReturnJustThePositoins
-	| rover expectedLog |
+!MarsRoverLogTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 14:37:26'!
+test14LogCanReturnJustThePositions
+	| rover expectedLog log |
 	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	log := MarsRoverLog for: rover.
 	rover process: 'fr'.
 
 	expectedLog := OrderedCollection with: ((0@1) asString) .
 	
-	self assert: expectedLog equals: rover positionLog.! !
+	self assert: expectedLog equals: log positions.! !
 
 
 !classDefinition: #MarsRoverTest category: 'TheReturnOfMarsRover-Tests'!
@@ -741,7 +767,6 @@ processCommand: aCommand
 	self signalInvalidCommand.! !
 
 
-
 !MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 02:32:54'!
 attachToDirection: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
 	head attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
@@ -749,6 +774,15 @@ attachToDirection: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
 !MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 02:32:35'!
 attachToPosition: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
 	position attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
+
+
+!MarsRover methodsFor: 'observers' stamp: 'Sof D 10/30/2023 14:20:30'!
+direction
+	^head variableValue ! !
+
+!MarsRover methodsFor: 'observers' stamp: 'Sof D 10/30/2023 14:20:20'!
+position
+	^position variableValue ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -803,7 +837,7 @@ initializeFor: aMarsRover
 	marsRover := aMarsRover.! !
 
 
-!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:21:39'!
+!MarsRoverHeading methodsFor: 'direction name' stamp: 'Sof D 10/30/2023 02:21:39'!
 directionName
 	self subclassResponsibility ! !
 
@@ -848,7 +882,7 @@ rotateRight
 	^marsRover headSouth! !
 
 
-!MarsRoverHeadingEast methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39'!
+!MarsRoverHeadingEast methodsFor: 'direction name' stamp: 'Sof D 10/30/2023 02:21:39'!
 directionName
 	^'East'! !
 
@@ -882,7 +916,7 @@ rotateRight
 	^marsRover headEast! !
 
 
-!MarsRoverHeadingNorth methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39'!
+!MarsRoverHeadingNorth methodsFor: 'direction name' stamp: 'Sof D 10/30/2023 02:21:39'!
 directionName
 	^'North'! !
 
@@ -916,7 +950,7 @@ rotateRight
 	^marsRover headWest! !
 
 
-!MarsRoverHeadingSouth methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39'!
+!MarsRoverHeadingSouth methodsFor: 'direction name' stamp: 'Sof D 10/30/2023 02:21:39'!
 directionName
 	^'South'! !
 
@@ -939,7 +973,7 @@ moveForward
 	^marsRover moveWest! !
 
 
-!MarsRoverHeadingWest methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:40'!
+!MarsRoverHeadingWest methodsFor: 'direction name' stamp: 'Sof D 10/30/2023 02:21:40'!
 directionName
 	^'West'! !
 
@@ -957,28 +991,58 @@ rotateRight
 
 !classDefinition: #MarsRoverLog category: 'TheReturnOfMarsRover-Ejercicio'!
 Object subclass: #MarsRoverLog
-	instanceVariableNames: 'content'
+	instanceVariableNames: 'positionsAndDirections positions directions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TheReturnOfMarsRover-Ejercicio'!
 
-!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:40:55'!
-attachToRover: aRover
-	"Cada tipo de log debe tener su attach correspondiente, este es un log genérico y por ahora no lo tiene, pero seguramente los tres sean polimorficos"! !
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:36:52'!
+directions
+	^directions! !
 
-!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:05:43'!
-contents
-	^content 
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:36:58'!
+positions
+	^positions! !
+
+!MarsRoverLog methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:20:01'!
+positionsAndDirections
+	^positionsAndDirections 
 	! !
 
-!MarsRoverLog methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:07:27'!
-registerToLog: objectToAdd
-	content add: objectToAdd ! !
+
+!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:28:37'!
+initializeWith: aRoverToLogTheActionsOf
+
+	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver addPositionToLog: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver addDirectionToLog: aDirection ].
+	positionsAndDirections := OrderedCollection new.
+	positions := OrderedCollection new.
+	directions := OrderedCollection new.! !
 
 
-!MarsRoverLog methodsFor: 'initialization' stamp: 'eaam 10/27/2023 01:04:11'!
-initialize
-	content := OrderedCollection new! !
+!MarsRoverLog methodsFor: 'updating' stamp: 'Sof D 10/30/2023 14:37:55'!
+addDirectionToLog: aDirectionOfTheRoverToLog
+	| direction |
+	direction := aDirectionOfTheRoverToLog directionName .
+	positionsAndDirections add: direction .
+	directions add: direction .! !
+
+!MarsRoverLog methodsFor: 'updating' stamp: 'Sof D 10/30/2023 14:29:31'!
+addPositionToLog: aPositionOfTheRoverToLog
+	| position |
+	position := aPositionOfTheRoverToLog asString.
+	positionsAndDirections add: position .
+	positions add: position .! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'MarsRoverLog class' category: 'TheReturnOfMarsRover-Ejercicio'!
+MarsRoverLog class
+	instanceVariableNames: ''!
+
+!MarsRoverLog class methodsFor: 'instance creation' stamp: 'Sof D 10/30/2023 14:18:02'!
+for: aRoverToLogTheActionsOf
+	^self new initializeWith: aRoverToLogTheActionsOf ! !
 
 
 !classDefinition: #MarsRoverWindow category: 'TheReturnOfMarsRover-Ejercicio'!
@@ -988,32 +1052,36 @@ Object subclass: #MarsRoverWindow
 	poolDictionaries: ''
 	category: 'TheReturnOfMarsRover-Ejercicio'!
 
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'eaam 10/27/2023 01:48:36'!
-direction
-	^direction! !
-
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:31:54'!
+!MarsRoverWindow methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:24:26'!
 initializeWith: aRoverToObserve
 
 	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
 	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	position := aRoverToObserve position asString.
+	direction := aRoverToObserve direction directionName .
 	! !
 
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:24:28'!
-position
-	^position.! !
 
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:22:55'!
-positionAndDirection
-	^position, ', ', direction! !
-
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:18:39'!
+!MarsRoverWindow methodsFor: 'updating' stamp: 'Sof D 10/30/2023 02:18:39'!
 updateDirection: aDirection
 	direction := aDirection directionName.! !
 
-!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:22:18'!
+!MarsRoverWindow methodsFor: 'updating' stamp: 'Sof D 10/30/2023 02:22:18'!
 updatePosition: aPosition
 	position := aPosition asString .! !
+
+
+!MarsRoverWindow methodsFor: 'accessing' stamp: 'eaam 10/27/2023 01:48:36'!
+direction
+	^direction! !
+
+!MarsRoverWindow methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 02:24:28'!
+position
+	^position.! !
+
+!MarsRoverWindow methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 02:22:55'!
+positionAndDirection
+	^position, ', ', direction! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1039,24 +1107,25 @@ initializeWith: aVariableToStore
 	attachedObservers := Dictionary  new.! !
 
 
-!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:34:29'!
+!ObserverProxy methodsFor: 'value' stamp: 'eaam 10/29/2023 00:43:59'!
+variableValue
+	^variable .! !
+
+
+!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 14:21:05'!
 attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
 	attachedObservers at: aComplementToAttach put: aClosureWithActionToDoOnVariableUpdate .
-	aClosureWithActionToDoOnVariableUpdate value: aComplementToAttach value: variable .! !
+	! !
 
-!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 02:20:53'!
+!ObserverProxy methodsFor: 'observer actions' stamp: 'eaam 10/29/2023 02:20:53'!
 attachedComplements
 	^attachedObservers .! !
 
-!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:03:41'!
+!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 02:03:41'!
 updateVariable: aVariable
 	variable := aVariable .
 	attachedObservers keysAndValuesDo: [: anObserver : aClosure | (aClosure value: anObserver value: aVariable) ]
 	! !
-
-!ObserverProxy methodsFor: 'observer' stamp: 'eaam 10/29/2023 00:43:59'!
-variableValue
-	^variable .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1067,22 +1136,3 @@ ObserverProxy class
 !ObserverProxy class methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 00:43:32'!
 with: aVariable
 	^self new initializeWith: aVariable.! !
-
-
-!classDefinition: #RoverWindowPosition category: 'TheReturnOfMarsRover-Ejercicio'!
-Object subclass: #RoverWindowPosition
-	instanceVariableNames: 'position'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TheReturnOfMarsRover-Ejercicio'!
-
-!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:40:09'!
-aWindow! !
-
-!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'eaam 10/29/2023 01:40:17'!
-position
-	^position! !
-
-!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48'!
-updateVariable: aNewPosition
-	position := aNewPosition ! !
