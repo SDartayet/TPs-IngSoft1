@@ -565,29 +565,31 @@ test01AProxyInitializesWithAVariable
 	observer := ObserverProxy with: 1.
 	self assert: observer variableValue equals: 1.! !
 
-!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:35:02'!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 15:17:59'!
 test02AProxyCanAttachAObserver
 	| observer aWindow attachedCollection aClosure |
-	aClosure := [ : test : test2 |].
-	observer := ObserverProxy with: 1.
 	aWindow := MarsRoverWindow new.
-	observer attach: aWindow onUpdateDo: aClosure .
-	attachedCollection := Dictionary new.
-	attachedCollection at: 	aWindow put: aClosure .
+
+	aClosure := [ : test | aWindow updatePosition: test ].
+	observer := ObserverProxy with: 1.
+	observer attach: aClosure .
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aClosure .
 	self assert: (observer attachedComplements) equals: attachedCollection.! !
 
-!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:35:20'!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 15:21:56'!
 test03AProxyCanAttachMultipleObservers
 	| observer aWindow aLog attachedCollection aClosure anotherClosure |
-	aClosure := [ : test : test2 |]. 	anotherClosure := [ : test : test2 |].
+	
 
 	observer := ObserverProxy with: 1.
 	aWindow := MarsRoverWindow new.
 	aLog := MarsRoverLog new.
-	observer attach: aWindow onUpdateDo: aClosure .
-	observer attach: aLog onUpdateDo: anotherClosure .
-	attachedCollection := Dictionary new.
-	attachedCollection at: aWindow put: aClosure ; at: aLog put: anotherClosure .
+	aClosure := [ : test | aWindow updateDirection: test ]. 	anotherClosure := [ : test2 | aLog addPositionToLog: test2].
+	observer attach: aClosure .
+	observer attach: anotherClosure .
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aClosure ; add: anotherClosure .
 	self assert: observer attachedComplements equals: attachedCollection.! !
 
 !ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:27:56'!
@@ -597,30 +599,32 @@ test04AProxyCanUpdateItsVariable
 	observer updateVariable: 0@1.
 	self assert: observer variableValue equals: 0@1 .! !
 
-!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:29:50'!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 15:25:20'!
 test05AProxyCanUpdateAnObserver
 	| observer aWindow aClosure |
-	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
 	observer := ObserverProxy with: 1.
 	aWindow := MarsRoverWindow new.
+	aClosure := [ : aPosition | aWindow updatePosition: aPosition ].
+
 	aWindow updatePosition: 0@0.
-	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: aClosure .
 	observer updateVariable: 0@1.
 	self assert: aWindow position equals: (0@1) asString .! !
 
-!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:29:50'!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 15:26:48'!
 test06AProxyCanUpdateMultipleObservers
 	| observer aWindow anotherWindow aClosure anotherClosure |
-	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
-	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	
 
 	observer := ObserverProxy with: 1.
 	aWindow := MarsRoverWindow new.
 	anotherWindow := MarsRoverWindow new.
+	aClosure := [ : aPosition | aWindow updatePosition: aPosition ].
+	anotherClosure := [ : aPosition | anotherWindow updatePosition: aPosition ].
 	aWindow updatePosition: 0@0.
 	anotherWindow updatePosition: 10@10.
-	observer attach: aWindow onUpdateDo: aClosure .
-	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer attach: aClosure .
+	observer attach: anotherClosure .
 	observer updateVariable: 0@1.
 	self assert: aWindow position equals: (0@1) asString .
 	self assert: anotherWindow position equals: (0@1) asString .! !
@@ -767,20 +771,20 @@ processCommand: aCommand
 	self signalInvalidCommand.! !
 
 
-!MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 02:32:54'!
-attachToDirection: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
-	head attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
+!MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 15:19:14'!
+attachToDirection: aClosureWithAnObserverToAttach 
+	head attach: aClosureWithAnObserverToAttach ! !
 
-!MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 02:32:35'!
-attachToPosition: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
-	position attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
+!MarsRover methodsFor: 'add observers' stamp: 'Sof D 10/30/2023 15:19:08'!
+attachToPosition: aClosureWithAnObserverToAttach 
+	position attach: aClosureWithAnObserverToAttach ! !
 
 
-!MarsRover methodsFor: 'observers' stamp: 'Sof D 10/30/2023 14:20:30'!
+!MarsRover methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:20:30'!
 direction
 	^head variableValue ! !
 
-!MarsRover methodsFor: 'observers' stamp: 'Sof D 10/30/2023 14:20:20'!
+!MarsRover methodsFor: 'accessing' stamp: 'Sof D 10/30/2023 14:20:20'!
 position
 	^position variableValue ! !
 
@@ -1010,11 +1014,11 @@ positionsAndDirections
 	! !
 
 
-!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:28:37'!
+!MarsRoverLog methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 15:20:27'!
 initializeWith: aRoverToLogTheActionsOf
 
-	aRoverToLogTheActionsOf attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver addPositionToLog: aPosition ].
-	aRoverToLogTheActionsOf attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver addDirectionToLog: aDirection ].
+	aRoverToLogTheActionsOf attachToPosition: [ : aPosition | self addPositionToLog: aPosition ].
+	aRoverToLogTheActionsOf attachToDirection: [ : aDirection | self addDirectionToLog: aDirection ].
 	positionsAndDirections := OrderedCollection new.
 	positions := OrderedCollection new.
 	directions := OrderedCollection new.! !
@@ -1052,11 +1056,11 @@ Object subclass: #MarsRoverWindow
 	poolDictionaries: ''
 	category: 'TheReturnOfMarsRover-Ejercicio'!
 
-!MarsRoverWindow methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:24:26'!
+!MarsRoverWindow methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 15:18:33'!
 initializeWith: aRoverToObserve
 
-	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
-	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	aRoverToObserve attachToPosition: [ : aPosition | self updatePosition: aPosition ].
+	aRoverToObserve attachToDirection: [ : aDirection | self updateDirection: aDirection ].
 	position := aRoverToObserve position asString.
 	direction := aRoverToObserve direction directionName .
 	! !
@@ -1101,10 +1105,10 @@ Object subclass: #ObserverProxy
 	poolDictionaries: ''
 	category: 'TheReturnOfMarsRover-Ejercicio'!
 
-!ObserverProxy methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 01:40:15'!
+!ObserverProxy methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 14:40:26'!
 initializeWith: aVariableToStore 
 	variable := aVariableToStore.
-	attachedObservers := Dictionary  new.! !
+	attachedObservers := OrderedCollection  new.! !
 
 
 !ObserverProxy methodsFor: 'value' stamp: 'eaam 10/29/2023 00:43:59'!
@@ -1112,19 +1116,19 @@ variableValue
 	^variable .! !
 
 
-!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 14:21:05'!
-attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
-	attachedObservers at: aComplementToAttach put: aClosureWithActionToDoOnVariableUpdate .
+!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 15:20:01'!
+attach: aClosureWithAComplementToAttach 
+	attachedObservers add: aClosureWithAComplementToAttach 
 	! !
 
 !ObserverProxy methodsFor: 'observer actions' stamp: 'eaam 10/29/2023 02:20:53'!
 attachedComplements
 	^attachedObservers .! !
 
-!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 02:03:41'!
+!ObserverProxy methodsFor: 'observer actions' stamp: 'Sof D 10/30/2023 14:44:14'!
 updateVariable: aVariable
 	variable := aVariable .
-	attachedObservers keysAndValuesDo: [: anObserver : aClosure | (aClosure value: anObserver value: aVariable) ]
+	attachedObservers do: [: aClosure | (aClosure value: aVariable) ]
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
