@@ -29860,3 +29860,1983 @@ PASSED!
 PASSED!
 
 ----QUIT----(29 October 2023 02:21:07) CuisUniversity-5981.image priorSource: 11644049!
+
+----STARTUP---- (30 October 2023 01:18:23) as C:\Users\sofia\Documents\SmalltalkVM\windows64\CuisUniversity-5981.image!
+
+
+----End fileIn of C:\Users\sofia\Documents\SmalltalkVM\windows64\MarsRover-WithHeading.st----!
+
+!classRemoval: #RoverWindowPosition stamp: 'Sof D 10/30/2023 01:18:40'!
+Object subclass: #RoverWindowPosition
+	instanceVariableNames: 'position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #RoverWindow stamp: 'Sof D 10/30/2023 01:18:40'!
+Object subclass: #RoverWindow
+	instanceVariableNames: 'positionWindow direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #ObserverProxy stamp: 'Sof D 10/30/2023 01:18:40'!
+Object subclass: #ObserverProxy
+	instanceVariableNames: 'variable attachedObservers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverLog stamp: 'Sof D 10/30/2023 01:18:40'!
+Object subclass: #MarsRoverLog
+	instanceVariableNames: 'content'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverHeadingWest stamp: 'Sof D 10/30/2023 01:18:40'!
+MarsRoverHeading subclass: #MarsRoverHeadingWest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverHeadingSouth stamp: 'Sof D 10/30/2023 01:18:40'!
+MarsRoverHeading subclass: #MarsRoverHeadingSouth
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverHeadingNorth stamp: 'Sof D 10/30/2023 01:18:40'!
+MarsRoverHeading subclass: #MarsRoverHeadingNorth
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverHeadingEast stamp: 'Sof D 10/30/2023 01:18:40'!
+MarsRoverHeading subclass: #MarsRoverHeadingEast
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverHeading stamp: 'Sof D 10/30/2023 01:18:40'!
+Object subclass: #MarsRoverHeading
+	instanceVariableNames: 'marsRover'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRover stamp: 'Sof D 10/30/2023 01:18:41'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position head generalLog directionLog positionLog window'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #ObserverProxyTest stamp: 'Sof D 10/30/2023 01:18:41'!
+TestCase subclass: #ObserverProxyTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverWindowTest stamp: 'Sof D 10/30/2023 01:18:41'!
+TestCase subclass: #MarsRoverWindowTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverTest stamp: 'Sof D 10/30/2023 01:18:41'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #MarsRoverLogTest stamp: 'Sof D 10/30/2023 01:18:41'!
+TestCase subclass: #MarsRoverLogTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+----End fileIn of C:\Users\sofia\Documents\SmalltalkVM\windows64\MarsRover-WithHeading.st----!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:27:48'!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [:aConcreteObserver | aConcreteObserver actualize: variable]
+	! !
+!RoverWindowPosition methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48'!
+updateVariable: aNewPosition
+	position := aNewPosition ! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50698475!
+test06AProxyCanActualizeMultipleObservers
+	| observer aWindow anotherWindow|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	anotherWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow.
+	observer attach: anotherWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .! !
+!ObserverProxy methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50698939!
+actualize: aVariable
+	variable := aVariable .
+	attachedObservers do: [:aConcreteObserver | aConcreteObserver updateVariable: variable]
+	! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50698464!
+test05AProxyCanActualizeAObserver
+	| observer aWindow |
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50698991!
+actualizePosition: aPosition
+	positionWindow updateVariable: aPosition .! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50698456!
+test04AProxyCanActualizeItsVariable
+	| observer |
+	observer := ObserverProxy with: 0@0.
+	observer updateVariable: 0@1.
+	self assert: observer variableValue equals: 0@1 .! !
+!ObserverProxy methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:27:48' prior: 50699039!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [:aConcreteObserver | aConcreteObserver updateVariable: variable]
+	! !
+
+!methodRemoval: ObserverProxy #actualize: stamp: 'Sof D 10/30/2023 01:27:48'!
+actualize: aVariable
+	variable := aVariable .
+	attachedObservers do: [:aConcreteObserver | aConcreteObserver updateVariable: variable]
+	!
+
+!methodRemoval: RoverWindowPosition #actualize: stamp: 'Sof D 10/30/2023 01:27:48'!
+actualize: aNewPosition
+	position := aNewPosition !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:27:56'!
+test04AProxyCanUpdateItsVariable
+	| observer |
+	observer := ObserverProxy with: 0@0.
+	observer updateVariable: 0@1.
+	self assert: observer variableValue equals: 0@1 .! !
+
+!methodRemoval: ObserverProxyTest #test04AProxyCanActualizeItsVariable stamp: 'Sof D 10/30/2023 01:27:56'!
+test04AProxyCanActualizeItsVariable
+	| observer |
+	observer := ObserverProxy with: 0@0.
+	observer updateVariable: 0@1.
+	self assert: observer variableValue equals: 0@1 .!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:28:05'!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow |
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!methodRemoval: ObserverProxyTest #test05AProxyCanActualizeAObserver stamp: 'Sof D 10/30/2023 01:28:05'!
+test05AProxyCanActualizeAObserver
+	| observer aWindow |
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:28:12'!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	anotherWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow.
+	observer attach: anotherWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .! !
+
+!methodRemoval: ObserverProxyTest #test06AProxyCanActualizeMultipleObservers stamp: 'Sof D 10/30/2023 01:28:12'!
+test06AProxyCanActualizeMultipleObservers
+	| observer aWindow anotherWindow|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	anotherWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow.
+	observer attach: anotherWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:23'!
+updateDirection: aDirection
+	direction := aDirection .! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:23' prior: 50698536!
+headNorth
+	
+	head := MarsRoverHeadingNorth for: self .
+	
+	generalLog registerToLog: 'North'. 	directionLog registerToLog: 'North'.
+	window updateDirection: 'North'.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:23' prior: 50698515!
+initializeAt: aPosition heading: aHeadingType
+
+	position := aPosition.
+	head := aHeadingType for: self .
+	
+	generalLog := MarsRoverLog new.
+	
+	directionLog := MarsRoverLog new.
+	
+	positionLog := MarsRoverLog new.
+	
+	window := RoverWindow new.
+	window actualizePosition: position asString.
+	window updateDirection: head name.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:24' prior: 50698544!
+headSouth
+	
+	head := MarsRoverHeadingSouth for: self.
+	
+	generalLog registerToLog: 'South'. 	directionLog registerToLog: 'South'.
+	window updateDirection: 'South'.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:24' prior: 50698528!
+headEast
+	
+	head := MarsRoverHeadingEast for: self.
+	
+	generalLog registerToLog: 'East'. directionLog registerToLog: 'East'.
+	window updateDirection: 'East'.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:24' prior: 50698552!
+headWest
+	
+	head := MarsRoverHeadingWest for: self .
+	
+	generalLog registerToLog: 'West'. 	directionLog registerToLog: 'West'.
+	window updateDirection: 'West'.! !
+
+!methodRemoval: RoverWindow #actualizeDirection: stamp: 'Sof D 10/30/2023 01:28:24'!
+actualizeDirection: aDirection
+	direction := aDirection .!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:31'!
+updatePosition: aPosition
+	positionWindow updateVariable: aPosition .! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:32' prior: 50698625!
+moveWest
+	
+	position := position + (-1@0).
+	
+	generalLog registerToLog: (position asString).
+	positionLog registerToLog: (position asString).
+	window updatePosition: (position asString).! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:32' prior: 50698594!
+moveEast
+	
+	position := position + (1@0).
+	
+	generalLog registerToLog: (position asString). 
+	positionLog registerToLog: (position asString).
+	window updatePosition: (position asString).! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:32' prior: 50698607!
+moveNorth
+	
+	position := position + (0@1).
+	
+	generalLog registerToLog: (position asString ). 
+	positionLog registerToLog: (position asString ).
+	window updatePosition: (position asString).! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:32' prior: 50699213!
+initializeAt: aPosition heading: aHeadingType
+
+	position := aPosition.
+	head := aHeadingType for: self .
+	
+	generalLog := MarsRoverLog new.
+	
+	directionLog := MarsRoverLog new.
+	
+	positionLog := MarsRoverLog new.
+	
+	window := RoverWindow new.
+	window updatePosition: position asString.
+	window updateDirection: head name.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 01:28:32' prior: 50698616!
+moveSouth
+	
+	position := position + (0@-1).
+	
+	generalLog registerToLog: (position asString).
+	positionLog registerToLog: (position asString).
+	window updatePosition: (position asString).! !
+
+!methodRemoval: RoverWindow #actualizePosition: stamp: 'Sof D 10/30/2023 01:28:32'!
+actualizePosition: aPosition
+	positionWindow updateVariable: aPosition .!
+!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 01:29:19' prior: 50699294!
+initializeAt: aPosition heading: aHeadingType
+
+	position := aPosition.
+	head := aHeadingType for: self .
+	
+	
+	window := RoverWindow new.
+	window updatePosition: position asString.
+	window updateDirection: head name.! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:31:31'!
+attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
+	^attachedObservers add: aComplementToAttach.! !
+
+!methodRemoval: ObserverProxy #attach: stamp: 'Sof D 10/30/2023 01:31:31'!
+attach: aComplementToAttach
+	^attachedObservers add: aComplementToAttach.!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:31:46' prior: 50699332!
+attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
+	^attachedObservers add: aComplementToAttach@aClosureWithActionToDoOnVariableUpdate .! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:32:46' prior: 50699106!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserverClosurePair | anObserverClosurePair second value: anObserverClosurePair first ]
+	! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:33:17' prior: 50698427!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: [].
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aWindow .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:33:24' prior: 50699362!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: [].
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aWindow@[] .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:33:26'!
+ERROR!
+
+----End fileIn of C:\Users\sofia\Documents\SmalltalkVM\windows64\Packages\TerseGuide.pck.st----!
+!ObserverProxy methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 01:40:15' prior: 50698933!
+initializeWith: aVariableToStore 
+	variable := aVariableToStore.
+	attachedObservers := Dictionary  new.! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:40:26' prior: 50699344!
+attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
+	^attachedObservers at: aComplementToAttach put: aClosureWithActionToDoOnVariableUpdate .! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:40:54' prior: 50699353!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | aClosure value: anObserver ]
+	! !
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:41:01'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:41:01'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:41:32' prior: 50699376!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: [].
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: [].
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:41:32'!
+FAILURE!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:42:21'!
+FAILURE!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:42:21'!
+FAILURE!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:43:06' prior: 50702344!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection|
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: [].
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: [].
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:43:08'!
+FAILURE!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:43:31' prior: 50702368!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: [].
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: [].
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:43:41' prior: 50702385!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: aClosure .
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:43:42'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 01:43:42'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:43:42'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:43:42'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 01:43:42'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:43:42'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 01:43:42'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:44:19' prior: 50698440!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection aClosure anotherClosure |
+	aClosure := []. anotherClosure := [''].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow.
+	observer attach: aLog.
+	attachedCollection := OrderedCollection new.
+	attachedCollection add: aWindow. attachedCollection add: aLog.
+	self assert: observer attachedComplements equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:45:13' prior: 50702439!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection aClosure anotherClosure |
+	aClosure := []. anotherClosure := [''].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: aLog onUpdateDo: anotherClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: aWindow put: aClosure ; at: aLog put: anotherClosure .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:45:14'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 01:45:14'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:45:14'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:45:14'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 01:45:14'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:45:14'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 01:45:14'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:45:37' prior: 50699141!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow.
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:45:52' prior: 50702501!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:46:23' prior: 50702513!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 01:46:54' prior: 50702526!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updateVariable: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:47:13' prior: 50702330!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | aClosure value: anObserver, aVariable ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:47:20'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:47:20'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:49:02' prior: 50702556!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | aClosure value: anObserver value: aVariable ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:49:08'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:49:08'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:53:05' prior: 50702570!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | aClosure value: anObserver value: variable ]
+	! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 01:53:06'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:53:06'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:53:06'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 01:53:06'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:53:06'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 01:53:06'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:53:08'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:54:16' prior: 50702585!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | (aClosure value: anObserver value: variable) ]
+	! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 01:54:18'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:54:18'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:54:18'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 01:54:18'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:54:18'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 01:54:18'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:55:18'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:55:57'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:56:08' prior: 50702617!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: aClosure : anObserver | (aClosure value: anObserver value: variable) ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:56:11'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 01:57:29' prior: 50702652!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | (aClosure value: anObserver value: variable) ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:57:32'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:57:32'!
+ERROR!
+
+closure value: 1 value: 2!
+
+closure value: 1 value: 2!
+
+[ : a : b | a+b ]  value: 1 value: 2!
+
+----QUIT----(30 October 2023 01:59:17) CuisUniversity-5981.image priorSource: 11582566!
+
+----STARTUP---- (30 October 2023 01:59:28) as C:\Users\sofia\Documents\SmalltalkVM\windows64\CuisUniversity-5981.image!
+
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 01:59:31'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 01:59:31'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 01:59:31'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 01:59:31'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 01:59:31'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 01:59:31'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:00:26' prior: 50702541!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow | | aPosition | aMarsRoverWindow updateVariable: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:00:29'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:00:38'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:00:54' prior: 50702663!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | (aClosure value: anObserver) ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:00:57'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:00:57'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:01:12' prior: 50702730!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers do: [: anObserver : aClosure | (aClosure value: anObserver value: aVariable) ]
+	! !
+
+self attachedComplements !
+
+self attachedComplements first!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:03:33'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:03:33'!
+ERROR!
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:03:41' prior: 50702744!
+updateVariable: aVariable
+	variable := aVariable .
+	attachedObservers keysAndValuesDo: [: anObserver : aClosure | (aClosure value: anObserver value: aVariable) ]
+	! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:03:44'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:03:44'!
+ERROR!
+
+self attachedComplements values!
+
+self attachedComplements values first!
+
+self attachedComplements keys first!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:04:36' prior: 50702708!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updateVariable: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:04:37'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:04:37'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:04:37'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:05:11'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:05:11'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:05:11'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:06:03' prior: 50699164!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow aClosure anotherClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updateVariable: aPosition ].
+	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updateVariable: aPosition ].
+
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindowPosition new.
+	anotherWindow := RoverWindowPosition new.
+	aWindow updateVariable: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:06:09'!
+PASSED!
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:08:28' prior: 50699236!
+headEast
+	
+	head updateVariable: ( MarsRoverHeadingEast for: self).
+	! !
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:08:50' prior: 50699204!
+headNorth
+	
+	head updateVariable: (MarsRoverHeadingNorth for: self ).
+	
+	! !
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:09:12' prior: 50699227!
+headSouth
+	
+	head updateVariable: (MarsRoverHeadingSouth for: self).
+	! !
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:09:24' prior: 50699245!
+headWest
+	
+	head updateVariable: (MarsRoverHeadingWest for: self).
+	! !
+!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 02:10:23' prior: 50699322!
+initializeAt: aPosition heading: aHeadingType
+
+	position := ObserverProxy new for: aPosition.
+	head := aHeadingType for: self .
+	
+	
+	window := RoverWindow new.
+	window updatePosition: position asString.
+	window updateDirection: head name.! !
+!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 02:10:40' prior: 50702923!
+initializeAt: aPosition heading: aHeadingType
+
+	position := ObserverProxy with: aPosition.
+	head := aHeadingType for: self .
+	
+	
+	window := RoverWindow new.
+	window updatePosition: position asString.
+	window updateDirection: head name.! !
+!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 02:11:01' prior: 50702934!
+initializeAt: aPosition heading: aHeadingType
+
+	position := ObserverProxy with: aPosition.
+	head := ObserverProxy with: (aHeadingType for: self) .
+	
+	
+	window := RoverWindow new.
+	window updatePosition: position asString.
+	window updateDirection: head name.! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:13:10' prior: 50699274!
+moveEast
+	
+	position updateVariable: (position value+ (1@0)).
+	
+	! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:13:25' prior: 50702956!
+moveEast
+	
+	position updateVariable: (position variableValue + (1@0)).
+	
+	! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:13:44' prior: 50699284!
+moveNorth
+	
+	position updateVariable: (position variableValue + (0@1))
+	
+	! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:14:00' prior: 50699308!
+moveSouth
+	
+	position updateVariable: (position variableValue + (0@-1))
+	! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:14:15' prior: 50699264!
+moveWest
+	
+	position updateVariable: (position variableValue + (-1@0)).
+	! !
+
+!methodRemoval: MarsRover #directionLog stamp: 'Sof D 10/30/2023 02:14:22'!
+directionLog
+	^directionLog contents!
+!MarsRover methodsFor: 'testing' stamp: 'Sof D 10/30/2023 02:14:44' prior: 50698568!
+isAt: aPosition heading: aHeadingType
+
+	^position variableValue = aPosition and: [ head isHeading: aHeadingType ]! !
+!MarsRover methodsFor: 'testing' stamp: 'Sof D 10/30/2023 02:14:48' prior: 50702988!
+isAt: aPosition heading: aHeadingType
+
+	^position variableValue = aPosition and: [ head variableValue isHeading: aHeadingType ]! !
+
+!methodRemoval: MarsRover #window stamp: 'Sof D 10/30/2023 02:14:55'!
+window
+	^window!
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:15:10' prior: 50698564!
+rotateRight
+	
+	head variableValue rotateRight! !
+!MarsRover methodsFor: 'heading' stamp: 'Sof D 10/30/2023 02:15:19' prior: 50698560!
+rotateLeft
+	
+	head variableValue rotateLeft! !
+
+!methodRemoval: MarsRover #positionLog stamp: 'Sof D 10/30/2023 02:15:37'!
+positionLog
+	^positionLog contents!
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:15:54' prior: 50698603!
+moveForward
+	
+	head variableValue moveForward! !
+!MarsRover methodsFor: 'moving' stamp: 'Sof D 10/30/2023 02:16:00' prior: 50698590!
+moveBackward
+	
+	head variableValue moveBackward! !
+!MarsRover methodsFor: 'initialization' stamp: 'Sof D 10/30/2023 02:16:09' prior: 50702945!
+initializeAt: aPosition heading: aHeadingType
+
+	position := ObserverProxy with: aPosition.
+	head := ObserverProxy with: (aHeadingType for: self) .
+	
+	! !
+
+!methodRemoval: MarsRover #log stamp: 'Sof D 10/30/2023 02:16:23'!
+log
+	^generalLog contents !
+
+Object subclass: #MarsRover
+	instanceVariableNames: 'position head'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+
+!classDefinition: #MarsRover category: 'TheReturnOfMarsRover-Ejercicio' stamp: 'Sof D 10/30/2023 02:16:33'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position head'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+
+!testRun: #MarsRoverTest #test01DoesNotMoveWhenNoCommand stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02IsAtFailsForDifferentPosition stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03IsAtFailsForDifferentHeading stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test04IncrementsYAfterMovingForwardWhenHeadingNorth stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test06DecrementsYAfterMovingBackwardsWhenHeadingNorth stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test07PointToEashAfterRotatingRightWhenHeadingNorth stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test08PointsToWestAfterRotatingLeftWhenPointingNorth stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test09DoesNotProcessInvalidCommand stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test10CanProcessMoreThanOneCommand stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test11IncrementsXAfterMovingForwareWhenHeadingEast stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test12DecrementsXAfterMovingBackwardWhenHeadingEast stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test13PointsToSouthAfterRotatingRightWhenHeadingEast stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test14PointsToNorthAfterRotatingLeftWhenPointingEast stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test15ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingSouth stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+
+!testRun: #MarsRoverTest #test16ForwardBackwardsAndRotateRightWorkAsExpectedWhenPointingWest stamp: 'Sof D 10/30/2023 02:16:39'!
+PASSED!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:18:39' prior: 50699199!
+updateDirection: aDirection
+	direction := aDirection directionName.! !
+!MarsRoverHeading methodsFor: 'nil' stamp: 'Sof D 10/30/2023 02:18:58'!
+directionName
+	self subclassResponsibility ! !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:21:08' overrides: 16903442!
+name
+	self subclassResponsibility ! !
+
+!methodRemoval: MarsRoverHeading #directionName stamp: 'Sof D 10/30/2023 02:21:09'!
+directionName
+	self subclassResponsibility !
+!MarsRoverHeading methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:21:39'!
+directionName
+	self subclassResponsibility ! !
+!MarsRoverHeadingEast methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39' overrides: 50703127!
+directionName
+	^'East'! !
+!MarsRoverHeadingNorth methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39' overrides: 50703127!
+directionName
+	^'North'! !
+!MarsRoverHeadingSouth methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:39' overrides: 50703127!
+directionName
+	^'South'! !
+!MarsRoverHeadingWest methodsFor: 'category-name' stamp: 'Sof D 10/30/2023 02:21:40' overrides: 50703127!
+directionName
+	^'West'! !
+
+!methodRemoval: MarsRoverHeading #name stamp: 'Sof D 10/30/2023 02:21:40'!
+name
+	self subclassResponsibility !
+
+!methodRemoval: MarsRoverHeadingEast #name stamp: 'Sof D 10/30/2023 02:21:40'!
+name
+	^'East'!
+
+!methodRemoval: MarsRoverHeadingNorth #name stamp: 'Sof D 10/30/2023 02:21:40'!
+name
+	^'North'!
+
+!methodRemoval: MarsRoverHeadingSouth #name stamp: 'Sof D 10/30/2023 02:21:40'!
+name
+	^'South'!
+
+!methodRemoval: MarsRoverHeadingWest #name stamp: 'Sof D 10/30/2023 02:21:40'!
+name
+	^'West'!
+
+Object subclass: #RoverWindow
+	instanceVariableNames: 'position direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+
+!classDefinition: #RoverWindow category: 'TheReturnOfMarsRover-Ejercicio' stamp: 'Sof D 10/30/2023 02:22:08'!
+Object subclass: #RoverWindow
+	instanceVariableNames: 'position direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TheReturnOfMarsRover-Ejercicio'!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:22:18' prior: 50699258!
+updatePosition: aPosition
+	position := aPosition asString .! !
+
+!methodRemoval: RoverWindow #initialize stamp: 'Sof D 10/30/2023 02:22:24'!
+initialize
+	positionWindow := RoverWindowPosition new.!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:22:50'!
+positionAndDirection
+	^position, ' ', direction! !
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:22:55' prior: 50703190!
+positionAndDirection
+	^position, ', ', direction! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:23:12' prior: 50702400!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: aClosure .
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:23:18' prior: 50702457!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection aClosure anotherClosure |
+	aClosure := []. anotherClosure := [''].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: aLog onUpdateDo: anotherClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: aWindow put: aClosure ; at: aLog put: anotherClosure .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:23:31' prior: 50702780!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aWindow updateVariable: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:23:47' prior: 50702850!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow aClosure anotherClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	anotherWindow := RoverWindow new.
+	aWindow updateVariable: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .
+	self assert: anotherWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:23:49'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:23:49'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:23:49'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:23:49'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:23:49'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:23:49'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:23:51'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:24:12' prior: 50703235!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updatePosition: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:13'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:13'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:24:19' prior: 50703299!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:20'!
+ERROR!
+!RoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:24:28' prior: 50699005!
+position
+	^position.! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:31'!
+FAILURE!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:24:39' prior: 50703321!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: 0@1 asString .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:40'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:24:46' prior: 50703347!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: (0@1) asString .! !
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:47'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:24:47'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:24:47'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:24:58'!
+PASSED!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:25:14' prior: 50703250!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow aClosure anotherClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	anotherWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	anotherWindow updateVariable: 10@10.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: (0@1) asString .
+	self assert: anotherWindow position equals: (0@1) asString .! !
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:25:14'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:25:27' prior: 50703412!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow aClosure anotherClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+
+	observer := ObserverProxy with: 1.
+	aWindow := RoverWindow new.
+	anotherWindow := RoverWindow new.
+	aWindow updatePosition: 0@0.
+	anotherWindow updatePosition: 10@10.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: (0@1) asString .
+	self assert: anotherWindow position equals: (0@1) asString .! !
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:25:27'!
+PASSED!
+!RoverWindow class methodsFor: 'no messages' stamp: 'Sof D 10/30/2023 02:27:12'!
+for: aRoverToObserve
+	^self new initializeWith: aRoverToObserve ! !
+!RoverWindow methodsFor: 'nil' stamp: 'Sof D 10/30/2023 02:28:40'!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve position attach: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve direction attach: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:29:07'!
+PASSED!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:29:42' prior: 50698254!
+test01WindowStartsOutShowingRoverPositionAndDirectionNorth
+
+	| rover  window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	window := RoverWindow for: rover.
+	
+	self assert: window position equals: (0@0) asString.
+	self assert: window direction equals: 'North'.
+	! !
+
+!classRenamed: #RoverWindow as: #MarsRoverWindow stamp: 'Sof D 10/30/2023 02:29:50'!
+Smalltalk renameClassNamed: #RoverWindow as: #MarsRoverWindow!
+!MarsRoverWindowTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:29:50' prior: 50703529!
+test01WindowStartsOutShowingRoverPositionAndDirectionNorth
+
+	| rover  window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	window := MarsRoverWindow for: rover.
+	
+	self assert: window position equals: (0@0) asString.
+	self assert: window direction equals: 'North'.
+	! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:29:50' prior: 50703215!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection aClosure anotherClosure |
+	aClosure := []. anotherClosure := [''].
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: aLog onUpdateDo: anotherClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: aWindow put: aClosure ; at: aLog put: anotherClosure .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:29:50' prior: 50703441!
+test06AProxyCanUpdateMultipleObservers
+	| observer aWindow anotherWindow aClosure anotherClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	anotherClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	anotherWindow := MarsRoverWindow new.
+	aWindow updatePosition: 0@0.
+	anotherWindow updatePosition: 10@10.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: anotherWindow onUpdateDo: anotherClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: (0@1) asString .
+	self assert: anotherWindow position equals: (0@1) asString .! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:29:50' prior: 50703366!
+test05AProxyCanUpdateAnObserver
+	| observer aWindow aClosure |
+	aClosure := [ : aMarsRoverWindow : aPosition | aMarsRoverWindow updatePosition: aPosition ].
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	aWindow updatePosition: 0@0.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer updateVariable: 0@1.
+	self assert: aWindow position equals: (0@1) asString .! !
+!ObserverProxyTest methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:29:50' prior: 50703200!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection aClosure |
+	aClosure := [].
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: aClosure .
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:30:55' prior: 50703496!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve position attach: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve direction attach: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	position := aRoverToObserve position variableValue asString.
+	direction := aRoverToObserve direction variableValue directionName.! !
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:31:31' prior: 50703639!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve position attach: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve direction attach: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	! !
+!MarsRoverWindow methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:31:54' prior: 50703656!
+initializeWith: aRoverToObserve
+
+	aRoverToObserve attachToPosition: self onUpdateDo: [ : anObserver : aPosition | anObserver updatePosition: aPosition ].
+	aRoverToObserve attachToDirection: self onUpdateDo: [ : anObserver : aDirection | anObserver updateDirection: aDirection ].
+	! !
+!MarsRover methodsFor: 'nil' stamp: 'Sof D 10/30/2023 02:32:35'!
+attachToPosition: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
+	position attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'Sof D 10/30/2023 02:32:54'!
+attachToDirection: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate
+	head attach: anObserverToAttach onUpdateDo: aClosureToValueOnUpdate .! !
+!ObserverProxy methodsFor: 'observer' stamp: 'Sof D 10/30/2023 02:34:29' prior: 50702321!
+attach: aComplementToAttach onUpdateDo: aClosureWithActionToDoOnVariableUpdate 
+	attachedObservers at: aComplementToAttach put: aClosureWithActionToDoOnVariableUpdate .
+	aClosureWithActionToDoOnVariableUpdate value: aComplementToAttach value: variable .! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:34:41'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:34:41'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:34:41'!
+ERROR!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:34:41'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:34:41'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:34:41'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:34:44'!
+ERROR!
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:35:02' prior: 50703623!
+test02AProxyCanAttachAObserver
+	| observer aWindow attachedCollection aClosure |
+	aClosure := [ : test : test2 |].
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: 	aWindow put: aClosure .
+	self assert: (observer attachedComplements) equals: attachedCollection.! !
+!ObserverProxyTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:35:20' prior: 50703559!
+test03AProxyCanAttachMultipleObservers
+	| observer aWindow aLog attachedCollection aClosure anotherClosure |
+	aClosure := [ : test : test2 |]. 	anotherClosure := [ : test : test2 |].
+
+	observer := ObserverProxy with: 1.
+	aWindow := MarsRoverWindow new.
+	aLog := MarsRoverLog new.
+	observer attach: aWindow onUpdateDo: aClosure .
+	observer attach: aLog onUpdateDo: anotherClosure .
+	attachedCollection := Dictionary new.
+	attachedCollection at: aWindow put: aClosure ; at: aLog put: anotherClosure .
+	self assert: observer attachedComplements equals: attachedCollection.! !
+
+!testRun: #ObserverProxyTest #test01AProxyInitializesWithAVariable stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test02AProxyCanAttachAObserver stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test03AProxyCanAttachMultipleObservers stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test04AProxyCanUpdateItsVariable stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test05AProxyCanUpdateAnObserver stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #ObserverProxyTest #test06AProxyCanUpdateMultipleObservers stamp: 'Sof D 10/30/2023 02:35:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 02:35:27'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:35:30'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:35:30'!
+ERROR!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:35:59' prior: 50698265!
+test02WindowStartsOutShowingRoverPositionAndDirectionSouth
+
+	| rover window |
+	rover := MarsRover at: 0@1heading: MarsRoverHeadingSouth .
+	
+	window := MarsRoverWindow for: rover.
+	
+	self assert: window position equals: (0@1) asString.
+	self assert: window direction equals: 'South'.
+	
+	! !
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:36:00'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 02:36:00'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:36:00'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test09WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test16WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 02:36:00'!
+ERROR!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:37:34' prior: 50698276!
+test03WindowStartsOutShowingRoverPositionAndDirectionWest
+
+	| rover window |
+	rover := MarsRover at: 1@0 heading: MarsRoverHeadingWest .
+	
+	window := MarsRoverWindow for: rover.
+	
+	self assert: window position equals: (1@0) asString.
+	self assert: window direction equals: 'West'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:37:48' prior: 50698287!
+test04WindowStartsOutShowingRoverPositionAndDirectionEast
+
+	| rover window |
+	rover := MarsRover at: 1@1 heading: MarsRoverHeadingEast .
+	
+	window := MarsRoverWindow for: rover.
+	
+	self assert: window position equals: (1@1) asString.
+	self assert: window direction equals: 'East'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:38:05' prior: 50698298!
+test05WindowChangesWestwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
+	rover process: 'f'.
+	
+	self assert: window position equals: (-1@0) asString.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:38:21' prior: 50703902!
+test05WindowChangesWestwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest .
+	rover process: 'f'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (-1@0) asString.
+	! !
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test09WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+
+!testRun: #MarsRoverWindowTest #test16WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 02:38:22'!
+ERROR!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:38:34' prior: 50698307!
+test06WindowChangesNorthwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth .
+	rover process: 'f'.
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (0@1) asString.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:39:46' prior: 50698316!
+test07WindowChangesEastwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	rover process: 'f'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (1@0) asString.
+	! !
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:39:48'!
+PASSED!
+
+!methodRemoval: MarsRoverWindowTest #test08WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:40:03'!
+test08WindowChangesEastwardMovement
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast .
+	rover process: 'f'.
+	
+	self assert: rover window position equals: (1@0) asString.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:40:17' prior: 50698334!
+test09WindowChangesSouthwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth .
+	rover process: 'f'.
+	
+ 	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (0@-1) asString.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:40:27'!
+test08WindowChangesSouthwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth .
+	rover process: 'f'.
+	
+ 	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (0@-1) asString.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test09WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 02:40:27'!
+test09WindowChangesSouthwardMovement
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth .
+	rover process: 'f'.
+	
+ 	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (0@-1) asString.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:40:33'!
+test90WindowRegisterWestwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'West'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test10WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 02:40:33'!
+test10WindowRegisterWestwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'West'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:40:39' prior: 50704052!
+test90WindowRegisterWestwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'West'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:40:47'!
+test09WindowRegisterWestwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'West'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test90WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 02:40:47'!
+test90WindowRegisterWestwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingSouth.
+	rover process: 'r'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'West'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:04'!
+test10WindowRegisterNorthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'North'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test11WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 02:41:04'!
+test11WindowRegisterNorthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'North'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:10' prior: 50704102!
+test10WindowRegisterNorthwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingWest.
+	rover process: 'r'.
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'North'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:15'!
+test11WindowRegisterSouthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'South'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test12WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 02:41:16'!
+test12WindowRegisterSouthwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'South'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:21' prior: 50704131!
+test11WindowRegisterSouthwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingEast.
+	rover process: 'r'.
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert:  window direction equals: 'South'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:27'!
+test12WindowRegisterEastwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'East'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test13WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 02:41:27'!
+test13WindowRegisterEastwardRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'r'.
+	
+	self assert: rover window direction equals: 'East'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:41:36' prior: 50704160!
+test12WindowRegisterEastwardRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'r'.
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'East'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:42:19'!
+test13WindowRegisterMultipleRotations
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'rr'.
+	
+	self assert: rover window direction equals: 'South'.
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test14WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 02:42:19'!
+test14WindowRegisterMultipleRotations
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'rr'.
+	
+	self assert: rover window direction equals: 'South'.
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:42:31' prior: 50704189!
+test13WindowRegisterMultipleRotations
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'rr'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window direction equals: 'South'.
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:42:36'!
+test14WindowRegisterMultipleMovements
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fbf'.
+	
+	self assert: rover window position equals: (0@1) asString .
+	! !
+
+!methodRemoval: MarsRoverWindowTest #test15WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 02:42:36'!
+test15WindowRegisterMultipleMovements
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fbf'.
+	
+	self assert: rover window position equals: (0@1) asString .
+	!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:42:43' prior: 50704218!
+test14WindowRegisterMultipleMovements
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fbf'.
+	
+	window := MarsRoverWindow for: rover.
+
+	
+	self assert: window position equals: (0@1) asString .
+	! !
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:42:50'!
+test15WindowRegistersMovementAndRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+
+	self assert: rover window direction equals: 'East'.
+	self assert: rover window position equals: (0@1) asString .
+! !
+
+!methodRemoval: MarsRoverWindowTest #test16WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 02:42:50'!
+test16WindowRegistersMovementAndRotation
+	| rover |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+
+	self assert: rover window direction equals: 'East'.
+	self assert: rover window position equals: (0@1) asString .
+!
+!MarsRoverWindowTest methodsFor: 'tests' stamp: 'Sof D 10/30/2023 02:43:00' prior: 50704247!
+test15WindowRegistersMovementAndRotation
+	| rover window |
+	rover := MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	rover process: 'fr'.
+	window := MarsRoverWindow for: rover.
+
+
+	self assert: window direction equals: 'East'.
+	self assert: window position equals: (0@1) asString .
+! !
+
+!testRun: #MarsRoverWindowTest #test01WindowStartsOutShowingRoverPositionAndDirectionNorth stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test02WindowStartsOutShowingRoverPositionAndDirectionSouth stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test03WindowStartsOutShowingRoverPositionAndDirectionWest stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test04WindowStartsOutShowingRoverPositionAndDirectionEast stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test05WindowChangesWestwardMovement stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test06WindowChangesNorthwardMovement stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test07WindowChangesEastwardMovement stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test08WindowChangesSouthwardMovement stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test09WindowRegisterWestwardRotation stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test10WindowRegisterNorthwardRotation stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test11WindowRegisterSouthwardRotation stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test12WindowRegisterEastwardRotation stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test13WindowRegisterMultipleRotations stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test14WindowRegisterMultipleMovements stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+!testRun: #MarsRoverWindowTest #test15WindowRegistersMovementAndRotation stamp: 'Sof D 10/30/2023 02:43:03'!
+PASSED!
+
+----QUIT----(30 October 2023 02:44:46) CuisUniversity-5981.image priorSource: 11872939!
