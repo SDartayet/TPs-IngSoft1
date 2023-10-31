@@ -34646,3 +34646,157 @@ PASSED!
 PASSED!
 
 ----QUIT----(30 October 2023 20:43:07) CuisUniversity-5981.image priorSource: 12031019!
+
+----STARTUP---- (30 October 2023 23:18:49) as /home/ezfloat/ing-software-1-c2-2023/linux64/CuisUniversity-5981.image!
+
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:29' prior: 50707669!
+test09CartCantAddNonIntegerAmountOfBooks
+	| cart book availableBooks |
+	
+	availableBooks := OrderedCollection new.
+	availableBooks add: '9780330258647'.
+	cart := TusLibrosCart withValidBooks: availableBooks .
+	book := '9780330258647'.
+	
+	self should: [ cart addBook: book quantity: 0.42 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = TusLibrosCart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:50' prior: 50707574!
+test08CartCantAddZeroOrNegativeAmountOfBooks
+	| cart book availableBooks |
+	
+	availableBooks := OrderedCollection new.
+	availableBooks add: '9780330258647'.
+	cart := TusLibrosCart withValidBooks: availableBooks .
+	book := '9780330258647'.
+	
+	self should: [ cart addBook: book quantity: -1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = TusLibrosCart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:57' prior: 50707252!
+test07CartCantAddBookWithinvalidISBN
+	| cart book availableBooks |
+	
+	availableBooks := OrderedCollection new.
+	availableBooks add: '9780330258647'.
+	cart := TusLibrosCart withValidBooks: availableBooks .
+	book := '0321146530'.
+	
+	self should: [ cart addBook: book quantity: 1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = TusLibrosCart bookNotAvailableErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:12' prior: 50707441!
+test06CartCanShowItsContents
+	| cart book anotherItem expectedItems |
+	book := '0321146530'.
+	anotherItem := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherItem ).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherItem quantity: 2.
+
+	expectedItems := Dictionary new.
+	expectedItems at: book put: 1; at: anotherItem put: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:18' prior: 50707863!
+test06CartCanShowItsContents
+	| cart book anotherBook expectedItems |
+	book := '0321146530'.
+	anotherBook := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook ).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
+
+	expectedItems := Dictionary new.
+	expectedItems at: book put: 1; at: anotherBook put: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:39' prior: 50707425!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherItem |
+	book := '0321146530'.
+	anotherItem := '9780330258647'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherItem ).
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherItem quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherItem inQuantity: 42).! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:46' prior: 50707897!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook |
+	book := '0321146530'.
+	anotherBook := '9780330258647'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook ).
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:15' prior: 50707384!
+test02CartCanAddBook
+	| cart book |
+	book := '0321146530'.
+
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book).
+	cart addBook: book quantity: 1.
+	
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:25' prior: 50707397!
+test03CartCanAddMultipleBooks
+	| cart book anotherItem |
+	book := '0321146530'.
+	anotherItem := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherItem).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherItem quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherItem ).! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:39' prior: 50707939!
+test03CartCanAddMultipleBooks
+	| cart book anotherBook |
+	book := '0321146530'.
+	anotherBook := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:52' prior: 50707414!
+test04CartCanAddMultipleOfTheSameBook
+	| cart book |
+	book := '0321146530'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book).
+
+	cart addBook: book quantity: 2. 
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
+!TusLibrosCart methodsFor: 'cart management' stamp: 'eaam 10/30/2023 23:22:03' prior: 50707765!
+addBook: anBookToAddToCart quantity: theQuantityToBeAdded
+	self validateBookISBN: anBookToAddToCart.
+	self validateQuantity: theQuantityToBeAdded.
+	
+	contents at: anBookToAddToCart put: theQuantityToBeAdded 
+	! !
+!TusLibrosCart methodsFor: 'input validation' stamp: 'eaam 10/30/2023 23:22:34' prior: 50707748!
+validateBookISBN: anBookToValidateTheISBNOf
+
+	 (availableBooks includes: anBookToValidateTheISBNOf) ifFalse: [ self error: self class bookNotAvailableErrorDescription ].! !
+
+----QUIT----(30 October 2023 23:22:52) CuisUniversity-5981.image priorSource: 12036871!
+
+----STARTUP---- (30 October 2023 23:24:01) as /home/ezfloat/ing-software-1-c2-2023/linux64/CuisUniversity-5981.image!
+
+
+----QUIT----(30 October 2023 23:24:11) CuisUniversity-5981.image priorSource: 12043052!
