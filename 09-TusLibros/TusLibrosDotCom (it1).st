@@ -12,110 +12,110 @@ test01CartStartsOutEmpty
 	
 	self assert: cart isEmpty.! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:30:53'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:15'!
 test02CartCanAddBook
-	| cart item |
-	item := '0321146530'.
+	| cart book |
+	book := '0321146530'.
 
-	cart := TusLibrosCart withValidBooks: (OrderedCollection with: item).
-	cart addBook: item quantity: 1.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book).
+	cart addBook: book quantity: 1.
 	
-	self assert: (cart hasBook: item). self deny: cart isEmpty ! !
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:31:08'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:39'!
 test03CartCanAddMultipleBooks
-	| cart item anotherItem |
-	item := '0321146530'.
-	anotherItem := '1933988274'.
-	cart := TusLibrosCart withValidBooks: (OrderedCollection with: item with: anotherItem).
+	| cart book anotherBook |
+	book := '0321146530'.
+	anotherBook := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook).
 
-	cart addBook: item quantity: 1. 	cart addBook: anotherItem quantity: 1.
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
 	
-	self assert: (cart hasBook: item). 	self assert: (cart hasBook: anotherItem ).! !
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:31:28'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:21:52'!
 test04CartCanAddMultipleOfTheSameBook
-	| cart item |
-	item := '0321146530'.
-	cart := TusLibrosCart withValidBooks: (OrderedCollection with: item).
+	| cart book |
+	book := '0321146530'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book).
 
-	cart addBook: item quantity: 2. 
+	cart addBook: book quantity: 2. 
 	
-	self assert: (cart hasBook: item inQuantity: 2). 	! !
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:31:46'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:46'!
 test05CartCanAddMultipleCopiesOfMultipleBooks
-	| cart item anotherItem |
-	item := '0321146530'.
-	anotherItem := '9780330258647'.
-	cart := TusLibrosCart withValidBooks: (OrderedCollection with: item with: anotherItem ).
+	| cart book anotherBook |
+	book := '0321146530'.
+	anotherBook := '9780330258647'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook ).
 
-	cart addBook: item quantity: 2. 
-	cart addBook: anotherItem quantity: 42.
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
 	
 	
-	self assert: (cart hasBook: item inQuantity: 2). 	self assert: (cart hasBook: anotherItem inQuantity: 42).! !
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:32:09'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:20:18'!
 test06CartCanShowItsContents
-	| cart item anotherItem expectedItems |
-	item := '0321146530'.
-	anotherItem := '1933988274'.
-	cart := TusLibrosCart withValidBooks: (OrderedCollection with: item with: anotherItem ).
+	| cart book anotherBook expectedItems |
+	book := '0321146530'.
+	anotherBook := '1933988274'.
+	cart := TusLibrosCart withValidBooks: (OrderedCollection with: book with: anotherBook ).
 
-	cart addBook: item quantity: 1. 	cart addBook: anotherItem quantity: 2.
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
 
 	expectedItems := Dictionary new.
-	expectedItems at: item put: 1; at: anotherItem put: 2 .
+	expectedItems at: book put: 1; at: anotherBook put: 2 .
 	
 	self assert: cart contents equals: expectedItems .! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:29:07'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:57'!
 test07CartCantAddBookWithinvalidISBN
-	| cart item availableBooks |
+	| cart book availableBooks |
 	
 	availableBooks := OrderedCollection new.
 	availableBooks add: '9780330258647'.
 	cart := TusLibrosCart withValidBooks: availableBooks .
-	item := '0321146530'.
+	book := '0321146530'.
 	
-	self should: [ cart addBook: item quantity: 1 ]
+	self should: [ cart addBook: book quantity: 1 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = TusLibrosCart bookNotAvailableErrorDescription.
-		self deny: (cart hasBook: item).
+		self deny: (cart hasBook: book).
 		 ]! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:37:19'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:50'!
 test08CartCantAddZeroOrNegativeAmountOfBooks
-	| cart item availableBooks |
+	| cart book availableBooks |
 	
 	availableBooks := OrderedCollection new.
 	availableBooks add: '9780330258647'.
 	cart := TusLibrosCart withValidBooks: availableBooks .
-	item := '9780330258647'.
+	book := '9780330258647'.
 	
-	self should: [ cart addBook: item quantity: -1 ]
+	self should: [ cart addBook: book quantity: -1 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = TusLibrosCart invalidBookQuantityErrorDescription.
-		self deny: (cart hasBook: item).
+		self deny: (cart hasBook: book).
 		 ]! !
 
-!CartTests methodsFor: 'tests' stamp: 'Sof D 10/30/2023 20:40:14'!
+!CartTests methodsFor: 'tests' stamp: 'eaam 10/30/2023 23:19:29'!
 test09CartCantAddNonIntegerAmountOfBooks
-	| cart item availableBooks |
+	| cart book availableBooks |
 	
 	availableBooks := OrderedCollection new.
 	availableBooks add: '9780330258647'.
 	cart := TusLibrosCart withValidBooks: availableBooks .
-	item := '9780330258647'.
+	book := '9780330258647'.
 	
-	self should: [ cart addBook: item quantity: 0.42 ]
+	self should: [ cart addBook: book quantity: 0.42 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = TusLibrosCart invalidBookQuantityErrorDescription.
-		self deny: (cart hasBook: item).
+		self deny: (cart hasBook: book).
 		 ]! !
 !classDefinition: #TusLibrosCart category: 'TusLibrosDotCom-Ejercicio'!
 Object subclass: #TusLibrosCart
@@ -143,12 +143,12 @@ contents
 	^contents copy! !
 
 
-!TusLibrosCart methodsFor: 'cart management' stamp: 'Sof D 10/30/2023 20:42:31'!
-addBook: anItemToAddToCart quantity: theQuantityToBeAdded
-	self validateBookISBN: anItemToAddToCart.
+!TusLibrosCart methodsFor: 'cart management' stamp: 'eaam 10/30/2023 23:22:03'!
+addBook: anBookToAddToCart quantity: theQuantityToBeAdded
+	self validateBookISBN: anBookToAddToCart.
 	self validateQuantity: theQuantityToBeAdded.
 	
-	contents at: anItemToAddToCart put: theQuantityToBeAdded 
+	contents at: anBookToAddToCart put: theQuantityToBeAdded 
 	! !
 
 
@@ -158,10 +158,10 @@ initializeWith: aListOfBooksThatCanBeAddedToCart
 	availableBooks := aListOfBooksThatCanBeAddedToCart .! !
 
 
-!TusLibrosCart methodsFor: 'input validation' stamp: 'Sof D 10/30/2023 20:42:06'!
-validateBookISBN: anItemToValidateTheISBNOf
+!TusLibrosCart methodsFor: 'input validation' stamp: 'eaam 10/30/2023 23:22:34'!
+validateBookISBN: anBookToValidateTheISBNOf
 
-	 (availableBooks includes: anItemToValidateTheISBNOf) ifFalse: [ self error: self class bookNotAvailableErrorDescription ].! !
+	 (availableBooks includes: anBookToValidateTheISBNOf) ifFalse: [ self error: self class bookNotAvailableErrorDescription ].! !
 
 !TusLibrosCart methodsFor: 'input validation' stamp: 'Sof D 10/30/2023 20:42:31'!
 validateQuantity: aQuantityToValidate
