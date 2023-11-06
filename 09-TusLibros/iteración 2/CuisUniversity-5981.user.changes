@@ -42684,3 +42684,1541 @@ PASSED!
 PASSED!
 
 ----QUIT----(6 November 2023 14:48:42) CuisUniversity-5981.image priorSource: 12358356!
+
+----STARTUP---- (6 November 2023 14:55:36) as /home/ezfloat/ing-software-1-c2-2023/linux64/linux64/CuisUniversity-5981.image!
+
+
+Object subclass: #TusLibrosStoreCashier
+	instanceVariableNames: 'cart card purchaseAmount currentDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classDefinition: #TusLibrosStoreCashier category: 'TusLibrosDotCom-Ejercicio' stamp: 'eaam 11/6/2023 14:59:04'!
+Object subclass: #TusLibrosStoreCashier
+	instanceVariableNames: 'cart card purchaseAmount currentDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 14:59:07'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 14:59:07'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 14:59:07'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 14:59:07'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 14:59:07'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 14:59:10'!
+ERROR!
+!TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'eaam 11/6/2023 15:00:59'!
+assertIfCard: aCardToCheckDate isExpiredInDate: aDateToCheck
+
+	^ (aCardToCheckDate isExpiredForDate: aDateToCheck) ifTrue: [self error: self expiredCreditCardErrorDescription ]! !
+!TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'eaam 11/6/2023 15:00:59' prior: 50717626!
+withCheckOutCart: aCartToCheckOut withCard: aCardToCheckDate  withDate: aDateToCheck
+	self assertIfCard: aCardToCheckDate isExpiredInDate: aDateToCheck.
+	^self new initializeForCart:  aCartToCheckOut forCard: aCardToCheckDate forCurrentDate: aDateToCheck .! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:01:11'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:01:11'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:01:11'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:01:11'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 15:01:11'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:01:14'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:02:51'!
+ERROR!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:04:13'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:04:16'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:04:17'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:04:17'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:04:17'!
+ERROR!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:04:17'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 15:04:17'!
+PASSED!
+
+Object subclass: #TestSetUp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classDefinition: #TestSetUp category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:05:11'!
+Object subclass: #TestSetUp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!TestSetUp methodsFor: 'no messages' stamp: 'eaam 11/6/2023 15:05:41'!
+invalidName
+	^'Jugemu Jugemu Go-Kou-no-Surikire Kaijari-suigyo no Suigyou-matsu Unrai-matsu Furai-matsu Kuu-Neru Tokoro ni Sumu Tokoro Yaburakoji no Burakouji Paipo Paipo Paipo no Shuringan Shuringan no Gurindai Gurindai no Ponpokopii no Ponpokonaa no Chokyumei no Chosuke'.! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:05:48'!
+validName
+	^'Jugemu Jugemu Go-Kou-no-Surikire Kaijari-suigyo no Suigyou-matsu Unrai-matsu Furai-matsu Kuu-Neru Tokoro ni Sumu Tokoro Yaburakoji no Burakouji Paipo Paipo Paipo no Shuringan Shuringan no Gurindai Gurindai no Ponpokopii no Ponpokonaa no Chokyumei no Chosuke'.! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:05:57' prior: 50720224!
+validName
+	^'Juan Perez'! !
+
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: 'invalidName validName testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classDefinition: #MerchantProcessorInterfaceTest category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:06:17'!
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: 'invalidName validName testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!MerchantProcessorInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/6/2023 15:06:42' prior: 50714666 overrides: 16961394!
+setUp
+	testSetUP := TestSetUp new.! !
+!TusLibrosStoreCashier methodsFor: 'check out' stamp: 'eaam 11/6/2023 15:07:46' prior: 50717755!
+checkOutCart
+	| MPInterface totalIntegerPart totalDecimalPart amountString |
+	self assertCartIsEmpty.
+	purchaseAmount := 'Total: ', cart total asString .
+	
+	totalIntegerPart := (cart total integerPart) asString.
+	totalDecimalPart := (cart total roundTo: 0.1) fractionPart asString.
+	
+	(totalDecimalPart size = 2) ifFalse: [ totalDecimalPart := totalDecimalPart, '0' ].
+	 
+	amountString := totalIntegerPart, totalDecimalPart .
+	"MPInterface := MerchantProcessorInterface new.
+	MPInterface processTransactionWithCreditCardNumber: card cardNumber withName: card cardName withExpiryDate: card cardExpiryDate withCurrentDate: currentDate withTransactionamount: amountString."
+	
+	^purchaseAmount.! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:07:50'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:07:50'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:07:50'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:07:50'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 15:07:50'!
+PASSED!
+!TusLibrosStoreCashier methodsFor: 'check out' stamp: 'eaam 11/6/2023 15:09:59' prior: 50720262!
+checkOutCart
+	| MPInterface totalIntegerPart totalDecimalPart amountString |
+	self assertCartIsEmpty.
+	purchaseAmount := 'Total: ', cart total asString .
+	
+	"totalIntegerPart := (cart total integerPart) asString.
+	totalDecimalPart := (cart total roundTo: 0.1) fractionPart asString.
+	
+	(totalDecimalPart size = 2) ifFalse: [ totalDecimalPart := totalDecimalPart, '0' ].
+	 
+	amountString := totalIntegerPart, totalDecimalPart .
+	MPInterface := MerchantProcessorInterface new.
+	MPInterface processTransactionWithCreditCardNumber: card cardNumber withName: card cardName withExpiryDate: card cardExpiryDate withCurrentDate: currentDate withTransactionamount: amountString."
+	
+	^purchaseAmount.! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:10:08'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:10:08'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:10:08'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:10:08'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 15:10:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:10:12'!
+ERROR!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:10:12'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:10:12'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:10:12'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:10:12'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:10:12'!
+FAILURE!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:10:59'!
+ERROR!
+
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: ' testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classDefinition: #MerchantProcessorInterfaceTest category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:11:40'!
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: 'testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:11:56' prior: 50718977!
+test01MPCanProcessTransactionWithValidCard
+
+	| MPinterface  validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.
+	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'.
+	
+	self assert: MPinterface transactionSuccess equals: true.	
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:13' prior: 50719001!
+test02MPFailsOnCardWithNumberThatsTooShort
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '00000000' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ 	MPinterface processTransactionWithCreditCardNumber: '00000000' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'
+]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNumberLengthErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+
+		
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:17' prior: 50719026!
+test03MPFailsOnCardNumberThatsTooLong
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000000' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNumberLengthErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:23' prior: 50719055!
+test04MPFailsOnExpiredCard
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2022) withCurrentDate: (January of: 2023) withTransactionamount: '50.00']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface expiredCreditCardErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:12:29'!
+PASSED!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:33' prior: 50719103!
+test06MPFailsOnCardWithNameThatsTooLong
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP invalidName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNameErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:37' prior: 50719128!
+test07MPFailsOnTransactionAmountWithoutDecimal
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:42' prior: 50719153!
+test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142.0']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:48' prior: 50719179!
+test09MPFailsOnTransactionAmountWithoutIntegerPart
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '.00']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:53' prior: 50719204!
+test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '11111111111111111111111.00']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:58' prior: 50719231!
+test11MPFailsOnTransactionAmountWithNonNumericElements
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '-a11.00']
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:13:02' prior: 50719880!
+test12MPFailsOnCardWithInvalidNumber
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '49.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface nonexistentCreditCardErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:13:06' prior: 50719591!
+test13MPFailsOnCardWithInsuficientCredit
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '51.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface insuficientCreditErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:14:45'!
+invalidCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:15:00'!
+validCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2022) withName: 'Jorge Luis Borges'! !
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:15:08'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:15:14'!
+PASSED!
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:15:27'!
+expiredCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'! !
+
+!methodRemoval: TestSetUp #invalidCard stamp: 'eaam 11/6/2023 15:15:27'!
+invalidCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'!
+
+TestCase subclass: #TusLibrosStoreCashierTest
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classDefinition: #TusLibrosStoreCashierTest category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:15:57'!
+TestCase subclass: #TusLibrosStoreCashierTest
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:16:20' overrides: 16961394!
+setUp
+	testSetUp := TestSetUp new.! !
+!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:16:39' prior: 50712523!
+test01ACashierCantCheckOutForAEmptyCart
+	| emptyCart catalog cashier|
+	catalog := OrderedCollection new.
+	emptyCart := TusLibrosCart withValidBooks: catalog.
+	cashier := TusLibrosStoreCashier withCheckOutCart: emptyCart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	
+	self should: [ cashier checkOutCart]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cashier emptyCartCheckOutErrorDescription.
+		self assert: cashier hasNoPurchase.
+		 ]! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:16:54'!
+testDate
+	^(December of: 2015)! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:16:58' prior: 50720897!
+testDate
+	^(December of: 2015)! !
+
+!methodRemoval: TusLibrosStoreCashierTest #invalidCard stamp: 'eaam 11/6/2023 15:17:13'!
+invalidCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'!
+
+!methodRemoval: TusLibrosStoreCashierTest #testDate stamp: 'eaam 11/6/2023 15:17:17'!
+testDate
+	^(December of: 2015)!
+
+!methodRemoval: TusLibrosStoreCashierTest #validCard stamp: 'eaam 11/6/2023 15:17:20'!
+validCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2022) withName: 'Jorge Luis Borges'!
+!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:17:35' prior: 50712542!
+test02ACashierChecksOutACartWithOnlyOneBook
+	| cart catalog cashier |
+	
+	catalog := Dictionary new.
+	catalog at: 'Ficciones' put: 10000.
+	cart := TusLibrosCart withValidBooks: catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 10000'.! !
+!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:17:42' prior: 50712558!
+test03ACashierChecksOutACartWithMultipleBooks
+	| cart catalog cashier |
+	
+	catalog := Dictionary new.
+	catalog at: 'Ficciones' put: 10000; at: '9780330258647' put: 42; yourself .
+	cart := TusLibrosCart withValidBooks: catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	cart addBook: '9780330258647' quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 10042'.! !
+!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:17:53' prior: 50712577!
+test04ACashierCantChecksOutWithInvalidCard
+	| cart catalog cashier |
+	
+	catalog := Dictionary new.
+	catalog at: 'Ficciones' put: 10000.
+	cart := TusLibrosCart withValidBooks: catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
+	raise: Error
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
+		self assert: cashier isNil.
+		]! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:17:55'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:17:55'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:17:55'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:17:55'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:18:34' prior: 50712484!
+test09CartCantAddNonIntegerAmountOfBooks
+	| cart book catalog |
+	
+	catalog := Dictionary new.
+	catalog at: '9780330258647' put: 42.
+	cart := TusLibrosCart withValidBooks: catalog .
+	book := '9780330258647'.
+	
+	self should: [ cart addBook: book quantity: 0.42 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:18:47'!
+catalog! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:19:07' prior: 50712430!
+test06CartCanShowItsContents
+	| cart book anotherBook expectedItems catalog|
+	book := '9780330258647'.
+	anotherBook := '1933988274'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
+
+	expectedItems := Bag new.
+	expectedItems add: book withOccurrences: 1; add: anotherBook withOccurrences: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:19:12' prior: 50721018!
+test06CartCanShowItsContents
+	| cart book anotherBook expectedItems catalog|
+	book := '9780330258647'.
+	anotherBook := 'Ficciones'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
+
+	expectedItems := Bag new.
+	expectedItems add: book withOccurrences: 1; add: anotherBook withOccurrences: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:19:18'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:19:35' prior: 50712413!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook catalog|
+	book := '9780330258647'.
+	anotherBook := 'Ficciones'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:19:49' prior: 50712401!
+test04CartCanAddMultipleOfTheSameBook
+	| cart book catalog|
+	book := '9780330258647'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; yourself ).
+
+	cart addBook: book quantity: 2. 
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:19:54'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:19:56'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:20:18' prior: 50712385!
+test03CartCanAddMultipleBooks
+	| cart book anotherBook catalog|
+	book := '9780330258647'.
+	anotherBook := 'Ficciones'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks:  (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:20:23' prior: 50712374!
+test02CartCanAddBook
+	| cart book catalog|
+	book := '9780330258647'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; yourself ).
+	cart addBook: book quantity: 1.
+	
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:21:28' prior: 50721014!
+catalog
+	| catalog |
+	catalog := Dictionary new.! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:21:34' prior: 50721210!
+catalog
+	| catalog |
+	catalog := Dictionary new.
+	^catalog! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:22:34' prior: 50721215!
+catalog
+	| catalog |
+	catalog := Dictionary new.
+	^(catalog at: self  put: 42; at: self ficcionesBook put: 420; yourself)! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:22:42'!
+ficcionesBook
+	^'Ficciones'! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:23:29' prior: 50721220!
+catalog
+	| catalog |
+	catalog := Dictionary new.
+	^(catalog at: self guideToTheGalaxy put: 42; at: self ficcionesBook put: 420; yourself)! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:23:49'!
+guideToTheGalaxy
+	^' 9780330258647'! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:24:08'!
+guideToTheGalaxyBook
+	^' 9780330258647'! !
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:24:08' prior: 50721231!
+catalog
+	| catalog |
+	catalog := Dictionary new.
+	^(catalog at: self guideToTheGalaxyBook put: 42; at: self ficcionesBook put: 420; yourself)! !
+
+!methodRemoval: TestSetUp #guideToTheGalaxy stamp: 'eaam 11/6/2023 15:24:08'!
+guideToTheGalaxy
+	^' 9780330258647'!
+
+TestCase subclass: #TusLibrosCartTests
+	instanceVariableNames: 'testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classDefinition: #TusLibrosCartTests category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:24:39'!
+TestCase subclass: #TusLibrosCartTests
+	instanceVariableNames: 'testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!TusLibrosCartTests methodsFor: 'setUP' stamp: 'eaam 11/6/2023 15:24:47' overrides: 16961394!
+setUp! !
+!TusLibrosCartTests methodsFor: 'setUp' stamp: 'eaam 11/6/2023 15:25:05' prior: 50721272 overrides: 16961394!
+setUp
+	testSetUP := TestSetUp new.! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:25:31' prior: 50721198!
+test02CartCanAddBook
+	| cart book catalog|
+	book := '9780330258647'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: testSetUP catalog .
+	cart addBook: book quantity: 1.
+	
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:25:59' prior: 50721280!
+test02CartCanAddBook
+	| cart book |
+	book := testSetUP guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUP catalog .
+	cart addBook: book quantity: 1.
+	
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:26:19' prior: 50721182!
+test03CartCanAddMultipleBooks
+	| cart book anotherBook catalog|
+	book := testSetUP .
+	anotherBook := 'Ficciones'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks:  testSetUP catalog.
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:26:26' prior: 50721302!
+test03CartCanAddMultipleBooks
+	| cart book anotherBook |
+	book := testSetUP .
+	anotherBook := 'Ficciones'.
+	cart := TusLibrosCart withValidBooks:  testSetUP catalog.
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:26:46' prior: 50721317!
+test03CartCanAddMultipleBooks
+	| cart book anotherBook |
+	book := testSetUP .
+	anotherBook := 'Ficciones'.
+	cart := TusLibrosCart withValidBooks:  testSetUP catalog.
+
+	cart addBook: testSetUP guideToTheGalaxyBook quantity: 1. 	cart addBook: testSetUP ficcionesBook quantity: 1.
+	
+	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:27:14' prior: 50721331!
+test03CartCanAddMultipleBooks
+	| cart |
+	cart := TusLibrosCart withValidBooks:  testSetUP catalog.
+
+	cart addBook: testSetUP guideToTheGalaxyBook quantity: 1. 	cart addBook: testSetUP ficcionesBook quantity: 1.
+	
+	self assert: (cart hasBook: testSetUP guideToTheGalaxyBook). 	self assert: (cart hasBook:  testSetUP ficcionesBook ).! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:27:20'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:27:34' prior: 50721105!
+test04CartCanAddMultipleOfTheSameBook
+	| cart book catalog|
+	book := '9780330258647'.
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: testSetUP catalog .
+
+	cart addBook: book quantity: 2. 
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:28:14' prior: 50721391!
+test04CartCanAddMultipleOfTheSameBook
+	| cart book |
+	book := testSetUP guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUP catalog .
+
+	cart addBook: book quantity: 2. 
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:28:17'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:28:34' prior: 50721087!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook |
+	book := '9780330258647'.
+	anotherBook := 'Ficciones'.
+	cart := TusLibrosCart withValidBooks: testSetUP catalog.
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:28:56' prior: 50721445!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook |
+	book := testSetUP guideToTheGalaxyBook .
+	anotherBook := 'Ficciones'.
+	cart := TusLibrosCart withValidBooks: testSetUP catalog.
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+
+!classDefinition: #TusLibrosCartTests category: 'TusLibrosDotCom-Tests' stamp: 'eaam 11/6/2023 15:29:04'!
+TestCase subclass: #TusLibrosCartTests
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+!TusLibrosCartTests methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:29:04' prior: 50721276 overrides: 16961394!
+setUp
+	testSetUp := TestSetUp new.! !
+!TusLibrosCartTests methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:29:04' prior: 50721346!
+test03CartCanAddMultipleBooks
+	| cart |
+	cart := TusLibrosCart withValidBooks:  testSetUp catalog.
+
+	cart addBook: testSetUp guideToTheGalaxyBook quantity: 1. 	cart addBook: testSetUp ficcionesBook quantity: 1.
+	
+	self assert: (cart hasBook: testSetUp guideToTheGalaxyBook). 	self assert: (cart hasBook:  testSetUp ficcionesBook ).! !
+!TusLibrosCartTests methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:29:04' prior: 50721403!
+test04CartCanAddMultipleOfTheSameBook
+	| cart book |
+	book := testSetUp guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
+
+	cart addBook: book quantity: 2. 
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	! !
+!TusLibrosCartTests methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:29:04' prior: 50721460!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook |
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := 'Ficciones'.
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+!TusLibrosCartTests methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:29:04' prior: 50721291!
+test02CartCanAddBook
+	| cart book |
+	book := testSetUp guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
+	cart addBook: book quantity: 1.
+	
+	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:12' prior: 50721516!
+test05CartCanAddMultipleCopiesOfMultipleBooks
+	| cart book anotherBook |
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := testSetUp ficcionesBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+
+	cart addBook: book quantity: 2. 
+	cart addBook: anotherBook quantity: 42.
+	
+	
+	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:42' prior: 50721037!
+test06CartCanShowItsContents
+	| cart book anotherBook expectedItems catalog|
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := testSetUp ficcionesBook .
+	catalog := Dictionary new.
+	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
+
+	expectedItems := Bag new.
+	expectedItems add: book withOccurrences: 1; add: anotherBook withOccurrences: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:30:03' prior: 50721559!
+test06CartCanShowItsContents
+	| cart book anotherBook expectedItems |
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := testSetUp ficcionesBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+
+	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
+
+	expectedItems := Bag new.
+	expectedItems add: book withOccurrences: 1; add: anotherBook withOccurrences: 2 .
+	
+	self assert: cart contents equals: expectedItems .! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:30:07'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:30:39' prior: 50712449!
+test07CartCantAddBookWithinvalidISBN
+	| cart book |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	book := '0321146530'.
+	
+	self should: [ cart addBook: book quantity: 1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart bookNotAvailableErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:30:41'!
+PASSED!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:31:37' prior: 50712466!
+test08CartCantAddZeroOrNegativeAmountOfBooks
+	| cart book |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	book := testSetUp .
+	
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: -1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:31:42' prior: 50721672!
+test08CartCantAddZeroOrNegativeAmountOfBooks
+	| cart book |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: -1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook: book).
+		 ]! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:31:54' prior: 50721688!
+test08CartCantAddZeroOrNegativeAmountOfBooks
+	| cart |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: -1 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook:  testSetUp guideToTheGalaxyBook).
+		 ]! !
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:32:26' prior: 50720997!
+test09CartCantAddNonIntegerAmountOfBooks
+	| cart |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
+	
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: 0.42 ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
+		self deny: (cart hasBook:  testSetUp guideToTheGalaxyBook).
+		 ]! !
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:32:32'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:32:39'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:32:40'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:32:40'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:32:40'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:32:40'!
+PASSED!
+!TusLibrosStoreCashier methodsFor: 'check out' stamp: 'eaam 11/6/2023 15:32:53' prior: 50720306!
+checkOutCart
+	
+	self assertCartIsEmpty.
+	purchaseAmount := 'Total: ', cart total asString .
+	
+	^purchaseAmount.! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:33:03'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:33:03'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:33:03'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:33:03'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test01CartStartsOutEmpty stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test02CartCanAddBook stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test03CartCanAddMultipleBooks stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test04CartCanAddMultipleOfTheSameBook stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test05CartCanAddMultipleCopiesOfMultipleBooks stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test06CartCanShowItsContents stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test07CartCantAddBookWithinvalidISBN stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test08CartCantAddZeroOrNegativeAmountOfBooks stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #TusLibrosCartTests #test09CartCantAddNonIntegerAmountOfBooks stamp: 'eaam 11/6/2023 15:33:05'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test01MPCanProcessTransactionWithValidCard stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test02MPFailsOnCardWithNumberThatsTooShort stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test03MPFailsOnCardNumberThatsTooLong stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test04MPFailsOnExpiredCard stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test05MPFailsOnCardWithEmptyName stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test06MPFailsOnCardWithNameThatsTooLong stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test07MPFailsOnTransactionAmountWithoutDecimal stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test08MPFailsOnTransactionAmountWithDecimalOfOneDigit stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test09MPFailsOnTransactionAmountWithoutIntegerPart stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test11MPFailsOnTransactionAmountWithNonNumericElements stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test12MPFailsOnCardWithInvalidNumber stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+
+!testRun: #MerchantProcessorInterfaceTest #test13MPFailsOnCardWithInsuficientCredit stamp: 'eaam 11/6/2023 15:33:07'!
+PASSED!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:34:43' prior: 50720924!
+test02ACashierChecksOutACartWithOnlyOneBook
+	| cart cashier |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 420'.! !
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:34:49'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:34:51'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:34:54'!
+PASSED!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:35:45' prior: 50720941!
+test03ACashierChecksOutACartWithMultipleBooks
+	| cart cashier |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	cart addBook: '9780330258647' quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 462'.! !
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:35:54' prior: 50721982!
+test03ACashierChecksOutACartWithMultipleBooks
+	| cart cashier |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	cart addBook: testSetUp guideToTheGalaxyBook quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 462'.! !
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:35:58'!
+PASSED!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:36:17'!
+test04ACashierCantChecksOutWithExpiredCard
+	| cart catalog cashier |
+	
+	catalog := Dictionary new.
+	catalog at: 'Ficciones' put: 10000.
+	cart := TusLibrosCart withValidBooks: catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
+	raise: Error
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
+		self assert: cashier isNil.
+		]! !
+
+!methodRemoval: TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithInvalidCard stamp: 'eaam 11/6/2023 15:36:17'!
+test04ACashierCantChecksOutWithInvalidCard
+	| cart catalog cashier |
+	
+	catalog := Dictionary new.
+	catalog at: 'Ficciones' put: 10000.
+	cart := TusLibrosCart withValidBooks: catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
+	raise: Error
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
+		self assert: cashier isNil.
+		]!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:36:32' prior: 50722018!
+test04ACashierCantChecksOutWithExpiredCard
+	| cart cashier |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: 'Ficciones' quantity: 1.
+	
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
+	raise: Error
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
+		self assert: cashier isNil.
+		]! !
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:36:49' prior: 50722060!
+test04ACashierCantChecksOutWithExpiredCard
+	| cart cashier |
+	
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
+	raise: Error
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
+		self assert: cashier isNil.
+		]! !
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithExpiredCard stamp: 'eaam 11/6/2023 15:36:56'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test01ACashierCantCheckOutForAEmptyCart stamp: 'eaam 11/6/2023 15:36:58'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test02ACashierChecksOutACartWithOnlyOneBook stamp: 'eaam 11/6/2023 15:36:58'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test03ACashierChecksOutACartWithMultipleBooks stamp: 'eaam 11/6/2023 15:36:58'!
+PASSED!
+
+!testRun: #TusLibrosStoreCashierTest #test04ACashierCantChecksOutWithExpiredCard stamp: 'eaam 11/6/2023 15:36:58'!
+PASSED!
+
+----QUIT----(6 November 2023 15:37:35) CuisUniversity-5981.image priorSource: 12427396!

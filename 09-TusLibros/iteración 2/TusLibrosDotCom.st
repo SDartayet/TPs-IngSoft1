@@ -1,24 +1,24 @@
 !classDefinition: #MerchantProcessorInterfaceTest category: 'TusLibrosDotCom-Tests'!
 TestCase subclass: #MerchantProcessorInterfaceTest
-	instanceVariableNames: 'invalidName validName'
+	instanceVariableNames: 'testSetUP'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Tests'!
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:24'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:11:56'!
 test01MPCanProcessTransactionWithValidCard
 
-	| MPinterface  validCreditCardList validCreditCard |
+	| MPinterface  validCreditCardList |
 	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.
 	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
-	MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'.
+	MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'.
 	
 	self assert: MPinterface transactionSuccess equals: true.	
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:37'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:13'!
 test02MPFailsOnCardWithNumberThatsTooShort
 
 	| MPinterface validCreditCardList |
@@ -26,7 +26,7 @@ test02MPFailsOnCardWithNumberThatsTooShort
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ 	MPinterface processTransactionWithCreditCardNumber: '00000000' withName: validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'
+	self should: [ 	MPinterface processTransactionWithCreditCardNumber: '00000000' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'
 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
@@ -37,7 +37,7 @@ test02MPFailsOnCardWithNumberThatsTooShort
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:51'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:17'!
 test03MPFailsOnCardNumberThatsTooLong
 
 	| MPinterface validCreditCardList |
@@ -45,7 +45,7 @@ test03MPFailsOnCardNumberThatsTooLong
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000000' withName: validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNumberLengthErrorDescription.
@@ -54,7 +54,7 @@ test03MPFailsOnCardNumberThatsTooLong
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:03'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:23'!
 test04MPFailsOnExpiredCard
 
 	| MPinterface validCreditCardList |
@@ -62,7 +62,7 @@ test04MPFailsOnExpiredCard
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2022) withCurrentDate: (January of: 2023) withTransactionamount: '50.00']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2022) withCurrentDate: (January of: 2023) withTransactionamount: '50.00']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface expiredCreditCardErrorDescription.
@@ -86,7 +86,7 @@ test05MPFailsOnCardWithEmptyName
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:14'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:33'!
 test06MPFailsOnCardWithNameThatsTooLong
 
 	| MPinterface validCreditCardList |
@@ -94,7 +94,7 @@ test06MPFailsOnCardWithNameThatsTooLong
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: invalidName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP invalidName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNameErrorDescription.
@@ -102,7 +102,7 @@ test06MPFailsOnCardWithNameThatsTooLong
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:20'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:37'!
 test07MPFailsOnTransactionAmountWithoutDecimal
 
 	| MPinterface validCreditCardList |
@@ -110,7 +110,7 @@ test07MPFailsOnTransactionAmountWithoutDecimal
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
@@ -118,7 +118,7 @@ test07MPFailsOnTransactionAmountWithoutDecimal
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:27'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:42'!
 test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
 
 	| MPinterface validCreditCardList |
@@ -126,7 +126,7 @@ test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142.0']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '142.0']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
@@ -134,7 +134,7 @@ test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:33'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:48'!
 test09MPFailsOnTransactionAmountWithoutIntegerPart
 
 	| MPinterface validCreditCardList |
@@ -142,7 +142,7 @@ test09MPFailsOnTransactionAmountWithoutIntegerPart
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '.00']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '.00']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
@@ -150,7 +150,7 @@ test09MPFailsOnTransactionAmountWithoutIntegerPart
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:38'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:53'!
 test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
 
 	| MPinterface validCreditCardList |
@@ -158,7 +158,7 @@ test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '11111111111111111111111.00']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '11111111111111111111111.00']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
@@ -166,7 +166,7 @@ test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:44'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:12:58'!
 test11MPFailsOnTransactionAmountWithNonNumericElements
 
 	| MPinterface validCreditCardList |
@@ -174,7 +174,7 @@ test11MPFailsOnTransactionAmountWithNonNumericElements
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '-a11.00']
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '-a11.00']
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
@@ -182,7 +182,7 @@ test11MPFailsOnTransactionAmountWithNonNumericElements
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:45:46'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:13:02'!
 test12MPFailsOnCardWithInvalidNumber
 
 	| MPinterface validCreditCardList |
@@ -190,7 +190,7 @@ test12MPFailsOnCardWithInvalidNumber
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '49.00' ]
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '49.00' ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface nonexistentCreditCardErrorDescription.
@@ -198,7 +198,7 @@ test12MPFailsOnCardWithInvalidNumber
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:41:39'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:13:06'!
 test13MPFailsOnCardWithInsuficientCredit
 
 	| MPinterface validCreditCardList |
@@ -206,7 +206,7 @@ test13MPFailsOnCardWithInsuficientCredit
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '51.00' ]
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: testSetUP validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '51.00' ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface insuficientCreditErrorDescription.
@@ -215,18 +215,22 @@ test13MPFailsOnCardWithInsuficientCredit
 ! !
 
 
-!MerchantProcessorInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 02:37:43'!
+!MerchantProcessorInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/6/2023 15:06:42'!
 setUp
-	invalidName := 'Jugemu Jugemu Go-Kou-no-Surikire Kaijari-suigyo no Suigyou-matsu Unrai-matsu Furai-matsu Kuu-Neru Tokoro ni Sumu Tokoro Yaburakoji no Burakouji Paipo Paipo Paipo no Shuringan Shuringan no Gurindai Gurindai no Ponpokopii no Ponpokonaa no Chokyumei no Chosuke'.
-	validName := 'Juan Perez'! !
+	testSetUP := TestSetUp new.! !
 
 
 !classDefinition: #TusLibrosCartTests category: 'TusLibrosDotCom-Tests'!
 TestCase subclass: #TusLibrosCartTests
-	instanceVariableNames: ''
+	instanceVariableNames: 'testSetUp'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Tests'!
+
+!TusLibrosCartTests methodsFor: 'setUp' stamp: 'eaam 11/6/2023 15:29:04'!
+setUp
+	testSetUp := TestSetUp new.! !
+
 
 !TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:45:39'!
 test01CartStartsOutEmpty
@@ -235,46 +239,40 @@ test01CartStartsOutEmpty
 	
 	self assert: cart isEmpty.! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:49:18'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:04'!
 test02CartCanAddBook
-	| cart book catalog|
-	book := '0321146530'.
-	catalog := Dictionary new.
-	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; yourself ).
+	| cart book |
+	book := testSetUp guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
 	cart addBook: book quantity: 1.
 	
 	self assert: (cart hasBook: book). self deny: cart isEmpty ! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:47:08'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:04'!
 test03CartCanAddMultipleBooks
-	| cart book anotherBook catalog|
-	book := '0321146530'.
-	anotherBook := '1933988274'.
-	catalog := Dictionary new.
-	cart := TusLibrosCart withValidBooks:  (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+	| cart |
+	cart := TusLibrosCart withValidBooks:  testSetUp catalog.
 
-	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 1.
+	cart addBook: testSetUp guideToTheGalaxyBook quantity: 1. 	cart addBook: testSetUp ficcionesBook quantity: 1.
 	
-	self assert: (cart hasBook: book). 	self assert: (cart hasBook: anotherBook ).! !
+	self assert: (cart hasBook: testSetUp guideToTheGalaxyBook). 	self assert: (cart hasBook:  testSetUp ficcionesBook ).! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:50:10'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:04'!
 test04CartCanAddMultipleOfTheSameBook
-	| cart book catalog|
-	book := '0321146530'.
-	catalog := Dictionary new.
-	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; yourself ).
+	| cart book |
+	book := testSetUp guideToTheGalaxyBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
 
 	cart addBook: book quantity: 2. 
 	
 	self assert: (cart hasBook: book inQuantity: 2). 	! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:51:05'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:29:12'!
 test05CartCanAddMultipleCopiesOfMultipleBooks
-	| cart book anotherBook catalog|
-	book := '0321146530'.
-	anotherBook := '9780330258647'.
-	catalog := Dictionary new.
-	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+	| cart book anotherBook |
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := testSetUp ficcionesBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
 
 	cart addBook: book quantity: 2. 
 	cart addBook: anotherBook quantity: 42.
@@ -282,13 +280,12 @@ test05CartCanAddMultipleCopiesOfMultipleBooks
 	
 	self assert: (cart hasBook: book inQuantity: 2). 	self assert: (cart hasBook: anotherBook inQuantity: 42).! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:51:26'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:30:03'!
 test06CartCanShowItsContents
-	| cart book anotherBook expectedItems catalog|
-	book := '0321146530'.
-	anotherBook := '1933988274'.
-	catalog := Dictionary new.
-	cart := TusLibrosCart withValidBooks: (catalog at: book put: 42; at: anotherBook put: 420; yourself).
+	| cart book anotherBook expectedItems |
+	book := testSetUp guideToTheGalaxyBook .
+	anotherBook := testSetUp ficcionesBook .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
 
 	cart addBook: book quantity: 1. 	cart addBook: anotherBook quantity: 2.
 
@@ -297,13 +294,11 @@ test06CartCanShowItsContents
 	
 	self assert: cart contents equals: expectedItems .! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:52:06'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:30:39'!
 test07CartCantAddBookWithinvalidISBN
-	| cart book availableBooks |
+	| cart book |
 	
-	availableBooks := Dictionary new.
-	availableBooks at: '9780330258647' put: 42.
-	cart := TusLibrosCart withValidBooks: availableBooks .
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
 	book := '0321146530'.
 	
 	self should: [ cart addBook: book quantity: 1 ]
@@ -313,56 +308,50 @@ test07CartCantAddBookWithinvalidISBN
 		self deny: (cart hasBook: book).
 		 ]! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:52:21'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:31:54'!
 test08CartCantAddZeroOrNegativeAmountOfBooks
-	| cart book availableBooks |
+	| cart |
 	
-	availableBooks := Dictionary new.
-	availableBooks at: '9780330258647' put: 42.
-	cart := TusLibrosCart withValidBooks: availableBooks .
-	book := '9780330258647'.
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
 	
-	self should: [ cart addBook: book quantity: -1 ]
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: -1 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
-		self deny: (cart hasBook: book).
+		self deny: (cart hasBook:  testSetUp guideToTheGalaxyBook).
 		 ]! !
 
-!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/2/2023 21:52:28'!
+!TusLibrosCartTests methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:32:26'!
 test09CartCantAddNonIntegerAmountOfBooks
-	| cart book availableBooks |
+	| cart |
 	
-	availableBooks := Dictionary new.
-	availableBooks at: '9780330258647' put: 42.
-	cart := TusLibrosCart withValidBooks: availableBooks .
-	book := '9780330258647'.
+	cart := TusLibrosCart withValidBooks: testSetUp catalog .
 	
-	self should: [ cart addBook: book quantity: 0.42 ]
+	self should: [ cart addBook: testSetUp guideToTheGalaxyBook quantity: 0.42 ]
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = cart invalidBookQuantityErrorDescription.
-		self deny: (cart hasBook: book).
+		self deny: (cart hasBook:  testSetUp guideToTheGalaxyBook).
 		 ]! !
 
 
 !classDefinition: #TusLibrosStoreCashierTest category: 'TusLibrosDotCom-Tests'!
 TestCase subclass: #TusLibrosStoreCashierTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'testSetUp'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Tests'!
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/2/2023 21:24:22'!
-invalidCard
-	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'! !
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:16:20'!
+setUp
+	testSetUp := TestSetUp new.! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/3/2023 01:02:28'!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:16:39'!
 test01ACashierCantCheckOutForAEmptyCart
 	| emptyCart catalog cashier|
 	catalog := OrderedCollection new.
 	emptyCart := TusLibrosCart withValidBooks: catalog.
-	cashier := TusLibrosStoreCashier withCheckOutCart: emptyCart withCard: self validCard withDate:  self testDate .
+	cashier := TusLibrosStoreCashier withCheckOutCart: emptyCart withCard: testSetUp validCard withDate:  testSetUp testDate .
 	
 	self should: [ cashier checkOutCart]
 	raise: Error
@@ -371,52 +360,80 @@ test01ACashierCantCheckOutForAEmptyCart
 		self assert: cashier hasNoPurchase.
 		 ]! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/2/2023 22:00:57'!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:34:43'!
 test02ACashierChecksOutACartWithOnlyOneBook
-	| cart catalog cashier |
+	| cart cashier |
 	
-	catalog := Dictionary new.
-	catalog at: 'Ficciones' put: 10000.
-	cart := TusLibrosCart withValidBooks: catalog.
-	cart addBook: 'Ficciones' quantity: 1.
-	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: self validCard withDate:  self testDate .
-	self assert: (cashier checkOutCart) equals: 'Total: 10000'.! !
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 420'.! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/3/2023 00:26:31'!
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:35:54'!
 test03ACashierChecksOutACartWithMultipleBooks
-	| cart catalog cashier |
+	| cart cashier |
 	
-	catalog := Dictionary new.
-	catalog at: 'Ficciones' put: 10000; at: '9780330258647' put: 42; yourself .
-	cart := TusLibrosCart withValidBooks: catalog.
-	cart addBook: 'Ficciones' quantity: 1.
-	cart addBook: '9780330258647' quantity: 1.
-	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: self validCard withDate:  self testDate .
-	self assert: (cashier checkOutCart) equals: 'Total: 10042'.! !
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
+	cart addBook: testSetUp guideToTheGalaxyBook quantity: 1.
+	cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp validCard withDate:  testSetUp testDate .
+	self assert: (cashier checkOutCart) equals: 'Total: 462'.! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/3/2023 00:52:18'!
-test04ACashierCantChecksOutWithInvalidCard
-	| cart catalog cashier |
+!TusLibrosStoreCashierTest methodsFor: 'tests' stamp: 'eaam 11/6/2023 15:36:49'!
+test04ACashierCantChecksOutWithExpiredCard
+	| cart cashier |
 	
-	catalog := Dictionary new.
-	catalog at: 'Ficciones' put: 10000.
-	cart := TusLibrosCart withValidBooks: catalog.
-	cart addBook: 'Ficciones' quantity: 1.
+	cart := TusLibrosCart withValidBooks: testSetUp catalog.
+	cart addBook: testSetUp ficcionesBook quantity: 1.
 	
-	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: self invalidCard withDate: self testDate ]
+	self should: [cashier := TusLibrosStoreCashier withCheckOutCart: cart withCard: testSetUp expiredCard withDate: testSetUp testDate ]
 	raise: Error
 	withExceptionDo: [:anError |
 		self assert: anError messageText equals: TusLibrosStoreCashier expiredCreditCardErrorDescription.
 		self assert: cashier isNil.
 		]! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/2/2023 21:40:37'!
+
+!classDefinition: #TestSetUp category: 'TusLibrosDotCom-Tests'!
+Object subclass: #TestSetUp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:24:08'!
+catalog
+	| catalog |
+	catalog := Dictionary new.
+	^(catalog at: self guideToTheGalaxyBook put: 42; at: self ficcionesBook put: 420; yourself)! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:15:27'!
+expiredCard
+	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2014) withName: 'Jorge Luis Borges'! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:22:42'!
+ficcionesBook
+	^'Ficciones'! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:24:08'!
+guideToTheGalaxyBook
+	^' 9780330258647'! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:05:41'!
+invalidName
+	^'Jugemu Jugemu Go-Kou-no-Surikire Kaijari-suigyo no Suigyou-matsu Unrai-matsu Furai-matsu Kuu-Neru Tokoro ni Sumu Tokoro Yaburakoji no Burakouji Paipo Paipo Paipo no Shuringan Shuringan no Gurindai Gurindai no Ponpokopii no Ponpokonaa no Chokyumei no Chosuke'.! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:16:58'!
 testDate
 	^(December of: 2015)! !
 
-!TusLibrosStoreCashierTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/2/2023 21:24:12'!
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:15:00'!
 validCard
 	^CreditCard withId: '1111111111111111' withMonthOfYear:  (December of: 2022) withName: 'Jorge Luis Borges'! !
+
+!TestSetUp methodsFor: 'as yet unclassified' stamp: 'eaam 11/6/2023 15:05:57'!
+validName
+	^'Juan Perez'! !
 !classDefinition: #CreditCard category: 'TusLibrosDotCom-Ejercicio'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'name expireDate id'
@@ -671,25 +688,16 @@ invalidBookQuantityErrorDescription
 
 !classDefinition: #TusLibrosStoreCashier category: 'TusLibrosDotCom-Ejercicio'!
 Object subclass: #TusLibrosStoreCashier
-	instanceVariableNames: 'cart card purchaseAmount cardExpiryDate currentDate'
+	instanceVariableNames: 'cart card purchaseAmount currentDate'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Ejercicio'!
 
-!TusLibrosStoreCashier methodsFor: 'check out' stamp: 'Sof D 11/6/2023 04:57:28'!
+!TusLibrosStoreCashier methodsFor: 'check out' stamp: 'eaam 11/6/2023 15:32:53'!
 checkOutCart
-	| MPInterface totalIntegerPart totalDecimalPart amountString |
+	
 	self assertCartIsEmpty.
 	purchaseAmount := 'Total: ', cart total asString .
-	
-	totalIntegerPart := (cart total integerPart) asString.
-	totalDecimalPart := (cart total roundTo: 0.1) fractionPart asString.
-	
-	(totalDecimalPart size = 2) ifFalse: [ totalDecimalPart := totalDecimalPart, '0' ].
-	 
-	amountString := totalIntegerPart, totalDecimalPart .
-	MPInterface := MerchantProcessorInterface new.
-	MPInterface processTransactionWithCreditCardNumber: card cardNumber withName: card cardName withExpiryDate: card cardExpiryDate withCurrentDate: currentDate withTransactionamount: amountString.
 	
 	^purchaseAmount.! !
 
@@ -730,11 +738,16 @@ hasNoPurchase
 TusLibrosStoreCashier class
 	instanceVariableNames: ''!
 
+!TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'eaam 11/6/2023 15:00:59'!
+assertIfCard: aCardToCheckDate isExpiredInDate: aDateToCheck
+
+	^ (aCardToCheckDate isExpiredForDate: aDateToCheck) ifTrue: [self error: self expiredCreditCardErrorDescription ]! !
+
 !TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'eaam 11/2/2023 20:55:00'!
 expiredCreditCardErrorDescription
 	^'cant check out with a expired card'! !
 
-!TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'Sof D 11/6/2023 04:55:23'!
+!TusLibrosStoreCashier class methodsFor: 'instance creation' stamp: 'eaam 11/6/2023 15:00:59'!
 withCheckOutCart: aCartToCheckOut withCard: aCardToCheckDate  withDate: aDateToCheck
-	(aCardToCheckDate isExpiredForDate: aDateToCheck) ifTrue: [self error: self expiredCreditCardErrorDescription ].
+	self assertIfCard: aCardToCheckDate isExpiredInDate: aDateToCheck.
 	^self new initializeForCart:  aCartToCheckOut forCard: aCardToCheckDate forCurrentDate: aDateToCheck .! !
