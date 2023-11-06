@@ -5,27 +5,24 @@ TestCase subclass: #MerchantProcessorInterfaceTest
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Tests'!
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:46:23'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:24'!
 test01MPCanProcessTransactionWithValidCard
 
 	| MPinterface  validCreditCardList validCreditCard |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.
 	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: validName withExpiryDate: (December of: 2023) withCurrentDate: (January of: 2023) withTransactionamount: '50.00'.
 	
-	self assert: MPinterface transactionSuccess equals: True.	
+	self assert: MPinterface transactionSuccess equals: true.	
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:16'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:37'!
 test02MPFailsOnCardWithNumberThatsTooShort
 
-	| MPinterface validCreditCardList validCreditCard |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '00000000' put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -34,19 +31,17 @@ test02MPFailsOnCardWithNumberThatsTooShort
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNumberLengthErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 
 		
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:07'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:36:51'!
 test03MPFailsOnCardNumberThatsTooLong
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000000' put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -54,18 +49,16 @@ test03MPFailsOnCardNumberThatsTooLong
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNumberLengthErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:18'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:03'!
 test04MPFailsOnExpiredCard
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -73,17 +66,15 @@ test04MPFailsOnExpiredCard
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface expiredCreditCardErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:21'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:09'!
 test05MPFailsOnCardWithEmptyName
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -91,17 +82,15 @@ test05MPFailsOnCardWithEmptyName
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNameErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:24'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:14'!
 test06MPFailsOnCardWithNameThatsTooLong
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -109,17 +98,15 @@ test06MPFailsOnCardWithNameThatsTooLong
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNameErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:26'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:20'!
 test07MPFailsOnTransactionAmountWithoutDecimal
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -127,17 +114,15 @@ test07MPFailsOnTransactionAmountWithoutDecimal
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:29'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:27'!
 test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -145,17 +130,15 @@ test08MPFailsOnTransactionAmountWithDecimalOfOneDigit
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:32'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:33'!
 test09MPFailsOnTransactionAmountWithoutIntegerPart
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -163,17 +146,15 @@ test09MPFailsOnTransactionAmountWithoutIntegerPart
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountDecimalErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:47:34'!
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:38'!
 test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
 
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
@@ -181,27 +162,57 @@ test10MPFailsOnTransactionAmountWithIntegerPartLongerThan15Digits
 	raise: Error
 	withExceptionDo: [ : anError | 
 		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
 ! !
 
-!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 04:48:30'!
-test11MPFailsOnCardWithInvalidNumber
-"
-	| MPinterface validCreditCard validCreditCardList |
-	validCreditCard := CreditCard withId: '0000000000000111' withMonthOfYear: (December of: 2024) withName: validName .
-	validCreditCardList := OrderedCollection with: validCreditCard.
-	
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:37:44'!
+test11MPFailsOnTransactionAmountWithNonNumericElements
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000000'  put: 50.	
 	
 	MPinterface := MerchantProcessorInterface for: validCreditCardList .
 	
-	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '50.00' ]
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '-a11.00']
 	raise: Error
 	withExceptionDo: [ : anError | 
-		self assert: anError messageText = MerchantProcessorInterface invalidCreditCardNameErrorDescription.
-		self assert: MPinterface transactionSuccess equals: False.	
+		self assert: anError messageText = MerchantProcessorInterface invalidTransactionAmountIntegerErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
 		 ]
-"! !
+! !
+
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:45:46'!
+test12MPFailsOnCardWithInvalidNumber
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000000' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '49.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface nonexistentCreditCardErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
+
+!MerchantProcessorInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 14:41:39'!
+test13MPFailsOnCardWithInsuficientCredit
+
+	| MPinterface validCreditCardList |
+	validCreditCardList := Dictionary new. validCreditCardList at: '0000000000000111' put: 50.	
+	
+	MPinterface := MerchantProcessorInterface for: validCreditCardList .
+	
+	self should: [ MPinterface processTransactionWithCreditCardNumber: '0000000000000111' withName: validName withExpiryDate: (December of: 2024) withCurrentDate: (January of: 2023) withTransactionamount: '51.00' ]
+	raise: Error
+	withExceptionDo: [ : anError | 
+		self assert: anError messageText = MerchantProcessorInterface insuficientCreditErrorDescription.
+		self assert: MPinterface transactionSuccess equals: false.	
+		 ]
+! !
 
 
 !MerchantProcessorInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 02:37:43'!
@@ -454,27 +465,41 @@ withId: aId withMonthOfYear: aMonthOfYear withName: aName
 
 !classDefinition: #MerchantProcessorInterface category: 'TusLibrosDotCom-Ejercicio'!
 Object subclass: #MerchantProcessorInterface
-	instanceVariableNames: 'validCards transactionSuccess'
+	instanceVariableNames: 'cardsWithCredit transactionSuccess'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosDotCom-Ejercicio'!
 
-!MerchantProcessorInterface methodsFor: 'transaction processing' stamp: 'Sof D 11/6/2023 04:46:36'!
+!MerchantProcessorInterface methodsFor: 'transaction processing' stamp: 'Sof D 11/6/2023 14:46:19'!
 processTransactionWithCreditCardNumber: theNumberOfTheCardToUse withName: theNameOnTheCardToUse withExpiryDate: theExpiryDateOnTheCard withCurrentDate: theCurrentMonthOfYear withTransactionamount: theAmountToCharge   
 	self isNumberLengthValid: theNumberOfTheCardToUse .
 	self isExpiryDate: theExpiryDateOnTheCard laterThan: theCurrentMonthOfYear.
 	self isNameValid: theNameOnTheCardToUse.
 	self isAmountValid: theAmountToCharge .
+	self canChargeCard: theNumberOfTheCardToUse withAmount: theAmountToCharge asNumber.
 	
-	transactionSuccess := True.
+	transactionSuccess := true.
 	
 	 ! !
 
 
-!MerchantProcessorInterface methodsFor: 'input validation' stamp: 'Sof D 11/6/2023 03:35:14'!
+!MerchantProcessorInterface methodsFor: 'input validation' stamp: 'Sof D 11/6/2023 14:48:08'!
+canChargeCard: theNumberOfTheCardToUse withAmount: theAmountToCharge  .
+	(cardsWithCredit includesKey: theNumberOfTheCardToUse) ifFalse: [ self error: self class nonexistentCreditCardErrorDescription ].
+	((cardsWithCredit at: theNumberOfTheCardToUse) >= theAmountToCharge) ifFalse: [ self error: self class insuficientCreditErrorDescription ].! !
+
+!MerchantProcessorInterface methodsFor: 'input validation' stamp: 'Sof D 11/6/2023 14:32:38'!
+isAmountNumeric: theAmountToCharge
+	| validCharacters zeroToNine |
+	zeroToNine := '0123456789.'.
+	validCharacters := Set new.
+	zeroToNine do: [ : aNumberCharacter | validCharacters add: aNumberCharacter ].
+	^theAmountToCharge inject: true into: [ : acc : aNumericElement | acc and: (validCharacters includes: aNumericElement) ]! !
+
+!MerchantProcessorInterface methodsFor: 'input validation' stamp: 'Sof D 11/6/2023 14:14:53'!
 isAmountValid: theAmountToCharge 
 	((theAmountToCharge size) >= 4 and: (self transactionAmountHasDecimalDotAndTwoDecimalDigits: theAmountToCharge)) ifFalse: [ self error: self class invalidTransactionAmountDecimalErrorDescription ].
-	((theAmountToCharge size <= 15)) ifFalse: [ self error: self class invalidTransactionAmountIntegerErrorDescription ]
+	((theAmountToCharge size <= 15) and: (self isAmountNumeric: theAmountToCharge)) ifFalse: [ self error: self class invalidTransactionAmountIntegerErrorDescription ]
 ! !
 
 !MerchantProcessorInterface methodsFor: 'input validation' stamp: 'Sof D 11/6/2023 02:40:31'!
@@ -497,10 +522,10 @@ transactionAmountHasDecimalDotAndTwoDecimalDigits: theAmountToCharge
 	^( (theAmountToCharge at: ((theAmountToCharge size) - 2)) isEqualTo: $. )! !
 
 
-!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'Sof D 11/6/2023 04:40:55'!
-initializeWith: aListOfValidCreditCards
-	validCards := aListOfValidCreditCards . 
-	transactionSuccess := False.
+!MerchantProcessorInterface methodsFor: 'initialization' stamp: 'Sof D 11/6/2023 14:25:39'!
+initializeWith: aListOfValidCreditCardsAndTheirCredit
+	cardsWithCredit := aListOfValidCreditCardsAndTheirCredit . 
+	transactionSuccess := false.
 	! !
 
 
@@ -518,6 +543,10 @@ MerchantProcessorInterface class
 expiredCreditCardErrorDescription
 	^'Credit card must not be expired'! !
 
+!MerchantProcessorInterface class methodsFor: 'error handling' stamp: 'Sof D 11/6/2023 14:42:31'!
+insuficientCreditErrorDescription
+	^'The selected card does not have enough credit'! !
+
 !MerchantProcessorInterface class methodsFor: 'error handling' stamp: 'Sof D 11/6/2023 02:37:02'!
 invalidCreditCardNameErrorDescription
 	^'Card name must not be empty or longer than 30 characters'! !
@@ -534,14 +563,14 @@ invalidTransactionAmountDecimalErrorDescription
 invalidTransactionAmountIntegerErrorDescription
 	^'Transaction amount must be shorter than 19 digits and positive'! !
 
+!MerchantProcessorInterface class methodsFor: 'error handling' stamp: 'Sof D 11/6/2023 14:38:38'!
+nonexistentCreditCardErrorDescription
+	^'Credit card with selected number does not exist'! !
 
-!MerchantProcessorInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 02:52:17'!
-for: aListOfValidCreditCards
-	^self new initializeWith: aListOfValidCreditCards ! !
 
-!MerchantProcessorInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 03:31:15'!
-invalidTransactionAmountErrorDescription
-	^'Transaction amount decimal must be two digits and separated by a dot'! !
+!MerchantProcessorInterface class methodsFor: 'instance creation' stamp: 'Sof D 11/6/2023 14:12:02'!
+for: aListOfValidCreditCardsAndTheirCredit
+	^self new initializeWith: aListOfValidCreditCardsAndTheirCredit ! !
 
 
 !classDefinition: #TusLibrosCart category: 'TusLibrosDotCom-Ejercicio'!
