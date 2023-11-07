@@ -1,0 +1,1759 @@
+
+
+----QUIT----(13 August 2023 19:14:09) CuisUniversity-5981.image priorSource: 5713367!
+
+----STARTUP---- (13 August 2023 19:14:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5981.image!
+
+
+----QUIT----(13 August 2023 19:14:10) CuisUniversity-5981.image priorSource: 10197065!
+
+----STARTUP---- (6 November 2023 19:34:55) as /home/clinux01/Documentos/linux64/CuisUniversity-5981.image!
+
+
+----End fileIn of /home/clinux01/Documentos/TusLibros-33.st----!
+
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 19:59:30'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory debitBehavior'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'no messages' stamp: 'Sof D 11/6/2023 20:00:01' overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	debitBehavior := [ :anAmount :aCreditCard | ]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:00:40'!
+test01! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:02:21'!
+test01CanCreateACartForARegisteredClient
+	|  |! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:02:32'!
+dasasdasd! !
+
+!methodRemoval: ClientInterfaceTest #test01 stamp: 'Sof D 11/6/2023 20:02:32'!
+test01!
+
+!methodRemoval: ClientInterfaceTest #dasasdasd stamp: 'Sof D 11/6/2023 20:02:34'!
+dasasdasd!
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 20:09:13' prior: 50650892 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.! !
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:13:22'!
+Object subclass: #ClientInterface
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:13:34'!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface new.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	on: Error! !
+
+!methodRemoval: ClientInterfaceTest #test01CanCreateACartForARegisteredClient stamp: 'Sof D 11/6/2023 20:13:42'!
+test01CanCreateACartForARegisteredClient
+	|  |!
+
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAutenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:14:31'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAutenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 20:15:07' prior: 50650915 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	passwordAutenticator := [:clientId :password | ].! !
+!ClientInterface methodsFor: 'no messages' stamp: 'Sof D 11/6/2023 20:15:48'!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:16:09' prior: 50650927!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface new.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	on: Error
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:17:31' prior: 50650968!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface new.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	on: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:17:49' prior: 50650978!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface new.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		
+		]! !
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'Sof D 11/6/2023 20:18:55'!
+validClient
+	
+	^'BOCA'! !
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'Sof D 11/6/2023 20:19:02'!
+invalidClient
+	
+	^'riBer'! !
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:43'!
+invalidPassword
+	
+	^'riBer'! !
+
+!methodRemoval: StoreTestObjectsFactory #invalidClient stamp: 'Sof D 11/6/2023 20:19:43'!
+invalidClient
+	
+	^'riBer'!
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:50'!
+validPassword
+	
+	^'BOCA'! !
+
+!methodRemoval: StoreTestObjectsFactory #validClient stamp: 'Sof D 11/6/2023 20:19:50'!
+validClient
+	
+	^'BOCA'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:22:23'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAutenticator authenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:22:22' prior: 50650989!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: authenticator.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory authenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:22:42'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory authenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:22:48'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:22:48' prior: 50651033!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: passwordAuthenticator.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 20:23:09' prior: 50650956 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	passwordAuthenticator := [:clientId :password | ].! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:23:16' prior: 50651070!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: self.
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:25:00' prior: 50651092!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:25:46'!
+clientIsNotRegistered
+	^'ups!! You are not registered!! bakita el más grande papa'! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:26:03' prior: 50651106!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  '' withPassword: '' ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:28:39' prior: 50651130!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  '' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:29:04' prior: 50651148!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface with: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		
+		]! !
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:29:14'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:29:14'!
+ERROR!
+!ClientInterface class methodsFor: 'no messages' stamp: 'Sof D 11/6/2023 20:29:41'!
+with: aPasswordAuthenticator! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:29:51'!
+for: aPasswordAuthenticator! !
+
+!methodRemoval: ClientInterface class #with: stamp: 'Sof D 11/6/2023 20:29:51'!
+with: aPasswordAuthenticator!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:30:00' prior: 50651167!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		
+		]! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:30:23' prior: 50651198!
+for: aPasswordAuthenticator
+	^self new initializeWith: aPasswordAuthenticator! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:30:38'!
+initializeWith: aPasswordAuthenticator
+	! !
+
+Object subclass: #ClientInterface
+	instanceVariableNames: ' passwordAuthenticator '
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:30:50'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:30:59' prior: 50651232!
+initializeWith: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:31:17' prior: 50650962!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator! !
+!ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:32:52'!
+validateClientId: aClientIdToValidate withPassword: aPasswordToValidate! !
+!ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:32:56' prior: 50651263!
+validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
+	! !
+!ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:33:14' prior: 50651269!
+validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
+	passwordAuthenticator value: aClientIdToValidate! !
+!ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:34:09' prior: 50651275!
+validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
+	passwordAuthenticator value: aClientIdToValidate value: aPasswordToValidate.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:35:34' prior: 50651257!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.! !
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:35:38'!
+PASSED!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:36:03' prior: 50651206!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface listCart
+		]! !
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:36:16'!
+ERROR!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:36:23'!
+listCart
+	self shouldBeImplemented.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:38:26' prior: 50651327!
+listCart
+	self error: self cartNotCreatedErrorDescription.! !
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:44:47'!
+ERROR!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:45:15' prior: 50651303!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface carts
+		]! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:46:12'!
+carts
+	self error: self cartNotCreatedErrorDescription.! !
+
+!methodRemoval: ClientInterface #listCart stamp: 'Sof D 11/6/2023 20:46:12'!
+listCart
+	self error: self cartNotCreatedErrorDescription.!
+
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator carts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'Sof D 11/6/2023 20:47:13'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator carts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:47:25' prior: 50651250!
+initializeWith: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	carts := OrderedCollection new.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:47:34' prior: 50651361!
+carts
+	^carts copy.! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:47:54' prior: 50651341!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface carts equals: OrderedCollection new.
+		]! !
+
+!testRun: #ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 20:48:00'!
+PASSED!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:48:24'!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface carts equals: OrderedCollection new.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:50:05' prior: 50651421!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: Error - MessageNotUnderstood! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:50:16' prior: 50651442!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:50:34' prior: 50651458!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | ].
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:50:42' prior: 50651474!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:50:57' prior: 50651488!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered
+	
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:51:06' prior: 50651396!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface carts isEmpty .
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:51:19' prior: 50651500!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface carts isEmpty not
+	! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:52:29'!
+hasCarts
+	^carts isEmpty .! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:52:42' prior: 50651512!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface hasCarts .
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:52:50' prior: 50651533!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface hasCarts.
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 20:52:54' prior: 50651551!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self deny: clientInterface hasCarts .
+		]! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:53:02' prior: 50651547!
+hasCarts
+	^carts isEmpty not.! !
+
+!methodRemoval: ClientInterface #carts stamp: 'Sof D 11/6/2023 20:53:05'!
+carts
+	^carts copy.!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:05:41'!
+test03ClientInterfaceCanAddABookToACart
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface hasCarts.
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:05:52'!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface hasCarts.
+	! !
+
+!methodRemoval: ClientInterfaceTest #test02CanCreateACartForARegisteredClient stamp: 'Sof D 11/6/2023 21:05:52'!
+test02CanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface hasCarts.
+	!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:05:59'!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self deny: clientInterface hasCarts .
+		]! !
+
+!methodRemoval: ClientInterfaceTest #test01CantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:05:59'!
+test01CantCreateACartForANotRegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self deny: clientInterface hasCarts .
+		]!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:07:31' prior: 50651613!
+test03ClientInterfaceCanAddABookToACart
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword 
+	! !
+
+!methodRemoval: ClientInterfaceTest #test03ClientInterfaceCanAddABookToACart stamp: 'Sof D 11/6/2023 21:14:09'!
+test03ClientInterfaceCanAddABookToACart
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword 
+	!
+!StoreTestObjectsFactory methodsFor: 'nil' stamp: 'Sof D 11/6/2023 21:16:19'!
+cartList
+	^Dictionary new.! !
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:16:32'!
+emptyCartList
+	^Dictionary new.! !
+
+!methodRemoval: StoreTestObjectsFactory #cartList stamp: 'Sof D 11/6/2023 21:16:32'!
+cartList
+	^Dictionary new.!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:17:16' prior: 50651653!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartList |
+	clientInterface := ClientInterface for: self.
+	cartList := testObjectsFactory emptyCartList .
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self deny: clientInterface hasCarts .
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:17:37' prior: 50651727!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartList |
+	clientInterface := ClientInterface for: self.
+	cartList := testObjectsFactory emptyCartList .
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: cartList isEmpty.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:20:47' prior: 50651750!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartList |
+	cartList := testObjectsFactory emptyCartList .
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: cartList isEmpty.
+		]! !
+
+!methodRemoval: ClientInterface #hasCarts stamp: 'Sof D 11/6/2023 21:22:05'!
+hasCarts
+	^carts isEmpty not.!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:22:11' prior: 50651626!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: clientInterface.
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:22:17' prior: 50651799!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface |
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: true.
+	! !
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'Sof D 11/6/2023 21:26:31'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator cartsList'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'nil' stamp: 'Sof D 11/6/2023 21:26:30'!
+addCart: aCartToAddToList withID: theIDOfTheCart
+	cartsList at: 		theIDOfTheCart put: aCartToAddToList ! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:26:48' prior: 50651773!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartList |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: cartList isEmpty.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:26:53' prior: 50651842!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: cartsList isEmpty.
+		]! !
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'Sof D 11/6/2023 21:27:04' prior: 50651085 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	passwordAuthenticator := [:clientId :password | ].
+	cartsList := testObjectsFactory emptyCartList .! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:27:13'!
+PASSED!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:34:49' prior: 50651813!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: true.
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:36:09' prior: 50651898!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: ''
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:37:37' prior: 50651912!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	self shouldnt: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword ]
+	raise: clientInterface clientIsNotRegistered.
+	self assert: (cartsList includesKey: cartId).
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:40:53' prior: 50651863!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface listCart.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:41:33' prior: 50651941!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartId|
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: clientInterface listCart: cartId.
+		]! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:42:28'!
+ listCart: cartId! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:42:42' prior: 50651984!
+listCart: cartId
+	^true! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:42:46'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:42:46'!
+ERROR!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/6/2023 21:42:59' prior: 50651962!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartId|
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: (clientInterface listCart: cartId).
+		]! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:43:02'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:44:17'!
+PASSED!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:46:44'!
+nextCartId
+	^0! !
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'Sof D 11/6/2023 21:47:37'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartsIds'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:47:37' prior: 50651384!
+initializeWith: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:48:11' prior: 50651988!
+listCart: cartId
+	^cartsIds isEmpty ! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'Sof D 11/6/2023 21:48:19'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'Sof D 11/6/2023 21:48:21'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'Sof D 11/6/2023 21:48:21'!
+FAILURE!
+
+----QUIT----(6 November 2023 21:51:16) CuisUniversity-5981.image priorSource: 10197292!
+
+----STARTUP---- (7 November 2023 00:39:32) as /home/ezfloat/ing-software-1-c2-2023/linux64/linux64/CuisUniversity-5981.image!
+
+
+!classRemoval: #TusLibrosStoreCashier stamp: 'eaam 11/7/2023 00:39:44'!
+Object subclass: #TusLibrosStoreCashier
+	instanceVariableNames: 'cart card purchaseAmount currentDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #TusLibrosCart stamp: 'eaam 11/7/2023 00:39:45'!
+Object subclass: #TusLibrosCart
+	instanceVariableNames: 'contents catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #MerchantProcessorInterface stamp: 'eaam 11/7/2023 00:39:45'!
+Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: 'cardsWithCredit transactionSuccess'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #CreditCard stamp: 'eaam 11/7/2023 00:39:46'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'name expireDate id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #TestSetUp stamp: 'eaam 11/7/2023 00:39:46'!
+Object subclass: #TestSetUp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #TusLibrosStoreCashierTest stamp: 'eaam 11/7/2023 00:39:47'!
+TestCase subclass: #TusLibrosStoreCashierTest
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #TusLibrosCartTests stamp: 'eaam 11/7/2023 00:39:47'!
+TestCase subclass: #TusLibrosCartTests
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #MerchantProcessorInterfaceTest stamp: 'eaam 11/7/2023 00:39:47'!
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: 'testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+----End fileIn of /home/ezfloat/ing-software-1-c2-2023/linux64/linux64/TusLibrosDotCom.st----!
+
+!classRemoval: #TusLibrosStoreCashier stamp: 'eaam 11/7/2023 00:41:53'!
+Object subclass: #TusLibrosStoreCashier
+	instanceVariableNames: 'cart card purchaseAmount currentDate'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #TusLibrosCart stamp: 'eaam 11/7/2023 00:41:53'!
+Object subclass: #TusLibrosCart
+	instanceVariableNames: 'contents catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #MerchantProcessorInterface stamp: 'eaam 11/7/2023 00:41:54'!
+Object subclass: #MerchantProcessorInterface
+	instanceVariableNames: 'cardsWithCredit transactionSuccess'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #CreditCard stamp: 'eaam 11/7/2023 00:41:54'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'name expireDate id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Ejercicio'!
+
+!classRemoval: #TestSetUp stamp: 'eaam 11/7/2023 00:41:55'!
+Object subclass: #TestSetUp
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #TusLibrosStoreCashierTest stamp: 'eaam 11/7/2023 00:41:55'!
+TestCase subclass: #TusLibrosStoreCashierTest
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #TusLibrosCartTests stamp: 'eaam 11/7/2023 00:41:56'!
+TestCase subclass: #TusLibrosCartTests
+	instanceVariableNames: 'testSetUp'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+!classRemoval: #MerchantProcessorInterfaceTest stamp: 'eaam 11/7/2023 00:41:56'!
+TestCase subclass: #MerchantProcessorInterfaceTest
+	instanceVariableNames: 'testSetUP'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibrosDotCom-Tests'!
+
+----End fileIn of /home/ezfloat/ing-software-1-c2-2023/linux64/linux64/TusLibros.st----!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 00:49:36' prior: 50653582!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (cartsList includesKey: cartId).
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:04:41' prior: 50653978!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) .
+	! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:04:49' prior: 50653814!
+listCart: cartId
+	^''! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:05:37' prior: 50653799!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	^self nextCartId! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 01:05:40'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:05:40'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 01:05:42'!
+ERROR!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:06:00' prior: 50653561!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartId|
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:06:08' prior: 50654029!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:06:26' prior: 50654049!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator :=[:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 01:06:32'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:06:33'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:06:33'!
+ERROR!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:06:47' prior: 50653991!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+
+!testRun: #ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:06:49'!
+PASSED!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:06:59' prior: 50654101!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+
+!methodRemoval: ClientInterfaceTest #addCart:withID: stamp: 'eaam 11/7/2023 01:07:03'!
+addCart: aCartToAddToList withID: theIDOfTheCart
+	cartsList at: 		theIDOfTheCart put: aCartToAddToList !
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/7/2023 01:07:10' prior: 50653545 overrides: 16961394!
+setUp 
+
+	testObjectsFactory := StoreTestObjectsFactory new.
+	passwordAuthenticator := [:clientId :password | ].! !
+
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterfaceTest category: 'TusLibros' stamp: 'eaam 11/7/2023 01:07:19'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:25:00'!
+test02ClientInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+
+!methodRemoval: ClientInterfaceTest #test02ClintInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:25:00'!
+test02ClintInterfaceCanCreateACartForARegisteredClient
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:32:01'!
+test03ClintInterfaceDoesntAddItemsToANotCreatedCart
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+
+!methodRemoval: ClientInterfaceTest #test03ClintInterfaceDoesntAddItemsToANotCreatedCart stamp: 'eaam 11/7/2023 01:32:05'!
+test03ClintInterfaceDoesntAddItemsToANotCreatedCart
+	| clientInterface cartId|
+	clientInterface := ClientInterface for: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:32:16' prior: 50654069!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface |
+	
+	clientInterface := ClientInterface for: self.
+	
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:32:35'!
+sadfadfsd: aPasswordAuthenticator
+	^self new initializeWith: aPasswordAuthenticator! !
+
+!methodRemoval: ClientInterface class #for: stamp: 'eaam 11/7/2023 01:32:35'!
+for: aPasswordAuthenticator
+	^self new initializeWith: aPasswordAuthenticator!
+
+!methodRemoval: ClientInterface class #sadfadfsd: stamp: 'eaam 11/7/2023 01:32:39'!
+sadfadfsd: aPasswordAuthenticator
+	^self new initializeWith: aPasswordAuthenticator!
+!ClientInterface class methodsFor: 'no messages' stamp: 'eaam 11/7/2023 01:35:45'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAthe: aPassword! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:36:00'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: passwordAuthenticator! !
+
+!methodRemoval: ClientInterface class #forCartDatabase:merchantProcessor:catalog:passwordAthe: stamp: 'eaam 11/7/2023 01:36:02'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAthe: aPassword!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:46:02' prior: 50654211!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase merchantProcessor: self catalog: testObjectsFactory catalog passwordAuthenticator: self.
+	
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:46:23' prior: 50654269!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase merchantProcessor: self catalog: testObjectsFactory defaultCatalog passwordAuthenticator: self.
+	
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 01:46:42' prior: 50654159!
+test02ClientInterfaceCanCreateACartForARegisteredClient
+		| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase merchantProcessor: self catalog: testObjectsFactory defaultCatalog passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+
+!testRun: #ClientInterfaceTest #test02ClientInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:57:42'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test02ClientInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 01:57:42'!
+ERROR!
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:58:39' prior: 50654254!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: passwordAuthenticator
+	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: passwordAuthenticator! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:59:02'!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:59:16' prior: 50654346!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:07:08' prior: 50654294!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+	merchantProcessor: self 
+	catalog: testObjectsFactory defaultCatalog 
+	passwordAuthenticator: self.
+	
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:07:15' prior: 50654382!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: clientInterface clientIsNotRegistered.
+		].
+	
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:07:45' prior: 50654319!
+test02ClientInterfaceCanCreateACartForARegisteredClient
+		| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:08:38'!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCart: cartId) equals: '' .
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:02:27' prior: 50654450!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory ].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:03:10' prior: 50654468!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory validBook].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:03:23' prior: 50654487!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore].
+	! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:04:22'!
+asdasfasdfadfasd: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.! !
+
+!methodRemoval: ClientInterface #initializeWith: stamp: 'eaam 11/7/2023 03:04:22'!
+initializeWith: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.!
+
+!methodRemoval: ClientInterface #asdasfasdfadfasd: stamp: 'eaam 11/7/2023 03:04:27'!
+asdasfasdfadfasd: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:05:30'!
+addToCart: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:05:46' prior: 50654506!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:05:59' prior: 50654550!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:06:26' prior: 50654570!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error 
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:06:36' prior: 50654591!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:07:26' prior: 50654613!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:23:27' prior: 50654635!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface cartDoestExistErrorDescription.
+		].
+	! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:23:51'!
+cartDoestExistErrorDescription
+	^'cart id is not registered'! !
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'eaam 11/7/2023 03:24:11'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartsIds database'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:24:08' prior: 50654358!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.
+	database := aDatabaseOfCarts! !
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'eaam 11/7/2023 03:24:16'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:24:16' prior: 50654698!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.
+	cartDatabase := aDatabaseOfCarts! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:26:30' prior: 50654545!
+addToCart: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
+	(cartDatabase includesKey: aCartId) ifFalse: [self error: self cartDoestExistErrorDescription].! !
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:26:34'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 03:26:38'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test02ClientInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 03:26:38'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:26:38'!
+PASSED!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:27:46'!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:38:37' prior: 50654754!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice.
+	self assert: (clientInterface listCart: testObjectsFactory itemSellByTheStore).! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:39:53' prior: 50654774!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice.
+	self assert: (clientInterface listCart: testObjectsFactory itemSellByTheStore) equals: ''.! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:41:58' prior: 50654797!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId expectedBookList|
+	
+	expectedBookList := Bag new.
+	expectedBookList add: testObjectsFactory itemSellByTheStore.
+	
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice.
+	self assert: (clientInterface listCart: testObjectsFactory itemSellByTheStore) equals: expectedBookList.! !
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:42:24'!
+ERROR!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:42:24'!
+ERROR!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:43:00' prior: 50654820!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId expectedBookList|
+	
+	expectedBookList := Bag new.
+	expectedBookList add: testObjectsFactory itemSellByTheStore.
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice.
+	self assert: (clientInterface listCart: testObjectsFactory itemSellByTheStore) equals: expectedBookList.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:43:28' prior: 50654008!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	
+	^self nextCartId! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:44:00' prior: 50654882!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	cartDatabase at: self nextCartId put: ''.! !
+
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #ClientInterface category: 'TusLibros' stamp: 'eaam 11/7/2023 03:45:01'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:45:17' prior: 50654718!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+	passwordAuthenticator := aPasswordAuthenticator.
+	cartsIds := OrderedCollection new.
+	cartDatabase := aDatabaseOfCarts.
+	catalog := aCatalog .! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:46:05' prior: 50654891!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	cartDatabase at: self nextCartId put: (Cart acceptingItemsOf: catalog).! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:46:43' prior: 50654928!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	| cartId |
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	cartId := self nextCartId.
+	cartDatabase at: cartId put: (Cart acceptingItemsOf: catalog).
+	^cartId! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 03:46:47'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test02ClientInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 03:46:47'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:46:47'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:46:47'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:46:49'!
+FAILURE!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:48:24' prior: 50654658!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [clientInterface addToCart: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface cartDoestExistErrorDescription.
+		].
+	! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:48:30' prior: 50654970!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+
+	self should: [clientInterface addToCart: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: clientInterface cartDoestExistErrorDescription.
+		].
+	! !
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'eaam 11/7/2023 03:48:52'!
+invalidCartId
+	^'invalidId'! !
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:49:01'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:49:03'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:49:03'!
+FAILURE!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:51:35' prior: 50654854!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId expectedBookList|
+	
+	expectedBookList := Bag new.
+	expectedBookList add: testObjectsFactory itemSellByTheStore.
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: 1.
+	self assert: (clientInterface listCart: testObjectsFactory itemSellByTheStore) equals: expectedBookList.! !
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:51:37'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:51:37'!
+FAILURE!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:54:18' prior: 50655035!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId expectedBookList|
+	
+	expectedBookList := Bag new.
+	expectedBookList add: testObjectsFactory itemSellByTheStore.
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: 1.
+	self assert: (cartDatabase at: cartId)  equals: expectedBookList.! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:54:55' prior: 50655068!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId |
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self.
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: 1.
+	self assert: (cartDatabase at: cartId)  includes: testObjectsFactory itemSellByTheStore.! !
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:54:58'!
+FAILURE!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:54:58'!
+FAILURE!
+
+cartDatabase!
+
+self at: 0 !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:57:09' prior: 50654730!
+addToCart: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
+	(cartDatabase includesKey: aCartId) ifFalse: [self error: self cartDoestExistErrorDescription].
+	(cartDatabase at: aCartId)! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:57:58' prior: 50655123!
+addToCart: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
+	(cartDatabase includesKey: aCartId) ifFalse: [self error: self cartDoestExistErrorDescription].
+	(cartDatabase at: aCartId) add: aQuantityToAdd of: aBookToAdd.! !
+
+!testRun: #ClientInterfaceTest #test01ClientInterfaceCantCreateACartForANotRegisteredClient stamp: 'eaam 11/7/2023 03:57:59'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test02ClientInterfaceCanCreateACartForARegisteredClient stamp: 'eaam 11/7/2023 03:57:59'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test03ClientInterfaceCantAddToANonexistentCart stamp: 'eaam 11/7/2023 03:57:59'!
+PASSED!
+
+!testRun: #ClientInterfaceTest #test04ClientInterfaceCanAddBookToACart stamp: 'eaam 11/7/2023 03:57:59'!
+PASSED!
+
+----QUIT----(7 November 2023 04:00:40) CuisUniversity-5981.image priorSource: 12494913!
