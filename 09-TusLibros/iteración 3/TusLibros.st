@@ -1,9 +1,9 @@
-!classDefinition: #CartTest category: 'TusLibros'!
+!classDefinition: #CartTest category: 'TusLibros-Test'!
 TestCase subclass: #CartTest
 	instanceVariableNames: 'testObjectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Test'!
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
 test01NewCartsAreCreatedEmpty
@@ -98,12 +98,12 @@ setUp
 	testObjectsFactory := StoreTestObjectsFactory new.! !
 
 
-!classDefinition: #CashierTest category: 'TusLibros'!
+!classDefinition: #CashierTest category: 'TusLibros-Test'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'testObjectsFactory debitBehavior'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Test'!
 
 !CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test01CanNotCheckoutAnEmptyCart
@@ -246,18 +246,20 @@ debit: anAmount from: aCreditCard
 	^debitBehavior value: anAmount value: aCreditCard ! !
 
 
-!classDefinition: #ClientInterfaceTest category: 'TusLibros'!
+!classDefinition: #ClientInterfaceTest category: 'TusLibros-Test'!
 TestCase subclass: #ClientInterfaceTest
-	instanceVariableNames: 'testObjectsFactory passwordAuthenticator'
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator watchSimulator'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Test'!
 
-!ClientInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/7/2023 01:07:10'!
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/9/2023 16:09:21'!
 setUp 
 
 	testObjectsFactory := StoreTestObjectsFactory new.
-	passwordAuthenticator := [:clientId :password | ].! !
+	passwordAuthenticator := [:clientId :password | ].
+	
+	watchSimulator := WatchSimulator for: testObjectsFactory today.! !
 
 
 !ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:34:09'!
@@ -265,14 +267,14 @@ validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
 	passwordAuthenticator value: aClientIdToValidate value: aPasswordToValidate.! !
 
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:17'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:41'!
 test01ClientInterfaceCantCreateACartForANotRegisteredClient
 	| clientInterface cartDatabase|
 	cartDatabase := Dictionary new.
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	passwordAuthenticator := [:clientId :password | 
 		clientInterface error: ClientInterface clientIsNotRegisteredErrorDescription.
@@ -284,7 +286,7 @@ test01ClientInterfaceCantCreateACartForANotRegisteredClient
 		self assert: anError messageText equals: ClientInterface clientIsNotRegisteredErrorDescription.
 		]! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:12'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:37'!
 test02ClientInterfaceCanCreateACartForARegisteredClient
 		| clientInterface cartDatabase cartId|
 	cartDatabase := Dictionary new.
@@ -292,13 +294,13 @@ test02ClientInterfaceCanCreateACartForARegisteredClient
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	self assert: (clientInterface listCartWithID: cartId) equals: Bag new .
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:08'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:34'!
 test03ClientInterfaceCantAddToANonexistentCart
 	| clientInterface cartDatabase |
 	cartDatabase := Dictionary new.
@@ -306,7 +308,7 @@ test03ClientInterfaceCantAddToANonexistentCart
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 
 	self should: [clientInterface addToCartWithID: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
@@ -316,7 +318,7 @@ test03ClientInterfaceCantAddToANonexistentCart
 		].
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 01:54:06'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:30'!
 test04ClientInterfaceCanAddBookToACart
 	| clientInterface cartDatabase cartId |
 	
@@ -326,13 +328,13 @@ test04ClientInterfaceCanAddBookToACart
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
 	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore )! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 01:56:57'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:24'!
 test05ClientInterfaceCanAddManyOfABookToACart
 	| clientInterface cartDatabase cartId |
 	
@@ -342,13 +344,13 @@ test05ClientInterfaceCanAddManyOfABookToACart
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
 	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore )! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 01:57:32'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:20'!
 test06ClientInterfaceCannotAddNonexistentBook
 	| clientInterface cartDatabase cartId |
 	
@@ -358,7 +360,7 @@ test06ClientInterfaceCannotAddNonexistentBook
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	self should: [	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemNotSoldByTheStore inQuantity: 1. ]
@@ -368,7 +370,7 @@ test06ClientInterfaceCannotAddNonexistentBook
 		self assert: (clientInterface listCartWithID: cartId) equals: (Bag new)
 		]! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 01:57:46'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:15'!
 test07ClientInterfaceCannotAddNegativeAmountOfBooks
 	| clientInterface cartDatabase cartId |
 	
@@ -378,7 +380,7 @@ test07ClientInterfaceCannotAddNegativeAmountOfBooks
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	self should: [	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: -1. ]
@@ -389,7 +391,7 @@ test07ClientInterfaceCannotAddNegativeAmountOfBooks
 
 		]! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 02:41:54'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:10'!
 test08CannotListCartWithInvalidID
 
 	
@@ -399,14 +401,15 @@ test08CannotListCartWithInvalidID
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
 		passwordAuthenticator: self 
-		currentDate: (Month month: 1 year: 2025).	
+		currentDate: watchSimulator .
+	
 	self should: [clientInterface listCartWithID: testObjectsFactory invalidCartId ]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
 		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription .
 		]! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:11:00'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:01'!
 test09ListCartReturnsCorrectResultForNewCart
 
 	
@@ -415,7 +418,8 @@ test09ListCartReturnsCorrectResultForNewCart
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self currentDate: watchSimulator .
+		
 		
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	
@@ -424,7 +428,7 @@ test09ListCartReturnsCorrectResultForNewCart
 	self assert: (clientInterface listCartWithID: cartId) equals: Bag new. 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:11:06'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:55'!
 test10ListCartReturnsCorrectResultForCartWithItems
 
 	
@@ -433,7 +437,8 @@ test10ListCartReturnsCorrectResultForCartWithItems
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
 		
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
@@ -443,7 +448,7 @@ test10ListCartReturnsCorrectResultForCartWithItems
 	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore) . 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:11:51'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:48'!
 test11CanCheckoutCartWithItems
 
 	
@@ -452,7 +457,8 @@ test11CanCheckoutCartWithItems
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
 		
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
@@ -462,7 +468,7 @@ test11CanCheckoutCartWithItems
 	self assert: (clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez') equals: true. 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:13:26'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:40'!
 test12CantCheckoutEmptyCart
 
 	
@@ -471,7 +477,9 @@ test12CantCheckoutEmptyCart
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+	
 	cartId := clientInterface createCartForClient: 'Nicolas Rinaldi' withPassword: testObjectsFactory validPassword .
 		
 	
@@ -503,7 +511,7 @@ self should: [clientInterface checkoutCartWithID: testObjectsFactory invalidCart
 	 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:24:10'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:28:32'!
 test14CantCheckoutCartUsingExpiredCreditCart
 
 	
@@ -512,13 +520,14 @@ test14CantCheckoutCartUsingExpiredCreditCart
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self 
+		currentDate: watchSimulator.
 	cartId := clientInterface createCartForClient: 'Nicolas Rinaldi' withPassword: testObjectsFactory validPassword .
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
 
 		
 	
-self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2023' cardOwner: 'Juan Perez']
+self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2020' cardOwner: 'Juan Perez']
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
 		self assert: anError messageText equals: ClientInterface expiredCreditCardErrorDescription .
@@ -526,7 +535,7 @@ self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered
 	 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:31:22'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:33'!
 test15ListPurcharcesIsEmptyForANewUserId
 	
 	| clientInterface cartDatabase cartId |
@@ -534,7 +543,8 @@ test15ListPurcharcesIsEmptyForANewUserId
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self
+		currentDate: watchSimulator.
 		
 	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
 	
@@ -545,7 +555,7 @@ test15ListPurcharcesIsEmptyForANewUserId
 	
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:31:15'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:26'!
 test16ListPurchacesShowsPurchasesOfAValidClientWithPurchases
 
 	
@@ -554,7 +564,8 @@ test16ListPurchacesShowsPurchasesOfAValidClientWithPurchases
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self
+		currentDate: watchSimulator.
 		
 	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
 	
@@ -570,7 +581,7 @@ test16ListPurchacesShowsPurchasesOfAValidClientWithPurchases
 	
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:30:58'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:13'!
 test17CantListPurchacesOfAInalidClient
 	
 	| clientInterface cartDatabase |
@@ -578,7 +589,8 @@ test17CantListPurchacesOfAInalidClient
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		passwordAuthenticator: self 
+		currentDate:watchSimulator.
 		
 	passwordAuthenticator := [:clientId :password | 
 		clientInterface error: ClientInterface clientIsNotRegisteredErrorDescription.
@@ -594,6 +606,91 @@ test17CantListPurchacesOfAInalidClient
 	
 	! !
 
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:22:03'!
+test18CantAddToAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		self assert: (clientInterface listCartWithID: cartId) equals: Bag new.
+		]
+	
+
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:22:34'!
+test19CantListCartOfAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface listCartWithID: cartId]
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		self assert: (clientInterface listCartWithID: cartId) equals: Bag new.
+		]
+	
+
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:27:49'!
+test20CantCheckOutAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		]
+	
+
+	
+	! !
+
 
 !ClientInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:55:40'!
 debit: anAmount from: aCreditCard 
@@ -601,12 +698,93 @@ debit: anAmount from: aCreditCard
 	! !
 
 
-!classDefinition: #Cart category: 'TusLibros'!
+!classDefinition: #StoreTestObjectsFactory category: 'TusLibros-Test'!
+Object subclass: #StoreTestObjectsFactory
+	instanceVariableNames: 'today'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Test'!
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/9/2023 04:01:10'!
+itemNotSoldByTheStore
+	
+	^'invalidBook'! !
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
+itemSellByTheStorePrice
+	
+	^10! !
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/8/2023 00:25:23'!
+itemSoldByTheStore
+	
+	^ 'validBook'! !
+
+
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
+createCart
+	
+	^Cart acceptingItemsOf: self defaultCatalog! !
+
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/8/2023 00:25:24'!
+defaultCatalog
+	
+	^ Dictionary new
+		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
+		yourself ! !
+
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/6/2023 21:16:32'!
+emptyCartList
+	^Dictionary new.! !
+
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'eaam 11/7/2023 03:48:52'!
+invalidCartId
+	^'invalidId'! !
+
+
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:37'!
+expiredCreditCard
+	
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber - 1)! !
+
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'eaam 11/9/2023 15:46:50'!
+expiredCreditCardDate
+	
+	^ (Month month: today monthIndex year: today yearNumber - 1)! !
+
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:36'!
+notExpiredCreditCard
+	
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber + 1)! !
+
+
+!StoreTestObjectsFactory methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 18:37'!
+initialize
+
+	today := DateAndTime now! !
+
+
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:43'!
+invalidPassword
+	
+	^'riBer'! !
+
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:50'!
+validPassword
+	
+	^'BOCA'! !
+
+
+!StoreTestObjectsFactory methodsFor: 'date' stamp: 'HernanWilkinson 6/17/2013 18:37'!
+today
+	
+	^ today! !
+!classDefinition: #Cart category: 'TusLibros-Ejercicio'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
 !Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
 invalidItemErrorMessage
@@ -669,13 +847,13 @@ addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
 	1 to: theAmountToAdd do: [ :aNumber | items add: anItemToAddToTheCart ]! !
 
 
-!Cart methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:36:39'!
+!Cart methodsFor: 'listCart' stamp: 'Sof D 11/8/2023 01:36:39'!
 listCart
 	^items copy! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: 'TusLibros'!
+!classDefinition: 'Cart class' category: 'TusLibros-Ejercicio'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -685,12 +863,67 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: 'TusLibros'!
+!classDefinition: #CartTimeoutManager category: 'TusLibros-Ejercicio'!
+Object subclass: #CartTimeoutManager
+	instanceVariableNames: 'cart clientInterface createdAtTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:41:33'!
+addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
+	self assertCartIsNotExpired.
+	^cart addItem: anItemToAddToTheCart  inAmount: theAmountToAdd! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 16:21:12'!
+assertCartIsNotExpired
+	(self cartIsExpiredInTime: clientInterface actualTime) ifTrue: [ self error: ClientInterface cartExpiredErrorDescription ]! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:41:03'!
+cart
+	self assertCartIsNotExpired.
+	^cart! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 16:17:47'!
+cartIsExpiredInTime: aActualTime
+	^ ((createdAtTime + (30 minutes)) < aActualTime)! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:38:57'!
+initializeWithCart: aCart withClientInterface: aClientInterface
+	cart := aCart .
+	clientInterface := aClientInterface .
+	createdAtTime := clientInterface actualTime.! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:43:17'!
+isEmpty
+	^cart isEmpty! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:30:05'!
+listCart
+	self assertCartIsNotExpired.
+	^cart listCart! !
+
+!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:43:24'!
+total
+	^cart total! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CartTimeoutManager class' category: 'TusLibros-Ejercicio'!
+CartTimeoutManager class
+	instanceVariableNames: ''!
+
+!CartTimeoutManager class methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:16:05'!
+forCart: aCart forClientInterface: aClientInterface
+	^self new initializeWithCart: aCart withClientInterface: aClientInterface! !
+
+
+!classDefinition: #Cashier category: 'TusLibros-Ejercicio'!
 Object subclass: #Cashier
 	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total client'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
 !Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:08'!
 calculateTotal
@@ -737,7 +970,7 @@ withClient: aClientId initializeToCheckout: aCart charging: aCreditCard throught
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: 'TusLibros'!
+!classDefinition: 'Cashier class' category: 'TusLibros-Ejercicio'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -777,26 +1010,33 @@ creditCardHasNoCreditErrorMessage
 	^'Credit card has no credit'! !
 
 
-!classDefinition: #ClientInterface category: 'TusLibros'!
+!classDefinition: #ClientInterface category: 'TusLibros-Ejercicio'!
 Object subclass: #ClientInterface
-	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase catalog merchantProcessor currentDate salesBook'
+	instanceVariableNames: 'passwordAuthenticator cartDatabase catalog merchantProcessor watch salesBook nextId'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
-!ClientInterface methodsFor: 'initialization' stamp: 'eaam 11/9/2023 03:53:42'!
+!ClientInterface methodsFor: 'initialization' stamp: 'eaam 11/9/2023 15:36:14'!
 initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
 	passwordAuthenticator := aPasswordAuthenticator.
-	cartsIds := OrderedCollection new.
+	nextId := 0.
 	cartDatabase := aDatabaseOfCarts.
 	catalog := aCatalog .
 	
-	currentDate :=  theCurrentDate .
+	watch :=  theCurrentDate .
 	
 	merchantProcessor := aMerchantProcessor .
 	
 	salesBook := OrderedCollection new.! !
 
+
+!ClientInterface methodsFor: 'asseting' stamp: 'eaam 11/9/2023 15:44:50'!
+assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard
+	| card |
+	card := CreditCard expiringOn: (Month month: ((theExpiryDateOfTheCard copyFrom: 1 to: 2) asNumber )year: ((theExpiryDateOfTheCard copyFrom: 4 to: 7) asNumber)).
+	(card isExpiredOn: watch actualTime date) ifTrue: [ self error: self class expiredCreditCardErrorDescription ].
+	^card! !
 
 !ClientInterface methodsFor: 'asseting' stamp: 'Sof D 11/8/2023 02:02:55'!
 assertInDatabaseTheCartId: aCartId
@@ -810,6 +1050,10 @@ assertIsInCatalogTheBook: aBookToAdd AndIsGreaterThanTwo: aQuantityToAdd
 	(aQuantityToAdd > 0) ifFalse: [ self error: self class invalidItemAmountErrorDescription ]! !
 
 
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:36:59'!
+actualTime 
+	^watch actualTime! !
+
 !ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 02:46:35'!
 addToCartWithID: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
 	self assertInDatabaseTheCartId: aCartId.
@@ -822,20 +1066,18 @@ allPurchasesOfClientId: aClientIdToGetAllThePurchases
 
 	^ ((self salesForClientId: aClientIdToGetAllThePurchases) inject: OrderedCollection new into: [:listOfPurchases :aSale | listOfPurchases addAll: aSale ItemsBought]) asBag! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 04:08:34'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:36:14'!
 checkoutCartWithID: aCartId withCreditCardNumbered: theNumberOfTheCreditCardToCharge cardExpiryDate: theExpiryDateOfTheCard cardOwner: theNameOfTheCardOwner
-	| cashier cart card |
+	| cashier cartManager card |
 	self assertInDatabaseTheCartId: aCartId .
 
-	cart :=  cartDatabase at: aCartId.
+	cartManager :=  cartDatabase at: aCartId.
 	
-	((self listCartWithID: aCartId ) isEmpty) ifTrue: [ self error: self class cannotCheckoutEmptyCartErrorDescription ].
+	(cartManager isEmpty) ifTrue: [ self error: self class cannotCheckoutEmptyCartErrorDescription ].
 	
-	card := CreditCard expiringOn: (Month month: ((theExpiryDateOfTheCard copyFrom: 1 to: 2) asNumber )year: ((theExpiryDateOfTheCard copyFrom: 4 to: 7) asNumber)).
+	card := self assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard.
 	
-	(card isExpiredOn: currentDate) ifTrue: [ self error: self class expiredCreditCardErrorDescription ].
-	
-	cashier := Cashier toCheckout: cart  charging: card throught: merchantProcessor on: currentDate registeringOn: salesBook forClient: 1.
+	cashier := Cashier toCheckout: cartManager cart charging: card throught: merchantProcessor on: (watch actualTime date) registeringOn: salesBook forClient: 1.
 	cashier checkOut .
 	
 	
@@ -843,12 +1085,12 @@ checkoutCartWithID: aCartId withCreditCardNumbered: theNumberOfTheCreditCardToCh
 	^true
 	! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/9/2023 01:45:22'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:19:20'!
 createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
 	| cartId |
 	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
 	cartId := self nextCartId.
-	cartDatabase at: cartId put: (Cart acceptingItemsOf: catalog).
+	cartDatabase at: cartId put: (self newCartAcceptingItemsOf: catalog).
 	
 	^cartId! !
 
@@ -865,9 +1107,14 @@ listPurchasesOfClientWithID: theIdOfTheClientToListThePurchasesOf withPassword: 
 
 	^ self allPurchasesOfClientId: theIdOfTheClientToListThePurchasesOf.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:46:44'!
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:21:12'!
+newCartAcceptingItemsOf: aCatalog
+	^CartTimeoutManager forCart: (Cart acceptingItemsOf: aCatalog ) forClientInterface: self.! !
+
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 14:02:38'!
 nextCartId
-	^0! !
+	nextId := nextId + 1.
+	^nextId! !
 
 !ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 03:53:42'!
 registerNewClientInSalesList: theIdOfTheNewClient
@@ -880,45 +1127,50 @@ salesForClientId: theIdOfTheClientToListThePurchasesOf
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'ClientInterface class' category: 'TusLibros'!
+!classDefinition: 'ClientInterface class' category: 'TusLibros-Ejercicio'!
 ClientInterface class
 	instanceVariableNames: ''!
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/9/2023 04:13:51'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:13:51'!
 cannotCheckoutEmptyCartErrorDescription
 	^'Cannot checkout empty cart'! !
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:42:43'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/8/2023 01:42:43'!
 cartDoesntExistErrorDescription
 	^'Cart id is not registered'! !
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:41:22'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'eaam 11/9/2023 16:18:29'!
+cartExpiredErrorDescription
+	^'The cart is expired'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/8/2023 01:41:22'!
 clientIsNotRegisteredErrorDescription
 	^'ups!! You are not registered!! bakita el más grande papa'! !
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/9/2023 04:21:55'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:21:55'!
 expiredCreditCardErrorDescription
 	^'Cant use expired credit card for payment'! !
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:54:26'!
-forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
-	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate ! !
-
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/9/2023 04:07:56'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:07:56'!
 invalidItemAmountErrorDescription
 	^'Item amount must be positive'! !
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/9/2023 04:01:54'!
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:01:54'!
 invalidItemErrorDescription
 	^'Selected item isnt sold by catalog'! !
 
+
+!ClientInterface class methodsFor: 'initialization' stamp: 'Sof D 11/8/2023 02:54:26'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
+	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate ! !
+
 
-!classDefinition: #CreditCard category: 'TusLibros'!
+!classDefinition: #CreditCard category: 'TusLibros-Ejercicio'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'expiration clientId'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
 !CreditCard methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 18:39'!
 isExpiredOn: aDate 
@@ -934,7 +1186,7 @@ initializeExpiringOn: aMonth
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: 'TusLibros'!
+!classDefinition: 'CreditCard class' category: 'TusLibros-Ejercicio'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -944,12 +1196,12 @@ expiringOn: aMonth
 	^self new initializeExpiringOn: aMonth! !
 
 
-!classDefinition: #Sale category: 'TusLibros'!
+!classDefinition: #Sale category: 'TusLibros-Ejercicio'!
 Object subclass: #Sale
 	instanceVariableNames: 'total clientId ItemsBought'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
 !Sale methodsFor: 'total' stamp: 'eaam 11/9/2023 04:20:24'!
 ItemsBought
@@ -976,7 +1228,7 @@ initializeTotal: aTotal forClient: aClientId withItems: itemsBoughtByTheClient
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Sale class' category: 'TusLibros'!
+!classDefinition: 'Sale class' category: 'TusLibros-Ejercicio'!
 Sale class
 	instanceVariableNames: ''!
 
@@ -987,79 +1239,35 @@ of: aTotal forClient: aClientId withItems: aBagOfItemsBoughtByTheClient
 	^self new initializeTotal: aTotal forClient: aClientId withItems: aBagOfItemsBoughtByTheClient ! !
 
 
-!classDefinition: #StoreTestObjectsFactory category: 'TusLibros'!
-Object subclass: #StoreTestObjectsFactory
-	instanceVariableNames: 'today'
+!classDefinition: #WatchSimulator category: 'TusLibros-Ejercicio'!
+Object subclass: #WatchSimulator
+	instanceVariableNames: 'actualDateAndTime'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros'!
+	category: 'TusLibros-Ejercicio'!
 
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/9/2023 04:01:10'!
-itemNotSoldByTheStore
-	
-	^'invalidBook'! !
+!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:51'!
+actualTime
+	^actualDateAndTime! !
 
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
-itemSellByTheStorePrice
-	
-	^10! !
+!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:11:28'!
+advanceTime: aTimeToAdvance
+	actualDateAndTime := actualDateAndTime + aTimeToAdvance.! !
 
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/8/2023 00:25:23'!
-itemSoldByTheStore
-	
-	^ 'validBook'! !
+!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:58:32'!
+backInTime: aTime
+	actualDateAndTime := actualDateAndTime - aTime.! !
 
+!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:35'!
+initializeWith: aDateAndTime
+	actualDateAndTime := aDateAndTime.! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
-createCart
-	
-	^Cart acceptingItemsOf: self defaultCatalog! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/8/2023 00:25:24'!
-defaultCatalog
-	
-	^ Dictionary new
-		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
-		yourself ! !
+!classDefinition: 'WatchSimulator class' category: 'TusLibros-Ejercicio'!
+WatchSimulator class
+	instanceVariableNames: ''!
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/6/2023 21:16:32'!
-emptyCartList
-	^Dictionary new.! !
-
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'eaam 11/7/2023 03:48:52'!
-invalidCartId
-	^'invalidId'! !
-
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:37'!
-expiredCreditCard
-	
-	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber - 1)! !
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:36'!
-notExpiredCreditCard
-	
-	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber + 1)! !
-
-
-!StoreTestObjectsFactory methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 18:37'!
-initialize
-
-	today := DateAndTime now! !
-
-
-!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:43'!
-invalidPassword
-	
-	^'riBer'! !
-
-!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:50'!
-validPassword
-	
-	^'BOCA'! !
-
-
-!StoreTestObjectsFactory methodsFor: 'date' stamp: 'HernanWilkinson 6/17/2013 18:37'!
-today
-	
-	^ today! !
+!WatchSimulator class methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:14'!
+for: aDateAndTime
+	^self new initializeWith: aDateAndTime! !
