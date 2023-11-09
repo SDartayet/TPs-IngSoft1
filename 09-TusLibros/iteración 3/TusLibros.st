@@ -448,11 +448,11 @@ test10ListCartReturnsCorrectResultForCartWithItems
 	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore) . 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:48'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:43:19'!
 test11CanCheckoutCartWithItems
 
 	
-	| clientInterface cartDatabase cartId|
+	| clientInterface cartDatabase cartId expectedPurchaseList|
 	cartDatabase := Dictionary new.
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
@@ -460,19 +460,21 @@ test11CanCheckoutCartWithItems
 		passwordAuthenticator: self 
 		currentDate: watchSimulator .
 		
-	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	cartId := clientInterface createCartForClient:  1 withPassword: testObjectsFactory validPassword.
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	clientInterface checkoutCartWithID: cartId withCreditCardNumbered: testObjectsFactory notExpiredCreditCard cardExpiryDate: '12/2026' cardOwner: 'Juan Perez'.
 	
-
+	expectedPurchaseList := Bag with: testObjectsFactory itemSoldByTheStore.
 	
-	self assert: (clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez') equals: true. 
+	self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
+	
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:40'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:04'!
 test12CantCheckoutEmptyCart
 
 	
-	| clientInterface cartDatabase cartId |
+	| clientInterface cartDatabase cartId expectedPurchaseList |
 	cartDatabase := Dictionary new.
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
@@ -480,18 +482,22 @@ test12CantCheckoutEmptyCart
 		passwordAuthenticator: self 
 		currentDate: watchSimulator .
 	
-	cartId := clientInterface createCartForClient: 'Nicolas Rinaldi' withPassword: testObjectsFactory validPassword .
+	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
+	expectedPurchaseList := Bag new.
+	
+	
 		
 	
 self should: [clientInterface checkoutCartWithID: cartId withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
 		self assert: anError messageText equals: ClientInterface cannotCheckoutEmptyCartErrorDescription .
+		self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
 		]
 	 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:12:08'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:31'!
 test13CantCheckoutNonexistentCart
 
 	
@@ -502,6 +508,7 @@ test13CantCheckoutNonexistentCart
 		catalog: testObjectsFactory defaultCatalog 
 		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
 		
+		
 	
 self should: [clientInterface checkoutCartWithID: testObjectsFactory invalidCartId withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
 	raise: Error - MessageNotUnderstood
@@ -511,11 +518,11 @@ self should: [clientInterface checkoutCartWithID: testObjectsFactory invalidCart
 	 
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:28:32'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:57'!
 test14CantCheckoutCartUsingExpiredCreditCart
 
 	
-	| clientInterface cartDatabase cartId |
+	| clientInterface cartDatabase cartId expectedPurchaseList|
 	cartDatabase := Dictionary new.
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
@@ -524,6 +531,7 @@ test14CantCheckoutCartUsingExpiredCreditCart
 		currentDate: watchSimulator.
 	cartId := clientInterface createCartForClient: 'Nicolas Rinaldi' withPassword: testObjectsFactory validPassword .
 	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	expectedPurchaseList := Bag new.
 
 		
 	
@@ -531,6 +539,8 @@ self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
 		self assert: anError messageText equals: ClientInterface expiredCreditCardErrorDescription .
+				self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
+
 		]
 	 
 	! !
@@ -692,7 +702,7 @@ test20CantCheckOutAExpiredCart
 	! !
 
 
-!ClientInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:55:40'!
+!ClientInterfaceTest methodsFor: 'merchant processor behavior' stamp: 'Sof D 11/8/2023 02:55:40'!
 debit: anAmount from: aCreditCard 
 
 	! !
@@ -870,40 +880,43 @@ Object subclass: #CartTimeoutManager
 	poolDictionaries: ''
 	category: 'TusLibros-Ejercicio'!
 
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:41:33'!
+!CartTimeoutManager methodsFor: 'cart management' stamp: 'eaam 11/9/2023 15:41:33'!
 addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
 	self assertCartIsNotExpired.
 	^cart addItem: anItemToAddToTheCart  inAmount: theAmountToAdd! !
 
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 16:21:12'!
-assertCartIsNotExpired
-	(self cartIsExpiredInTime: clientInterface actualTime) ifTrue: [ self error: ClientInterface cartExpiredErrorDescription ]! !
-
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:41:03'!
-cart
-	self assertCartIsNotExpired.
-	^cart! !
-
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 16:17:47'!
-cartIsExpiredInTime: aActualTime
-	^ ((createdAtTime + (30 minutes)) < aActualTime)! !
-
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:38:57'!
-initializeWithCart: aCart withClientInterface: aClientInterface
-	cart := aCart .
-	clientInterface := aClientInterface .
-	createdAtTime := clientInterface actualTime.! !
-
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:43:17'!
-isEmpty
-	^cart isEmpty! !
-
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:30:05'!
+!CartTimeoutManager methodsFor: 'cart management' stamp: 'eaam 11/9/2023 15:30:05'!
 listCart
 	self assertCartIsNotExpired.
 	^cart listCart! !
 
-!CartTimeoutManager methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:43:24'!
+
+!CartTimeoutManager methodsFor: 'initialization' stamp: 'Sof D 11/9/2023 16:46:26'!
+initializeWithCart: aCart withClientInterface: aClientInterface
+	cart := aCart .
+	clientInterface := aClientInterface .
+	createdAtTime := clientInterface currentTime.! !
+
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'Sof D 11/9/2023 16:46:26'!
+assertCartIsNotExpired
+	(self cartIsExpiredInTime: clientInterface currentTime) ifTrue: [ self error: ClientInterface cartExpiredErrorDescription ]! !
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'eaam 11/9/2023 16:17:47'!
+cartIsExpiredInTime: aActualTime
+	^ ((createdAtTime + (30 minutes)) < aActualTime)! !
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'eaam 11/9/2023 15:43:17'!
+isEmpty
+	^cart isEmpty! !
+
+
+!CartTimeoutManager methodsFor: 'accessing' stamp: 'eaam 11/9/2023 15:41:03'!
+cart
+	self assertCartIsNotExpired.
+	^cart! !
+
+!CartTimeoutManager methodsFor: 'accessing' stamp: 'eaam 11/9/2023 15:43:24'!
 total
 	^cart total! !
 
@@ -1031,61 +1044,54 @@ initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcess
 	salesBook := OrderedCollection new.! !
 
 
-!ClientInterface methodsFor: 'asseting' stamp: 'eaam 11/9/2023 15:44:50'!
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/9/2023 16:46:26'!
 assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard
 	| card |
 	card := CreditCard expiringOn: (Month month: ((theExpiryDateOfTheCard copyFrom: 1 to: 2) asNumber )year: ((theExpiryDateOfTheCard copyFrom: 4 to: 7) asNumber)).
-	(card isExpiredOn: watch actualTime date) ifTrue: [ self error: self class expiredCreditCardErrorDescription ].
+	(card isExpiredOn: watch currentTime date) ifTrue: [ self error: self class expiredCreditCardErrorDescription ].
 	^card! !
 
-!ClientInterface methodsFor: 'asseting' stamp: 'Sof D 11/8/2023 02:02:55'!
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/8/2023 02:02:55'!
 assertInDatabaseTheCartId: aCartId
 
 	^ (cartDatabase includesKey: aCartId) ifFalse: [self error: self class cartDoesntExistErrorDescription]! !
 
-!ClientInterface methodsFor: 'asseting' stamp: 'eaam 11/9/2023 02:46:35'!
+!ClientInterface methodsFor: 'asserting' stamp: 'eaam 11/9/2023 02:46:35'!
 assertIsInCatalogTheBook: aBookToAdd AndIsGreaterThanTwo: aQuantityToAdd
 
 	(catalog includesKey: aBookToAdd) ifFalse: [ self error: self class invalidItemErrorDescription ].
 	(aQuantityToAdd > 0) ifFalse: [ self error: self class invalidItemAmountErrorDescription ]! !
 
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/9/2023 16:50:15'!
+isCartEmpty: theManagerOfTheCart
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:36:59'!
-actualTime 
-	^watch actualTime! !
+	^ (theManagerOfTheCart isEmpty) ifTrue: [ self error: self class cannotCheckoutEmptyCartErrorDescription ]! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 02:46:35'!
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 02:46:35'!
 addToCartWithID: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
 	self assertInDatabaseTheCartId: aCartId.
 	
 	self assertIsInCatalogTheBook: aBookToAdd AndIsGreaterThanTwo: aQuantityToAdd.
 	(cartDatabase at: aCartId) addItem: aBookToAdd  inAmount: aQuantityToAdd.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 04:36:31'!
-allPurchasesOfClientId: aClientIdToGetAllThePurchases
-
-	^ ((self salesForClientId: aClientIdToGetAllThePurchases) inject: OrderedCollection new into: [:listOfPurchases :aSale | listOfPurchases addAll: aSale ItemsBought]) asBag! !
-
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:36:14'!
+!ClientInterface methodsFor: 'interface calls' stamp: 'Sof D 11/9/2023 16:52:55'!
 checkoutCartWithID: aCartId withCreditCardNumbered: theNumberOfTheCreditCardToCharge cardExpiryDate: theExpiryDateOfTheCard cardOwner: theNameOfTheCardOwner
-	| cashier cartManager card |
+	| cartManager card |
 	self assertInDatabaseTheCartId: aCartId .
 
 	cartManager :=  cartDatabase at: aCartId.
 	
-	(cartManager isEmpty) ifTrue: [ self error: self class cannotCheckoutEmptyCartErrorDescription ].
+	self isCartEmpty: cartManager.
 	
 	card := self assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard.
 	
-	cashier := Cashier toCheckout: cartManager cart charging: card throught: merchantProcessor on: (watch actualTime date) registeringOn: salesBook forClient: 1.
-	cashier checkOut .
+	self generateCashierAndCheckoutCart: cartManager usingCard: card. 
 	
 	
-	
-	^true
 	! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:19:20'!
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 15:19:20'!
 createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
 	| cartId |
 	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
@@ -1094,12 +1100,12 @@ createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
 	
 	^cartId! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:40:34'!
+!ClientInterface methodsFor: 'interface calls' stamp: 'Sof D 11/8/2023 02:40:34'!
 listCartWithID: aCartId	self assertInDatabaseTheCartId: aCartId.
 
 	^(cartDatabase at: aCartId) listCart! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 04:34:29'!
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 04:34:29'!
 listPurchasesOfClientWithID: theIdOfTheClientToListThePurchasesOf withPassword: aPassword  
 
 	passwordAuthenticator validateClientId: theIdOfTheClientToListThePurchasesOf withPassword: aPassword.
@@ -1107,20 +1113,39 @@ listPurchasesOfClientWithID: theIdOfTheClientToListThePurchasesOf withPassword: 
 
 	^ self allPurchasesOfClientId: theIdOfTheClientToListThePurchasesOf.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:21:12'!
+
+!ClientInterface methodsFor: 'time' stamp: 'Sof D 11/9/2023 16:46:27'!
+currentTime 
+	^watch currentTime! !
+
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 04:36:31'!
+allPurchasesOfClientId: aClientIdToGetAllThePurchases
+
+	^ ((self salesForClientId: aClientIdToGetAllThePurchases) inject: OrderedCollection new into: [:listOfPurchases :aSale | listOfPurchases addAll: aSale ItemsBought]) asBag! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'Sof D 11/9/2023 16:52:28'!
+generateCashierAndCheckoutCart: theManagerOfTheCartToCheckout usingCard: aCreditCardToCharge 
+
+	| cashier |
+	
+	cashier := Cashier toCheckout: theManagerOfTheCartToCheckout cart charging: aCreditCardToCharge throught: merchantProcessor on: (watch currentTime date) registeringOn: salesBook forClient: 1.
+	cashier checkOut .! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 15:21:12'!
 newCartAcceptingItemsOf: aCatalog
 	^CartTimeoutManager forCart: (Cart acceptingItemsOf: aCatalog ) forClientInterface: self.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 14:02:38'!
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 14:02:38'!
 nextCartId
 	nextId := nextId + 1.
 	^nextId! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 03:53:42'!
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 03:53:42'!
 registerNewClientInSalesList: theIdOfTheNewClient
 	(salesBook includesKey: theIdOfTheNewClient) ifFalse: [ salesBook at: theIdOfTheNewClient put: Bag new ]! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 04:33:01'!
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 04:33:01'!
 salesForClientId: theIdOfTheClientToListThePurchasesOf
 
 	^ salesBook select: [:aSale | aSale isFromClient: theIdOfTheClientToListThePurchasesOf]! !
@@ -1246,21 +1271,23 @@ Object subclass: #WatchSimulator
 	poolDictionaries: ''
 	category: 'TusLibros-Ejercicio'!
 
-!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:51'!
-actualTime
-	^actualDateAndTime! !
-
-!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:11:28'!
+!WatchSimulator methodsFor: 'modify time' stamp: 'eaam 11/9/2023 15:11:28'!
 advanceTime: aTimeToAdvance
 	actualDateAndTime := actualDateAndTime + aTimeToAdvance.! !
 
-!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:58:32'!
+!WatchSimulator methodsFor: 'modify time' stamp: 'eaam 11/9/2023 15:58:32'!
 backInTime: aTime
 	actualDateAndTime := actualDateAndTime - aTime.! !
 
-!WatchSimulator methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:35'!
+
+!WatchSimulator methodsFor: 'initialization' stamp: 'eaam 11/9/2023 15:10:35'!
 initializeWith: aDateAndTime
 	actualDateAndTime := aDateAndTime.! !
+
+
+!WatchSimulator methodsFor: 'get time' stamp: 'Sof D 11/9/2023 16:46:26'!
+currentTime
+	^actualDateAndTime! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
