@@ -10,7 +10,7 @@ test01NewCartsAreCreatedEmpty
 
 	self assert: testObjectsFactory createCart isEmpty! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:31:57'!
 test02CanNotAddItemsThatDoNotBelongToStore
 
 	| cart |
@@ -18,23 +18,23 @@ test02CanNotAddItemsThatDoNotBelongToStore
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
+		should: [ cart addItem: testObjectsFactory itemNotSellByTheStore inAmount: 1]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:31:57'!
 test03AfterAddingAnItemTheCartIsNotEmptyAnymore
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	self deny: cart isEmpty ! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:32:48'!
 test04CanNotAddNonPositiveNumberOfItems
 
 	| cart |
@@ -42,13 +42,13 @@ test04CanNotAddNonPositiveNumberOfItems
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
+		should: [cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 0]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidQuantityErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:32:58'!
 test05CanNotAddMoreThanOneItemNotSellByTheStore
 
 	| cart |
@@ -56,40 +56,40 @@ test05CanNotAddMoreThanOneItemNotSellByTheStore
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
+		should: [cart addItem: testObjectsFactory itemNotSellByTheStore inAmount: 2 ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:33:30'!
 test06CartRemembersAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: testObjectsFactory itemSellByTheStore.
-	self assert: (cart includes: testObjectsFactory itemSellByTheStore)! !
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
+	self assert: (cart includes: testObjectsFactory itemSoldByTheStore)! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 00:25:24'!
 test07CartDoesNotHoldNotAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	self deny: (cart includes: testObjectsFactory itemSellByTheStore)! !
+	self deny: (cart includes: testObjectsFactory itemSoldByTheStore)! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:33:39'!
 test08CartRemembersTheNumberOfAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: 2 of: testObjectsFactory itemSellByTheStore.
-	self assert: (cart occurrencesOf: testObjectsFactory itemSellByTheStore) = 2! !
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 2.
+	self assert: (cart occurrencesOf: testObjectsFactory itemSoldByTheStore) = 2! !
 
 
 !CartTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/17/2013 18:09'!
@@ -123,13 +123,13 @@ test01CanNotCheckoutAnEmptyCart
 			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:51'!
+!CashierTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:37:28'!
 test02CalculatedTotalIsCorrect
 
 	| cart cashier |
 	
 	cart := testObjectsFactory createCart.
-	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 2.
 	
 	cashier :=  Cashier
 		toCheckout: cart 
@@ -140,13 +140,13 @@ test02CalculatedTotalIsCorrect
 		
 	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:51'!
+!CashierTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:37:49'!
 test03CanNotCheckoutWithAnExpiredCreditCart
 
 	| cart salesBook |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	salesBook := OrderedCollection new.
 	
 	self
@@ -161,13 +161,13 @@ test03CanNotCheckoutWithAnExpiredCreditCart
 			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:04'!
+!CashierTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:38:01'!
 test04CheckoutRegistersASale
 
 	| cart cashier salesBook total |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	salesBook := OrderedCollection new.
  
 	cashier:= Cashier 
@@ -182,13 +182,13 @@ test04CheckoutRegistersASale
 	self assert: salesBook size = 1.
 	self assert: salesBook first total = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 19:00'!
+!CashierTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:38:12'!
 test05CashierChargesCreditCardUsingMerchantProcessor
 
 	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
  
@@ -207,13 +207,13 @@ test05CashierChargesCreditCardUsingMerchantProcessor
 	self assert: debitedCreditCard = creditCard.
 	self assert: debitedAmout = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:59'!
+!CashierTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:38:23'!
 test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
 
 	| cart cashier salesBook creditCard |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
  	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
@@ -265,26 +265,26 @@ validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
 	passwordAuthenticator value: aClientIdToValidate value: aPasswordToValidate.! !
 
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:07:15'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:17'!
 test01ClientInterfaceCantCreateACartForANotRegisteredClient
 	| clientInterface cartDatabase|
 	cartDatabase := Dictionary new.
 	clientInterface := ClientInterface forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self.
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
 	
 	passwordAuthenticator := [:clientId :password | 
-		clientInterface error: clientInterface clientIsNotRegistered.
+		clientInterface error: ClientInterface clientIsNotRegisteredErrorDescription.
 		].
 	
 	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
-		self assert: anError messageText equals: clientInterface clientIsNotRegistered.
+		self assert: anError messageText equals: ClientInterface clientIsNotRegisteredErrorDescription.
 		]! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 02:07:45'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:12'!
 test02ClientInterfaceCanCreateACartForARegisteredClient
 		| clientInterface cartDatabase cartId|
 	cartDatabase := Dictionary new.
@@ -292,13 +292,13 @@ test02ClientInterfaceCanCreateACartForARegisteredClient
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self.
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
-	self assert: (clientInterface listCart: cartId) equals: '' .
+	self assert: (clientInterface listCartWithID: cartId) equals: Bag new .
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:48:30'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:08'!
 test03ClientInterfaceCantAddToANonexistentCart
 	| clientInterface cartDatabase |
 	cartDatabase := Dictionary new.
@@ -306,17 +306,17 @@ test03ClientInterfaceCantAddToANonexistentCart
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self.
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
 	
 
-	self should: [clientInterface addToCart: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSellByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	self should: [clientInterface addToCartWithID: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
 	raise: Error - MessageNotUnderstood
 	withExceptionDo: [:anError |
-		self assert: anError messageText equals: clientInterface cartDoestExistErrorDescription.
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription.	self deny: (cartDatabase includesKey: testObjectsFactory invalidCartId).
 		].
 	! !
 
-!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/7/2023 03:54:55'!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:58:04'!
 test04ClientInterfaceCanAddBookToACart
 	| clientInterface cartDatabase cartId |
 	
@@ -326,11 +326,112 @@ test04ClientInterfaceCanAddBookToACart
 		forCartDatabase: cartDatabase 
 		merchantProcessor: self 
 		catalog: testObjectsFactory defaultCatalog 
-		passwordAuthenticator: self.
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
 	
 	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
-	clientInterface addToCart: cartId theBook: testObjectsFactory itemSellByTheStore inQuantity: 1.
-	self assert: (cartDatabase at: cartId)  includes: testObjectsFactory itemSellByTheStore.! !
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	self assert: (cartDatabase at: cartId)  includes: testObjectsFactory itemSoldByTheStore.! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:57:59'!
+test05CannotListCartWithInvalidID
+
+	
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+	
+
+	
+	self should: [clientInterface listCartWithID: testObjectsFactory invalidCartId ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription .
+		]! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:57:53'!
+test06ListCartReturnsCorrectResultForNewCart
+
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+
+	
+	self assert: (clientInterface listCartWithID: cartId) equals: Bag new. 
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:57:48'!
+test07ListCartReturnsCorrectResultForCartWithItems
+
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
+	
+
+	
+	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore) . 
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:53:18'!
+test08CanCheckoutCart
+
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	
+
+	
+	self assert: (clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez') equals: true. 
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 02:59:44'!
+test09CantCheckoutNonexistentCart
+
+	
+	| clientInterface cartDatabase |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		
+	
+self should: [clientInterface checkoutCartWithID: testObjectsFactory invalidCartId withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription .
+		]
+	 
+	! !
+
+
+!ClientInterfaceTest methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:55:40'!
+debit: anAmount from: aCreditCard 
+
+	! !
 
 
 !classDefinition: #Cart category: 'TusLibros'!
@@ -362,11 +463,11 @@ assertIsValidQuantity: aQuantity
 	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
 
 
-!Cart methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 17:48'!
+!Cart methodsFor: 'initialization' stamp: 'Sof D 11/8/2023 01:29:06'!
 initializeAcceptingItemsOf: aCatalog
 
 	catalog := aCatalog.
-	items := OrderedCollection new.! !
+	items := Bag new.! !
 
 
 !Cart methodsFor: 'queries' stamp: 'HernanWilkinson 6/17/2013 17:45'!
@@ -392,18 +493,18 @@ total
 	^ items sum: [ :anItem | catalog at: anItem ]! !
 
 
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:44'!
-add: anItem
+!Cart methodsFor: 'adding' stamp: 'Sof D 11/8/2023 01:32:20'!
+addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
 
-	^ self add: 1 of: anItem ! !
+	self assertIsValidQuantity: theAmountToAdd.
+	self assertIsValidItem: anItemToAddToTheCart.
 
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:51'!
-add: aQuantity of: anItem
+	1 to: theAmountToAdd do: [ :aNumber | items add: anItemToAddToTheCart ]! !
 
-	self assertIsValidQuantity: aQuantity.
-	self assertIsValidItem: anItem.
 
-	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+!Cart methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:36:39'!
+listCart
+	^items copy! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -510,23 +611,31 @@ creditCardHasNoCreditErrorMessage
 
 !classDefinition: #ClientInterface category: 'TusLibros'!
 Object subclass: #ClientInterface
-	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase catalog'
+	instanceVariableNames: 'passwordAuthenticator cartsIds cartDatabase catalog merchantProcessor currentDate sales'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:57:58'!
-addToCart: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
-	(cartDatabase includesKey: aCartId) ifFalse: [self error: self cartDoestExistErrorDescription].
-	(cartDatabase at: aCartId) add: aQuantityToAdd of: aBookToAdd.! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:27:24'!
+addToCartWithID: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
+	self assertInDatabaseTheCartId: aCartId.
+	(cartDatabase at: aCartId) addItem: aBookToAdd  inAmount: aQuantityToAdd.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:23:51'!
-cartDoestExistErrorDescription
-	^'cart id is not registered'! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:02:55'!
+assertInDatabaseTheCartId: aCartId
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 20:25:46'!
-clientIsNotRegistered
-	^'ups!! You are not registered!! bakita el más grande papa'! !
+	^ (cartDatabase includesKey: aCartId) ifFalse: [self error: self class cartDoesntExistErrorDescription]! !
+
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:50:31'!
+checkoutCartWithID: aCartId withCreditCardNumbered: theNumberOfTheCreditCardToCharge cardExpiryDate: theExpiryDateOfTheCard cardOwner: theNameOfTheCardOwner
+	| cashier cart card |
+	self assertInDatabaseTheCartId: aCartId .
+	cart :=  cartDatabase at: aCartId.
+	card := CreditCard expiringOn: (Month month: ((theExpiryDateOfTheCard copyFrom: 1 to: 2) asNumber )year: ((theExpiryDateOfTheCard copyFrom: 4 to: 7) asNumber)).
+	cashier := Cashier toCheckout: cart  charging: card throught: merchantProcessor on: currentDate registeringOn: sales.
+	cashier checkOut .
+	^true
+	! !
 
 !ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:46:43'!
 createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
@@ -536,16 +645,23 @@ createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
 	cartDatabase at: cartId put: (Cart acceptingItemsOf: catalog).
 	^cartId! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 03:45:17'!
-initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:57:26'!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
 	passwordAuthenticator := aPasswordAuthenticator.
 	cartsIds := OrderedCollection new.
 	cartDatabase := aDatabaseOfCarts.
-	catalog := aCatalog .! !
+	catalog := aCatalog .
+	
+	currentDate :=  theCurrentDate .
+	
+	merchantProcessor := aMerchantProcessor .
+	
+	sales := OrderedCollection new.! !
 
-!ClientInterface methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:04:49'!
-listCart: cartId
-	^''! !
+!ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:40:34'!
+listCartWithID: aCartId	self assertInDatabaseTheCartId: aCartId.
+
+	^(cartDatabase at: aCartId) listCart! !
 
 !ClientInterface methodsFor: 'as yet unclassified' stamp: 'Sof D 11/6/2023 21:46:44'!
 nextCartId
@@ -557,9 +673,17 @@ nextCartId
 ClientInterface class
 	instanceVariableNames: ''!
 
-!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'eaam 11/7/2023 01:59:16'!
-forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator
-	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator! !
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:42:43'!
+cartDoesntExistErrorDescription
+	^'Cart id is not registered'! !
+
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 01:41:22'!
+clientIsNotRegisteredErrorDescription
+	^'ups!! You are not registered!! bakita el más grande papa'! !
+
+!ClientInterface class methodsFor: 'as yet unclassified' stamp: 'Sof D 11/8/2023 02:54:26'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
+	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate ! !
 
 
 !classDefinition: #CreditCard category: 'TusLibros'!
@@ -636,14 +760,14 @@ itemNotSellByTheStore
 	^'invalidBook'! !
 
 !StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
-itemSellByTheStore
-	
-	^ 'validBook'! !
-
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
 itemSellByTheStorePrice
 	
 	^10! !
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/8/2023 00:25:23'!
+itemSoldByTheStore
+	
+	^ 'validBook'! !
 
 
 !StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
@@ -651,11 +775,11 @@ createCart
 	
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/8/2023 00:25:24'!
 defaultCatalog
 	
 	^ Dictionary new
-		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
+		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
 		yourself ! !
 
 !StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/6/2023 21:16:32'!
