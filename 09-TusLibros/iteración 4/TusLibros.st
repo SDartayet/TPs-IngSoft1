@@ -1,913 +1,16 @@
-!classDefinition: #Cart category: 'TusLibros-Model'!
-Object subclass: #Cart
-	instanceVariableNames: 'catalog items'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:59'!
-invalidItemErrorMessage
-	
-	^self class invalidItemErrorMessage ! !
-
-!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 00:00'!
-invalidQuantityErrorMessage
-	
-	^self class invalidQuantityErrorMessage ! !
-
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/22/2013 14:17'!
-assertIsValidItem: anItem
-
-	(catalog includesKey: anItem) ifFalse: [ self signalInvalidItem ]! !
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/22/2013 14:18'!
-assertIsValidQuantity: aQuantity
-
-	aQuantity strictlyPositive ifFalse: [self signalInvalidQuantity ]! !
-
-
-!Cart methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:29'!
-initializeAcceptingItemsOf: aCatalog
-
-	catalog := aCatalog.
-	items := Bag new.! !
-
-
-!Cart methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 17:44'!
-includes: anItem
-
-	^items includes: anItem ! !
-
-!Cart methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 17:44'!
-isEmpty
-	
-	^items isEmpty ! !
-
-
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:44'!
-add: anItem
-
-	^ self add: 1 of: anItem ! !
-
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/22/2013 12:31'!
-add: aQuantity of: anItem
-
-	self assertIsValidQuantity: aQuantity.
-	self assertIsValidItem: anItem.
-
-	items add: anItem withOccurrences: aQuantity ! !
-
-
-!Cart methodsFor: 'content' stamp: 'HernanWilkinson 6/22/2013 12:17'!
-catalog
-	
-	^ catalog! !
-
-!Cart methodsFor: 'content' stamp: 'HernanWilkinson 6/22/2013 12:30'!
-content
-	
-	^items copy! !
-
-!Cart methodsFor: 'content' stamp: 'HernanWilkinson 6/23/2013 12:10'!
-itemsAndQuantitiesDo: aBlock
-	
-	^ items contents keysAndValuesDo: [ :anItem :aQuantity | aBlock value: anItem value: aQuantity ]! !
-
-!Cart methodsFor: 'content' stamp: 'HernanWilkinson 6/17/2013 17:45'!
-occurrencesOf: anItem
-
-	^items occurrencesOf: anItem  ! !
-
-
-!Cart methodsFor: 'error signal' stamp: 'HernanWilkinson 6/22/2013 14:18'!
-signalInvalidItem 
-
-	self error: self invalidItemErrorMessage! !
-
-!Cart methodsFor: 'error signal' stamp: 'HernanWilkinson 6/22/2013 14:19'!
-signalInvalidQuantity 
-
-	self error: self invalidQuantityErrorMessage ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Cart class' category: 'TusLibros-Model'!
-Cart class
-	instanceVariableNames: ''!
-
-!Cart class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/17/2013 17:48'!
-acceptingItemsOf: aCatalog
-
-	^self new initializeAcceptingItemsOf: aCatalog ! !
-
-
-!Cart class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:59'!
-invalidItemErrorMessage
-	
-	^'Item is not in catalog'! !
-
-!Cart class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 00:00'!
-invalidQuantityErrorMessage
-	
-	^'Invalid number of items'! !
-
-
-!classDefinition: #CartSession category: 'TusLibros-Model'!
-Object subclass: #CartSession
-	instanceVariableNames: 'owner cart lastUsedTime systemFacade'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!CartSession methodsFor: 'time/expiration' stamp: 'HernanWilkinson 6/17/2015 20:34'!
-assertIsNotExpirtedAt: aTime
-
-	(self isExpiredAt: aTime) ifTrue: [ self signalCartSessionExpired ]! !
-
-!CartSession methodsFor: 'time/expiration' stamp: 'HernanWilkinson 6/17/2015 20:36'!
-isExpiredAt: aTime 
-	
-	^ (lastUsedTime + systemFacade sessionDuration) < aTime! !
-
-!CartSession methodsFor: 'time/expiration' stamp: 'HernanWilkinson 6/17/2015 20:36'!
-now
-
-	^systemFacade now! !
-
-!CartSession methodsFor: 'time/expiration' stamp: 'HernanWilkinson 6/17/2015 20:37'!
-today
-
-	^systemFacade today! !
-
-
-!CartSession methodsFor: 'session management' stamp: 'HernanWilkinson 6/17/2015 20:35'!
-do: aBlock
-
-	| now |
-
-	now := self now.
-	self assertIsNotExpirtedAt: now.
-	
-	^ [ aBlock value: self ] ensure: [ lastUsedTime := now  ]! !
-
-
-!CartSession methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2015 20:36'!
-initializeOwnedBy: aCustomer with: aCart on: aSystemFacade
-
-	owner := aCustomer.
-	cart := aCart.
-	systemFacade := aSystemFacade.
-	lastUsedTime := self now.! !
-
-
-!CartSession methodsFor: 'error signal' stamp: 'HernanWilkinson 6/17/2015 20:37'!
-signalCartSessionExpired
-	
-	self error: systemFacade sessionHasExpiredErrorDescription ! !
-
-
-!CartSession methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2015 20:34'!
-addToCart: anAmount of: aBook
-
-	^cart add: anAmount of: aBook! !
-
-!CartSession methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2015 20:35'!
-cartContent
-
-	^cart content! !
-
-!CartSession methodsFor: 'cart' stamp: 'HAW 7/23/2020 15:22:42'!
-checkOutCartWithCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear 
-
-	^(Cashier 
-		toCheckout: cart 
-		ownedBy: owner
-		charging: (CreditCard numbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear) 
-		throught: systemFacade merchantProcessor 
-		on: self today 
-		registeringOn: systemFacade salesBook) checkOut ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'CartSession class' category: 'TusLibros-Model'!
-CartSession class
-	instanceVariableNames: ''!
-
-!CartSession class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/17/2015 20:37'!
-ownedBy: aCustomer with: aCart on: aSystemFacade
-
-	^self new initializeOwnedBy: aCustomer with: aCart on: aSystemFacade! !
-
-
-!classDefinition: #Cashier category: 'TusLibros-Model'!
-Object subclass: #Cashier
-	instanceVariableNames: 'cart salesBook merchantProcessor creditCard owner ticket'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/22/2013 12:17'!
-createLineItemOf: anItem quantity: aQuantity 
-
-	^LineItem of: anItem quantity: aQuantity total: (self totalOf: anItem quantity: aQuantity) ! !
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/22/2013 12:25'!
-createSale
-
-	^ Sale doneBy: owner certifiedWith: ticket
-! !
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/22/2013 12:28'!
-createTicket
-
-	| lineItems |
-	
-	lineItems := OrderedCollection new.
-	cart itemsAndQuantitiesDo: [ :anItem :aQuantity | 
-		lineItems add: (self createLineItemOf: anItem quantity: aQuantity)].
-	
-	ticket := Ticket of: lineItems 
-	! !
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HAW 5/5/2020 18:04:55'!
-debitTotal
-
-	| transactionId |
-	
-	transactionId := merchantProcessor debit: ticket total from: creditCard.
-	ticket transactionId: transactionId! !
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:06'!
-registerSale
-
-	salesBook add: self createSale! !
-
-!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/22/2013 12:17'!
-totalOf: anItem quantity: aQuantity 
-
-	^(cart catalog at: anItem) * aQuantity  ! !
-
-
-!Cashier methodsFor: 'checkout' stamp: 'HernanWilkinson 6/22/2013 12:28'!
-checkOut
-
-	self createTicket.
-	self debitTotal.
-	self registerSale.
-
-	^ ticket ! !
-
-
-!Cashier methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:02'!
-initializeToCheckout: aCart ownedBy: anOwner charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook
-	
-	cart := aCart.
-	owner := anOwner.
-	creditCard := aCreditCard.
-	merchantProcessor := aMerchantProcessor.
-	salesBook := aSalesBook! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Cashier class' category: 'TusLibros-Model'!
-Cashier class
-	instanceVariableNames: ''!
-
-!Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/22/2013 14:22'!
-assertIsNotEmpty: aCart 
-	
-	aCart isEmpty ifTrue: [self signalCartCanNotBeEmpty ]! !
-
-!Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/22/2013 14:22'!
-assertIsNotExpired: aCreditCard on: aDate
-	
-	(aCreditCard isExpiredOn: aDate) ifTrue: [self signalCanNotChargeAnExpiredCreditCard]! !
-
-
-!Cashier class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:00'!
-toCheckout: aCart ownedBy: anOwner charging: aCreditCard throught: aMerchantProcessor on: aDate registeringOn: aSalesBook
-	
-	self assertIsNotEmpty: aCart.
-	self assertIsNotExpired: aCreditCard on: aDate.
-	
-	^self new initializeToCheckout: aCart ownedBy: anOwner charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook! !
-
-
-!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 18:21'!
-canNotChargeAnExpiredCreditCardErrorMessage
-	
-	^'Can not charge an expired credit card'! !
-
-!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:56'!
-cartCanNotBeEmptyErrorMessage
-	
-	^'Can not check out an empty cart'! !
-
-!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 19:02'!
-creditCardHasNoCreditErrorMessage
-	
-	^'Credit card has no credit'! !
-
-
-!Cashier class methodsFor: 'error signal' stamp: 'HernanWilkinson 6/22/2013 14:22'!
-signalCanNotChargeAnExpiredCreditCard
-
-	 self error: self canNotChargeAnExpiredCreditCardErrorMessage ! !
-
-!Cashier class methodsFor: 'error signal' stamp: 'HernanWilkinson 6/22/2013 14:22'!
-signalCartCanNotBeEmpty
-
-	self error: self cartCanNotBeEmptyErrorMessage! !
-
-
-!classDefinition: #Clock category: 'TusLibros-Model'!
-Object subclass: #Clock
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!Clock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 14:23'!
-now
-
-	self subclassResponsibility ! !
-
-!Clock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 14:23'!
-today
-
-	self subclassResponsibility ! !
-
-
-!classDefinition: #CreditCard category: 'TusLibros-Model'!
-Object subclass: #CreditCard
-	instanceVariableNames: 'expiration number ownerName'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!CreditCard methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 18:39'!
-isExpiredOn: aDate 
-	
-	^expiration start < (Month month: aDate monthIndex year: aDate yearNumber) start ! !
-
-
-!CreditCard methodsFor: 'initialization' stamp: 'HAW 7/22/2020 14:39:22'!
-initializeNumbered: aNumber ownedBy: anOwnerName expiringOn: aMonth 
-	
-	number := aNumber.
-	ownerName := anOwnerName.
-	expiration := aMonth ! !
-
-
-!CreditCard methodsFor: 'accessing' stamp: 'HAW 7/22/2020 14:37:53'!
-expiration
-	
-	^expiration ! !
-
-!CreditCard methodsFor: 'accessing' stamp: 'HAW 7/22/2020 14:37:11'!
-number
-	
-	^number! !
-
-!CreditCard methodsFor: 'accessing' stamp: 'HAW 7/22/2020 14:39:22'!
-ownerName
-	
-	^ownerName ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'CreditCard class' category: 'TusLibros-Model'!
-CreditCard class
-	instanceVariableNames: ''!
-
-!CreditCard class methodsFor: 'instance creation' stamp: 'HAW 7/22/2020 14:40:01'!
-numbered: aNumber ownedBy: anOwnerName expiringOn: aMonth 
-	
-	self assertIsValidNumber: aNumber.
-	self assertIsValidOwnerName: anOwnerName.
-	
-	^self new initializeNumbered: aNumber ownedBy: anOwnerName expiringOn: aMonth! !
-
-
-!CreditCard class methodsFor: 'exceptions' stamp: 'HAW 7/22/2020 14:19:45'!
-invalidNumberErrorDescription
-	
-	^'Invalid credit card number. It must be 16 digits'! !
-
-!CreditCard class methodsFor: 'exceptions' stamp: 'HAW 7/22/2020 14:27:09'!
-invalidOwnerNameErrorDescription
-	
-	^'Owner name can not be empty'! !
-
-!CreditCard class methodsFor: 'exceptions' stamp: 'HAW 7/22/2020 14:21:14'!
-signalInvalidNumber
-	
-	self error: self invalidNumberErrorDescription ! !
-
-!CreditCard class methodsFor: 'exceptions' stamp: 'HAW 7/22/2020 14:28:05'!
-signalInvalidOwnerName
-	
-	self error: self invalidOwnerNameErrorDescription ! !
-
-
-!CreditCard class methodsFor: 'assertions' stamp: 'HAW 7/22/2020 14:39:48'!
-assertIsValidNumber: aNumber
-
-	aNumber size = 16 ifFalse: [ self signalInvalidNumber ].
-	(aNumber anySatisfy: [ :aCharacter | aCharacter isDigit not ]) ifTrue: [ self signalInvalidNumber ]! !
-
-!CreditCard class methodsFor: 'assertions' stamp: 'HAW 7/22/2020 14:40:28'!
-assertIsValidOwnerName: anOwnerName
-
-	anOwnerName isEmpty ifTrue: [ self signalInvalidOwnerName ]! !
-
-
-!classDefinition: #LineItem category: 'TusLibros-Model'!
-Object subclass: #LineItem
-	instanceVariableNames: 'item quantity total'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!LineItem methodsFor: 'accessing' stamp: 'HernanWilkinson 6/22/2013 12:33'!
-item
-	
-	^ item! !
-
-!LineItem methodsFor: 'accessing' stamp: 'HAW 7/23/2020 15:33:00'!
-quantity
-
-	^quantity ! !
-
-!LineItem methodsFor: 'accessing' stamp: 'HernanWilkinson 6/22/2013 12:21'!
-total
-	
-	^ total! !
-
-
-!LineItem methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:18'!
-initializeOf: anItem quantity: aQuantity total: aTotal
-
-	item := anItem.
-	quantity := aQuantity.
-	total := aTotal 
-
-! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'LineItem class' category: 'TusLibros-Model'!
-LineItem class
-	instanceVariableNames: ''!
-
-!LineItem class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:18'!
-of: anItem quantity: aQuantity total: aTotal
-
-	^self new initializeOf: anItem quantity: aQuantity total: aTotal
-
-! !
-
-
-!classDefinition: #MerchantProcessor category: 'TusLibros-Model'!
-Object subclass: #MerchantProcessor
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!MerchantProcessor methodsFor: 'debit' stamp: 'HernanWilkinson 6/22/2013 14:31'!
-README
-
-	"Aunque nadie subclasifica esta clase, esta para definir el protocolo que se espera que todo MerchantProcessor sepa responder - Hernan"! !
-
-!MerchantProcessor methodsFor: 'debit' stamp: 'HernanWilkinson 6/22/2013 14:30'!
-debit: anAmount from: aCreditCard 
-
-	self subclassResponsibility ! !
-
-
-!classDefinition: #Sale category: 'TusLibros-Model'!
-Object subclass: #Sale
-	instanceVariableNames: 'customer ticket'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!Sale methodsFor: 'total' stamp: 'HernanWilkinson 6/22/2013 12:26'!
-total
-	
-	^ ticket total! !
-
-
-!Sale methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:26'!
-initializeDoneBy: aCustomer certifiedWith: aTicket 
-
-	customer := aCustomer.
-	ticket := aTicket ! !
-
-
-!Sale methodsFor: 'testing' stamp: 'HernanWilkinson 6/22/2013 12:06'!
-wasDoneBy: aCustomer
-
-	^customer = aCustomer ! !
-
-
-!Sale methodsFor: 'line items' stamp: 'HernanWilkinson 6/22/2013 12:33'!
-lineItemsDo: aBlock
-	
-	^ticket lineItemsDo: aBlock ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Sale class' category: 'TusLibros-Model'!
-Sale class
-	instanceVariableNames: ''!
-
-!Sale class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:25'!
-doneBy: aCustomer certifiedWith: aTicket 
-
-	^self new initializeDoneBy: aCustomer certifiedWith: aTicket ! !
-
-
-!classDefinition: #Ticket category: 'TusLibros-Model'!
-Object subclass: #Ticket
-	instanceVariableNames: 'lineItems transactionId transactionIdSale transactionIdTaxes'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!Ticket methodsFor: 'total' stamp: 'HernanWilkinson 6/17/2015 20:39'!
-total
-	
-	^lineItems sum: [ :aLineItem | aLineItem total]! !
-
-
-!Ticket methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:20'!
-initializeOf: aCollectionOfLineItems 
-
-	lineItems := aCollectionOfLineItems ! !
-
-!Ticket methodsFor: 'initialization' stamp: 'HAW 5/5/2020 18:06:16'!
-transactionId
-
-	^transactionId ! !
-
-!Ticket methodsFor: 'initialization' stamp: 'NR 6/13/2022 07:21:08'!
-transactionId: anId
-
-	transactionId := anId! !
-
-
-!Ticket methodsFor: 'line items' stamp: 'HernanWilkinson 6/22/2013 12:33'!
-lineItemsDo: aBlock
-	
-	^lineItems do: aBlock ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Ticket class' category: 'TusLibros-Model'!
-Ticket class
-	instanceVariableNames: ''!
-
-!Ticket class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:20'!
-of: aCollectionOfLineItems
-
-	^self new initializeOf: aCollectionOfLineItems ! !
-
-
-!classDefinition: #TusLibrosSystemFacade category: 'TusLibros-Model'!
-Object subclass: #TusLibrosSystemFacade
-	instanceVariableNames: 'validUsersAndPasswords catalog lastId merchantProcessor salesBook clock cartSessions'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Model'!
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 11:24'!
-canNotChargeAnExpiredCreditCardErrorMessage
-	
-	^Cashier canNotChargeAnExpiredCreditCardErrorMessage ! !
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 11:17'!
-cartCanNotBeEmptyErrorMessage
-	
-	^Cashier cartCanNotBeEmptyErrorMessage ! !
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:27'!
-invalidCartIdErrorDescription
-	
-	^'Invalid cart id'! !
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:59'!
-invalidItemErrorMessage
-	
-	^Cart invalidItemErrorMessage ! !
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/21/2013 23:03'!
-invalidUserAndOrPasswordErrorDescription
-	
-	^'Invalid user and/or password'! !
-
-!TusLibrosSystemFacade methodsFor: 'error messages' stamp: 'HernanWilkinson 6/22/2013 13:07'!
-sessionHasExpiredErrorDescription
-	
-	^'Can not use the cart after ', self sessionDuration minutes printString , ' minutes of inactivity'! !
-
-
-!TusLibrosSystemFacade methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 13:02'!
-now
-	
-	^clock now! !
-
-!TusLibrosSystemFacade methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:49'!
-today
-	
-	^clock today! !
-
-
-!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'HernanWilkinson 6/23/2013 12:18'!
-does: aUser authenticatesWith: aPassword 
-
-	"Recordar que esto es solo un ejemplo. No se deben guardar passwords en un sistema de verdad sino un
-	hash o similar - Hernan"
-	
-	| storedPassword |
-	
-	storedPassword := validUsersAndPasswords at: aUser ifAbsent: [ ^false ].
-	^aPassword = storedPassword ! !
-
-!TusLibrosSystemFacade methodsFor: 'authentication' stamp: 'HernanWilkinson 6/23/2013 12:18'!
-if: aUser authenticatesWith: aPassword do: aBlock
-
-	^ (self does: aUser authenticatesWith: aPassword) 
-		ifTrue: aBlock 
-		ifFalse: [ self signalInvalidUserAndOrPassword ].
-	! !
-
-
-!TusLibrosSystemFacade methodsFor: 'error signal' stamp: 'HernanWilkinson 6/21/2013 23:27'!
-signalInvalidCartId
-	
-	self error: self invalidCartIdErrorDescription ! !
-
-!TusLibrosSystemFacade methodsFor: 'error signal' stamp: 'HernanWilkinson 6/21/2013 23:02'!
-signalInvalidUserAndOrPassword
-	
-	self error: self invalidUserAndOrPasswordErrorDescription! !
-
-
-!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'HernanWilkinson 6/21/2013 23:32'!
-generateCartId
-	
-	"Recuerden que esto es un ejemplo, por lo que voy a generar ids numericos consecutivos, pero en una 
-	implementacion real no deberian se numeros consecutivos ni nada que genere problemas de seguridad - Hernan"
-	
-	lastId := lastId + 1.
-	^lastId! !
-
-!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'HAW 5/6/2020 13:57:29'!
-removeCartId: aCartId
-
-	"I'll not generate an error if the cartId is invalid because when used from http
-	request can be duplicated - Hernan"
-	cartSessions removeKey: aCartId ifAbsent: []! !
-
-!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'HernanWilkinson 6/22/2013 13:02'!
-sessionDuration
-	
-	^30 minutes! !
-
-!TusLibrosSystemFacade methodsFor: 'cart session management' stamp: 'HernanWilkinson 6/17/2015 20:50'!
-withCartSessionIdentifiedAs: aCartId do: aBlock
-
-	| cartSession |
-	
-	cartSession := cartSessions at: aCartId ifAbsent: [self signalInvalidCartId ].
-	^cartSession do: aBlock
-! !
-
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:41'!
-add: anAmount of: aBook toCartIdentifiedAs: aCartId
-
-	self withCartSessionIdentifiedAs: aCartId do: [ :cartSession | cartSession addToCart: anAmount of: aBook ]! !
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HAW 7/23/2020 15:24:41'!
-checkOutCartIdentifiedAs: aCartId withCreditCardNumbered: aCreditCartNumber ownedBy: anOwner expiringOn: anExpirationMonthOfYear
-
-	^self 
-		withCartSessionIdentifiedAs: aCartId 
-		do: [ :cartSession | | ticket | 
-			ticket := cartSession 
-				checkOutCartWithCreditCardNumbered: aCreditCartNumber 
-				ownedBy: anOwner 
-				expiringOn: anExpirationMonthOfYear.
-			self removeCartId: aCartId.
-			ticket transactionId ]
-! !
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:52'!
-createCartFor: aUser authenticatedWith: aPassword
-
-	^ self if: aUser authenticatesWith: aPassword do: [ | cartId cartSession |
-	
-		cartId := self generateCartId.
-		cartSession := CartSession ownedBy: aUser with: (Cart acceptingItemsOf: catalog) on: self..
-		cartSessions at: cartId put: cartSession.
-	
-		cartId  ]! !
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'HernanWilkinson 6/17/2015 20:48'!
-listCartIdentifiedAs: aCartId
-
-	^ self withCartSessionIdentifiedAs: aCartId do: [ :cartSession | cartSession cartContent ]! !
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'NR 6/13/2022 07:30:44'!
-listPurchasesOf: aUser
-
-	| sales soldItems total |
-	
-	sales := self salesDoneBy: aUser.	
-	soldItems := sales
-		inject: Dictionary new
-		into: [ :quantitiesByItem :aSale | 
-			self list: aSale on: quantitiesByItem.
-			quantitiesByItem ].
-	total := sales sum: [ :aSale | aSale total ] ifEmpty: [ 0 ].
-	^Array with: soldItems with: total! !
-
-!TusLibrosSystemFacade methodsFor: 'facade protocol' stamp: 'NR 6/13/2022 07:30:37'!
-listPurchasesOf: aUser authenticatingWith: aPassword
-
-	^self if: aUser authenticatesWith: aPassword do: [	self listPurchasesOf: aUser]! !
-
-
-!TusLibrosSystemFacade methodsFor: 'checkout support' stamp: 'HernanWilkinson 6/17/2015 20:49'!
-merchantProcessor
-
-	^ merchantProcessor! !
-
-!TusLibrosSystemFacade methodsFor: 'checkout support' stamp: 'HernanWilkinson 6/17/2015 20:50'!
-salesBook
-
-	^ salesBook! !
-
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/10/2023 02:29:01'!
-bookPerformance: anItem
-
-	| bookPerformance totalMoney totalSales semaphore|
-
-	semaphore := Semaphore new.
-
-	bookPerformance := Dictionary new.
-	
-	[totalSales := self totalSalesOf: anItem. semaphore signal.] fork.
-	[totalMoney := self totalMoneyRaisedBy: anItem. semaphore signal.] fork.
-	
-	semaphore wait.
-	
-	bookPerformance at: 'quantity' put: totalSales.
-	bookPerformance at: 'total' put: totalMoney.
-	bookPerformance at: 'summary' put: anItem,' was selled ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
-	
-	^bookPerformance
-	
-
-! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'HAW 7/23/2020 15:34:54'!
-list: aSale on: quantitiesByItem 
-
-	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
-	aSale lineItemsDo: [ :aLineItem | | oldQuantity newQuantity |
-		oldQuantity := quantitiesByItem at: aLineItem item ifAbsentPut: [ 0 ].
-		newQuantity := oldQuantity + aLineItem quantity.
-		quantitiesByItem at: aLineItem item put: newQuantity ]! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'HernanWilkinson 6/17/2015 20:55'!
-salesDoneBy: aUser
-
-	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
-	^ salesBook select: [ :aSale | aSale wasDoneBy: aUser ]! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/10/2023 02:34:49'!
-storePerformance
-
-	| totalMoney totalSales performance semaphore|
-	
-	semaphore := Semaphore new.
-	
-	performance := Dictionary new.
-	
-	[totalSales := self totalSales.semaphore signal.] fork.
-	[totalMoney := self totalMoneyRaised.semaphore signal.] fork.
-	
-	semaphore wait.
-	
-	performance at: 'quantity' put: totalSales.
-	performance at: 'total' put: totalMoney.
-	performance at: 'summary' put: 'The store selled a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
-	
-	^performance
-	
-
-! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'NR 6/12/2022 21:34:25'!
-totalMoneyRaised
-	
-	(Delay forSeconds: 1) wait.
-	
-	^salesBook sum: [:aSale | aSale total].
-	
-! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'NR 6/13/2022 07:15:41'!
-totalMoneyRaisedBy: anItem
-	
-	(Delay forSeconds: 1) wait.
-
-	^salesBook sum: [:aSale | | totalPerItem |
-		totalPerItem :=0.
-		aSale lineItemsDo: [:aLineItem | (aLineItem item = anItem) ifTrue: [totalPerItem := totalPerItem + aLineItem total]].
-		totalPerItem].
-	
-	! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'NR 6/13/2022 07:18:34'!
-totalSales
-	
-	(Delay forSeconds: 1) wait.
-
-	^salesBook sum: [:aSale | | totalQuantity |
-		totalQuantity := 0.
-		aSale lineItemsDo: [:aLineItem | totalQuantity := totalQuantity + aLineItem quantity].
-		totalQuantity].
-	
-! !
-
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'NR 6/13/2022 07:15:27'!
-totalSalesOf: anItem
-	
-	(Delay forSeconds: 1) wait.
-
-	^salesBook sum: [:aSale | | quantityPerItem | 
-		quantityPerItem := 0.
-		aSale lineItemsDo: [:aLineItem | (aLineItem item = anItem) ifTrue: [quantityPerItem := quantityPerItem + aLineItem quantity]].
-		quantityPerItem].
-
-! !
-
-
-!TusLibrosSystemFacade methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 14:17'!
-initializeAuthenticatingWith: aValidUsersAndPasswords 
-	acceptingItemsOf: aCatalog 
-	registeringOn: aSalesBook 
-	debitingThrought: aMerchantProcessor 
-	measuringTimeWith: aClock
-
-	validUsersAndPasswords := aValidUsersAndPasswords.
-	catalog := aCatalog.
-	salesBook := aSalesBook.
-	merchantProcessor := aMerchantProcessor.
-	clock := aClock.
-	
-	cartSessions := Dictionary new.
-	lastId := 0.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'TusLibrosSystemFacade class' category: 'TusLibros-Model'!
-TusLibrosSystemFacade class
-	instanceVariableNames: ''!
-
-!TusLibrosSystemFacade class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 14:17'!
-authenticatingWith: aValidUsersAndPasswords 
-	acceptingItemsOf: aCatalog 
-	registeringOn: aSalesBook 
-	debitingThrought: aMerchantProcessor 
-	measuringTimeWith: aClock
-
-	^self new 
-		initializeAuthenticatingWith: aValidUsersAndPasswords 
-		acceptingItemsOf: aCatalog 
-		registeringOn: aSalesBook 
-		debitingThrought: aMerchantProcessor 
-		measuringTimeWith: aClock! !
-!classDefinition: #CartTest category: 'TusLibros-Tests'!
+!classDefinition: #CartTest category: 'TusLibros-Test'!
 TestCase subclass: #CartTest
 	instanceVariableNames: 'testObjectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
+	category: 'TusLibros-Test'!
 
 !CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
 test01NewCartsAreCreatedEmpty
 
 	self assert: testObjectsFactory createCart isEmpty! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:01:10'!
 test02CanNotAddItemsThatDoNotBelongToStore
 
 	| cart |
@@ -915,23 +18,23 @@ test02CanNotAddItemsThatDoNotBelongToStore
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [ cart add: testObjectsFactory itemNotSellByTheStore ]
+		should: [ cart addItem: testObjectsFactory itemNotSoldByTheStore inAmount: 1]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:31:57'!
 test03AfterAddingAnItemTheCartIsNotEmptyAnymore
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	self deny: cart isEmpty ! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:32:48'!
 test04CanNotAddNonPositiveNumberOfItems
 
 	| cart |
@@ -939,13 +42,13 @@ test04CanNotAddNonPositiveNumberOfItems
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [cart add: 0 of: testObjectsFactory itemSellByTheStore ]
+		should: [cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 0]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidQuantityErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:10'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 04:01:10'!
 test05CanNotAddMoreThanOneItemNotSellByTheStore
 
 	| cart |
@@ -953,40 +56,40 @@ test05CanNotAddMoreThanOneItemNotSellByTheStore
 	cart := testObjectsFactory createCart.
 	
 	self 
-		should: [cart add: 2 of: testObjectsFactory itemNotSellByTheStore  ]
+		should: [cart addItem: testObjectsFactory itemNotSoldByTheStore inAmount: 2 ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = cart invalidItemErrorMessage.
 			self assert: cart isEmpty ]! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:33:30'!
 test06CartRemembersAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: testObjectsFactory itemSellByTheStore.
-	self assert: (cart includes: testObjectsFactory itemSellByTheStore)! !
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
+	self assert: (cart includes: testObjectsFactory itemSoldByTheStore)! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 00:25:24'!
 test07CartDoesNotHoldNotAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	self deny: (cart includes: testObjectsFactory itemSellByTheStore)! !
+	self deny: (cart includes: testObjectsFactory itemSoldByTheStore)! !
 
-!CartTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/17/2013 18:11'!
+!CartTest methodsFor: 'tests' stamp: 'Sof D 11/8/2023 01:33:39'!
 test08CartRemembersTheNumberOfAddedItems
 
 	| cart |
 	
 	cart := testObjectsFactory createCart.
 	
-	cart add: 2 of: testObjectsFactory itemSellByTheStore.
-	self assert: (cart occurrencesOf: testObjectsFactory itemSellByTheStore) = 2! !
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 2.
+	self assert: (cart occurrencesOf: testObjectsFactory itemSoldByTheStore) = 2! !
 
 
 !CartTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/17/2013 18:09'!
@@ -995,14 +98,14 @@ setUp
 	testObjectsFactory := StoreTestObjectsFactory new.! !
 
 
-!classDefinition: #CashierTest category: 'TusLibros-Tests'!
+!classDefinition: #CashierTest category: 'TusLibros-Test'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'testObjectsFactory debitBehavior'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
+	category: 'TusLibros-Test'!
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:00'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test01CanNotCheckoutAnEmptyCart
 
 	| salesBook |
@@ -1011,122 +114,116 @@ test01CanNotCheckoutAnEmptyCart
 	self 
 		should: [ Cashier 
 			toCheckout: testObjectsFactory createCart 
-			ownedBy: testObjectsFactory customer
 			charging: testObjectsFactory notExpiredCreditCard 
 			throught: self
 			on: testObjectsFactory today
-			registeringOn:  salesBook ]
+			registeringOn:  salesBook forClient: 1 ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = Cashier cartCanNotBeEmptyErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:22'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test02CalculatedTotalIsCorrect
 
 	| cart cashier |
 	
 	cart := testObjectsFactory createCart.
-	cart add: 2 of: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 2.
 	
 	cashier :=  Cashier
 		toCheckout: cart 
-		ownedBy: testObjectsFactory customer
 		charging: testObjectsFactory notExpiredCreditCard 
 		throught: self
 		on: testObjectsFactory today 
-		registeringOn: OrderedCollection new.
+		registeringOn: OrderedCollection new forClient: 1.
 		
-	self assert: cashier checkOut total = (testObjectsFactory itemSellByTheStorePrice * 2)! !
+	self assert: cashier checkOut = (testObjectsFactory itemSellByTheStorePrice * 2)! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:01'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test03CanNotCheckoutWithAnExpiredCreditCart
 
 	| cart salesBook |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	salesBook := OrderedCollection new.
 	
 	self
 		should: [ Cashier 
 				toCheckout: cart 
-				ownedBy: testObjectsFactory customer 
 				charging: testObjectsFactory expiredCreditCard 
 				throught: self
 				on: testObjectsFactory today
-				registeringOn: salesBook ]
+				registeringOn: salesBook forClient: 1 ]
 		raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError | 
 			self assert: anError messageText = Cashier canNotChargeAnExpiredCreditCardErrorMessage.
 			self assert: salesBook isEmpty ]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:23'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test04CheckoutRegistersASale
 
 	| cart cashier salesBook total |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	salesBook := OrderedCollection new.
  
 	cashier:= Cashier 
 		toCheckout: cart 
-		ownedBy: testObjectsFactory customer 
 		charging: testObjectsFactory notExpiredCreditCard
 		throught: self
 		on: testObjectsFactory today
-		registeringOn: salesBook.
+		registeringOn: salesBook forClient: 1.
 		
-	total := cashier checkOut total.
+	total := cashier checkOut.
 					
 	self assert: salesBook size = 1.
 	self assert: salesBook first total = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:22'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test05CashierChargesCreditCardUsingMerchantProcessor
 
 	| cart cashier salesBook total creditCard debitedAmout debitedCreditCard  |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
  
 	cashier:= Cashier 
-		toCheckout: cart
-		ownedBy: testObjectsFactory customer 
+		toCheckout: cart 
 		charging: creditCard
 		throught: self
 		on: testObjectsFactory today
-		registeringOn: salesBook.
+		registeringOn: salesBook forClient: 1.
 		
 	debitBehavior := [ :anAmount :aCreditCard | 
 		debitedAmout := anAmount.
 		debitedCreditCard := aCreditCard ].
-	total := cashier checkOut total.
+	total := cashier checkOut.
 					
 	self assert: debitedCreditCard = creditCard.
 	self assert: debitedAmout = total.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'HernanWilkinson 6/22/2013 12:02'!
+!CashierTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 04:08:34'!
 test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit
 
 	| cart cashier salesBook creditCard |
 
 	cart := testObjectsFactory createCart.
-	cart add: testObjectsFactory itemSellByTheStore.
+	cart addItem: testObjectsFactory itemSoldByTheStore inAmount: 1.
 	creditCard := testObjectsFactory notExpiredCreditCard.
 	salesBook := OrderedCollection new.
  	debitBehavior := [ :anAmount :aCreditCard | self error: Cashier creditCardHasNoCreditErrorMessage].
 	
 	cashier:= Cashier 
 		toCheckout: cart 
-		ownedBy: testObjectsFactory customer
 		charging: creditCard
 		throught: self
 		on: testObjectsFactory today
-		registeringOn: salesBook.
+		registeringOn: salesBook forClient: 1.
 		
 	self 
 		should: [cashier checkOut ]
@@ -1149,703 +246,489 @@ debit: anAmount from: aCreditCard
 	^debitBehavior value: anAmount value: aCreditCard ! !
 
 
-!classDefinition: #CreditCardTest category: 'TusLibros-Tests'!
-TestCase subclass: #CreditCardTest
-	instanceVariableNames: ''
+!classDefinition: #ClientInterfaceTest category: 'TusLibros-Test'!
+TestCase subclass: #ClientInterfaceTest
+	instanceVariableNames: 'testObjectsFactory passwordAuthenticator watchSimulator'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
+	category: 'TusLibros-Test'!
 
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:26:34'!
-test01CreditCardNumberWithLessThan16DigitsIsNotValid
-
-	self 
-		should: [ CreditCard numbered: '123456789012345' ownedBy: self validOwnerName expiringOn: Month current ]
-		raise: Error - MessageNotUnderstood 
-		withMessageText: CreditCard invalidNumberErrorDescription! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:26:33'!
-test02CreditCardNumberWithMoreThan16DigitsIsNotValid
-
-	self 
-		should: [ CreditCard numbered: '12345678901234567' ownedBy: self validOwnerName expiringOn: Month current ]
-		raise: Error - MessageNotUnderstood 
-		withMessageText: CreditCard invalidNumberErrorDescription! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:26:33'!
-test03CreditCardNumberShouldBeDigitsOnly
-
-	self 
-		should: [ CreditCard numbered: 'a234567890123456' ownedBy: self validOwnerName expiringOn: Month current ]
-		raise: Error - MessageNotUnderstood 
-		withMessageText: CreditCard invalidNumberErrorDescription! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:27:23'!
-test04NameCanNotBeEmpty
-
-	self 
-		should: [ CreditCard numbered: '1234567890123456' ownedBy: '' expiringOn: Month current ]
-		raise: Error - MessageNotUnderstood 
-		withMessageText: CreditCard invalidOwnerNameErrorDescription! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:32:08'!
-test05IsExpiredOnNextExpirationMonth
-
-	| expirationMonth expiredMonth creditCard |
-	
-	expirationMonth := Month month: #January year: 2020. 
-	expiredMonth := expirationMonth next.
-	creditCard := CreditCard 
-		numbered: '1234567890123456' 
-		ownedBy: self validOwnerName 
-		expiringOn: expirationMonth.
-		
-	self assert: (creditCard isExpiredOn: expiredMonth)! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:32:30'!
-test06IsNotExpiredOnExpirationMonth
-
-	| expirationMonth creditCard |
-	
-	expirationMonth := Month month: #January year: 2020. 
-	creditCard := CreditCard 
-		numbered: '1234567890123456' 
-		ownedBy: self validOwnerName 
-		expiringOn: expirationMonth.
-		
-	self deny: (creditCard isExpiredOn: expirationMonth)! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:39:10'!
-test07CanGetCreditCardInfoFromIt
-
-	| expirationMonth creditCard creditCardNumber creditCardOwner |
-	
-	expirationMonth := Month month: #January year: 2020. 
-	creditCardNumber := self validCreditCardNumber.
-	creditCardOwner := self validOwnerName.
-	
-	creditCard := CreditCard 
-		numbered: creditCardNumber 
-		ownedBy: creditCardOwner 
-		expiringOn: expirationMonth.
-		
-	self assert: creditCardNumber equals: creditCard number.
-	self assert: creditCardOwner equals: creditCard ownerName.
-	self assert: expirationMonth equals: creditCard expiration! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:33:46'!
-validCreditCardNumber
-
-	^ '1234567890123456'! !
-
-!CreditCardTest methodsFor: 'tests' stamp: 'HAW 7/22/2020 14:28:21'!
-validOwnerName
-	
-	^'Pepe Sanchez'! !
-
-
-!classDefinition: #TusLibrosSystemFacadeTest category: 'TusLibros-Tests'!
-TestCase subclass: #TusLibrosSystemFacadeTest
-	instanceVariableNames: 'testObjectsFactory clock systemFacade merchantProcessorTransactionId'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - add to cart' stamp: 'HAW 7/23/2020 15:59:09'!
-test04CanAddItemsToACreatedCart
-
-	| cartId cartContent |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
-	
-	cartContent := systemFacade listCartIdentifiedAs: cartId.
-	
-	self assert: 1 equals: (cartContent occurrencesOf: self validBook).
-	self assert: 1 equals: cartContent size! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - add to cart' stamp: 'HAW 7/23/2020 15:55:18'!
-test05CanNotAddItemToNotCreatedCart
-
-	self
-		should: [systemFacade add: 1 of: self validBook toCartIdentifiedAs: self invalidCartId]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidCartIdErrorDescription ]
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - add to cart' stamp: 'HAW 7/23/2020 15:56:49'!
-test06CanNotAddItemNotSellByTheStore
-
-	| cartId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	self
-		should: [systemFacade add: 1 of: self invalidBook toCartIdentifiedAs: cartId ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidItemErrorMessage.
-			self assertIsEmptyCartIdentifiedAs: cartId]
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - add to cart' stamp: 'HAW 7/23/2020 15:57:13'!
-test17CanNotAddToCartWhenSessionIsExpired
-
-	| cartId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	self advanceTime: (systemFacade sessionDuration + 1 minutes) . 
-	self 
-		should: [systemFacade add: 2 of: self validBook toCartIdentifiedAs: cartId]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade sessionHasExpiredErrorDescription.
-			self revertTime: systemFacade sessionDuration.
-			self assertIsEmptyCartIdentifiedAs: cartId ]
-! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'NR 6/9/2022 20:51:15'!
-should: aBlock notTakeMoreThanMilliseconds: aTimeInMillis
-
-	self assert: aBlock timeToRun <= aTimeInMillis! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'NR 6/13/2022 09:05:18'!
-test20BookPerformanceShouldNotTakeTooLong
-
-	| cartId bookPerformance quantity total |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 2 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-		
-	cartId := systemFacade createCartFor: self anotherValidUser authenticatedWith: self anotherValidUserPassword.
-	systemFacade add: 5 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-		
-	self should: [bookPerformance := systemFacade bookPerformance: self validBook ] 
-		notTakeMoreThanMilliseconds: 1100.	
-
-	quantity := bookPerformance at: 'quantity'.
-	total := bookPerformance at: 'total'.
-	self assert: 7 equals: quantity.
-	self assert: (testObjectsFactory itemSellByTheStorePrice * 7) equals: total.
-	self assert: 
-		self validBook,' was selled ',quantity asString, ' times and raised a total amount of money equal to: ', total asString
-		equals: (bookPerformance at: 'summary')
-	! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'NR 6/13/2022 08:00:04'!
-test21StorePerformanceShouldNotTakeTooLong
-
-	| cartId storePerformance quantity total |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 2 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade add: 1 of: self anotherValidBook toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-	
-	cartId := systemFacade createCartFor: self anotherValidUser authenticatedWith: self anotherValidUserPassword.
-	systemFacade add: 5 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade add: 10 of: self anotherValidBook toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-			
-	self should: [storePerformance := systemFacade storePerformance] 
-		notTakeMoreThanMilliseconds: 1100.	
-
-	quantity := storePerformance at: 'quantity'.
-	total := storePerformance at: 'total'.
-
-	self assert: 18 equals: quantity.
-	self assert: (testObjectsFactory itemSellByTheStorePrice * 7) + (testObjectsFactory anotherItemSellByTheStorePrice * 11) equals: total.
-	self assert:
-		'The store selled a total of ',quantity asString, ' books and raised a total amount of money equal to: ', total asString
-		equals: (storePerformance at: 'summary')
-		! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list purchases' stamp: 'HAW 7/23/2020 16:06:04'!
-test14ListPurchasesIncludesBoughtItems
-
-	| cartId purchases soldItems total |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 2 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade add: 1 of: self anotherValidBook toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-		
-	purchases := systemFacade listPurchasesOf: self validUser authenticatingWith: self validUserPassword.
-	soldItems := purchases first.
-	total := purchases second.
-
-	self assert: 2 equals: (soldItems at: self validBook).
-	self assert: 1 equals: (soldItems at: self anotherValidBook).
-	self 
-		assert: (testObjectsFactory itemSellByTheStorePrice * 2 + testObjectsFactory anotherItemSellByTheStorePrice)
-		equals: total! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list purchases' stamp: 'HAW 7/23/2020 16:06:33'!
-test15CanNotListPurchasesOfInvalidCustomer
-
-	self 
-		should: [systemFacade listPurchasesOf: self invalidUser authenticatingWith: self validUserPassword ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade invalidUserAndOrPasswordErrorDescription ]! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list purchases' stamp: 'HAW 7/23/2020 16:06:46'!
-test16CanNotListPurchasesOfValidCustomerWithInvalidPassword
-
-	self 
-		should: [systemFacade listPurchasesOf: self validUser authenticatingWith: self invalidPassword ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade invalidUserAndOrPasswordErrorDescription ]! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - create cart' stamp: 'HAW 7/23/2020 15:56:11'!
-test01CanCreateCartWithValidUserAndPassword
-
-	| cartId |
-	
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	
-	self assertIsEmptyCartIdentifiedAs: cartId ! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - create cart' stamp: 'HAW 7/23/2020 15:53:41'!
-test02CanNotCreateCartWithInvalidUser
-
-	self
-		should: [ systemFacade createCartFor: self invalidUser authenticatedWith: self validUserPassword ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidUserAndOrPasswordErrorDescription ]! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - create cart' stamp: 'HAW 7/23/2020 15:54:39'!
-test03CanNotCreateCartWithInvalidPassword
-
-	self
-		should: [ systemFacade createCartFor: self validUser authenticatedWith: self invalidPassword ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidUserAndOrPasswordErrorDescription ]! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'merchant processor protocol' stamp: 'HAW 7/23/2020 16:07:46'!
-debit: anAmount from: aCreditCard 
-
-	^merchantProcessorTransactionId ! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/22/2013 11:42'!
-createSalesBook
-	
-	^OrderedCollection new! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/22/2013 11:47'!
-merchantProcessor 
-
-	^self! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'setup' stamp: 'HernanWilkinson 6/17/2015 20:53'!
+!ClientInterfaceTest methodsFor: 'setup' stamp: 'eaam 11/9/2023 16:09:21'!
 setUp 
 
 	testObjectsFactory := StoreTestObjectsFactory new.
-	clock := ManualClock now: testObjectsFactory today.
-	systemFacade := TusLibrosSystemFacade 
-		authenticatingWith: self validUsersAndPasswords 
-		acceptingItemsOf: testObjectsFactory defaultCatalog 
-		registeringOn: self createSalesBook
-		debitingThrought: self merchantProcessor 
-		measuringTimeWith: clock
-! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/22/2013 00:15'!
-anotherValidBook
+	passwordAuthenticator := [:clientId :password | ].
 	
-	^testObjectsFactory anotherItemSellByTheStore ! !
+	watchSimulator := WatchSimulator for: testObjectsFactory today.! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'NR 6/9/2022 20:18:52'!
-anotherValidUser
+
+!ClientInterfaceTest methodsFor: 'password protocol' stamp: 'Sof D 11/6/2023 20:34:09'!
+validateClientId: aClientIdToValidate withPassword: aPasswordToValidate
+	passwordAuthenticator value: aClientIdToValidate value: aPasswordToValidate.! !
+
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:41'!
+test01ClientInterfaceCantCreateACartForANotRegisteredClient
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
-	^'anotherValidUser'! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'NR 6/9/2022 20:19:12'!
-anotherValidUserPassword
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: ClientInterface clientIsNotRegisteredErrorDescription.
+		].
 	
-	^'anotherValidUserPassword'! !
+	self should: [clientInterface createCartForClient: 'Lord Valdomero' withPassword: testObjectsFactory invalidPassword ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface clientIsNotRegisteredErrorDescription.
+		]! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 23:49'!
-invalidBook
-
-	^testObjectsFactory itemNotSellByTheStore ! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HAW 7/24/2020 11:08:48'!
-invalidCartId
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:37'!
+test02ClientInterfaceCanCreateACartForARegisteredClient
+		| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
 	
-	"Devuelvo un objeto nuevo cada vez y de esa forma me aseguro que no pueda ser un id usado - Hernan"
-	^Object new! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 23:06'!
-invalidPassword
-	
-	^'invalidPassword'! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:30'!
-invalidUser
-
-	^'invalidUser'! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 23:50'!
-validBook
-	
-	^testObjectsFactory itemSellByTheStore ! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:27'!
-validUser
-	
-	^'validUser'! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'HernanWilkinson 6/21/2013 22:28'!
-validUserPassword
-	
-	^'validUserPassword'! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'test objects' stamp: 'NR 6/9/2022 20:20:12'!
-validUsersAndPasswords
-	
-	^Dictionary new
-		at: self validUser put: self validUserPassword;
-		at: self anotherValidUser put: self anotherValidUserPassword;
-		yourself! !
-
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:07:46'!
-test10CheckOutReturnsTransactionIdAndImpactsCustomerPurchases
-
-	| cartId  currentTransactionId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 1 of: testObjectsFactory itemSellByTheStore toCartIdentifiedAs: cartId.
-	
-	merchantProcessorTransactionId := Random new nextInteger: 1000.
-	
-	currentTransactionId := systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-	
-	self assert: merchantProcessorTransactionId equals: currentTransactionId.
-	self assertValidUserBougthOnlyItemSellByTheStore
-	
-	
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:03:56'!
-test10_1_CanNotCheckoutAnAlreadyCheckedOutCart
-
-	| cartId  |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 1 of: testObjectsFactory itemSellByTheStore toCartIdentifiedAs: cartId.
-	systemFacade 
-		checkOutCartIdentifiedAs: cartId 
-		withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-		ownedBy: testObjectsFactory validOwnerName 
-		expiringOn: testObjectsFactory notExpiredMonthOfYear.
-			
-	self 
-		should: [ 
-			systemFacade 
-				checkOutCartIdentifiedAs: cartId 
-				withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-				ownedBy: testObjectsFactory validOwnerName 
-				expiringOn: testObjectsFactory notExpiredMonthOfYear ]		
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidCartIdErrorDescription.
-			self assertValidUserBougthOnlyItemSellByTheStore ]! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:04:14'!
-test11CanNotCheckoutANotCreatedCart
-
-	self
-		should: [systemFacade 
-			checkOutCartIdentifiedAs: self invalidCartId  
-			withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-			ownedBy: testObjectsFactory validOwnerName 
-			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade invalidCartIdErrorDescription ]
-		
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:04:29'!
-test12CanNotCheckoutAnEmptyCart
-
-	| cartId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	self
-		should: [systemFacade 
-			checkOutCartIdentifiedAs: cartId 
-			withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-			ownedBy: testObjectsFactory validOwnerName 
-			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade cartCanNotBeEmptyErrorMessage.
-			self assertThereAreNoPurchasesForValidUser ]
-		
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:08:24'!
-test13CanNotCheckoutWithAnExpiredCreditCard
-
-	| cartId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
-	self
-		should: [systemFacade 
-			checkOutCartIdentifiedAs: cartId 
-			withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-			ownedBy: testObjectsFactory validOwnerName 
-			expiringOn: testObjectsFactory expiredMonthOfYear ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade canNotChargeAnExpiredCreditCardErrorMessage.
-			self assertThereAreNoPurchasesForValidUser ]
-		
-		! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'tests - checkout' stamp: 'HAW 7/23/2020 16:08:40'!
-test19CanNotCheckOutCartWhenSessionIsExpired
-
-	| cartId |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 2 of: self validBook toCartIdentifiedAs: cartId.
-	self advanceTime: (systemFacade sessionDuration + 1 minutes). 
-	
-	self 
-		should: [systemFacade 
-			checkOutCartIdentifiedAs: cartId 
-			withCreditCardNumbered: testObjectsFactory validCreditCardNumber 
-			ownedBy: testObjectsFactory validOwnerName 
-			expiringOn: testObjectsFactory notExpiredMonthOfYear ]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade sessionHasExpiredErrorDescription.
-			self assertThereAreNoPurchasesForValidUser ].
-
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self assert: (clientInterface listCartWithID: cartId) equals: Bag new .
 	! !
 
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:34'!
+test03ClientInterfaceCantAddToANonexistentCart
+	| clientInterface cartDatabase |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+	
 
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list cart' stamp: 'HAW 7/23/2020 15:58:09'!
-test08CanNotListCartOfInvalidCartId
-
-	self 
-		should: [systemFacade listCartIdentifiedAs: self invalidCartId] 
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError | 
-			self assertMessageTextOf: anError is: systemFacade invalidCartIdErrorDescription ]
+	self should: [clientInterface addToCartWithID: testObjectsFactory invalidCartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription.	self deny: (cartDatabase includesKey: testObjectsFactory invalidCartId).
+		].
 	! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list cart' stamp: 'HAW 7/23/2020 16:00:20'!
-test09ListCartReturnsTheRightNumberOfItems
-
-	| cartId cartContent |
-
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	systemFacade add: 1 of: self validBook toCartIdentifiedAs: cartId.
-	systemFacade add: 2 of: self anotherValidBook toCartIdentifiedAs: cartId.
-	cartContent := systemFacade listCartIdentifiedAs: cartId.
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:30'!
+test04ClientInterfaceCanAddBookToACart
+	| clientInterface cartDatabase cartId |
 	
-	self assert: 1 equals: (cartContent occurrencesOf: self validBook). 
-	self assert: 2 equals: (cartContent occurrencesOf: self anotherValidBook).
-	self assert: 3 equals: cartContent size
-! !
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore )! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'tests - list cart' stamp: 'HAW 7/23/2020 16:10:25'!
-test18CanNotListCartWhenSessionIsExpired
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:24'!
+test05ClientInterfaceCanAddManyOfABookToACart
+	| clientInterface cartDatabase cartId |
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
+	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore )! !
 
-	| cartId |
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:20'!
+test06ClientInterfaceCannotAddNonexistentBook
+	| clientInterface cartDatabase cartId |
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemNotSoldByTheStore inQuantity: 1. ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface invalidItemErrorDescription .
+		self assert: (clientInterface listCartWithID: cartId) equals: (Bag new)
+		]! !
 
-	cartId := systemFacade createCartFor: self validUser authenticatedWith: self validUserPassword.
-	self advanceTime: (systemFacade sessionDuration + 1 minutes).
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:15'!
+test07ClientInterfaceCannotAddNegativeAmountOfBooks
+	| clientInterface cartDatabase cartId |
+	
+	cartDatabase := Dictionary new.
+	
+	clientInterface := ClientInterface 
+		forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+	
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	self should: [	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: -1. ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface invalidItemAmountErrorDescription .
+		self assert: (clientInterface listCartWithID: cartId) equals: (Bag new)
+
+		]! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:10'!
+test08CannotListCartWithInvalidID
+
+	
+	| clientInterface cartDatabase|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+	
+	self should: [clientInterface listCartWithID: testObjectsFactory invalidCartId ]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription .
+		]! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:49:01'!
+test09ListCartReturnsCorrectResultForNewCart
+
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: watchSimulator .
+		
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+
+	
+	self assert: (clientInterface listCartWithID: cartId) equals: Bag new. 
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:48:55'!
+test10ListCartReturnsCorrectResultForCartWithItems
+
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
+	
+
+	
+	self assert: (clientInterface listCartWithID: cartId) equals: (Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore) . 
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:43:19'!
+test11CanCheckoutCartWithItems
+
+	
+	| clientInterface cartDatabase cartId expectedPurchaseList|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  1 withPassword: testObjectsFactory validPassword.
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	clientInterface checkoutCartWithID: cartId withCreditCardNumbered: testObjectsFactory notExpiredCreditCard cardExpiryDate: '12/2026' cardOwner: 'Juan Perez'.
+	
+	expectedPurchaseList := Bag with: testObjectsFactory itemSoldByTheStore.
+	
+	self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:04'!
+test12CantCheckoutEmptyCart
+
+	
+	| clientInterface cartDatabase cartId expectedPurchaseList |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+	
+	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
+	expectedPurchaseList := Bag new.
+	
+	
+		
+	
+self should: [clientInterface checkoutCartWithID: cartId withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cannotCheckoutEmptyCartErrorDescription .
+		self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
+		]
 	 
-	self 
-		should: [systemFacade listCartIdentifiedAs: cartId]
-		raise: Error - MessageNotUnderstood
-		withExceptionDo: [ :anError |
-			self assertMessageTextOf: anError is: systemFacade sessionHasExpiredErrorDescription ].
+	! !
 
-! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:31'!
+test13CantCheckoutNonexistentCart
 
-
-!TusLibrosSystemFacadeTest methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:53'!
-advanceTime: aDuration 
 	
-	clock advanceTime: aDuration ! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 13:07'!
-revertTime: aDuration 
+	| clientInterface cartDatabase |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self currentDate: (Month month: 1 year: 2025).
+		
+		
 	
-	clock revertTime: aDuration ! !
+self should: [clientInterface checkoutCartWithID: testObjectsFactory invalidCartId withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface cartDoesntExistErrorDescription .
+		]
+	 
+	! !
 
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'Sof D 11/9/2023 16:44:57'!
+test14CantCheckoutCartUsingExpiredCreditCart
 
-!TusLibrosSystemFacadeTest methodsFor: 'assertions' stamp: 'HAW 7/23/2020 15:55:56'!
-assertIsEmptyCartIdentifiedAs: cartId
-
-	^ self assert: (systemFacade listCartIdentifiedAs: cartId) isEmpty! !
-
-!TusLibrosSystemFacadeTest methodsFor: 'assertions' stamp: 'HAW 7/23/2020 15:54:17'!
-assertMessageTextOf: anError is: anExpectedMessageText 
 	
-	self assert: anExpectedMessageText equals: anError messageText! !
+	| clientInterface cartDatabase cartId expectedPurchaseList|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator.
+	cartId := clientInterface createCartForClient: 'Nicolas Rinaldi' withPassword: testObjectsFactory validPassword .
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	expectedPurchaseList := Bag new.
 
-!TusLibrosSystemFacadeTest methodsFor: 'assertions' stamp: 'HAW 7/23/2020 15:47:06'!
-assertThereAreNoPurchasesForValidUser
-
-	| purchases soldItems total |
+		
 	
-	purchases := systemFacade listPurchasesOf: self validUser authenticatingWith: self validUserPassword.
-	soldItems := purchases first.
-	total := purchases second.
+self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2020' cardOwner: 'Juan Perez']
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError |
+		self assert: anError messageText equals: ClientInterface expiredCreditCardErrorDescription .
+				self assert: (clientInterface listPurchasesOfClientWithID:  1  withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList 
 
-	self assert: soldItems isEmpty.
-	self assert: 0 equals: total.! !
+		]
+	 
+	! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'assertions' stamp: 'HAW 7/23/2020 16:03:38'!
-assertValidUserBougthOnlyItemSellByTheStore
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:33'!
+test15ListPurcharcesIsEmptyForANewUserId
 	
-	| purchases soldItems total |
-	purchases := systemFacade listPurchasesOf: self validUser authenticatingWith: self validUserPassword.
-	soldItems := purchases first.
-	total := purchases second.
+	| clientInterface cartDatabase cartId |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self
+		currentDate: watchSimulator.
+		
+	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
 	
-	self assert: 1 equals: (soldItems at: self validBook).
-	self assert: 1 equals: soldItems size.
-	self assert: testObjectsFactory itemSellByTheStorePrice equals: total.
-! !
+	self assert: (clientInterface listPurchasesOfClientWithID: 1 withPassword: testObjectsFactory validPassword) equals: Bag new.
+	
+	
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+	
+	! !
 
-!classDefinition: 'TusLibrosSystemFacadeTest class' category: 'TusLibros-Tests'!
-TusLibrosSystemFacadeTest class
-	instanceVariableNames: ''!
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:26'!
+test16ListPurchacesShowsPurchasesOfAValidClientWithPurchases
 
-!TusLibrosSystemFacadeTest class methodsFor: 'fileOut' stamp: 'HAW 5/6/2020 14:06:42'!
-fileOut
+	
+	| clientInterface cartDatabase cartId expectedPurchaseList |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self
+		currentDate: watchSimulator.
+		
+	cartId := clientInterface createCartForClient: 1 withPassword: testObjectsFactory validPassword .
+	
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 2.
+	clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez'.
+	
+	expectedPurchaseList := Bag with: testObjectsFactory itemSoldByTheStore with: testObjectsFactory itemSoldByTheStore .
+	
+	self assert: (clientInterface listPurchasesOfClientWithID: 1 withPassword: testObjectsFactory validPassword) equals: expectedPurchaseList.
+	
+	
 
-	"self fileOut"
+	
+	! !
 
-	DirectoryEntry smalltalkImageDirectory // 'TusLibros.st' writeStreamDo: [ :fileStream |
-		SystemOrganization fileOutCategory: 'TusLibros-Model' on: fileStream initializing: true.
-		SystemOrganization fileOutCategory: 'TusLibros-Test' on: fileStream initializing: true ]! !
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 15:42:13'!
+test17CantListPurchacesOfAInalidClient
+	
+	| clientInterface cartDatabase |
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate:watchSimulator.
+		
+	passwordAuthenticator := [:clientId :password | 
+		clientInterface error: ClientInterface clientIsNotRegisteredErrorDescription.
+		].
+	
+	self should: [clientInterface listPurchasesOfClientWithID: 1 withPassword: testObjectsFactory invalidPassword]
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface clientIsNotRegisteredErrorDescription.
+		]
+	
+
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:22:03'!
+test18CantAddToAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: testObjectsFactory itemSellByTheStorePrice]
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		self assert: (clientInterface listCartWithID: cartId) equals: Bag new.
+		]
+	
+
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:22:34'!
+test19CantListCartOfAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface listCartWithID: cartId]
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		self assert: (clientInterface listCartWithID: cartId) equals: Bag new.
+		]
+	
+
+	
+	! !
+
+!ClientInterfaceTest methodsFor: 'tests' stamp: 'eaam 11/9/2023 16:27:49'!
+test20CantCheckOutAExpiredCart
+	
+	| clientInterface cartDatabase cartId|
+	cartDatabase := Dictionary new.
+	clientInterface := ClientInterface forCartDatabase: cartDatabase 
+		merchantProcessor: self 
+		catalog: testObjectsFactory defaultCatalog 
+		passwordAuthenticator: self 
+		currentDate: watchSimulator .
+		
+	cartId := clientInterface createCartForClient:  'Lord Valdomero' withPassword: testObjectsFactory validPassword.
+	
+	clientInterface addToCartWithID: cartId theBook: testObjectsFactory itemSoldByTheStore inQuantity: 1.
+	
+	watchSimulator advanceTime: 60 minutes.
+	
+	
+	self should: [clientInterface checkoutCartWithID: cartId  withCreditCardNumbered: '1111111111111111' cardExpiryDate: '12/2026' cardOwner: 'Juan Perez']
+	raise: Error
+	withExceptionDo: [:anError | 
+		self assert: anError messageText equals: ClientInterface cartExpiredErrorDescription.
+		watchSimulator backInTime: 60 minutes.
+		]
+	
+
+	
+	! !
+
+
+!ClientInterfaceTest methodsFor: 'merchant processor behavior' stamp: 'Sof D 11/8/2023 02:55:40'!
+debit: anAmount from: aCreditCard 
+
+	! !
 
 
-!classDefinition: #ManualClock category: 'TusLibros-Tests'!
-Clock subclass: #ManualClock
-	instanceVariableNames: 'now'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
-
-!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 12:54'!
-advanceTime: aDuration 
-	
-	now := now + aDuration ! !
-
-!ManualClock methodsFor: 'time change' stamp: 'HernanWilkinson 6/22/2013 13:08'!
-revertTime: aDuration 
-	
-	now := now + aDuration negated ! !
-
-
-!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:56'!
-now
-	
-	^ now! !
-
-!ManualClock methodsFor: 'time' stamp: 'HernanWilkinson 6/22/2013 12:53'!
-today
-	
-	^now date! !
-
-
-!ManualClock methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 12:52'!
-initializeNow: aTime 
-
-	now := aTime ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'ManualClock class' category: 'TusLibros-Tests'!
-ManualClock class
-	instanceVariableNames: ''!
-
-!ManualClock class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/22/2013 12:52'!
-now: aTime 
-	
-	^self new initializeNow: aTime ! !
-
-
-!classDefinition: #StoreTestObjectsFactory category: 'TusLibros-Tests'!
+!classDefinition: #StoreTestObjectsFactory category: 'TusLibros-Test'!
 Object subclass: #StoreTestObjectsFactory
 	instanceVariableNames: 'today'
 	classVariableNames: ''
 	poolDictionaries: ''
-	category: 'TusLibros-Tests'!
+	category: 'TusLibros-Test'!
 
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/22/2013 00:16'!
-anotherItemSellByTheStore
-	
-	^'anotherValidBook'! !
-
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/22/2013 00:16'!
-anotherItemSellByTheStorePrice
-	
-	^15! !
-
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
-itemNotSellByTheStore
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/9/2023 04:01:10'!
+itemNotSoldByTheStore
 	
 	^'invalidBook'! !
-
-!StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
-itemSellByTheStore
-	
-	^ 'validBook'! !
 
 !StoreTestObjectsFactory methodsFor: 'items' stamp: 'HernanWilkinson 6/17/2013 18:08'!
 itemSellByTheStorePrice
 	
 	^10! !
+
+!StoreTestObjectsFactory methodsFor: 'items' stamp: 'Sof D 11/8/2023 00:25:23'!
+itemSoldByTheStore
+	
+	^ 'validBook'! !
 
 
 !StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/17/2013 18:08'!
@@ -1853,44 +736,36 @@ createCart
 	
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'HernanWilkinson 6/22/2013 00:16'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/8/2023 00:25:24'!
 defaultCatalog
 	
 	^ Dictionary new
-		at: self itemSellByTheStore put: self itemSellByTheStorePrice;
-		at: self anotherItemSellByTheStore put: self anotherItemSellByTheStorePrice;
+		at: self itemSoldByTheStore put: self itemSellByTheStorePrice;
 		yourself ! !
 
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'Sof D 11/6/2023 21:16:32'!
+emptyCartList
+	^Dictionary new.! !
 
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HAW 7/22/2020 14:26:34'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'eaam 11/7/2023 03:48:52'!
+invalidCartId
+	^'invalidId'! !
+
+
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:37'!
 expiredCreditCard
 	
-	^CreditCard numbered: self validCreditCardNumber ownedBy: self validOwnerName expiringOn: self expiredMonthOfYear ! !
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber - 1)! !
 
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/22/2013 11:24'!
-expiredMonthOfYear 
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'eaam 11/9/2023 15:46:50'!
+expiredCreditCardDate
+	
+	^ (Month month: today monthIndex year: today yearNumber - 1)! !
 
-	^ Month month: today monthIndex year: today yearNumber - 1! !
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HAW 7/22/2020 14:26:34'!
+!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/17/2013 18:36'!
 notExpiredCreditCard
 	
-	^CreditCard numbered: self validCreditCardNumber ownedBy: self validOwnerName expiringOn: self notExpiredMonthOfYear! !
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HernanWilkinson 6/22/2013 11:06'!
-notExpiredMonthOfYear
-
-	^ Month month: today monthIndex year: today yearNumber + 1! !
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HAW 7/23/2020 15:25:37'!
-validCreditCardNumber
-	
-	^'1234567890123456'! !
-
-!StoreTestObjectsFactory methodsFor: 'credit card' stamp: 'HAW 7/23/2020 15:25:51'!
-validOwnerName
-	
-	^'Pepe Sanchez'! !
+	^CreditCard expiringOn: (Month month: today monthIndex year: today yearNumber + 1)! !
 
 
 !StoreTestObjectsFactory methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 18:37'!
@@ -1899,13 +774,527 @@ initialize
 	today := DateAndTime now! !
 
 
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:43'!
+invalidPassword
+	
+	^'riBer'! !
+
+!StoreTestObjectsFactory methodsFor: 'clients' stamp: 'Sof D 11/6/2023 20:19:50'!
+validPassword
+	
+	^'BOCA'! !
+
+
 !StoreTestObjectsFactory methodsFor: 'date' stamp: 'HernanWilkinson 6/17/2013 18:37'!
 today
 	
 	^ today! !
+!classDefinition: #Cart category: 'TusLibros-Ejercicio'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
 
-
-!StoreTestObjectsFactory methodsFor: 'customer' stamp: 'HernanWilkinson 6/22/2013 12:02'!
-customer
+!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
+invalidItemErrorMessage
 	
-	^'aCustomer'! !
+	^'Item is not in catalog'! !
+
+!Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
+invalidQuantityErrorMessage
+	
+	^'Invalid number of items'! !
+
+
+!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:06'!
+assertIsValidItem: anItem
+
+	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+
+!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
+assertIsValidQuantity: aQuantity
+
+	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
+
+
+!Cart methodsFor: 'initialization' stamp: 'Sof D 11/8/2023 01:29:06'!
+initializeAcceptingItemsOf: aCatalog
+
+	catalog := aCatalog.
+	items := Bag new.! !
+
+
+!Cart methodsFor: 'queries' stamp: 'HernanWilkinson 6/17/2013 17:45'!
+occurrencesOf: anItem
+
+	^items occurrencesOf: anItem  ! !
+
+
+!Cart methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 17:44'!
+includes: anItem
+
+	^items includes: anItem ! !
+
+!Cart methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 17:44'!
+isEmpty
+	
+	^items isEmpty ! !
+
+
+!Cart methodsFor: 'total' stamp: 'HernanWilkinson 6/17/2013 19:09'!
+total
+
+	^ items sum: [ :anItem | catalog at: anItem ]! !
+
+
+!Cart methodsFor: 'adding' stamp: 'Sof D 11/8/2023 01:32:20'!
+addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
+
+	self assertIsValidQuantity: theAmountToAdd.
+	self assertIsValidItem: anItemToAddToTheCart.
+
+	1 to: theAmountToAdd do: [ :aNumber | items add: anItemToAddToTheCart ]! !
+
+
+!Cart methodsFor: 'listCart' stamp: 'Sof D 11/8/2023 01:36:39'!
+listCart
+	^items copy! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Cart class' category: 'TusLibros-Ejercicio'!
+Cart class
+	instanceVariableNames: ''!
+
+!Cart class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/17/2013 17:48'!
+acceptingItemsOf: aCatalog
+
+	^self new initializeAcceptingItemsOf: aCatalog ! !
+
+
+!classDefinition: #CartTimeoutManager category: 'TusLibros-Ejercicio'!
+Object subclass: #CartTimeoutManager
+	instanceVariableNames: 'cart clientInterface createdAtTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!CartTimeoutManager methodsFor: 'cart management' stamp: 'eaam 11/9/2023 15:41:33'!
+addItem: anItemToAddToTheCart  inAmount: theAmountToAdd
+	self assertCartIsNotExpired.
+	^cart addItem: anItemToAddToTheCart  inAmount: theAmountToAdd! !
+
+!CartTimeoutManager methodsFor: 'cart management' stamp: 'eaam 11/9/2023 15:30:05'!
+listCart
+	self assertCartIsNotExpired.
+	^cart listCart! !
+
+
+!CartTimeoutManager methodsFor: 'initialization' stamp: 'Sof D 11/9/2023 16:46:26'!
+initializeWithCart: aCart withClientInterface: aClientInterface
+	cart := aCart .
+	clientInterface := aClientInterface .
+	createdAtTime := clientInterface currentTime.! !
+
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'Sof D 11/9/2023 16:46:26'!
+assertCartIsNotExpired
+	(self cartIsExpiredInTime: clientInterface currentTime) ifTrue: [ self error: ClientInterface cartExpiredErrorDescription ]! !
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'eaam 11/9/2023 16:17:47'!
+cartIsExpiredInTime: aActualTime
+	^ ((createdAtTime + (30 minutes)) < aActualTime)! !
+
+!CartTimeoutManager methodsFor: 'assertions' stamp: 'eaam 11/9/2023 15:43:17'!
+isEmpty
+	^cart isEmpty! !
+
+
+!CartTimeoutManager methodsFor: 'accessing' stamp: 'eaam 11/9/2023 15:41:03'!
+cart
+	self assertCartIsNotExpired.
+	^cart! !
+
+!CartTimeoutManager methodsFor: 'accessing' stamp: 'eaam 11/9/2023 15:43:24'!
+total
+	^cart total! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CartTimeoutManager class' category: 'TusLibros-Ejercicio'!
+CartTimeoutManager class
+	instanceVariableNames: ''!
+
+!CartTimeoutManager class methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:16:05'!
+forCart: aCart forClientInterface: aClientInterface
+	^self new initializeWithCart: aCart withClientInterface: aClientInterface! !
+
+
+!classDefinition: #Cashier category: 'TusLibros-Ejercicio'!
+Object subclass: #Cashier
+	instanceVariableNames: 'cart salesBook merchantProcessor creditCard total client'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:08'!
+calculateTotal
+
+	total := cart total.
+	! !
+
+!Cashier methodsFor: 'checkout - private' stamp: 'eaam 11/9/2023 04:18:30'!
+createSale
+
+	^ Sale of: total forClient: client withItems: cart listCart
+! !
+
+!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:06'!
+debitTotal
+
+	merchantProcessor debit: total from: creditCard.
+	! !
+
+!Cashier methodsFor: 'checkout - private' stamp: 'HernanWilkinson 6/17/2013 19:06'!
+registerSale
+
+	salesBook add: self createSale! !
+
+
+!Cashier methodsFor: 'checkout' stamp: 'HernanWilkinson 6/17/2013 19:06'!
+checkOut
+
+	self calculateTotal.
+	self debitTotal.
+	self registerSale.
+
+	^ total! !
+
+
+!Cashier methodsFor: 'initialization' stamp: 'eaam 11/9/2023 04:10:20'!
+withClient: aClientId initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook
+		client := aClientId.
+
+	cart := aCart.
+	creditCard := aCreditCard.
+	merchantProcessor := aMerchantProcessor.
+	salesBook := aSalesBook! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Cashier class' category: 'TusLibros-Ejercicio'!
+Cashier class
+	instanceVariableNames: ''!
+
+!Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:22'!
+assertIsNotEmpty: aCart 
+	
+	aCart isEmpty ifTrue: [self error: self cartCanNotBeEmptyErrorMessage ]! !
+
+!Cashier class methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 18:23'!
+assertIsNotExpired: aCreditCard on: aDate
+	
+	(aCreditCard isExpiredOn: aDate) ifTrue: [ self error: self canNotChargeAnExpiredCreditCardErrorMessage ]! !
+
+
+!Cashier class methodsFor: 'instance creation' stamp: 'eaam 11/9/2023 04:09:50'!
+toCheckout: aCart charging: aCreditCard throught: aMerchantProcessor on: aDate registeringOn: aSalesBook forClient: aClientId 
+	
+	self assertIsNotEmpty: aCart.
+	self assertIsNotExpired: aCreditCard on: aDate.
+	
+	^self new withClient: aClientId initializeToCheckout: aCart charging: aCreditCard throught: aMerchantProcessor registeringOn: aSalesBook! !
+
+
+!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 18:21'!
+canNotChargeAnExpiredCreditCardErrorMessage
+	
+	^'Can not charge an expired credit card'! !
+
+!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:56'!
+cartCanNotBeEmptyErrorMessage
+	
+	^'Can not check out an empty cart'! !
+
+!Cashier class methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 19:02'!
+creditCardHasNoCreditErrorMessage
+	
+	^'Credit card has no credit'! !
+
+
+!classDefinition: #ClientInterface category: 'TusLibros-Ejercicio'!
+Object subclass: #ClientInterface
+	instanceVariableNames: 'passwordAuthenticator cartDatabase catalog merchantProcessor watch salesBook nextId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!ClientInterface methodsFor: 'initialization' stamp: 'eaam 11/9/2023 15:36:14'!
+initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
+	passwordAuthenticator := aPasswordAuthenticator.
+	nextId := 0.
+	cartDatabase := aDatabaseOfCarts.
+	catalog := aCatalog .
+	
+	watch :=  theCurrentDate .
+	
+	merchantProcessor := aMerchantProcessor .
+	
+	salesBook := OrderedCollection new.! !
+
+
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/9/2023 16:46:26'!
+assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard
+	| card |
+	card := CreditCard expiringOn: (Month month: ((theExpiryDateOfTheCard copyFrom: 1 to: 2) asNumber )year: ((theExpiryDateOfTheCard copyFrom: 4 to: 7) asNumber)).
+	(card isExpiredOn: watch currentTime date) ifTrue: [ self error: self class expiredCreditCardErrorDescription ].
+	^card! !
+
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/8/2023 02:02:55'!
+assertInDatabaseTheCartId: aCartId
+
+	^ (cartDatabase includesKey: aCartId) ifFalse: [self error: self class cartDoesntExistErrorDescription]! !
+
+!ClientInterface methodsFor: 'asserting' stamp: 'eaam 11/9/2023 02:46:35'!
+assertIsInCatalogTheBook: aBookToAdd AndIsGreaterThanTwo: aQuantityToAdd
+
+	(catalog includesKey: aBookToAdd) ifFalse: [ self error: self class invalidItemErrorDescription ].
+	(aQuantityToAdd > 0) ifFalse: [ self error: self class invalidItemAmountErrorDescription ]! !
+
+!ClientInterface methodsFor: 'asserting' stamp: 'Sof D 11/9/2023 16:50:15'!
+isCartEmpty: theManagerOfTheCart
+
+	^ (theManagerOfTheCart isEmpty) ifTrue: [ self error: self class cannotCheckoutEmptyCartErrorDescription ]! !
+
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 02:46:35'!
+addToCartWithID: aCartId theBook: aBookToAdd inQuantity: aQuantityToAdd
+	self assertInDatabaseTheCartId: aCartId.
+	
+	self assertIsInCatalogTheBook: aBookToAdd AndIsGreaterThanTwo: aQuantityToAdd.
+	(cartDatabase at: aCartId) addItem: aBookToAdd  inAmount: aQuantityToAdd.! !
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'Sof D 11/9/2023 16:52:55'!
+checkoutCartWithID: aCartId withCreditCardNumbered: theNumberOfTheCreditCardToCharge cardExpiryDate: theExpiryDateOfTheCard cardOwner: theNameOfTheCardOwner
+	| cartManager card |
+	self assertInDatabaseTheCartId: aCartId .
+
+	cartManager :=  cartDatabase at: aCartId.
+	
+	self isCartEmpty: cartManager.
+	
+	card := self assertExpirationAndgenerateCardWithExpiryDate: theExpiryDateOfTheCard.
+	
+	self generateCashierAndCheckoutCart: cartManager usingCard: card. 
+	
+	
+	! !
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 15:19:20'!
+createCartForClient:  aClientToCheck withPassword: aPasswordToCheck
+	| cartId |
+	passwordAuthenticator validateClientId: aClientToCheck withPassword: aPasswordToCheck.
+	cartId := self nextCartId.
+	cartDatabase at: cartId put: (self newCartAcceptingItemsOf: catalog).
+	
+	^cartId! !
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'Sof D 11/8/2023 02:40:34'!
+listCartWithID: aCartId	self assertInDatabaseTheCartId: aCartId.
+
+	^(cartDatabase at: aCartId) listCart! !
+
+!ClientInterface methodsFor: 'interface calls' stamp: 'eaam 11/9/2023 04:34:29'!
+listPurchasesOfClientWithID: theIdOfTheClientToListThePurchasesOf withPassword: aPassword  
+
+	passwordAuthenticator validateClientId: theIdOfTheClientToListThePurchasesOf withPassword: aPassword.
+	
+
+	^ self allPurchasesOfClientId: theIdOfTheClientToListThePurchasesOf.! !
+
+
+!ClientInterface methodsFor: 'time' stamp: 'Sof D 11/9/2023 16:46:27'!
+currentTime 
+	^watch currentTime! !
+
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 04:36:31'!
+allPurchasesOfClientId: aClientIdToGetAllThePurchases
+
+	^ ((self salesForClientId: aClientIdToGetAllThePurchases) inject: OrderedCollection new into: [:listOfPurchases :aSale | listOfPurchases addAll: aSale ItemsBought]) asBag! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'Sof D 11/9/2023 16:52:28'!
+generateCashierAndCheckoutCart: theManagerOfTheCartToCheckout usingCard: aCreditCardToCharge 
+
+	| cashier |
+	
+	cashier := Cashier toCheckout: theManagerOfTheCartToCheckout cart charging: aCreditCardToCharge throught: merchantProcessor on: (watch currentTime date) registeringOn: salesBook forClient: 1.
+	cashier checkOut .! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 15:21:12'!
+newCartAcceptingItemsOf: aCatalog
+	^CartTimeoutManager forCart: (Cart acceptingItemsOf: aCatalog ) forClientInterface: self.! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 14:02:38'!
+nextCartId
+	nextId := nextId + 1.
+	^nextId! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 03:53:42'!
+registerNewClientInSalesList: theIdOfTheNewClient
+	(salesBook includesKey: theIdOfTheNewClient) ifFalse: [ salesBook at: theIdOfTheNewClient put: Bag new ]! !
+
+!ClientInterface methodsFor: 'auxiliaries' stamp: 'eaam 11/9/2023 04:33:01'!
+salesForClientId: theIdOfTheClientToListThePurchasesOf
+
+	^ salesBook select: [:aSale | aSale isFromClient: theIdOfTheClientToListThePurchasesOf]! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'ClientInterface class' category: 'TusLibros-Ejercicio'!
+ClientInterface class
+	instanceVariableNames: ''!
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:13:51'!
+cannotCheckoutEmptyCartErrorDescription
+	^'Cannot checkout empty cart'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/8/2023 01:42:43'!
+cartDoesntExistErrorDescription
+	^'Cart id is not registered'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'eaam 11/9/2023 16:18:29'!
+cartExpiredErrorDescription
+	^'The cart is expired'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/8/2023 01:41:22'!
+clientIsNotRegisteredErrorDescription
+	^'ups!! You are not registered!! bakita el más grande papa'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:21:55'!
+expiredCreditCardErrorDescription
+	^'Cant use expired credit card for payment'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:07:56'!
+invalidItemAmountErrorDescription
+	^'Item amount must be positive'! !
+
+!ClientInterface class methodsFor: 'error handling' stamp: 'Sof D 11/9/2023 04:01:54'!
+invalidItemErrorDescription
+	^'Selected item isnt sold by catalog'! !
+
+
+!ClientInterface class methodsFor: 'initialization' stamp: 'Sof D 11/8/2023 02:54:26'!
+forCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate 
+	^self new initializeWithCartDatabase: aDatabaseOfCarts merchantProcessor: aMerchantProcessor catalog: aCatalog passwordAuthenticator: aPasswordAuthenticator currentDate: theCurrentDate ! !
+
+
+!classDefinition: #CreditCard category: 'TusLibros-Ejercicio'!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration clientId'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!CreditCard methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 18:39'!
+isExpiredOn: aDate 
+	
+	^expiration start < (Month month: aDate monthIndex year: aDate yearNumber) start ! !
+
+
+!CreditCard methodsFor: 'initialization' stamp: 'eaam 11/9/2023 04:01:06'!
+initializeExpiringOn: aMonth 
+	
+	expiration := aMonth. 
+	clientId := 1.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CreditCard class' category: 'TusLibros-Ejercicio'!
+CreditCard class
+	instanceVariableNames: ''!
+
+!CreditCard class methodsFor: 'instance creation' stamp: 'HernanWilkinson 6/17/2013 18:38'!
+expiringOn: aMonth 
+	
+	^self new initializeExpiringOn: aMonth! !
+
+
+!classDefinition: #Sale category: 'TusLibros-Ejercicio'!
+Object subclass: #Sale
+	instanceVariableNames: 'total clientId ItemsBought'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!Sale methodsFor: 'total' stamp: 'eaam 11/9/2023 04:20:24'!
+ItemsBought
+	
+	^ ItemsBought ! !
+
+!Sale methodsFor: 'total' stamp: 'eaam 11/9/2023 04:01:38'!
+isFromClient: aClientIdToCheck
+	
+	^clientId =  aClientIdToCheck ! !
+
+!Sale methodsFor: 'total' stamp: 'HernanWilkinson 6/17/2013 18:48'!
+total
+	
+	^ total! !
+
+
+!Sale methodsFor: 'initialization' stamp: 'eaam 11/9/2023 04:20:24'!
+initializeTotal: aTotal forClient: aClientId withItems: itemsBoughtByTheClient  
+
+	total := aTotal.
+	clientId := aClientId.
+	ItemsBought := itemsBoughtByTheClient! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Sale class' category: 'TusLibros-Ejercicio'!
+Sale class
+	instanceVariableNames: ''!
+
+!Sale class methodsFor: 'instance creation' stamp: 'eaam 11/9/2023 04:17:42'!
+of: aTotal forClient: aClientId withItems: aBagOfItemsBoughtByTheClient 
+
+	"should assert total is not negative or 0!!"
+	^self new initializeTotal: aTotal forClient: aClientId withItems: aBagOfItemsBoughtByTheClient ! !
+
+
+!classDefinition: #WatchSimulator category: 'TusLibros-Ejercicio'!
+Object subclass: #WatchSimulator
+	instanceVariableNames: 'actualDateAndTime'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros-Ejercicio'!
+
+!WatchSimulator methodsFor: 'modify time' stamp: 'eaam 11/9/2023 15:11:28'!
+advanceTime: aTimeToAdvance
+	actualDateAndTime := actualDateAndTime + aTimeToAdvance.! !
+
+!WatchSimulator methodsFor: 'modify time' stamp: 'eaam 11/9/2023 15:58:32'!
+backInTime: aTime
+	actualDateAndTime := actualDateAndTime - aTime.! !
+
+
+!WatchSimulator methodsFor: 'initialization' stamp: 'eaam 11/9/2023 15:10:35'!
+initializeWith: aDateAndTime
+	actualDateAndTime := aDateAndTime.! !
+
+
+!WatchSimulator methodsFor: 'get time' stamp: 'Sof D 11/9/2023 16:46:26'!
+currentTime
+	^actualDateAndTime! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'WatchSimulator class' category: 'TusLibros-Ejercicio'!
+WatchSimulator class
+	instanceVariableNames: ''!
+
+!WatchSimulator class methodsFor: 'as yet unclassified' stamp: 'eaam 11/9/2023 15:10:14'!
+for: aDateAndTime
+	^self new initializeWith: aDateAndTime! !
