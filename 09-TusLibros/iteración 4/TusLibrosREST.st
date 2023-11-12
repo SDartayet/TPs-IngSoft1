@@ -236,7 +236,7 @@ initialize
 
 !classDefinition: #AsyncHTTPRequestHandler category: 'TusLibrosREST'!
 Object subclass: #AsyncHTTPRequestHandler
-	instanceVariableNames: 'successCallback request success failure fieldDict'
+	instanceVariableNames: 'successCallback request success failure fieldDict XXXX'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibrosREST'!
@@ -250,7 +250,7 @@ withRequest: theURLOfTheRequestToHandle andParameters: theParametersOfTheRequest
 	! !
 
 
-!AsyncHTTPRequestHandler methodsFor: 'as yet unclassified' stamp: 'S D 11/12/2023 02:05:54'!
+!AsyncHTTPRequestHandler methodsFor: 'as yet unclassified' stamp: 'eaam 11/12/2023 16:53:50'!
 executeRequest
 	
 	| response |
@@ -258,9 +258,13 @@ executeRequest
 	[ response := WebClient htmlSubmit: request fields: fieldDict.
 		
 	response isSuccess 
-		ifTrue: [ success value: response ]
-		ifFalse:[^self inform: response content] ] fork
-	! !
+		ifTrue: [ XXXX := success value: response. ]
+		ifFalse:[self inform: response content] ] fork.! !
+
+!AsyncHTTPRequestHandler methodsFor: 'as yet unclassified' stamp: 'eaam 11/12/2023 16:52:56'!
+responseValue
+	
+	^XXXX! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -280,7 +284,7 @@ Object subclass: #TusLibrosClientRestInterface
 	poolDictionaries: ''
 	category: 'TusLibrosREST'!
 
-!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'S D 11/12/2023 01:59:42'!
+!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'eaam 11/12/2023 15:45:26'!
 add: quantity of: bookIsbn toCartIdentifiedAs: cartId
 
 	| fieldDict request |
@@ -289,20 +293,23 @@ add: quantity of: bookIsbn toCartIdentifiedAs: cartId
 	
 	request := AsyncHTTPRequestHandler forRequest: (self url,'/addToCart') withParameters: fieldDict onSuccessDo: [ : response | ^(WebUtils jsonDecode: ((response content) readStream))].
 	
-	request executeRequest ! !
+	^request executeRequest ! !
 
-!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'S D 11/12/2023 02:00:37'!
+!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'eaam 11/12/2023 16:53:18'!
 createCartFor: aUser password: aPassword
 
-	| fieldDict request |
+	| fieldDict cartId request|
 	
 	fieldDict := Dictionary newFromPairs: {'clientId'. aUser. 'password'. aPassword}.		
 	
-	request := AsyncHTTPRequestHandler forRequest: (self url,'/createCart') withParameters: fieldDict onSuccessDo: [ : response | ^(WebUtils jsonDecode: ((response content) readStream))].
+	request := AsyncHTTPRequestHandler forRequest: (self url,'/createCart') withParameters: fieldDict onSuccessDo: [ : response | (WebUtils jsonDecode: ((response content) readStream))].
 	
-	request executeRequest ! !
+	request executeRequest.
+	cartId := request responseValue .
 
-!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'S D 11/12/2023 02:00:16'!
+	^cartId.! !
+
+!TusLibrosClientRestInterface methodsFor: 'requests' stamp: 'eaam 11/12/2023 15:12:48'!
 listCart: cartId
 
 	| fieldDict request |
@@ -311,7 +318,7 @@ listCart: cartId
 		
 	request := AsyncHTTPRequestHandler forRequest: (self url,'/listCart') withParameters: fieldDict onSuccessDo: [: response | ^(WebUtils jsonDecode: ((response content) readStream asOrderedCollection ))].
 	
-	request executeRequest ! !
+	^request executeRequest ! !
 
 
 !TusLibrosClientRestInterface methodsFor: 'initialization' stamp: 'NR 6/9/2022 08:11:33'!
