@@ -753,28 +753,38 @@ salesBook
 	^ salesBook! !
 
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/10/2023 18:12:06'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:44'!
 bookPerformance: anItem
 
 	| bookPerformance totalMoney totalSales semaphore|
 
 	semaphore := Semaphore new.
 
-	bookPerformance := Dictionary new.
 	
-	self runClosureAsFork: [totalSales := self totalSalesOf: anItem ] whenFinishedSignal: semaphore .
-	self runClosureAsFork: [totalMoney := self totalMoneyRaisedBy: anItem ] whenFinishedSignal: semaphore .
+	[totalSales := self totalSalesOf: anItem. semaphore signal.] fork.
+	totalMoney := self totalMoneyRaisedBy: anItem. 
 	
-	semaphore wait. 	semaphore wait.
+	semaphore wait.
 	
-	bookPerformance at: 'quantity' put: totalSales.
-	bookPerformance at: 'total' put: totalMoney.
-	bookPerformance at: 'summary' put: anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
+	bookPerformance := self generatePerformanceReportForSales: totalSales money: totalMoney withSummary: anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
 	
 	^bookPerformance
 	
 
 ! !
+
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:02'!
+generatePerformanceReportForSales: theSalesTotal money: theMoneyTotal withSummary: aSummaryTextForTheReport
+	
+	| performanceReport |
+	
+	performanceReport := Dictionary new.
+	
+	performanceReport at: 'quantity' put: theSalesTotal.
+	performanceReport at: 'total' put: theMoneyTotal.
+	performanceReport at: 'summary' put: aSummaryTextForTheReport.
+	
+	^performanceReport ! !
 
 !TusLibrosSystemFacade methodsFor: 'private' stamp: 'HAW 7/23/2020 15:34:54'!
 list: aSale on: quantitiesByItem 
@@ -785,36 +795,27 @@ list: aSale on: quantitiesByItem
 		newQuantity := oldQuantity + aLineItem quantity.
 		quantitiesByItem at: aLineItem item put: newQuantity ]! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/10/2023 22:34:12'!
-runClosureAsFork: aClosureToFork whenFinishedSignal: aSemaphorToSignal
-	[ aClosureToFork value. aSemaphorToSignal signal ] fork.
-! !
-
 !TusLibrosSystemFacade methodsFor: 'private' stamp: 'HernanWilkinson 6/17/2015 20:55'!
 salesDoneBy: aUser
 
 	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
 	^ salesBook select: [ :aSale | aSale wasDoneBy: aUser ]! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/10/2023 22:34:36'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:58'!
 storePerformance
 
 	| totalMoney totalSales performance semaphore|
 	
 	semaphore := Semaphore new.
+		
+	[totalSales := self totalSales.semaphore signal.] fork.
+	totalMoney := self totalMoneyRaised.
 	
-	performance := Dictionary new.
+	performance := self generatePerformanceReportForSales: totalSales money: totalMoney withSummary: 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
+	
+	semaphore wait.
 	
 	
-	
-	self runClosureAsFork: [ totalSales := self totalSales ] whenFinishedSignal: semaphore .
-	self runClosureAsFork: [ totalMoney := self totalMoneyRaised ] whenFinishedSignal: semaphore .
-	
-	semaphore wait.	 semaphore wait.
-
-	performance at: 'quantity' put: totalSales.
-	performance at: 'total' put: totalMoney.
-	performance at: 'summary' put: 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
 	
 	^performance
 	
@@ -1317,7 +1318,7 @@ should: aBlock notTakeMoreThanMilliseconds: aTimeInMillis
 
 	self assert: aBlock timeToRun <= aTimeInMillis! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'S D 11/10/2023 17:27:58'!
+!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'S D 11/12/2023 00:39:44'!
 test20BookPerformanceShouldNotTakeTooLong
 
 	| cartId bookPerformance quantity total |
@@ -1350,7 +1351,7 @@ test20BookPerformanceShouldNotTakeTooLong
 		equals: (bookPerformance at: 'summary')
 	! !
 
-!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'S D 11/10/2023 17:27:09'!
+!TusLibrosSystemFacadeTest methodsFor: 'tests - performance' stamp: 'S D 11/12/2023 00:41:14'!
 test21StorePerformanceShouldNotTakeTooLong
 
 	| cartId storePerformance quantity total |
