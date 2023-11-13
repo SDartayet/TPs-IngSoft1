@@ -753,32 +753,30 @@ salesBook
 	^ salesBook! !
 
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:19:00'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/13/2023 14:13:28'!
 bookPerformance: anItem
 		
-	^self generatePerformanceReportForSales: [ self totalSalesOf: anItem ] money: [ self totalMoneyRaisedBy: anItem. ] withSummary: [ : totalSales : totalMoney | anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString ].
+	^self generatePerformanceReportForSales: [ self totalSalesOf: anItem ] 
+	money: [ self totalMoneyRaisedBy: anItem. ] 
+	withSummary: [ : totalSales : totalMoney | anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString ].
 	
 	
 
 ! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:29:40'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/13/2023 14:29:58'!
 generatePerformanceReportForSales: aClosureToUseToObtainSalesTotal money: aClosureToUseToObtainMoneyTotal withSummary: aSummaryTextForTheReport
 	
-	| performanceReport totalSales totalMoney semaphore |
+	|  totalSales totalMoney semaphore |
 	
-	performanceReport := Dictionary new.
 	
 	semaphore := Semaphore new.
 	
 	[ totalSales := aClosureToUseToObtainSalesTotal value. semaphore signal ] fork.
 	totalMoney := aClosureToUseToObtainMoneyTotal value. semaphore wait.
 	
-	performanceReport at: 'quantity' put: totalSales.
-	performanceReport at: 'total' put: totalMoney.
-	performanceReport at: 'summary' put: (aSummaryTextForTheReport value: totalSales value: totalMoney).
-	
-	^performanceReport ! !
+	self writeDownReportWithTotalMoney: totalMoney totalSales: totalSales andSummarytext: aSummaryTextForTheReport
+	! !
 
 !TusLibrosSystemFacade methodsFor: 'private' stamp: 'HAW 7/23/2020 15:34:54'!
 list: aSale on: quantitiesByItem 
@@ -795,10 +793,12 @@ salesDoneBy: aUser
 	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
 	^ salesBook select: [ :aSale | aSale wasDoneBy: aUser ]! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:18:03'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/13/2023 14:40:46'!
 storePerformance
 	
-	^self generatePerformanceReportForSales: [ self totalSales ]  money: [ self totalMoneyRaised ] withSummary:  [ : totalSales : totalMoney | 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString ].
+	^self generatePerformanceReportForSales: [ self totalSales ] 
+	money: [ self totalMoneyRaised ] 
+	withSummary:  [ : totalSales : totalMoney | 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString ].
 	
 
 ! !
@@ -847,6 +847,19 @@ totalSalesOf: anItem
 		quantityPerItem].
 
 ! !
+
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'eaam 11/13/2023 14:29:30'!
+writeDownReportWithTotalMoney: totalMoneyToWriteDown totalSales: totalSalesToWriteDown andSummarytext: aSummaryTextForTheReport
+	
+	| performanceReport |
+	
+	performanceReport := Dictionary new.
+	
+	performanceReport at: 'quantity' put: totalSalesToWriteDown.
+	performanceReport at: 'total' put: totalMoneyToWriteDown.
+	performanceReport at: 'summary' put: (aSummaryTextForTheReport value: totalSalesToWriteDown value: totalMoneyToWriteDown)
+	
+	^performanceReport! !
 
 
 !TusLibrosSystemFacade methodsFor: 'initialization' stamp: 'HernanWilkinson 6/22/2013 14:17'!
