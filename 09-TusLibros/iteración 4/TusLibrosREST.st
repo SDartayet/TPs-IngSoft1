@@ -249,17 +249,16 @@ initializeForRequest: theKindOfRequest andParameters: aDictionaryWithParameters 
 	aClosureToExecuteOnRequestFailure := aClosureToExecuteOnFailedRequest ! !
 
 
-!HTTPAsyncRequest methodsFor: 'evaluating' stamp: 'S D 11/13/2023 02:43:54'!
+!HTTPAsyncRequest methodsFor: 'evaluating' stamp: 'S D 11/13/2023 14:45:33'!
 dispatchRequest
 
-	| resp content |
+	| resp |
 
 	[ resp := WebClient htmlSubmit: (theURLOfRequest) fields: theRequestParameters.
-	content := (WebUtils jsonDecode: ((resp content) readStream)).
 		
 	resp isSuccess 
-		ifTrue: [ aClosureToExecuteOnRequestSuccess value: content ]
-		ifFalse: [ aClosureToExecuteOnRequestFailure value: content ] ] fork 
+		ifTrue: [ (aClosureToExecuteOnRequestSuccess value: (WebUtils jsonDecode: ((resp content) readStream))) ]
+		ifFalse: [ aClosureToExecuteOnRequestFailure value: resp content ] ] fork 
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -411,7 +410,7 @@ cartIdsIndex: anIndex
 	! !
 
 
-!TusLibrosClientTestWindowModel methodsFor: 'buttonSelectors' stamp: 'S D 11/13/2023 01:43:10'!
+!TusLibrosClientTestWindowModel methodsFor: 'buttonSelectors' stamp: 'S D 11/13/2023 14:46:04'!
 addToCart
 
 	| cartId bookIsbn |
