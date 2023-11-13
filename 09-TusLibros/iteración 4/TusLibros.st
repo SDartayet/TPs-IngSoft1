@@ -753,36 +753,30 @@ salesBook
 	^ salesBook! !
 
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:44'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:19:00'!
 bookPerformance: anItem
-
-	| bookPerformance totalMoney totalSales semaphore|
-
-	semaphore := Semaphore new.
-
+		
+	^self generatePerformanceReportForSales: [ self totalSalesOf: anItem ] money: [ self totalMoneyRaisedBy: anItem. ] withSummary: [ : totalSales : totalMoney | anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString ].
 	
-	[totalSales := self totalSalesOf: anItem. semaphore signal.] fork.
-	totalMoney := self totalMoneyRaisedBy: anItem. 
-	
-	semaphore wait.
-	
-	bookPerformance := self generatePerformanceReportForSales: totalSales money: totalMoney withSummary: anItem,' was sold ',totalSales asString, ' times and raised a total amount of money equal to: ', totalMoney asString.
-	
-	^bookPerformance
 	
 
 ! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:02'!
-generatePerformanceReportForSales: theSalesTotal money: theMoneyTotal withSummary: aSummaryTextForTheReport
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:29:40'!
+generatePerformanceReportForSales: aClosureToUseToObtainSalesTotal money: aClosureToUseToObtainMoneyTotal withSummary: aSummaryTextForTheReport
 	
-	| performanceReport |
+	| performanceReport totalSales totalMoney semaphore |
 	
 	performanceReport := Dictionary new.
 	
-	performanceReport at: 'quantity' put: theSalesTotal.
-	performanceReport at: 'total' put: theMoneyTotal.
-	performanceReport at: 'summary' put: aSummaryTextForTheReport.
+	semaphore := Semaphore new.
+	
+	[ totalSales := aClosureToUseToObtainSalesTotal value. semaphore signal ] fork.
+	totalMoney := aClosureToUseToObtainMoneyTotal value. semaphore wait.
+	
+	performanceReport at: 'quantity' put: totalSales.
+	performanceReport at: 'total' put: totalMoney.
+	performanceReport at: 'summary' put: (aSummaryTextForTheReport value: totalSales value: totalMoney).
 	
 	^performanceReport ! !
 
@@ -801,23 +795,10 @@ salesDoneBy: aUser
 	"Esto es un indicio de que por ahi conviene empezar a pensar en modelar un SaleBook - Hernan"
 	^ salesBook select: [ :aSale | aSale wasDoneBy: aUser ]! !
 
-!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/12/2023 00:40:58'!
+!TusLibrosSystemFacade methodsFor: 'private' stamp: 'S D 11/13/2023 01:18:03'!
 storePerformance
-
-	| totalMoney totalSales performance semaphore|
 	
-	semaphore := Semaphore new.
-		
-	[totalSales := self totalSales.semaphore signal.] fork.
-	totalMoney := self totalMoneyRaised.
-	
-	performance := self generatePerformanceReportForSales: totalSales money: totalMoney withSummary: 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString.
-	
-	semaphore wait.
-	
-	
-	
-	^performance
+	^self generatePerformanceReportForSales: [ self totalSales ]  money: [ self totalMoneyRaised ] withSummary:  [ : totalSales : totalMoney | 'The store sold a total of ',totalSales asString, ' books and raised a total amount of money equal to: ', totalMoney asString ].
 	
 
 ! !
