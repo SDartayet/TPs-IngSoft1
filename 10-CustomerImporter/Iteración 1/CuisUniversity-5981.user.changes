@@ -1,0 +1,4939 @@
+
+
+----QUIT----(13 August 2023 19:14:09) CuisUniversity-5981.image priorSource: 5713367!
+
+----STARTUP---- (13 August 2023 19:14:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5981.image!
+
+
+----QUIT----(13 August 2023 19:14:10) CuisUniversity-5981.image priorSource: 10197065!
+
+----STARTUP---- (13 November 2023 19:58:40) as /home/clinux01/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+----End fileIn of /home/clinux01/ing-software-1-c2-2023/xd3/linux64/CustomerImporter.st----!
+
+----STARTUP---- (13 November 2023 19:59:15) as /home/clinux01/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+----End fileIn of /home/clinux01/ing-software-1-c2-2023/xd3/linux64/CustomerImporter.st----!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:03:43' prior: 50650334!
+test01Import
+
+	| numberOfCostumers |
+	Customer importCustomers .
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:03:49' prior: 50650594!
+test01Import
+
+	| numberOfCostumers |
+	
+	Customer importCustomers .
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:04:35' prior: 50650601!
+test01Import
+
+	| numberOfCostumers session |
+	
+	Customer importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:04:46' prior: 50650608!
+test01Import
+
+	| numberOfCostumers session |
+	
+	Customer importCustomers .
+	
+	session.
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:05:08' prior: 50650617!
+test01Import
+
+	| numberOfCostumers session |
+	
+	Customer importCustomers .
+	
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:05:09'!
+ERROR!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:05:19'!
+ERROR!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:05:19'!
+ERROR!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:06:00'!
+FAILURE!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:06:01'!
+FAILURE!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:06:17'!
+FAILURE!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:06:18'!
+FAILURE!
+
+session!
+
+session!
+
+session!
+
+session!
+
+session selectAllOfType: Customer!
+
+session := DataBaseSession for: (Array with: Address with: Customer).!
+
+session := DataBaseSession for: (Array with: Address with: Customer). a DataBaseSession .
+session beginTransaction.
+session selectAllOfType: Customer!
+
+session selectAllOfType: Customer!
+
+session selectAllOfType: Customer!
+
+session objectsOfType: Customer!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:19:27' prior: 50650627!
+test01Import
+
+	| numberOfCostumers databaseSession |
+	
+	Customer importCustomers .
+	
+	databaseSession := DataBaseSession for: (Array with: Address with: Customer).
+	databaseSession beginTransaction.
+	
+	numberOfCostumers := (databaseSession selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+!DataBaseSession methodsFor: 'transaction management' stamp: 'eaam 11/13/2023 20:20:11' prior: 50650509!
+beginTransaction
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:21:33' prior: 50650670!
+test01Import
+
+	| numberOfCostumers databaseSession |
+	
+	
+	databaseSession := DataBaseSession for: (Array with: Address with: Customer).
+	databaseSession beginTransaction.
+	
+	Customer importCustomers .
+	
+	numberOfCostumers := (databaseSession selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:25:02'!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream session newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:26:35' prior: 50650688!
+test01Import
+
+	| numberOfCostumers databaseSession |
+	
+	
+	databaseSession := DataBaseSession for: (Array with: Address with: Customer).
+	databaseSession beginTransaction.
+	
+	self importCustomers .
+	
+	numberOfCostumers := (databaseSession selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+
+!methodRemoval: Customer class #importCustomers stamp: 'eaam 11/13/2023 20:26:49'!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream session newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:27:10' prior: 50650742!
+test01Import
+
+	"| numberOfCostumers databaseSession |
+	
+	
+	databaseSession := DataBaseSession for: (Array with: Address with: Customer).
+	databaseSession beginTransaction."
+	
+	self importCustomers .
+	
+	"numberOfCostumers := (databaseSession selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2."! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:27:12'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:27:12'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:27:27' prior: 50650795!
+test01Import
+
+	| numberOfCostumers databaseSession |
+	
+	
+	databaseSession := DataBaseSession for: (Array with: Address with: Customer).
+	databaseSession beginTransaction.
+	
+	self importCustomers .
+	
+	numberOfCostumers := (databaseSession selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:27:36' prior: 50650701!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam 11/13/2023 20:27:37'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:27:55' prior: 50650814!
+test01Import
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:27:59'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:27:59'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:30:51' overrides: 16961394!
+setUp
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:30:51' prior: 50650827!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	self setUp.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:31:46'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:32:05' prior: 50650896!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	self setUp.
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+
+!methodRemoval: ImportTest #setUp stamp: 'eaam 11/13/2023 20:32:09'!
+setUp
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:32:20' overrides: 16961394!
+setUp
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:32:20' prior: 50650936!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+	self setUp.
+
+	self setUp.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:32:26' prior: 50650990!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:32:36'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:32:40'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:32:40'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:33:22' overrides: 16961402!
+tearDown
+
+	session commit.
+	session close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:33:22' prior: 50651028!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	self tearDown.
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:33:28' prior: 50651078!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:33:31'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:34:40'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:38:29' prior: 50650875!
+test01Import
+
+	| numberOfCostumers elPibardo |
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:39:04'!
+test02
+
+	| numberOfCostumers elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']]! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:41:15' prior: 50651169!
+test02
+
+	| numberOfCostumers elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']].
+		
+		self assert: elPibardo equals: elPibardo! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:41:24' prior: 50651182!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']].
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:41:27'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:42:49'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:42:49'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:44:00'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:47:33' prior: 50651195!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']].
+		self importCustomers .
+		
+		self assert: elPibardo equals: elPibardo! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:47:37' prior: 50651215!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']].
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:48:32' prior: 50651227!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType: 'D') and:[aCustomer identificationNumber: '22333444']] ofType: Customer.
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:48:34'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:48:56' prior: 50651238!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | (aCustomer identificationType = 'D') and:[aCustomer identificationNumber: '22333444']] ofType: Customer.
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:48:58'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:50:05' prior: 50651252!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | [ aCustomer identificationType = 'D' ] and:[aCustomer identificationNumber: '22333444']] ofType: Customer.
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:50:06'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:50:34' prior: 50651266!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select:[:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] ofType: Customer.
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:50:36'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:50:36'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:50:37'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:50:37'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:50:58' prior: 50651280!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select: ([:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] )ofType: Customer.
+		
+		
+		self assert: elPibardo equals: elPibardo! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:50:59'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:50:59'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:51:00'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:51:01'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:51:37' prior: 50651301!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] ofType: Customer.
+		
+		
+		self assert: elPibardo size equals: 1! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:51:42' prior: 50651322!
+test02
+
+	| elPibardo|
+	
+	
+	
+	self importCustomers .
+	
+	
+		elPibardo := session select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+		
+		self assert: elPibardo size equals: 1! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:51:43'!
+FAILURE!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:52:02'!
+FAILURE!
+
+elPibardo contents!
+
+elPibardo !
+
+elPibardo contents!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:53:37'!
+FAILURE!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:53:38'!
+FAILURE!
+
+session!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:55:49' prior: 50651115!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:55:52'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:56:58' prior: 50651333!
+test02
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+		listOfPibardos := session select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+		thePibardo := listOfPibardos anyOne.
+		
+		
+		self assert: listOfPibardos size equals: 1.
+
+		self assert: listOfPibardos  equals: 1.		! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:57:53' prior: 50651395!
+test02
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+		listOfPibardos := session select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+		thePibardo := listOfPibardos anyOne.
+		
+		
+		self assert: listOfPibardos size equals: 1.
+
+		self assert: thePibardo firstName equals: 'Pepe'.		
+		self assert: thePibardo lastName equals: 'Sanchez'.	
+		self assert: thePibardo identificationType equals: 'D'.	
+		self assert: thePibardo identificationNumber equals: '22333444'.	! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:57:55'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:57:55'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:57:56'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:57:56'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:58:10' prior: 50651410!
+test02
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+		listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+		thePibardo := listOfPibardos anyOne.
+		
+		
+		self assert: listOfPibardos size equals: 1.
+
+		self assert: thePibardo firstName equals: 'Pepe'.		
+		self assert: thePibardo lastName equals: 'Sanchez'.	
+		self assert: thePibardo identificationType equals: 'D'.	
+		self assert: thePibardo identificationNumber equals: '22333444'.	! !
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:58:11'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:58:12'!
+ERROR!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:58:12'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:58:13'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:58:25' prior: 50651156!
+test01Import
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:58:29'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'eaam 11/13/2023 20:58:30'!
+PASSED!
+
+!testRun: #ImportTest #test02 stamp: 'eaam 11/13/2023 20:58:30'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:58:49' prior: 50651441!
+test02
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:59:15'!
+test02PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 20:59:25'!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+
+!methodRemoval: ImportTest #test01Import stamp: 'eaam 11/13/2023 20:59:25'!
+test01Import
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	!
+
+!methodRemoval: ImportTest #test02 stamp: 'eaam 11/13/2023 20:59:27'!
+test02
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:00:05'!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '25666777']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:00:31' prior: 50651569!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:00:46' prior: 50651591!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:00:48'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/13/2023 21:00:49'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:00:49'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:00:50'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:02:20'!
+test04JuanPerezFirstAddressIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [: anAddress | anAddress  and:[ anAddress identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+
+!methodRemoval: ImportTest #test04JuanPerezFirstAddressIsImportedCorrectly stamp: 'eaam 11/13/2023 21:03:01'!
+test04JuanPerezFirstAddressIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [: anAddress | anAddress  and:[ anAddress identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:03:16'!
+test04PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:03:31' prior: 50651691!
+test04PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:03:59' prior: 50651713!
+test04PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:04:24' prior: 50651729!
+test04PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection new.
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:05:07'!
+keyword1: newCustomer keyword2: line
+
+	| addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:05:07' prior: 50651356!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ self keyword1: newCustomer keyword2: line ].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!methodRemoval: ImportTest #keyword1:keyword2: stamp: 'eaam 11/13/2023 21:06:26'!
+keyword1: newCustomer keyword2: line
+
+	| addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:06:26' prior: 50651780!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+newAddress := Address new.
+newCustomer addAddress: newAddress.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:07:35' prior: 50651821!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+newAddress := Address new.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:07:46' prior: 50651857!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:08:18'!
+keyword1: newAddress keyword2: addressData
+
+	newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:08:18' prior: 50651893!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+
+self keyword1: newAddress keyword2: addressData.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!methodRemoval: ImportTest #keyword1:keyword2: stamp: 'eaam 11/13/2023 21:08:30'!
+keyword1: newAddress keyword2: addressData
+
+	newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:08:30' prior: 50651939!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:08:49' prior: 50651979!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData fourth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:09:31' prior: 50652014!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData sixth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:11:12' prior: 50652050!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData  |
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData sixth.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam 11/13/2023 21:11:12'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session newAddress'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:12:03'!
+createAddressForAddressData: addressData
+
+	newAddress := Address new.
+newAddress streetName: addressData second.
+newAddress streetNumber: addressData third asNumber .
+newAddress town: addressData fourth.
+newAddress zipCode: addressData fifth asNumber .
+newAddress province: addressData sixth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:12:03' prior: 50652086!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData  |
+	addressData := line findTokens: $,.
+	self createAddressForAddressData: addressData.
+newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:12:13' prior: 50652142!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData  |
+	addressData := line findTokens: $,.
+	self createAddressForAddressData: addressData.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:12:24' prior: 50652129!
+createAddressForAddressData: addressData
+
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:12:39'!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection new.
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+
+!methodRemoval: ImportTest #test04PepeSanchezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:15:38'!
+test04PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection new.
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:16:26' prior: 50652212!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs'
+		with: self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires'.
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:16:38' prior: 50652249!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+	
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:16:45'!
+ERROR!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:16:46'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:17:33' prior: 50652171!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:18:09' prior: 50652200!
+createAddressForAddressData: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:18:13'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:18:13'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:18:51' prior: 50652273!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardosAddresses thePibardo expectedAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+	
+	
+	listOfPibardosAddresses := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	
+	
+		
+		
+	self assert: listOfPibardosAddresses size equals: 2.
+
+	self assert: thePibardo addresses equals: 'Pepe'.		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:19:58' prior: 50652352!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos thePibardo expectedAddresses listOfPibardoAddresses listOfPibardosAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := listOfPibardos anyOne addresses.
+	
+	
+		
+		
+	self assert: listOfPibardosAddresses size equals: 2.
+
+	self assert: thePibardo addresses equals: expectedAddresses .		
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:20:20' prior: 50652375!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := listOfPibardos anyOne addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+
+	self assert: listOfPibardoAddresses equals: expectedAddresses .		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:20:33'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:20:33'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:20:51' prior: 50652402!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+
+	self assert: listOfPibardoAddresses equals: expectedAddresses .		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:00'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:21:30' prior: 50652330!
+createAddressForAddressData: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth
+	^newAddress ! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:32'!
+ERROR!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:33'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:21:37' prior: 50652463!
+createAddressForAddressData: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.
+	^newAddress ! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:40'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:41'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:21:58' prior: 50652434!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires')
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs').
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+
+	self assert: listOfPibardoAddresses equals: expectedAddresses .		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:21:59'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:22:00'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:23:16' prior: 50652507!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+
+	self assert: listOfPibardoAddresses equals: expectedAddresses .		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:23:17'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:23:18'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:24:09' prior: 50652539!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+
+	self assert: listOfPibardoAddresses = expectedAddresses .		
+	! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:24:11'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:24:11'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:26:48' prior: 50652571!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:27:41' prior: 50652603!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:27:42'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/13/2023 21:27:42'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:27:43'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:27:44'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:27:44'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:27:55'!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:28:01' prior: 50652710!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:28:12' prior: 50652763!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:28:19' prior: 50652814!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:21'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:28:33' prior: 50652864!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:28:38' prior: 50652903!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:39'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/13/2023 21:28:39'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:40'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:40'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:41'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:28:42'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:38:21'!
+keyword
+
+	^ UniFileStream new open: 'input.txt' forWrite: false! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:38:21' prior: 50652303!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := self keyword.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:38:33'!
+file
+
+	^ UniFileStream new open: 'input.txt' forWrite: false! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:38:33' prior: 50652999!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream := self file.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!methodRemoval: ImportTest #keyword stamp: 'eaam 11/13/2023 21:38:33'!
+keyword
+
+	^ UniFileStream new open: 'input.txt' forWrite: false!
+
+!methodRemoval: ImportTest #file stamp: 'eaam 11/13/2023 21:38:57'!
+file
+
+	^ UniFileStream new open: 'input.txt' forWrite: false!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:38:57' prior: 50653030!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream  newCustomer line |
+
+	inputStream :=  UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:39:55' prior: 50653064!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	inputStream :=  UniFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam 11/13/2023 21:39:55'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session newAddress inputStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:40:18' prior: 50653091!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:40:27' prior: 50650983 overrides: 16961394!
+setUp
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	inputStream :=  UniFileStream new open: 'input.txt' forWrite: false.! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/13/2023 21:40:47'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:40:48'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/13/2023 21:40:48'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:40:49'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 21:40:49'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01'!
+importCustomers: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01' prior: 50652641!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers: imputStream .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01' prior: 50652938!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers: imputStream .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01' prior: 50651510!
+test02PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers: imputStream .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01' prior: 50651531!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers: imputStream .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:01' prior: 50651613!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers: imputStream .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+
+!methodRemoval: ImportTest #importCustomers stamp: 'eaam 11/13/2023 21:42:01'!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:20' prior: 50653313!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers: inputStream .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:48'!
+importCustomersForImput: anInputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := inputStream nextLine. ].
+
+	inputStream close.
+	! !
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam 11/13/2023 21:42:55'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session newAddress imputStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:55' prior: 50653370!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers: imputStream .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:55' prior: 50653380!
+importCustomersForImput: anInputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := imputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:55' prior: 50653151 overrides: 16961394!
+setUp
+
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	imputStream :=  UniFileStream new open: 'input.txt' forWrite: false.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:42:55' prior: 50653176!
+importCustomers: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := imputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:43:01' prior: 50653425!
+importCustomersForImput: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := imputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:43:06' prior: 50653485!
+importCustomersForImput: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:44:11' prior: 50653460!
+importCustomers: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04'!
+importCustomers: anImputStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04' prior: 50653291!
+test02PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04' prior: 50653255!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04' prior: 50653201!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomers: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04' prior: 50653414!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomers: imputStream forSession: session .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:04' prior: 50653324!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomers: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+
+!methodRemoval: ImportTest #importCustomers: stamp: 'eaam 11/13/2023 21:48:04'!
+importCustomers: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	!
+
+!methodRemoval: ImportTest #importCustomersForImput: stamp: 'eaam 11/13/2023 21:48:08'!
+importCustomersForImput: anImputStreamToRead
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28'!
+importCustomersForReadStream: anImputStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28' prior: 50653701!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	numberOfCostumers := (session selectAllOfType: Customer) size.
+	
+	self assert: numberOfCostumers equals: 2.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28' prior: 50653588!
+test02PepeSanchezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Pepe'.		
+	self assert: thePibardo lastName equals: 'Sanchez'.	
+	self assert: thePibardo identificationType equals: 'D'.	
+	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28' prior: 50653647!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForAddressData: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForAddressData: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28' prior: 50653712!
+test03JuanPerezIsImportedCorrectly
+
+	| listOfPibardos thePibardo |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+		
+	thePibardo := listOfPibardos anyOne.
+		
+		
+	self assert: listOfPibardos size equals: 1.
+
+	self assert: thePibardo firstName equals: 'Juan'.		
+	self assert: thePibardo lastName equals: 'Perez'.	
+	self assert: thePibardo identificationType equals: 'C'.	
+	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:28' prior: 50653611!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForAddressData: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+
+!methodRemoval: ImportTest #importCustomers:forSession: stamp: 'eaam 11/13/2023 21:48:28'!
+importCustomers: anImputStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anImputStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:48:37' prior: 50653784!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+	
+	self createAddressForAddressData: line.
+	newCustomer addAddress: newAddress.].
+
+		line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:49:37' prior: 50653987!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:49:41' prior: 50654014!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   newCustomer line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:50:42' prior: 50652485!
+createAddressForAddressData: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.
+	^newAddress! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:51:31' prior: 50654041!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	| newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:51:50' prior: 50654083!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam 11/13/2023 21:51:50'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session newAddress imputStream newCustomer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:29'!
+createCustomerForLine: line
+
+	| customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:29' prior: 50654110!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:33' prior: 50654158!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForAddressData: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:53'!
+createAddressForLine: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.
+	^newAddress! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:53' prior: 50653846!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:53' prior: 50653925!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForLine: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: expectedAddresses first province.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 21:52:53' prior: 50654176!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForLine: line.
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+
+!methodRemoval: ImportTest #createAddressForAddressData: stamp: 'eaam 11/13/2023 21:52:53'!
+createAddressForAddressData: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.
+	^newAddress!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:01:21' prior: 50654300!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ 
+			self createAddressForLine: line.
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			newCustomer addAddress: newAddress.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:01:57' prior: 50654209!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:02:21' prior: 50654355!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: expectedAddresses first streetNumber.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: '1636'.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:02:31' prior: 50654409!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: '3322'.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: '1636'.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:02:42' prior: 50654462!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: '3322'.
+	self assert: listOfPibardoAddresses first streetName equals: 'Olivos'.
+	self assert: listOfPibardoAddresses first zipCode equals: '1636'.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:02:53' prior: 50654514!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: '3322'.
+	self assert: listOfPibardoAddresses first streetName equals: 'Olivos'.
+	self assert: listOfPibardoAddresses first zipCode equals: '1636'.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:03:13' prior: 50654565!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: '3322'.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: '1636'.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 22:03:15'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 22:03:15'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:03:27' prior: 50654615!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/13/2023 22:03:29'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam 11/13/2023 22:03:44' prior: 50654672!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: expectedAddresses second province.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+----QUIT----(13 November 2023 22:03:54) CuisUniversity-5981.image priorSource: 10197292!
+
+----STARTUP---- (14 November 2023 00:06:30) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:07:22' prior: 50654726!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+----QUIT----(14 November 2023 00:07:31) CuisUniversity-5981.image priorSource: 10340057!
+
+----STARTUP---- (14 November 2023 00:07:33) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:07:39' prior: 50654785!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: expectedAddresses second zipCode.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+
+----QUIT----(14 November 2023 00:07:48) CuisUniversity-5981.image priorSource: 10341926!
+
+----STARTUP---- (14 November 2023 00:09:24) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:09:46' prior: 50654844!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: expectedAddresses second town.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:20:22' prior: 50654903!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: expectedAddresses second streetNumber.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:20:33' prior: 50654954!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: 888.
+	self assert: listOfPibardoAddresses second streetName equals: expectedAddresses second streetName.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:20:45' prior: 50655004!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection 
+		with: (self createAddressForLine: 'A,San Martin,3322,Olivos,1636,BsAs')
+		with: (self createAddressForLine: 'A,Maipu,888,Florida,1122,Buenos Aires').
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: 888.
+	self assert: listOfPibardoAddresses second streetName equals: 'Maipu'.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:20:57' prior: 50655053!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	"me dijo un profe que hay que cambiar todo a este formato :D"
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: 888.
+	self assert: listOfPibardoAddresses second streetName equals: 'Maipu'.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:21:45' prior: 50654333!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData |
+			self createAddressForLine: line.
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session imputStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'eaam eze 11/14/2023 00:23:18'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session imputStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:23:23' prior: 50655143!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer   line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			self createAddressForLine: line.
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:23:32' prior: 50655184!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			self createAddressForLine: line.
+	addressData := line findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:25:28' prior: 50655213!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			self createAddressForLine: line.
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:25:51' prior: 50655242!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ 
+			" Sacar este refactor, eso es parala iteración 2!!!!!!"
+			self createCustomerForLine: line.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+
+!methodRemoval: ImportTest #createAddressForLine: stamp: 'eaam eze 11/14/2023 00:26:03'!
+createAddressForLine: addressDataLine
+
+	| addressData |
+	addressData := addressDataLine findTokens: $,.
+	newAddress := Address new.
+	newAddress streetName: addressData second.
+	newAddress streetNumber: addressData third asNumber .
+	newAddress town: addressData fourth.
+	newAddress zipCode: addressData fifth asNumber .
+	newAddress province: addressData sixth.
+	^newAddress!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:26:31' prior: 50655272!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:27:00' prior: 50654263!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForLine: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: expectedAddresses first zipCode.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:27:09' prior: 50655350!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForLine: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: 1122.
+	self assert: listOfPibardoAddresses first town equals: expectedAddresses first town.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:27:31' prior: 50655385!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForLine: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: expectedAddresses first streetName.
+	self assert: listOfPibardoAddresses first zipCode equals: 1122.
+	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:27:43' prior: 50655419!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos expectedAddresses listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	expectedAddresses := OrderedCollection with: (self createAddressForLine: 'A,Alem,1122,CABA,1001,CABA').
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: 'Alem'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1122.
+	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:27:52' prior: 50655452!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: 'Alem'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1122.
+	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+! !
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:27:56'!
+ERROR!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:27:56'!
+ERROR!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:28:07'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:28:38' prior: 50655485!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1001.
+	self assert: listOfPibardoAddresses first streetName equals: 'Alem'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1122.
+	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+! !
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:28:40'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:28:41'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:28:51'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:28:52'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:23'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:23'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:29:29' prior: 50655101!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+		
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: 888.
+	self assert: listOfPibardoAddresses second streetName equals: 'Maipu'.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:29:36' prior: 50655571!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
+	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1636.
+	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+
+	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
+	self assert: listOfPibardoAddresses second streetNumber equals: 888.
+	self assert: listOfPibardoAddresses second streetName equals: 'Maipu'.
+	self assert: listOfPibardoAddresses second zipCode equals: 1122.
+	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:41'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:41'!
+FAILURE!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam eze 11/14/2023 00:29:44'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:46'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:48'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:50'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:29:50'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:30:54' prior: 50655315!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:31:22' prior: 50655675!
+importCustomersForReadStream: anReadStreamToRead forSession: aSession 
+
+	"
+	self importCustomers
+	"
+	|newCustomer  line |
+
+	line := anReadStreamToRead nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth.].
+			line := imputStream nextLine. ].
+
+	imputStream close.
+	! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam eze 11/14/2023 00:31:25'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:26'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:26'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:27'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:28'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:28'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'eaam eze 11/14/2023 00:31:45' prior: 50655522!
+test05JuanPerezDataIsImportedCorrectly
+
+	| listOfPibardos listOfPibardoAddresses |
+	
+	
+	self importCustomersForReadStream: imputStream forSession: session .
+	
+	
+	listOfPibardos := session 
+		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
+		ofType: Customer.
+	
+	listOfPibardoAddresses := (listOfPibardos anyOne) addresses.
+	
+	
+		
+		
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self assert: listOfPibardoAddresses first province equals: 'CABA'.
+	self assert: listOfPibardoAddresses first streetNumber equals: 1122.
+	self assert: listOfPibardoAddresses first streetName equals: 'Alem'.
+	self assert: listOfPibardoAddresses first zipCode equals: 1001.
+	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam eze 11/14/2023 00:31:47'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:48'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:48'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:49'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam eze 11/14/2023 00:31:50'!
+PASSED!
+
+----QUIT----(14 November 2023 00:32:11) CuisUniversity-5981.image priorSource: 10343814!
