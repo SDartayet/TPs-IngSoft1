@@ -5,17 +5,6 @@ TestCase subclass: #ImportTest
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/13/2023 21:52:29'!
-createCustomerForLine: line
-
-	| customerData |
-			customerData := line findTokens: $,.
-			newCustomer := Customer new.
-			newCustomer firstName: customerData second.
-			newCustomer lastName: customerData third.
-			newCustomer identificationType: customerData fourth.
-			newCustomer identificationNumber: customerData fifth! !
-
 !ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:41:56'!
 doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
 

@@ -6504,3 +6504,19 @@ test05JuanPerezDataIsImportedCorrectly
 
 
 ----QUIT----(16 November 2023 04:47:20) CuisUniversity-5981.image priorSource: 10694461!
+
+----STARTUP---- (16 November 2023 12:01:56) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+!methodRemoval: ImportTest #createCustomerForLine: stamp: 'eaam 11/16/2023 12:03:55'!
+createCustomerForLine: line
+
+	| customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth!
+
+----QUIT----(16 November 2023 12:04:19) CuisUniversity-5981.image priorSource: 10694674!
