@@ -6520,3 +6520,426 @@ createCustomerForLine: line
 			newCustomer identificationNumber: customerData fifth!
 
 ----QUIT----(16 November 2023 12:04:19) CuisUniversity-5981.image priorSource: 10694674!
+
+----STARTUP---- (16 November 2023 12:08:13) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:08:17'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:08:17'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:08:18'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:08:18'!
+ERROR!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:08:19'!
+ERROR!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:08:24'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:10:13' prior: 50665613!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare first province equals: 'BsAs'.
+	self assert: anAddressToCompare first streetNumber equals: 3322.
+	self assert: anAddressToCompare first streetName equals: 'San Martin'.
+	self assert: anAddressToCompare first zipCode equals: 1636.
+	self assert: anAddressToCompare first town equals: 'Olivos'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:10:36' prior: 50665804!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses firstAddressExpectedAttributes secondAddressExpectedAttributes|
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 2
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	
+	
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	listOfPibardoAddresses := (thePibardo) addresses.	self assert: listOfPibardoAddresses size equals: 2.
+	
+	self doesAddress: listOfPibardoAddresses first haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: listOfPibardoAddresses second haveAttributes: secondAddressExpectedAttributes .! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:10:40'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:10:40'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:10:41'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:10:41'!
+ERROR!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:10:42'!
+ERROR!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:10:45'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:11:07' prior: 50665906!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: 'BsAs'.
+	self assert: anAddressToCompare streetNumber equals: 3322.
+	self assert: anAddressToCompare streetName equals: 'San Martin'.
+	self assert: anAddressToCompare zipCode equals: 1636.
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:11:09'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:11:09'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:11:10'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:11:11'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:11:11'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:11:15'!
+FAILURE!
+
+----STARTUP---- (16 November 2023 12:14:02) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:14:19' prior: 50665613!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: 'BsAs'.
+	self assert: anAddressToCompare streetNumber equals: 3322.
+	self assert: anAddressToCompare streetName equals: 'San Martin'.
+	self assert: anAddressToCompare zipCode equals: 1636.
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:14:29' prior: 50665804!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses firstAddressExpectedAttributes secondAddressExpectedAttributes|
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 2
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	
+	
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	listOfPibardoAddresses := (thePibardo) addresses.	self assert: listOfPibardoAddresses size equals: 2.
+
+	self doesAddress: listOfPibardoAddresses first haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: listOfPibardoAddresses second haveAttributes: secondAddressExpectedAttributes .! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:14:40'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:14:40'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:14:41'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:14:41'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:14:42'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:15:11' prior: 50666012!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: 3322.
+	self assert: anAddressToCompare streetName equals: 'San Martin'.
+	self assert: anAddressToCompare zipCode equals: 1636.
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:15:25' prior: 50666075!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: 'San Martin'.
+	self assert: anAddressToCompare zipCode equals: 1636.
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:15:38' prior: 50666091!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: 1636.
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:15:48' prior: 50666107!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: 'Olivos'! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:15:58'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:15:59'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:15:59'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:00'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:00'!
+FAILURE!
+
+----QUIT----(16 November 2023 12:16:06) CuisUniversity-5981.image priorSource: 10695308!
+
+----STARTUP---- (16 November 2023 12:16:09) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:16:14'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:14'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:15'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:15'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:16'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:16:19'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:16:50' prior: 50666027!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses firstAddressExpectedAttributes secondAddressExpectedAttributes|
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	
+	
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	listOfPibardoAddresses := (thePibardo) addresses.	self assert: listOfPibardoAddresses size equals: 2.
+
+	self doesAddress: listOfPibardoAddresses first haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: listOfPibardoAddresses second haveAttributes: secondAddressExpectedAttributes .! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:16:55' prior: 50665833!
+test05JuanPerezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfPibardoAddresses := thePibardo addresses.
+	
+	self doesAddress: listOfPibardoAddresses first haveAttributes: expectedAddressAttributes .
+! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:17:18' prior: 50666216!
+test05JuanPerezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfPibardoAddresses := thePibardo addresses.
+	
+	self assert: listOfPibardoAddresses size equals: 1.
+	
+	self doesAddress: listOfPibardoAddresses first haveAttributes: expectedAddressAttributes .
+! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:17:22'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:17:24'!
+FAILURE!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:17:25'!
+FAILURE!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:17:31'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:17:57' prior: 50666124!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth ! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:18:12' prior: 50666277!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+
+----QUIT----(16 November 2023 12:18:18) CuisUniversity-5981.image priorSource: 10704238!
+
+----STARTUP---- (16 November 2023 12:18:19) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/CuisUniversity-5981.image!
+
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:18:24'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/16/2023 12:18:25'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:18:26'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/16/2023 12:18:26'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:18:27'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/16/2023 12:18:28'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:18:50' prior: 50666185!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| thePibardo listOfPibardoAddresses firstAddressExpectedAttributes secondAddressExpectedAttributes|
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	listOfPibardoAddresses := (thePibardo) addresses.	self assert: listOfPibardoAddresses size equals: 2.
+
+	self doesAddress: listOfPibardoAddresses first haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: listOfPibardoAddresses second haveAttributes: secondAddressExpectedAttributes .! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:20:59' prior: 50665525!
+test02PepeSanchezIsImportedCorrectly
+
+	| thePibardo expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: thePibardo haveAttributes: expectedAttributes .	! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:53:56'!
+keyword
+
+	^ OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'! !
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:53:56' prior: 50666371!
+test02PepeSanchezIsImportedCorrectly
+
+	| thePibardo expectedAttributes |	
+	expectedAttributes := self keyword.
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: thePibardo haveAttributes: expectedAttributes .	! !
+
+!methodRemoval: ImportTest #keyword stamp: 'eaam 11/16/2023 12:54:18'!
+keyword
+
+	^ OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:54:18' prior: 50666392!
+test02PepeSanchezIsImportedCorrectly
+
+	| thePibardo expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: inputStream forSession: session .
+	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: thePibardo haveAttributes: expectedAttributes .	! !
+
+----QUIT----(16 November 2023 12:54:41) CuisUniversity-5981.image priorSource: 10709232!
