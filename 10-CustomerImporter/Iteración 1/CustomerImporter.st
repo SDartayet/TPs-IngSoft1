@@ -16,16 +16,39 @@ createCustomerForLine: line
 			newCustomer identificationType: customerData fourth.
 			newCustomer identificationNumber: customerData fifth! !
 
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:41:56'!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare size equals: 2.
+	self assert: anAddressToCompare first province equals: 'BsAs'.
+	self assert: anAddressToCompare first streetNumber equals: 3322.
+	self assert: anAddressToCompare first streetName equals: 'San Martin'.
+	self assert: anAddressToCompare first zipCode equals: 1636.
+	self assert: anAddressToCompare first town equals: 'Olivos'! !
+
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:38:34'!
+doesCustomer: aCustomerToCompare haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
+getAllCustomersWithIDType: theIDTypeOfTheCustomers andIDNumber: theIDNumberOfTheCustomers 
+
+	^ session 
+		select: [:aCustomer | aCustomer identificationType = theIDTypeOfTheCustomers and:[ aCustomer identificationNumber = theIDNumberOfTheCustomers]] 
+		ofType: Customer! !
+
 !ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:46:31'!
 importCustomersForReadStream: aReadStreamToRead forSession: aSessionToRecordDataOn
 	(CustomerImporter forDatabaseSessionToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:33:00'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
 obtainCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
 
-	^( session 
-		select: [:aCustomer | aCustomer identificationType = theTypeOfID and:[ aCustomer identificationNumber = theIDNumberOfTheCustomer]] 
-		ofType: Customer) anyOne! !
+	^( self getAllCustomersWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer) anyOne! !
 
 !ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
 setUp
@@ -40,7 +63,7 @@ tearDown
 	session commit.
 	session close! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
 test01ImportAddsTheCorrectNumberOfCustomers
 
 	| numberOfCostumers listOfSanchez listOfPerez|
@@ -51,13 +74,9 @@ test01ImportAddsTheCorrectNumberOfCustomers
 	
 	numberOfCostumers := (session selectAllOfType: Customer) size.
 	
-	listOfSanchez := session 
-		select: [:aCustomer | aCustomer identificationType = 'D' and:[ aCustomer identificationNumber = '22333444']] 
-		ofType: Customer.
+	listOfSanchez := self getAllCustomersWithIDType: 'D' andIDNumber: '22333444'.
 		
-	listOfPerez := session 
-		select: [:aCustomer | aCustomer identificationType = 'C' and:[ aCustomer identificationNumber = '23-25666777-9']] 
-		ofType: Customer.
+	listOfPerez := self getAllCustomersWithIDType: 'C' andIDNumber: '23-25666777-9'.
 	
 	
 	self assert: numberOfCostumers equals: 2.
@@ -65,75 +84,81 @@ test01ImportAddsTheCorrectNumberOfCustomers
 	
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:39:33'!
 test02PepeSanchezIsImportedCorrectly
 
-	| thePibardo |
-	
-	
+	| thePibardo expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
 	
 	self importCustomersForReadStream: inputStream forSession: session .
 	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
 
-	self assert: thePibardo firstName equals: 'Pepe'.		
-	self assert: thePibardo lastName equals: 'Sanchez'.	
-	self assert: thePibardo identificationType equals: 'D'.	
-	self assert: thePibardo identificationNumber equals: '22333444'.	! !
+	self doesCustomer: thePibardo haveAttributes: expectedAttributes .	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:40:50'!
 test03JuanPerezIsImportedCorrectly
 
-	| thePibardo |
-	
-	
+	| thePibardo expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
 	
 	self importCustomersForReadStream: inputStream forSession: session .
 	thePibardo := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
 
-	self assert: thePibardo firstName equals: 'Juan'.		
-	self assert: thePibardo lastName equals: 'Perez'.	
-	self assert: thePibardo identificationType equals: 'C'.	
-	self assert: thePibardo identificationNumber equals: '23-25666777-9'.	! !
+	self doesCustomer: thePibardo haveAttributes: expectedAttributes .! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:44:59'!
 test04PepeSanchezDataIsImportedCorrectly
 
-	| thePibardo listOfPibardoAddresses |
+	| thePibardo listOfPibardoAddresses firstAddressExpectedAttributes secondAddressExpectedAttributes|
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 2
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
 	
 	
 	
 	self importCustomersForReadStream: inputStream forSession: session .
 	thePibardo := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
 	listOfPibardoAddresses := (thePibardo) addresses.
-	self assert: listOfPibardoAddresses size equals: 2.
-	self assert: listOfPibardoAddresses first province equals: 'BsAs'.
-	self assert: listOfPibardoAddresses first streetNumber equals: 3322.
-	self assert: listOfPibardoAddresses first streetName equals: 'San Martin'.
-	self assert: listOfPibardoAddresses first zipCode equals: 1636.
-	self assert: listOfPibardoAddresses first town equals: 'Olivos'.
+	self doesAddress: listOfPibardoAddresses first haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: listOfPibardoAddresses second haveAttributes: secondAddressExpectedAttributes .! !
 
-	self assert: listOfPibardoAddresses second province equals: 'Buenos Aires'.
-	self assert: listOfPibardoAddresses second streetNumber equals: 888.
-	self assert: listOfPibardoAddresses second streetName equals: 'Maipu'.
-	self assert: listOfPibardoAddresses second zipCode equals: 1122.
-	self assert: listOfPibardoAddresses second town equals: 'Florida'.! !
-
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:39:32'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:46:28'!
 test05JuanPerezDataIsImportedCorrectly
 
-	| thePibardo listOfPibardoAddresses |
-	
+	| thePibardo listOfPibardoAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 1
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
 	
 	self importCustomersForReadStream: inputStream forSession: session .
 	thePibardo := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
 	listOfPibardoAddresses := thePibardo addresses.
 	
-	self assert: listOfPibardoAddresses size equals: 1.
-	self assert: listOfPibardoAddresses first province equals: 'CABA'.
-	self assert: listOfPibardoAddresses first streetNumber equals: 1122.
-	self assert: listOfPibardoAddresses first streetName equals: 'Alem'.
-	self assert: listOfPibardoAddresses first zipCode equals: 1001.
-	self assert: listOfPibardoAddresses first town equals: 'CABA'.
+	self doesAddress: listOfPibardoAddresses first haveAttributes: expectedAddressAttributes .
 ! !
 
 
