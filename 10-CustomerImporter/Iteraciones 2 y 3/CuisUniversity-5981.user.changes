@@ -1,0 +1,2351 @@
+
+
+----QUIT----(13 August 2023 19:14:09) CuisUniversity-5981.image priorSource: 5713367!
+
+----STARTUP---- (13 August 2023 19:14:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5981.image!
+
+
+----QUIT----(13 August 2023 19:14:10) CuisUniversity-5981.image priorSource: 10197065!
+
+----STARTUP---- (18 November 2023 21:37:05) as /home/ezfloat/ing-software-1-c2-2023/new refactor/linux64/linux64/CuisUniversity-5981.image!
+
+
+----QUIT----(18 November 2023 21:37:27) CuisUniversity-5981.image priorSource: 10197292!
+
+----STARTUP---- (18 November 2023 21:37:28) as /home/ezfloat/ing-software-1-c2-2023/new refactor/linux64/linux64/CuisUniversity-5981.image!
+
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:45'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:45'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test01NewSelectorShouldNotBeEmpty stamp: 'eaam 11/18/2023 21:39:45'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:45'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:45'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:45'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test02NewSelectorShouldNotContainSeparators stamp: 'eaam 11/18/2023 21:39:45'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:46'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:46'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:46'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:46'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test03ExtractingToSelectorAlreadyDefinedInTheClassRaisesAWarning stamp: 'eaam 11/18/2023 21:39:46'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:47'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test04NewSelectorShouldNotStartWithANumber stamp: 'eaam 11/18/2023 21:39:47'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:47'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test05NewUnarySelectorShouldNotStartWithASymbol stamp: 'eaam 11/18/2023 21:39:47'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:48'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:48'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:48'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test06IntervalToExtractIsNotBeforeMethodSourceCodeBoundaries stamp: 'eaam 11/18/2023 21:39:48'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:49'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test07IntervalToExtractIsNotAfterMethodSourceCodeBoundaries stamp: 'eaam 11/18/2023 21:39:49'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:49'!
+m1 ^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test08IntervalToExtractShouldNotContainAReturnExpression stamp: 'eaam 11/18/2023 21:39:49'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:50'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:50'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:50'!
+m1 ^ 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:50'!
+m2
+
+	^ 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:50' prior: 50650558!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test09ExtractingALiteralCreatesANewMethodAndChangesExistingCodeToCallThatNewMethod stamp: 'eaam 11/18/2023 21:39:50'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:51'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test10IntervalToExtractDoesNotContainsPartOfTheOriginalSelector stamp: 'eaam 11/18/2023 21:39:51'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:52'!
+m1 | localVar | ^ localVar + 3! !
+
+!testRun: #ExtractMethodTest #test11IntervalToExtractDoesNotContainsPartOfLocalVariablesDefinition stamp: 'eaam 11/18/2023 21:39:52'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:52'!
+m1 <annoyingPragma>! !
+
+!testRun: #ExtractMethodTest #test12IntervalToExtractDoesNotContainsPartOfPragmasDefinition stamp: 'eaam 11/18/2023 21:39:52'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:53'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:53'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:53'!
+m1 ^ 3 + ((4))! !
+
+!testRun: #ExtractMethodTest #test13IntervalToExtractShouldBeAValidSmalltalkExpression stamp: 'eaam 11/18/2023 21:39:53'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:54'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test14ItIsNotPossibleToExtractTheLeftSideOfAnAssignment stamp: 'eaam 11/18/2023 21:39:54'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:54'!
+m1 self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:54'!
+m2
+
+	self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:54' prior: 50650720!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test15ExtractingAListOfStatementsCreatesANewMethodWithoutReturn stamp: 'eaam 11/18/2023 21:39:54'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:55'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:55'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:39:55'!
+m1 ^ 'hey true'! !
+
+!testRun: #ExtractMethodTest #test16CanNotExtractPartOfALiteral stamp: 'eaam 11/18/2023 21:39:55'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56'!
+m1 ^ '^ 3' size! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56'!
+m2
+
+	^ '^ 3' size! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56' prior: 50650775!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test17AStringContainingTheReturnCharacterCanBeExtracted stamp: 'eaam 11/18/2023 21:39:56'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56'!
+m1
+	
+	self m3.
+	self m4: 5.! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56'!
+m2
+
+	self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:56' prior: 50650807!
+m1
+	
+	self m2.! !
+
+!testRun: #ExtractMethodTest #test18ExtractingAListOfStatementsIncludingDotsRemovesThemAndContinuesWithMethodExtraction stamp: 'eaam 11/18/2023 21:39:56'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:57'!
+m1 ^ ((42))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:57'!
+m2
+
+	^ 42! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:57' prior: 50650840!
+m1 ^ ((self m2))! !
+
+!testRun: #ExtractMethodTest #test19ASelectionContainingAdditionalParenthesesAtTheBeginningAndOrEndCanBeExtracted stamp: 'eaam 11/18/2023 21:39:57'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:58'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:58'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:58'!
+m1 | local | ^ local + 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:58'!
+m2: local
+
+	^ local + 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:58' prior: 50650872!
+m1 | local | ^ self m2: local! !
+
+!testRun: #ExtractMethodTest #test20ASelectionContainingALocalVariableIsParameterizedOnTheExtractedMessage stamp: 'eaam 11/18/2023 21:39:58'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59'!
+m1 ^ (9) * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59'!
+m2
+
+	^ (9) * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59' prior: 50650905!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test21ASelectionContainingAdditionalParenthesesOnOneSideCanBeExtractedAndItIsNotTrimmed stamp: 'eaam 11/18/2023 21:39:59'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:39:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:39:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59'!
+m1 | localVar | ^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59'!
+m2: localVar
+
+	^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:39:59' prior: 50650937!
+m1 | localVar | ^ self m2: localVar! !
+
+!testRun: #ExtractMethodTest #test22ItIsPossibleToExtractTheLastExpressionOfAMethod stamp: 'eaam 11/18/2023 21:39:59'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:00'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test23CanNotExtractWithAnInvalidInterval stamp: 'eaam 11/18/2023 21:40:00'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:01'!
+m1 | localVar | localVar _ 8! !
+
+!testRun: #ExtractMethodTest #test24ItIsNotPossibleToExtractAnIntervalIncludingATemporaryAssignmentExpression stamp: 'eaam 11/18/2023 21:40:01'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:01'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test25NewUnarySelectorShouldNotContainInvalidCharacters stamp: 'eaam 11/18/2023 21:40:01'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:02'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:02'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:02'!
+m1 ^ [ |something| something _ 3 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:02'!
+m2
+
+	^ [ |something| something _ 3 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:02' prior: 50651052!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test26ItIsPossibleToExtractAnEntireBlockIncludingALocalAssignment stamp: 'eaam 11/18/2023 21:40:02'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:03'!
+m1 ^ 2 ifNil: [ #boo ] ifNotNil: [ #yay ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:03'!
+m2
+
+	^ 2 ifNil: [ #boo ] ifNotNil: [ #yay ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:03' prior: 50651085!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test27ItIsPossibleToExtractExpressionsWithOptimizedSelectors stamp: 'eaam 11/18/2023 21:40:03'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:03'!
+m1 | localVar | ^ #foo! !
+
+!testRun: #ExtractMethodTest #test28ItIsNotPossibleToExtractALocalVariableInsideOfItsDeclaration stamp: 'eaam 11/18/2023 21:40:03'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:04'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:04'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:04'!
+m1: arg ^ 2 + arg * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:04'!
+m2: arg
+
+	^ 2 + arg! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:04' prior: 50651143!
+m1: arg ^ (self m2: arg) * 3! !
+
+!testRun: #ExtractMethodTest #test29ExtractingABinaryExpressionToAKeywordMessageIntroducesParenthesesToNotBreakOriginalPrecedence stamp: 'eaam 11/18/2023 21:40:04'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05'!
+m1 ^ `3 + 4`! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05'!
+m2
+
+	^ `3 + 4`! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05' prior: 50651177!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test30ItIsPossibleToExtractAQuotedExpression stamp: 'eaam 11/18/2023 21:40:05'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05'!
+m1 ^ 2 factorial ifNotNil: [ #boo ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05'!
+m2
+
+	^ 2 factorial ifNotNil: [ #boo ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:05' prior: 50651208!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test31ItIsPossibleToExtractExpressionsWithOptimizedSelectorsWhereTheReceiverIsNotASimpleLiteral stamp: 'eaam 11/18/2023 21:40:05'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:06'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:06'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:06'!
+m1 ^ [ | a | a _ 3 factorial ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:06'!
+m2
+
+	| a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:06' prior: 50651242!
+m1 ^ [ self m2 ]! !
+
+!testRun: #ExtractMethodTest #test32ItIsPossibleToExtractATemporaryDeclarationOfABlockIfItIsNotUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 21:40:06'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:07'!
+m1 | a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:07'!
+m2
+
+	| a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:07' prior: 50651275!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test33ItIsPossibleToExtractATemporaryDeclarationIfItIsNotUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 21:40:07'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:08'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:08'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:08'!
+m1 | localVar1 localVar2 | ^ localVar1 + localVar2 + 2! !
+
+!testRun: #ExtractMethodTest #test34TryingToExtractAMethodWithLessArgumentsThanNeededFails stamp: 'eaam 11/18/2023 21:40:08'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:09'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:09'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:09'!
+m1 | localVar1 localVar2 | ^ localVar1 + localVar2 + 2! !
+
+!testRun: #ExtractMethodTest #test35TryingToExtractAMethodWithMoreArgumentsThanNeededFails stamp: 'eaam 11/18/2023 21:40:09'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:09'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:09'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:09'!
+m1 ^ (3 + 2) factorial; yourself! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:09'!
+m2
+
+	^ (3 + 2) factorial; yourself! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:09' prior: 50651359!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test36ItIsPossibleToExtractACascadeExpression stamp: 'eaam 11/18/2023 21:40:09'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:10'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:10'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:10'!
+m1 | temp | []! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:10'!
+m2
+
+	| temp | []! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:10' prior: 50651392!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test37ItIsPossibleATempDeclarationAlongWithABlock stamp: 'eaam 11/18/2023 21:40:10'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:11'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:11'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:11'!
+m1 ^ (  (3 + 4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:11'!
+m2
+
+	^ 3 + 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:11' prior: 50651424!
+m1 ^ (  (self m2))! !
+
+!testRun: #ExtractMethodTest #test38ItIsPossibleToExtractCodeThatContainsMultipleParenthesisWithSpacesBetweenThem stamp: 'eaam 11/18/2023 21:40:11'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:12'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:12'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:12'!
+m1 ^ 42! !
+
+!testRun: #ExtractMethodTest #test39TryingToExtractToAMethodThatExistsInASuperclassRaisesAWarning stamp: 'eaam 11/18/2023 21:40:12'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:12'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:12'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:12'!
+m1 |var| var _ 42. ^ var! !
+
+!testRun: #ExtractMethodTest #test40CanNotExtractTemporaryAssignmentWithDeclarationIfTheVariableIsUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 21:40:12'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:13'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:13'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:13'!
+m1: arg ^ self! !
+
+!testRun: #ExtractMethodTest #test41CannotExtractPartOfMethodSignature stamp: 'eaam 11/18/2023 21:40:13'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:13'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:13'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:13'!
+m1 10. 10! !
+!ClassToExtractMethod methodsFor: 'something' stamp: 'eaam 11/18/2023 21:40:13'!
+m2
+
+	^ 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:13' prior: 50651531!
+m1 self m2. 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:13' prior: 50651538!
+m1 self m2. self m2! !
+
+!testRun: #ExtractMethodTest #test42ExtractsManyRepetitionsOnSameMethod stamp: 'eaam 11/18/2023 21:40:13'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:14'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:14'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:14'!
+m1 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:14'!
+m1b 100+10! !
+!ClassToExtractMethod methodsFor: 'something' stamp: 'eaam 11/18/2023 21:40:14'!
+m2
+
+	^ 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:14' prior: 50651566!
+m1 self m2! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:14' prior: 50651570!
+m1b 100+self m2! !
+
+!testRun: #ExtractMethodTest #test43ExtractsRepetitionsOnMoreThanOneMethod stamp: 'eaam 11/18/2023 21:40:14'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:15'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:15'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:15'!
+m1 true ifTrue: [self m1.
+	self m2]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:15'!
+m2
+
+	self m1.
+	self m2! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:15' prior: 50651605!
+m1 true ifTrue: [self m2]! !
+
+!testRun: #ExtractMethodTest #test44CanExtractManyStatementsInsideABlock stamp: 'eaam 11/18/2023 21:40:15'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:15'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:16'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16'!
+m1 [true] whileTrue: [ true ifTrue: [ self m1 ].
+	true ifTrue: [ self m2 ].
+	self m3]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16'!
+m4
+
+	true ifTrue: [ self m1 ].
+	true ifTrue: [ self m2 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16' prior: 50651637!
+m1 [true] whileTrue: [ self m4.
+	self m3]! !
+
+!testRun: #ExtractMethodTest #test45CanExtractCodeWithMoreThanOneBlockAndABlockAtTheEndInsideAnotherBlock stamp: 'eaam 11/18/2023 21:40:16'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:16'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:16'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16'!
+m1: arg
+	[true] whileTrue: [ true ifTrue: [ arg ].]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16'!
+m3: argModified
+
+	^ true ifTrue: [ argModified ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:16' prior: 50651673!
+m1: arg
+	[true] whileTrue: [ self m3: arg.]! !
+
+!testRun: #ExtractMethodTest #test46CanModifyArgumentsNamesInExtractedMethod stamp: 'eaam 11/18/2023 21:40:16'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:17'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:17'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:17'!
+m1: arg1 m2: arg2
+	[true] whileTrue: [ arg1 ifTrue: [ arg2 ].]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:17'!
+m3: arg1Modified m4: arg2
+
+	^ arg1Modified ifTrue: [ arg2 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:17' prior: 50651708!
+m1: arg1 m2: arg2
+	[true] whileTrue: [ self m3: arg1 m4: arg2.]! !
+
+!testRun: #ExtractMethodTest #test47OnlyModifiedArgumentsNamesAreModifiedInExtractedMethod stamp: 'eaam 11/18/2023 21:40:17'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:17'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:18'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 21:40:18'!
+m1 10! !
+
+!testRun: #ExtractMethodTest #test48NewSelectorMustBeUnaryWhenNoArguments stamp: 'eaam 11/18/2023 21:40:18'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:18'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 21:40:18'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:18'!
+m1 1 to: 2 do: [ :x | x + 1]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:18'!
+m2: x
+
+	^ x + 1! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 21:40:18' prior: 50651767!
+m1 1 to: 2 do: [ :x | self m2: x]! !
+
+!testRun: #ExtractMethodTest #test49CanExtractFromOptimizedMessageSends stamp: 'eaam 11/18/2023 21:40:18'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 21:40:19'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+----End fileIn of /home/ezfloat/ing-software-1-c2-2023/new refactor/linux64/linux64/CustomerImporter.st----!
+!DataBaseSession methodsFor: 'transaction management' stamp: 'eaam 11/18/2023 21:45:15' prior: 50652412!
+beginTransaction
+	! !
+!CustomerImporter methodsFor: 'input validation' stamp: 'eaam 11/18/2023 21:45:40' prior: 50652366!
+isAddressRecord
+	| uwu |
+	uwu := 'abc'
+	^ record first = 'A'! !
+
+uwu := 'abc'!
+!CustomerImporter methodsFor: 'input validation' stamp: 'eaam 11/18/2023 22:13:42' prior: 50652503!
+isAddressRecord
+	^ record first = 'A'! !
+
+uwu := 'abc'!
+
+uwu := 'abc'.!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:30'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:30'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test01NewSelectorShouldNotBeEmpty stamp: 'eaam 11/18/2023 22:38:30'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:31'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:31'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:31'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test02NewSelectorShouldNotContainSeparators stamp: 'eaam 11/18/2023 22:38:31'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:32'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:32'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:32'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:32'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test03ExtractingToSelectorAlreadyDefinedInTheClassRaisesAWarning stamp: 'eaam 11/18/2023 22:38:32'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:33'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:33'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:33'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test04NewSelectorShouldNotStartWithANumber stamp: 'eaam 11/18/2023 22:38:33'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:34'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:34'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:34'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test05NewUnarySelectorShouldNotStartWithASymbol stamp: 'eaam 11/18/2023 22:38:34'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:35'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:35'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:35'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test06IntervalToExtractIsNotBeforeMethodSourceCodeBoundaries stamp: 'eaam 11/18/2023 22:38:35'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:35'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:35'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:35'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test07IntervalToExtractIsNotAfterMethodSourceCodeBoundaries stamp: 'eaam 11/18/2023 22:38:35'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:36'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:36'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:36'!
+m1 ^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test08IntervalToExtractShouldNotContainAReturnExpression stamp: 'eaam 11/18/2023 22:38:36'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:37'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:37'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:37'!
+m1 ^ 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:37'!
+m2
+
+	^ 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:37' prior: 50652741!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test09ExtractingALiteralCreatesANewMethodAndChangesExistingCodeToCallThatNewMethod stamp: 'eaam 11/18/2023 22:38:37'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:38'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:38'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:38'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test10IntervalToExtractDoesNotContainsPartOfTheOriginalSelector stamp: 'eaam 11/18/2023 22:38:38'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:39'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:39'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:39'!
+m1 | localVar | ^ localVar + 3! !
+
+!testRun: #ExtractMethodTest #test11IntervalToExtractDoesNotContainsPartOfLocalVariablesDefinition stamp: 'eaam 11/18/2023 22:38:39'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:39'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:39'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:39'!
+m1 <annoyingPragma>! !
+
+!testRun: #ExtractMethodTest #test12IntervalToExtractDoesNotContainsPartOfPragmasDefinition stamp: 'eaam 11/18/2023 22:38:39'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:40'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:40'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:40'!
+m1 ^ 3 + ((4))! !
+
+!testRun: #ExtractMethodTest #test13IntervalToExtractShouldBeAValidSmalltalkExpression stamp: 'eaam 11/18/2023 22:38:40'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:41'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:41'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:41'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test14ItIsNotPossibleToExtractTheLeftSideOfAnAssignment stamp: 'eaam 11/18/2023 22:38:41'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:42'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:42'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:42'!
+m1 self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:42'!
+m2
+
+	self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:42' prior: 50652903!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test15ExtractingAListOfStatementsCreatesANewMethodWithoutReturn stamp: 'eaam 11/18/2023 22:38:42'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:43'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:43'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:43'!
+m1 ^ 'hey true'! !
+
+!testRun: #ExtractMethodTest #test16CanNotExtractPartOfALiteral stamp: 'eaam 11/18/2023 22:38:43'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:43'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:43'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:43'!
+m1 ^ '^ 3' size! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:43'!
+m2
+
+	^ '^ 3' size! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:43' prior: 50652958!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test17AStringContainingTheReturnCharacterCanBeExtracted stamp: 'eaam 11/18/2023 22:38:43'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:44'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:44'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:44'!
+m1
+	
+	self m3.
+	self m4: 5.! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:44'!
+m2
+
+	self m3.
+	self m4: 5! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:44' prior: 50652990!
+m1
+	
+	self m2.! !
+
+!testRun: #ExtractMethodTest #test18ExtractingAListOfStatementsIncludingDotsRemovesThemAndContinuesWithMethodExtraction stamp: 'eaam 11/18/2023 22:38:44'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:45'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:45'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:45'!
+m1 ^ ((42))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:45'!
+m2
+
+	^ 42! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:45' prior: 50653023!
+m1 ^ ((self m2))! !
+
+!testRun: #ExtractMethodTest #test19ASelectionContainingAdditionalParenthesesAtTheBeginningAndOrEndCanBeExtracted stamp: 'eaam 11/18/2023 22:38:45'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:46'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:46'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:46'!
+m1 | local | ^ local + 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:46'!
+m2: local
+
+	^ local + 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:46' prior: 50653055!
+m1 | local | ^ self m2: local! !
+
+!testRun: #ExtractMethodTest #test20ASelectionContainingALocalVariableIsParameterizedOnTheExtractedMessage stamp: 'eaam 11/18/2023 22:38:46'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47'!
+m1 ^ (9) * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47'!
+m2
+
+	^ (9) * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47' prior: 50653088!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test21ASelectionContainingAdditionalParenthesesOnOneSideCanBeExtractedAndItIsNotTrimmed stamp: 'eaam 11/18/2023 22:38:47'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:47'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47'!
+m1 | localVar | ^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47'!
+m2: localVar
+
+	^ localVar + ((4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:47' prior: 50653120!
+m1 | localVar | ^ self m2: localVar! !
+
+!testRun: #ExtractMethodTest #test22ItIsPossibleToExtractTheLastExpressionOfAMethod stamp: 'eaam 11/18/2023 22:38:47'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:48'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:48'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:48'!
+mExtractMethodExample: anArgument
+
+	<anAnnoyingPragma>
+	| localVar |
+	<anotherAnnoyingPragma>
+	self m1.
+	self m2: 'hey true'.
+	self m3: anArgument , '^ 21'.
+	localVar _ Set with: 'hello'.
+	localVar := #($x $y $z) size and: [ (9) * 3 ].
+	^ localVar + ((4))! !
+
+!testRun: #ExtractMethodTest #test23CanNotExtractWithAnInvalidInterval stamp: 'eaam 11/18/2023 22:38:48'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:49'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:49'!
+m1 | localVar | localVar _ 8! !
+
+!testRun: #ExtractMethodTest #test24ItIsNotPossibleToExtractAnIntervalIncludingATemporaryAssignmentExpression stamp: 'eaam 11/18/2023 22:38:49'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:50'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:50'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:50'!
+m1 ^ 8! !
+
+!testRun: #ExtractMethodTest #test25NewUnarySelectorShouldNotContainInvalidCharacters stamp: 'eaam 11/18/2023 22:38:50'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51'!
+m1 ^ [ |something| something _ 3 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51'!
+m2
+
+	^ [ |something| something _ 3 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51' prior: 50653235!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test26ItIsPossibleToExtractAnEntireBlockIncludingALocalAssignment stamp: 'eaam 11/18/2023 22:38:51'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:51'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51'!
+m1 ^ 2 ifNil: [ #boo ] ifNotNil: [ #yay ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51'!
+m2
+
+	^ 2 ifNil: [ #boo ] ifNotNil: [ #yay ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:51' prior: 50653268!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test27ItIsPossibleToExtractExpressionsWithOptimizedSelectors stamp: 'eaam 11/18/2023 22:38:51'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:52'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:52'!
+m1 | localVar | ^ #foo! !
+
+!testRun: #ExtractMethodTest #test28ItIsNotPossibleToExtractALocalVariableInsideOfItsDeclaration stamp: 'eaam 11/18/2023 22:38:52'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:53'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:53'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:53'!
+m1: arg ^ 2 + arg * 3! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:53'!
+m2: arg
+
+	^ 2 + arg! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:53' prior: 50653326!
+m1: arg ^ (self m2: arg) * 3! !
+
+!testRun: #ExtractMethodTest #test29ExtractingABinaryExpressionToAKeywordMessageIntroducesParenthesesToNotBreakOriginalPrecedence stamp: 'eaam 11/18/2023 22:38:53'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54'!
+m1 ^ `3 + 4`! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54'!
+m2
+
+	^ `3 + 4`! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54' prior: 50653360!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test30ItIsPossibleToExtractAQuotedExpression stamp: 'eaam 11/18/2023 22:38:54'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:54'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54'!
+m1 ^ 2 factorial ifNotNil: [ #boo ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54'!
+m2
+
+	^ 2 factorial ifNotNil: [ #boo ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:54' prior: 50653391!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test31ItIsPossibleToExtractExpressionsWithOptimizedSelectorsWhereTheReceiverIsNotASimpleLiteral stamp: 'eaam 11/18/2023 22:38:54'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:55'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:55'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:55'!
+m1 ^ [ | a | a _ 3 factorial ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:55'!
+m2
+
+	| a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:55' prior: 50653425!
+m1 ^ [ self m2 ]! !
+
+!testRun: #ExtractMethodTest #test32ItIsPossibleToExtractATemporaryDeclarationOfABlockIfItIsNotUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 22:38:55'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:56'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:56'!
+m1 | a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:56'!
+m2
+
+	| a | a _ 3 factorial! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:56' prior: 50653458!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test33ItIsPossibleToExtractATemporaryDeclarationIfItIsNotUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 22:38:56'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:57'!
+m1 | localVar1 localVar2 | ^ localVar1 + localVar2 + 2! !
+
+!testRun: #ExtractMethodTest #test34TryingToExtractAMethodWithLessArgumentsThanNeededFails stamp: 'eaam 11/18/2023 22:38:57'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:57'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:38:57'!
+m1 | localVar1 localVar2 | ^ localVar1 + localVar2 + 2! !
+
+!testRun: #ExtractMethodTest #test35TryingToExtractAMethodWithMoreArgumentsThanNeededFails stamp: 'eaam 11/18/2023 22:38:57'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:58'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:58'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:58'!
+m1 ^ (3 + 2) factorial; yourself! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:58'!
+m2
+
+	^ (3 + 2) factorial; yourself! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:58' prior: 50653542!
+m1 ^ self m2! !
+
+!testRun: #ExtractMethodTest #test36ItIsPossibleToExtractACascadeExpression stamp: 'eaam 11/18/2023 22:38:58'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:38:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:38:59'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:59'!
+m1 | temp | []! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:59'!
+m2
+
+	| temp | []! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:38:59' prior: 50653575!
+m1 self m2! !
+
+!testRun: #ExtractMethodTest #test37ItIsPossibleATempDeclarationAlongWithABlock stamp: 'eaam 11/18/2023 22:38:59'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:00'!
+m1 ^ (  (3 + 4))! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:00'!
+m2
+
+	^ 3 + 4! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:00' prior: 50653607!
+m1 ^ (  (self m2))! !
+
+!testRun: #ExtractMethodTest #test38ItIsPossibleToExtractCodeThatContainsMultipleParenthesisWithSpacesBetweenThem stamp: 'eaam 11/18/2023 22:39:00'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:00'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:00'!
+m1 ^ 42! !
+
+!testRun: #ExtractMethodTest #test39TryingToExtractToAMethodThatExistsInASuperclassRaisesAWarning stamp: 'eaam 11/18/2023 22:39:00'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:01'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:01'!
+m1 |var| var _ 42. ^ var! !
+
+!testRun: #ExtractMethodTest #test40CanNotExtractTemporaryAssignmentWithDeclarationIfTheVariableIsUsedOutsideOfSelectionInterval stamp: 'eaam 11/18/2023 22:39:01'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:02'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:02'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:02'!
+m1: arg ^ self! !
+
+!testRun: #ExtractMethodTest #test41CannotExtractPartOfMethodSignature stamp: 'eaam 11/18/2023 22:39:02'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03'!
+m1 10. 10! !
+!ClassToExtractMethod methodsFor: 'something' stamp: 'eaam 11/18/2023 22:39:03'!
+m2
+
+	^ 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03' prior: 50653714!
+m1 self m2. 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03' prior: 50653721!
+m1 self m2. self m2! !
+
+!testRun: #ExtractMethodTest #test42ExtractsManyRepetitionsOnSameMethod stamp: 'eaam 11/18/2023 22:39:03'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:03'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03'!
+m1 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03'!
+m1b 100+10! !
+!ClassToExtractMethod methodsFor: 'something' stamp: 'eaam 11/18/2023 22:39:03'!
+m2
+
+	^ 10! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03' prior: 50653749!
+m1 self m2! !
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:03' prior: 50653753!
+m1b 100+self m2! !
+
+!testRun: #ExtractMethodTest #test43ExtractsRepetitionsOnMoreThanOneMethod stamp: 'eaam 11/18/2023 22:39:03'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:04'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:04'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:04'!
+m1 true ifTrue: [self m1.
+	self m2]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:04'!
+m2
+
+	self m1.
+	self m2! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:04' prior: 50653788!
+m1 true ifTrue: [self m2]! !
+
+!testRun: #ExtractMethodTest #test44CanExtractManyStatementsInsideABlock stamp: 'eaam 11/18/2023 22:39:04'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:05'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:05'!
+m1 [true] whileTrue: [ true ifTrue: [ self m1 ].
+	true ifTrue: [ self m2 ].
+	self m3]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:05'!
+m4
+
+	true ifTrue: [ self m1 ].
+	true ifTrue: [ self m2 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:05' prior: 50653820!
+m1 [true] whileTrue: [ self m4.
+	self m3]! !
+
+!testRun: #ExtractMethodTest #test45CanExtractCodeWithMoreThanOneBlockAndABlockAtTheEndInsideAnotherBlock stamp: 'eaam 11/18/2023 22:39:05'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:06'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:06'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:06'!
+m1: arg
+	[true] whileTrue: [ true ifTrue: [ arg ].]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:06'!
+m3: argModified
+
+	^ true ifTrue: [ argModified ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:06' prior: 50653856!
+m1: arg
+	[true] whileTrue: [ self m3: arg.]! !
+
+!testRun: #ExtractMethodTest #test46CanModifyArgumentsNamesInExtractedMethod stamp: 'eaam 11/18/2023 22:39:06'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:07'!
+m1: arg1 m2: arg2
+	[true] whileTrue: [ arg1 ifTrue: [ arg2 ].]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:07'!
+m3: arg1Modified m4: arg2
+
+	^ arg1Modified ifTrue: [ arg2 ]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:07' prior: 50653891!
+m1: arg1 m2: arg2
+	[true] whileTrue: [ self m3: arg1 m4: arg2.]! !
+
+!testRun: #ExtractMethodTest #test47OnlyModifiedArgumentsNamesAreModifiedInExtractedMethod stamp: 'eaam 11/18/2023 22:39:07'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:07'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'as yet unclassified' stamp: 'eaam 11/18/2023 22:39:07'!
+m1 10! !
+
+!testRun: #ExtractMethodTest #test48NewSelectorMustBeUnaryWhenNoArguments stamp: 'eaam 11/18/2023 22:39:07'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:08'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+!classDefinition: #ClassToExtractMethod category: '__Refactoring-TestData__' stamp: 'eaam 11/18/2023 22:39:08'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:08'!
+m1 1 to: 2 do: [ :x | x + 1]! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:08'!
+m2: x
+
+	^ x + 1! !
+!ClassToExtractMethod methodsFor: 'category' stamp: 'eaam 11/18/2023 22:39:08' prior: 50653950!
+m1 1 to: 2 do: [ :x | self m2: x]! !
+
+!testRun: #ExtractMethodTest #test49CanExtractFromOptimizedMessageSends stamp: 'eaam 11/18/2023 22:39:08'!
+PASSED!
+
+!classRemoval: #ClassToExtractMethod stamp: 'eaam 11/18/2023 22:39:09'!
+RefactoringClassTestData subclass: #ClassToExtractMethod
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '__Refactoring-TestData__'!
+
+----QUIT----(18 November 2023 23:23:08) CuisUniversity-5981.image priorSource: 10197522!
