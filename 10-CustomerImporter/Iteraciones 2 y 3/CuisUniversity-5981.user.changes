@@ -8852,3 +8852,1235 @@ Smalltalk at: 'env' put: 'dev'.!
 
 
 ----QUIT----(22 November 2023 00:07:49) CuisUniversity-5981.image priorSource: 10671453!
+
+----STARTUP---- (22 November 2023 00:11:18) as C:\Users\sofia\Documents\smalltalk\windows64\CuisUniversity-5981.image!
+
+
+!classRemoval: #DataBaseSession stamp: 'S D 11/22/2023 00:11:36'!
+Object subclass: #DataBaseSession
+	instanceVariableNames: 'configuration tables id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerImporter stamp: 'S D 11/22/2023 00:11:36'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session inputStream line newCustomer newAddress record'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Customer stamp: 'S D 11/22/2023 00:11:36'!
+Object subclass: #Customer
+	instanceVariableNames: 'id firstName lastName identificationType identificationNumber addresses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Address stamp: 'S D 11/22/2023 00:11:36'!
+Object subclass: #Address
+	instanceVariableNames: 'id streetName streetNumber town zipCode province'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #ImportTest stamp: 'S D 11/22/2023 00:11:36'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session inputStream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+----End fileIn of C:\Users\sofia\Documents\smalltalk\windows64\CustomerImporter.st----!
+
+----QUIT----(22 November 2023 00:12:24) CuisUniversity-5981.image priorSource: 10244609!
+
+----STARTUP---- (22 November 2023 01:05:14) as C:\Users\sofia\Documents\smalltalk\windows64\CuisUniversity-5981.image!
+
+
+Smalltalk at: #ENV put: 'Development'!
+
+Smalltalk at: #ENV put: 'Development'!
+
+Smalltalk at: #ENV put: 'Development'!
+
+Smalltalk at: #ENV put: 'Development'!
+
+Smalltalk at: #ENV put: 'Development'!
+
+Smalltalk at: #env put: 'dev'!
+
+Smalltalk at: #env put: 'dev'!
+
+Smalltalk at: #env put: 'dev'!
+
+Smalltalk at: #env put: 'dev'!
+
+Smalltalk at: #env put: 'dev'!
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'S D 11/22/2023 01:17:41'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:18:52'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:18:52' prior: 50652046!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a haveAttributes: secondAddressExpectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:18:52' prior: 50652079!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a haveAttributes: expectedAddressAttributes .
+! !
+
+!methodRemoval: ImportTest #doesAddress:haveAttributes: stamp: 'S D 11/22/2023 01:18:52'!
+doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:19:34'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:19:35' prior: 50652937!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 haveAttributes: expectedAddressAttributes .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:19:35' prior: 50652902!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 haveAttributes: secondAddressExpectedAttributes .! !
+
+!methodRemoval: ImportTest #doesAddress:haveProvince:haveAttributes: stamp: 'S D 11/22/2023 01:19:35'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:20:22'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:20:23' prior: 50653019!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 haveAttributes: secondAddressExpectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:20:23' prior: 50652997!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 andStreetName: 3 haveAttributes: expectedAddressAttributes .
+! !
+
+!methodRemoval: ImportTest #doesAddress:haveProvince:andStreetNumber:haveAttributes: stamp: 'S D 11/22/2023 01:20:23'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:21:19'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:21:19' prior: 50653133!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 haveAttributes: expectedAddressAttributes .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:21:19' prior: 50653096!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 haveAttributes: secondAddressExpectedAttributes .! !
+
+!methodRemoval: ImportTest #doesAddress:haveProvince:andStreetNumber:andStreetName:haveAttributes: stamp: 'S D 11/22/2023 01:21:19'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:21:43'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:21:43' prior: 50653222!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 haveAttributes: firstAddressExpectedAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 haveAttributes: secondAddressExpectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:21:43' prior: 50653199!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 haveAttributes: expectedAddressAttributes .
+! !
+
+!methodRemoval: ImportTest #doesAddress:haveProvince:andStreetNumber:andStreetName:andZipCode:haveAttributes: stamp: 'S D 11/22/2023 01:21:43'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:21:48' prior: 50653282!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:21:53' prior: 50653391!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:00' prior: 50653414!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:06' prior: 50653437!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:13' prior: 50653459!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:18'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:22:18' prior: 50653344!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:22:18' prior: 50653306!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .! !
+
+!methodRemoval: ImportTest #doesAddress:haveProvince:andStreetNumber:andStreetName:andZipCode:andTown:haveAttributes: stamp: 'S D 11/22/2023 01:22:18'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck haveAttributes: aListOfAddressAttributes 
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:50'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:22:50' prior: 50652030!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 haveAttributes: expectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:22:50' prior: 50652014!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 haveAttributes: expectedAttributes .	! !
+
+!methodRemoval: ImportTest #doesCustomer:haveAttributes: stamp: 'S D 11/22/2023 01:22:50'!
+doesCustomer: aCustomerToCompare haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:23:04'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:04' prior: 50653619!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 haveAttributes: expectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:04' prior: 50653636!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 haveAttributes: expectedAttributes .	! !
+
+!methodRemoval: ImportTest #doesCustomer:haveFirstName:haveAttributes: stamp: 'S D 11/22/2023 01:23:04'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:23:23'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:23' prior: 50653706!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 haveAttributes: expectedAttributes .	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:23' prior: 50653688!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 haveAttributes: expectedAttributes .! !
+
+!methodRemoval: ImportTest #doesCustomer:haveFirstName:andLastName:haveAttributes: stamp: 'S D 11/22/2023 01:23:23'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:23:46'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:46' prior: 50653779!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 haveAttributes: expectedAttributes .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:23:46' prior: 50653761!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 haveAttributes: expectedAttributes .	! !
+
+!methodRemoval: ImportTest #doesCustomer:haveFirstName:andLastName:andIDType:haveAttributes: stamp: 'S D 11/22/2023 01:23:46'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:00' prior: 50653815!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:04' prior: 50653892!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:09' prior: 50653912!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: anIDTypeToCheck .
+	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:15' prior: 50653932!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: anIDTypeToCheck .
+	self assert: aCustomerToCompare identificationNumber equals: anIDNumberToCheck .! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:40'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck  
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: anIDTypeToCheck .
+	self assert: aCustomerToCompare identificationNumber equals: anIDNumberToCheck .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:24:40' prior: 50653836!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:24:40' prior: 50653854!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 .	! !
+
+!methodRemoval: ImportTest #doesCustomer:haveFirstName:andLastName:andIDType:andIDNumber:haveAttributes: stamp: 'S D 11/22/2023 01:24:40'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck haveAttributes: aListOfCustomerAttributes 
+
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: anIDTypeToCheck .
+	self assert: aCustomerToCompare identificationNumber equals: anIDNumberToCheck .!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:25:05'!
+importCustomersForReadStream: aReadStreamToRead forSystem: aSessionToRecordDataOn
+	(CustomerImporter forCustomerSystemToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:25:05' prior: 50653544!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
+	
+	firstAddressExpectedAttributes := OrderedCollection
+		with: 'BsAs'
+		with: 3322
+		with: 'San Martin'
+		with: 1636
+		with: 'Olivos'.
+	
+	secondAddressExpectedAttributes := OrderedCollection 
+		with: 'Buenos Aires'
+		with: 888
+		with: 'Maipu'
+		with: 1122
+		with: 'Florida'.
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .
+	self doesAddress: secondAddressesOfCustomer haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:25:05' prior: 50653987!
+test03JuanPerezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes := OrderedCollection 
+		with: 'Juan'
+		with: 'Perez'
+		with: 'C'
+		with: '23-25666777-9'.
+	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:25:05' prior: 50651994!
+test01ImportAddsTheCorrectNumberOfCustomers
+
+	| numberOfCostumers listOfSanchez listOfPerez|
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	
+	numberOfCostumers := (customerSystem selectAllOfType: Customer) size.
+	
+	listOfSanchez := self getAllCustomersWithIDType: 'D' andIDNumber: '22333444'.
+		
+	listOfPerez := self getAllCustomersWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	
+	self assert: numberOfCostumers equals: 2.
+	self assert: listOfSanchez size equals: 1. self assert: listOfPerez size equals: 1.
+	
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:25:05' prior: 50654004!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer expectedAttributes |	
+	expectedAttributes :=  OrderedCollection 
+		with: 'Pepe'
+		with: 'Sanchez'
+		with: 'D'
+		with: '22333444'.
+	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 1 andLastName: 2 andIDType: 3 andIDNumber: 4 .	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 01:25:05' prior: 50653522!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses expectedAddressAttributes |
+		expectedAddressAttributes := OrderedCollection 
+		with: 'CABA'
+		with: 1122
+		with:'Alem'
+		with: 1001
+		with: 'CABA'.
+	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: a andStreetNumber: 2 andStreetName: 3 andZipCode: 4 andTown: 5 .
+! !
+
+!methodRemoval: ImportTest #importCustomersForReadStream:forSession: stamp: 'S D 11/22/2023 01:25:05'!
+importCustomersForReadStream: aReadStreamToRead forSession: aSessionToRecordDataOn
+	(CustomerImporter forCustomerSystemToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:26:02' prior: 50654123!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer |	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 'Pepe' andLastName: 'Sanchez' andIDType: 'D' andIDNumber: '22333444' .	! !
+!Customer class methodsFor: 'no messages' stamp: 'S D 11/22/2023 01:27:55'!
+forFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer
+	^self new withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer! !
+!Customer methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:28:09'!
+withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer! !
+
+!methodRemoval: Customer #initialize stamp: 'S D 11/22/2023 01:28:24'!
+initialize
+
+	super initialize.
+	addresses := OrderedCollection new.!
+!Customer methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:28:57' prior: 50654198!
+withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer
+
+	super initialize.
+	
+	addresses := OrderedCollection new.
+	
+	firstName := theFirstNameOfTheCustomer .
+	lastName := theLastNameOfTheCustomer .
+	identificationType := theIDTypeOfTheCustomer .
+	identificationNumber := theIDNumberOfTheCustomer .! !
+!Address class methodsFor: 'no messages' stamp: 'S D 11/22/2023 01:31:04'!
+forProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress
+
+	^self new withProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress! !
+!Address methodsFor: 'nil' stamp: 'S D 11/22/2023 01:33:28'!
+withProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress
+
+	province := theProvinceOfTheAddress .
+	streetName := theStreetNameOfTheAddress .
+	streetNumber := theStreetNumberOfTheAddress .
+	zipCode := theZipCodeOfTheAddress .
+	town := theTownOfTheAddress .! !
+!Customer methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:38:47' prior: 50654211!
+withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer
+
+	
+	
+	firstName := theFirstNameOfTheCustomer .
+	lastName := theLastNameOfTheCustomer .
+	identificationType := theIDTypeOfTheCustomer .
+	identificationNumber := theIDNumberOfTheCustomer .! !
+
+!methodRemoval: Customer #withFirstName:andLastName:andIDType:andIDNumber: stamp: 'S D 11/22/2023 01:38:51'!
+withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer
+
+	
+	
+	firstName := theFirstNameOfTheCustomer .
+	lastName := theLastNameOfTheCustomer .
+	identificationType := theIDTypeOfTheCustomer .
+	identificationNumber := theIDNumberOfTheCustomer .!
+!Customer methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:38:59' overrides: 16920235!
+initialize
+	
+	super initialize.
+	
+	addresses := OrderedCollection new.! !
+
+!methodRemoval: Customer class #forFirstName:andLastName:andIDType:andIDNumber: stamp: 'S D 11/22/2023 01:39:03'!
+forFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer
+	^self new withFirstName: theFirstNameOfTheCustomer andLastName: theLastNameOfTheCustomer andIDType: theIDTypeOfTheCustomer andIDNumber: theIDNumberOfTheCustomer!
+
+!methodRemoval: Address class #forProvince:andStreetNumber:andStreetName:andZipCode:andTown: stamp: 'S D 11/22/2023 01:39:08'!
+forProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress
+
+	^self new withProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress!
+
+!methodRemoval: Address #withProvince:andStreetNumber:andStreetName:andZipCode:andTown: stamp: 'S D 11/22/2023 01:39:13'!
+withProvince: theProvinceOfTheAddress andStreetNumber: theStreetNumberOfTheAddress andStreetName: theStreetNameOfTheAddress andZipCode: theZipCodeOfTheAddress andTown: theTownOfTheAddress
+
+	province := theProvinceOfTheAddress .
+	streetName := theStreetNameOfTheAddress .
+	streetNumber := theStreetNumberOfTheAddress .
+	zipCode := theZipCodeOfTheAddress .
+	town := theTownOfTheAddress .!
+!CustomerImporter methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:40:35' prior: 50652435!
+initializeForCustomerSystemToRecordOn: aCustomerSystemToRecordDataOn andInputStreamWithCustomerData: anInputStream
+	customerSystem := aCustomerSystemToRecordDataOn.
+	inputStream := anInputStream.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:45:34' prior: 50654085!
+test03JuanPerezIsImportedCorrectly
+
+	| customer |
+	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 'Juan' andLastName: 'Perez' andIDType: 'C' andIDNumber: '23-25666777-9'.! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:21:46' prior: 50654050!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer secondAddressesOfCustomer |
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: 'BsAs' andStreetNumber: 3322 andStreetName: 'San Martin' andZipCode: 1636 andTown: 'Olivos'.
+	
+	self doesAddress: secondAddressesOfCustomer haveProvince: 'Buenos Aires' andStreetNumber: 		888 andStreetName: 'Maipu' andZipCode: 1122 andTown: 'Florida' .
+! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:23:28' prior: 50654140!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA' .
+! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'S D 11/22/2023 14:23:36'!
+PASSED!
+!ImportTest methodsFor: 'private' stamp: 'S D 11/22/2023 14:24:35'!
+customerSystemDataIsEmpty
+	^customerSystem isEmpty.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652099!
+test06FailImportingWhenCustomerRecordHasLessThanFiveParameters
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidCustomerRecord.
+		self assert: (self customerSystemDataIsEmpty).
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652235!
+test14FailImportingWhenCustomerRecordTypeIsNotC
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'Cobayo,Hernan,0,smallTalk,cuis
+A,Henderson,712,Red Bark Ln,1122,Nevada').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidRecord.
+		self assert: self customerSystemDataIsEmpty.
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652201!
+test12FailImportingWhenAddressHasNoAssociatedCustomer
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on:  'A,Henderson,71a2,Red Bark Ln,1122, Louisiana').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidAddressRecord.
+		self assert: self customerSystemDataIsEmpty.
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652116!
+test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis,TDD').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidCustomerRecord.
+		self assert: (self customerSystemDataIsEmpty).
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652169!
+test10FailImportingWhenRecordHasAnInvalidType
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'HelloWorld,Hernan,0,smallTalk,cuis').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidRecord.
+		self assert: self customerSystemDataIsEmpty.
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:24:35' prior: 50652185!
+test11FailImportingWhenRecordHasEmptyLine
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: '
+HelloWorld,Hernan,0,smallTalk,cuis').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError |
+		self assert: anError messageText equals: importer invalidRecord.
+		self assert: self customerSystemDataIsEmpty.
+		]
+	! !
+
+!methodRemoval: ImportTest #sessionIsEmpty stamp: 'S D 11/22/2023 14:24:35'!
+sessionIsEmpty
+	^customerSystem isEmpty.!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:46' prior: 50652133!
+test08FailImportingWhenAddressRecordHasLessThanFiveParameters
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+A,Henderson,712,Red Bark Ln,1122').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError | | customer |
+		self assert: anError messageText equals: importer invalidAddressRecord .
+		customer := self obtainCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
+		]
+	! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
+getCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
+
+	^( self getAllCustomersWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer) anyOne! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:25:56' prior: 50654569!
+test08FailImportingWhenAddressRecordHasLessThanFiveParameters
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+A,Henderson,712,Red Bark Ln,1122').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError | | customer |
+		self assert: anError messageText equals: importer invalidAddressRecord .
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
+		]
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:25:56' prior: 50654358!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer secondAddressesOfCustomer |
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self doesAddress: firstAddressesOfCustomer haveProvince: 'BsAs' andStreetNumber: 3322 andStreetName: 'San Martin' andZipCode: 1636 andTown: 'Olivos'.
+	
+	self doesAddress: secondAddressesOfCustomer haveProvince: 'Buenos Aires' andStreetNumber: 		888 andStreetName: 'Maipu' andZipCode: 1122 andTown: 'Florida' .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:25:56' prior: 50654384!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA' .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:25:56' prior: 50654344!
+test03JuanPerezIsImportedCorrectly
+
+	| customer |
+	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+
+	self doesCustomer: customer haveFirstName: 'Juan' andLastName: 'Perez' andIDType: 'C' andIDNumber: '23-25666777-9'.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/22/2023 14:25:56' prior: 50654172!
+test02PepeSanchezIsImportedCorrectly
+
+	| customer |	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 'Pepe' andLastName: 'Sanchez' andIDType: 'D' andIDNumber: '22333444' .	! !
+
+!methodRemoval: ImportTest #obtainCustomerWithIDType:andIDNumber: stamp: 'S D 11/22/2023 14:25:56'!
+obtainCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
+
+	^( self getAllCustomersWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer) anyOne!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 14:25:59'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:26:13' prior: 50652151!
+test09FailImportingWhenAddressRecordHasMoreThanFiveParameters
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+A,Henderson,712,Red Bark Ln,1122,Nevada,Tompson').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError | | customer |
+		self assert: anError messageText equals: importer invalidAddressRecord.
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
+		]
+	! !
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 14:26:15'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:26:26' prior: 50652218!
+test13FailImportingWhenAddressRecordTypeIsNotA
+
+	| importer|
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+Alpaca,Henderson,712,Red Bark Ln,1122,Nevada').
+	
+	self should: [importer importCustomers]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo:[:anError | | customer |
+		self assert: anError messageText equals: importer invalidRecord.
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
+		]
+	! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 14:26:34'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'S D 11/22/2023 14:26:35'!
+PASSED!
+
+----QUIT----(22 November 2023 14:26:42) CuisUniversity-5981.image priorSource: 10277243!

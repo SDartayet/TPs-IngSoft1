@@ -71,38 +71,38 @@ TestCase subclass: #ImportTest
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 12:18:12'!
-doesAddress: anAddressToCompare haveAttributes: aListOfAddressAttributes 
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:22:18'!
+doesAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
 
-	self assert: anAddressToCompare province equals: aListOfAddressAttributes first.
-	self assert: anAddressToCompare streetNumber equals: aListOfAddressAttributes second.
-	self assert: anAddressToCompare streetName equals: aListOfAddressAttributes third .
-	self assert: anAddressToCompare zipCode equals: aListOfAddressAttributes fourth .
-	self assert: anAddressToCompare town equals: aListOfAddressAttributes fifth.! !
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:38:34'!
-doesCustomer: aCustomerToCompare haveAttributes: aListOfCustomerAttributes 
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:24:40'!
+doesCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck  
 
-	self assert: aCustomerToCompare firstName equals: aListOfCustomerAttributes first.		
-	self assert: aCustomerToCompare lastName equals: aListOfCustomerAttributes second.	
-	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
-	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
+	self assert: aCustomerToCompare firstName equals: aFirstNameToCheck .
+	self assert: aCustomerToCompare lastName equals: aLastNameToCheck .
+	self assert: aCustomerToCompare identificationType equals: anIDTypeToCheck .
+	self assert: aCustomerToCompare identificationNumber equals: anIDNumberToCheck .! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:01:01'!
-importCustomersForReadStream: aReadStreamToRead forSession: aSessionToRecordDataOn
-	(CustomerImporter forCustomerSystemToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
-
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
-obtainCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
+getCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
 
 	^( self getAllCustomersWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer) anyOne! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:25:05'!
+importCustomersForReadStream: aReadStreamToRead forSystem: aSessionToRecordDataOn
+	(CustomerImporter forCustomerSystemToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
+
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 01:25:05'!
 test01ImportAddsTheCorrectNumberOfCustomers
 
 	| numberOfCostumers listOfSanchez listOfPerez|
 
-	self importCustomersForReadStream: validInputStream forSession: customerSystem .
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
 	
 	numberOfCostumers := (customerSystem selectAllOfType: Customer) size.
 	
@@ -115,79 +115,50 @@ test01ImportAddsTheCorrectNumberOfCustomers
 	
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
 test02PepeSanchezIsImportedCorrectly
 
-	| customer expectedAttributes |	
-	expectedAttributes :=  OrderedCollection 
-		with: 'Pepe'
-		with: 'Sanchez'
-		with: 'D'
-		with: '22333444'.
-	
-	self importCustomersForReadStream: validInputStream forSession: customerSystem .
-	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
-	self doesCustomer: customer haveAttributes: expectedAttributes .	! !
+	| customer |	
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	self doesCustomer: customer haveFirstName: 'Pepe' andLastName: 'Sanchez' andIDType: 'D' andIDNumber: '22333444' .	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
 test03JuanPerezIsImportedCorrectly
 
-	| customer expectedAttributes |	
-	expectedAttributes := OrderedCollection 
-		with: 'Juan'
-		with: 'Perez'
-		with: 'C'
-		with: '23-25666777-9'.
+	| customer |
 	
-	self importCustomersForReadStream: validInputStream forSession: customerSystem .
-	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
 
-	self doesCustomer: customer haveAttributes: expectedAttributes .! !
+	self doesCustomer: customer haveFirstName: 'Juan' andLastName: 'Perez' andIDType: 'C' andIDNumber: '23-25666777-9'.! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
 test04PepeSanchezDataIsImportedCorrectly
 
-	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
-	
-	firstAddressExpectedAttributes := OrderedCollection
-		with: 'BsAs'
-		with: 3322
-		with: 'San Martin'
-		with: 1636
-		with: 'Olivos'.
-	
-	secondAddressExpectedAttributes := OrderedCollection 
-		with: 'Buenos Aires'
-		with: 888
-		with: 'Maipu'
-		with: 1122
-		with: 'Florida'.
-	self importCustomersForReadStream: validInputStream forSession: customerSystem .
-	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	| customer firstAddressesOfCustomer secondAddressesOfCustomer |
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
 	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
 
-	self doesAddress: firstAddressesOfCustomer haveAttributes: firstAddressExpectedAttributes .
-	self doesAddress: secondAddressesOfCustomer haveAttributes: secondAddressExpectedAttributes .! !
-
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
-test05JuanPerezDataIsImportedCorrectly
-
-	| customer listOfCustomerAddresses expectedAddressAttributes |
-		expectedAddressAttributes := OrderedCollection 
-		with: 'CABA'
-		with: 1122
-		with:'Alem'
-		with: 1001
-		with: 'CABA'.
+	self doesAddress: firstAddressesOfCustomer haveProvince: 'BsAs' andStreetNumber: 3322 andStreetName: 'San Martin' andZipCode: 1636 andTown: 'Olivos'.
 	
-	self importCustomersForReadStream: validInputStream forSession: customerSystem .
-	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
-	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
-	
-	self doesAddress: listOfCustomerAddresses haveAttributes: expectedAddressAttributes .
+	self doesAddress: secondAddressesOfCustomer haveProvince: 'Buenos Aires' andStreetNumber: 		888 andStreetName: 'Maipu' andZipCode: 1122 andTown: 'Florida' .
 ! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self doesAddress: listOfCustomerAddresses haveProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA' .
+! !
+
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test06FailImportingWhenCustomerRecordHasLessThanFiveParameters
 
 	| importer|
@@ -197,11 +168,11 @@ test06FailImportingWhenCustomerRecordHasLessThanFiveParameters
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidCustomerRecord.
-		self assert: (self sessionIsEmpty).
+		self assert: (self customerSystemDataIsEmpty).
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters
 
 	| importer|
@@ -211,11 +182,11 @@ test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidCustomerRecord.
-		self assert: (self sessionIsEmpty).
+		self assert: (self customerSystemDataIsEmpty).
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:25:56'!
 test08FailImportingWhenAddressRecordHasLessThanFiveParameters
 
 	| importer|
@@ -224,13 +195,14 @@ A,Henderson,712,Red Bark Ln,1122').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
-	withExceptionDo:[:anError |
+	withExceptionDo:[:anError | | customer |
 		self assert: anError messageText equals: importer invalidAddressRecord .
-		"No tiene address"
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:26:13'!
 test09FailImportingWhenAddressRecordHasMoreThanFiveParameters
 
 	| importer|
@@ -239,13 +211,14 @@ A,Henderson,712,Red Bark Ln,1122,Nevada,Tompson').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
-	withExceptionDo:[:anError |
+	withExceptionDo:[:anError | | customer |
 		self assert: anError messageText equals: importer invalidAddressRecord.
-		"No tiene address"
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test10FailImportingWhenRecordHasAnInvalidType
 
 	| importer|
@@ -255,11 +228,11 @@ test10FailImportingWhenRecordHasAnInvalidType
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		self assert: self sessionIsEmpty.
+		self assert: self customerSystemDataIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test11FailImportingWhenRecordHasEmptyLine
 
 	| importer|
@@ -270,11 +243,11 @@ HelloWorld,Hernan,0,smallTalk,cuis').
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		self assert: self sessionIsEmpty.
+		self assert: self customerSystemDataIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test12FailImportingWhenAddressHasNoAssociatedCustomer
 
 	| importer|
@@ -284,11 +257,11 @@ test12FailImportingWhenAddressHasNoAssociatedCustomer
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidAddressRecord.
-		self assert: self sessionIsEmpty.
+		self assert: self customerSystemDataIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:26:26'!
 test13FailImportingWhenAddressRecordTypeIsNotA
 
 	| importer|
@@ -297,13 +270,14 @@ Alpaca,Henderson,712,Red Bark Ln,1122,Nevada').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
-	withExceptionDo:[:anError |
+	withExceptionDo:[:anError | | customer |
 		self assert: anError messageText equals: importer invalidRecord.
-		"No tiene address"
+		customer := self getCustomerWithIDType: 'smallTalk' andIDNumber: 'cuis'.
+		self assert: customer addresses isEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:54'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/22/2023 14:24:35'!
 test14FailImportingWhenCustomerRecordTypeIsNotC
 
 	| importer|
@@ -314,14 +288,10 @@ A,Henderson,712,Red Bark Ln,1122,Nevada').
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		self assert: self sessionIsEmpty.
+		self assert: self customerSystemDataIsEmpty.
 		]
 	! !
 
-
-!ImportTest methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:55'!
-sessionIsEmpty
-	^customerSystem isEmpty.! !
 
 
 !ImportTest methodsFor: 'tear down' stamp: 'eaam 11/19/2023 20:06:55'!
@@ -342,6 +312,10 @@ A,Maipu,888,Florida,1122,Buenos Aires
 C,Juan,Perez,C,23-25666777-9
 A,Alem,1122,CABA,1001,CABA'.! !
 
+
+!ImportTest methodsFor: 'private' stamp: 'S D 11/22/2023 14:24:35'!
+customerSystemDataIsEmpty
+	^customerSystem isEmpty.! !
 
 !ImportTest methodsFor: 'private' stamp: 'eaam 11/19/2023 20:06:55'!
 getAllCustomersWithIDType: theIDTypeOfTheCustomers andIDNumber: theIDNumberOfTheCustomers 
@@ -395,12 +369,12 @@ streetNumber: aStreetNumber
 	streetNumber := aStreetNumber ! !
 
 
-!Address methodsFor: 'twon' stamp: 'HAW 5/22/2022 00:19:29'!
+!Address methodsFor: 'town' stamp: 'HAW 5/22/2022 00:19:29'!
 town
 
 	^town! !
 
-!Address methodsFor: 'twon' stamp: 'HAW 5/22/2022 00:19:29'!
+!Address methodsFor: 'town' stamp: 'HAW 5/22/2022 00:19:29'!
 town: aTown
 
 	town := aTown! !
@@ -483,10 +457,11 @@ identificationType: anIdentificationType
 	identificationType := anIdentificationType! !
 
 
-!Customer methodsFor: 'initialization' stamp: 'HAW 5/22/2022 00:19:29'!
+!Customer methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:38:59'!
 initialize
-
+	
 	super initialize.
+	
 	addresses := OrderedCollection new.! !
 
 
@@ -507,9 +482,9 @@ Object subclass: #CustomerImporter
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!CustomerImporter methodsFor: 'initialization' stamp: 'eaam 11/19/2023 20:02:28'!
-initializeForCustomerSystemToRecordOn: aSession andInputStreamWithCustomerData: anInputStream
-	customerSystem := aSession.
+!CustomerImporter methodsFor: 'initialization' stamp: 'S D 11/22/2023 01:40:35'!
+initializeForCustomerSystemToRecordOn: aCustomerSystemToRecordDataOn andInputStreamWithCustomerData: anInputStream
+	customerSystem := aCustomerSystemToRecordDataOn.
 	inputStream := anInputStream.! !
 
 
@@ -614,35 +589,35 @@ Object subclass: #CustomerSystem
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:14:30'!
+!CustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:14:30'!
 addCustomer: anObject
 
 	self subclassResponsibility! !
 
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:12:08'!
-beginTransaction
-	self subclassResponsibility .! !
-
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:30'!
-close
-
-	self subclassResponsibility! !
-
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:38'!
+!CustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:17:38'!
 isEmpty
 
 	self subclassResponsibility! !
 
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:42'!
+!CustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:17:42'!
 select: aCondition ofType: aType
 
 	self subclassResponsibility! !
 
-!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:45'!
+!CustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:17:45'!
 selectAllOfType: aType
 
 	self subclassResponsibility! !
 
+
+!CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:12:08'!
+beginTransaction
+	self subclassResponsibility .! !
+
+!CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:17:30'!
+close
+
+	self subclassResponsibility! !
 
 !CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:17:50'!
 start
@@ -667,33 +642,33 @@ CustomerSystem subclass: #PersistentCustomerSystem
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:36:37'!
-addCustomer: anObject 
-	session persist: anObject.! !
-
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:16:11'!
-close
-	session commit.
-	session close.! !
-
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 18:22:26'!
+!PersistentCustomerSystem methodsFor: 'initialization' stamp: 'eaam 11/19/2023 18:22:26'!
 initialize
 	 
 	session := DataBaseSession for: (Array with: Address with: Customer).! !
 
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:07:02'!
+
+!PersistentCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:36:37'!
+addCustomer: anObject 
+	session persist: anObject.! !
+
+!PersistentCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:07:02'!
 isEmpty
 	^session isEmpty .! !
 
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:02:33'!
+!PersistentCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:02:33'!
 select: aCondition ofType: aType
 	^session select: aCondition ofType: aType.! !
 
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 18:28:40'!
+!PersistentCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 18:28:40'!
 selectAllOfType: aType 
 	^session selectAllOfType: aType.! !
 
 
+!PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:16:11'!
+close
+	session commit.
+	session close.! !
 
 !PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:15:39'!
 start
@@ -724,15 +699,15 @@ initialize
 	dataCollection := OrderedCollection new.! !
 
 
-!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:06'!
+!TransientCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 20:06:06'!
 addCustomer: anObject 
 	dataCollection add: anObject.! !
 
-!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 19:40:56'!
+!TransientCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 19:40:56'!
 select: aCondition ofType: aType
 	^(self selectAllOfType: aType) select: aCondition.! !
 
-!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:06'!
+!TransientCustomerSystem methodsFor: 'customer management' stamp: 'eaam 11/19/2023 20:06:06'!
 selectAllOfType: aType 
 	^dataCollection select:[:anObject | anObject class = aType].! !
 
