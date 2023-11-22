@@ -1,6 +1,72 @@
+!classDefinition: #Enviroment category: 'CustomerImporter'!
+TestCase subclass: #Enviroment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!Enviroment methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:57:19'!
+createSystem
+	^self subclassResponsibility.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Enviroment class' category: 'CustomerImporter'!
+Enviroment class
+	instanceVariableNames: ''!
+
+!Enviroment class methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:56:07'!
+current
+	^(self subclasses detect: [:anEnviroment | anEnviroment isCurrent]) new.! !
+
+
+!classDefinition: #Development category: 'CustomerImporter'!
+Enviroment subclass: #Development
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!Development methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:57:47'!
+createSystem
+	^TransientCustomerSystem new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Development class' category: 'CustomerImporter'!
+Development class
+	instanceVariableNames: ''!
+
+!Development class methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:51:31'!
+isCurrent
+	^(Smalltalk at: #env) = 'dev'! !
+
+
+!classDefinition: #Integration category: 'CustomerImporter'!
+Enviroment subclass: #Integration
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!Integration methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:58:39'!
+createSystem
+	^PersistentCustomerSystem new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Integration class' category: 'CustomerImporter'!
+Integration class
+	instanceVariableNames: ''!
+
+!Integration class methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:52:19'!
+isCurrent
+	^Development isCurrent not.! !
+
+
 !classDefinition: #ImportTest category: 'CustomerImporter'!
 TestCase subclass: #ImportTest
-	instanceVariableNames: 'session inputStream'
+	instanceVariableNames: 'customerSystem validInputStream'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
@@ -22,49 +88,23 @@ doesCustomer: aCustomerToCompare haveAttributes: aListOfCustomerAttributes
 	self assert: aCustomerToCompare identificationType equals: aListOfCustomerAttributes third.	
 	self assert: aCustomerToCompare identificationNumber equals: aListOfCustomerAttributes fourth! !
 
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
-getAllCustomersWithIDType: theIDTypeOfTheCustomers andIDNumber: theIDNumberOfTheCustomers 
-
-	^ session 
-		select: [:aCustomer | aCustomer identificationType = theIDTypeOfTheCustomers and:[ aCustomer identificationNumber = theIDNumberOfTheCustomers]] 
-		ofType: Customer! !
-
-!ImportTest methodsFor: 'tests' stamp: 'S D 11/14/2023 01:46:31'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:01:01'!
 importCustomersForReadStream: aReadStreamToRead forSession: aSessionToRecordDataOn
-	(CustomerImporter forDatabaseSessionToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
+	(CustomerImporter forCustomerSystemToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: aReadStreamToRead) importCustomers! !
 
 !ImportTest methodsFor: 'tests' stamp: 'S D 11/16/2023 04:34:37'!
 obtainCustomerWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer 
 
 	^( self getAllCustomersWithIDType: theTypeOfID andIDNumber: theIDNumberOfTheCustomer) anyOne! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 18:09:56'!
-setUp
-
-	session := DataBaseSession for: (Array with: Address with: Customer).
-	session beginTransaction.
-	inputStream :=  ReadStream on: 'C,Pepe,Sanchez,D,22333444
-A,San Martin,3322,Olivos,1636,BsAs
-A,Maipu,888,Florida,1122,Buenos Aires
-C,Juan,Perez,C,23-25666777-9
-A,Alem,1122,CABA,1001,CABA'.! !
-
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 17:56:51'!
-tearDown
-
-	session commit.
-	session close.
-		
-	inputStream close.! !
-
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 19:19:47'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test01ImportAddsTheCorrectNumberOfCustomers
 
 	| numberOfCostumers listOfSanchez listOfPerez|
 
-	self importCustomersForReadStream: inputStream forSession: session .
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
 	
-	numberOfCostumers := (session selectAllOfType: Customer) size.
+	numberOfCostumers := (customerSystem selectAllOfType: Customer) size.
 	
 	listOfSanchez := self getAllCustomersWithIDType: 'D' andIDNumber: '22333444'.
 		
@@ -75,7 +115,7 @@ test01ImportAddsTheCorrectNumberOfCustomers
 	
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 17:58:45'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test02PepeSanchezIsImportedCorrectly
 
 	| customer expectedAttributes |	
@@ -85,11 +125,11 @@ test02PepeSanchezIsImportedCorrectly
 		with: 'D'
 		with: '22333444'.
 	
-	self importCustomersForReadStream: inputStream forSession: session .
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
 	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
 	self doesCustomer: customer haveAttributes: expectedAttributes .	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 17:58:58'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test03JuanPerezIsImportedCorrectly
 
 	| customer expectedAttributes |	
@@ -99,12 +139,12 @@ test03JuanPerezIsImportedCorrectly
 		with: 'C'
 		with: '23-25666777-9'.
 	
-	self importCustomersForReadStream: inputStream forSession: session .
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
 	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
 
 	self doesCustomer: customer haveAttributes: expectedAttributes .! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 18:37:08'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test04PepeSanchezDataIsImportedCorrectly
 
 	| customer firstAddressesOfCustomer firstAddressExpectedAttributes secondAddressExpectedAttributes secondAddressesOfCustomer |
@@ -122,14 +162,14 @@ test04PepeSanchezDataIsImportedCorrectly
 		with: 'Maipu'
 		with: 1122
 		with: 'Florida'.
-	self importCustomersForReadStream: inputStream forSession: session .
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
 	customer := self obtainCustomerWithIDType: 'D' andIDNumber: '22333444'.
 	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
 
 	self doesAddress: firstAddressesOfCustomer haveAttributes: firstAddressExpectedAttributes .
 	self doesAddress: secondAddressesOfCustomer haveAttributes: secondAddressExpectedAttributes .! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 18:35:07'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test05JuanPerezDataIsImportedCorrectly
 
 	| customer listOfCustomerAddresses expectedAddressAttributes |
@@ -140,143 +180,175 @@ test05JuanPerezDataIsImportedCorrectly
 		with: 1001
 		with: 'CABA'.
 	
-	self importCustomersForReadStream: inputStream forSession: session .
+	self importCustomersForReadStream: validInputStream forSession: customerSystem .
 	customer := self obtainCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
 	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
 	
 	self doesAddress: listOfCustomerAddresses haveAttributes: expectedAddressAttributes .
 ! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 19:39:47'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test06FailImportingWhenCustomerRecordHasLessThanFiveParameters
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk').
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidCustomerRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		self assert: (self sessionIsEmpty).
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 19:34:41'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis,TDD').
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis,TDD').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidCustomerRecord.
-		self assert: '' equals: ''.
+		self assert: (self sessionIsEmpty).
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:19:28'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test08FailImportingWhenAddressRecordHasLessThanFiveParameters
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
 A,Henderson,712,Red Bark Ln,1122').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidAddressRecord .
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		"No tiene address"
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:19:41'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test09FailImportingWhenAddressRecordHasMoreThanFiveParameters
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
 A,Henderson,712,Red Bark Ln,1122,Nevada,Tompson').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidAddressRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		"No tiene address"
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:21:11'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test10FailImportingWhenRecordHasAnInvalidType
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'HelloWorld,Hernan,0,smallTalk,cuis').
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'HelloWorld,Hernan,0,smallTalk,cuis').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		self assert: self sessionIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:52:22'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test11FailImportingWhenRecordHasEmptyLine
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: '
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: '
 HelloWorld,Hernan,0,smallTalk,cuis').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		self assert: self sessionIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:51:58'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test12FailImportingWhenAddressHasNoAssociatedCustomer
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on:  'A,Henderson,71a2,Red Bark Ln,1122, Louisiana').
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on:  'A,Henderson,71a2,Red Bark Ln,1122, Louisiana').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidAddressRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		self assert: self sessionIsEmpty.
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:54:51'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:55'!
 test13FailImportingWhenAddressRecordTypeIsNotA
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'C,Hernan,0,smallTalk,cuis
 Alpaca,Henderson,712,Red Bark Ln,1122,Nevada').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		"No tiene address"
 		]
 	! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/16/2023 20:58:29'!
+!ImportTest methodsFor: 'tests' stamp: 'eaam 11/19/2023 20:06:54'!
 test14FailImportingWhenCustomerRecordTypeIsNotC
 
 	| importer|
-	importer := CustomerImporter forDatabaseSessionToRecordOn: session andInputStreamWithCustomerData: (ReadStream on: 'Cobayo,Hernan,0,smallTalk,cuis
+	importer := CustomerImporter forCustomerSystemToRecordOn: customerSystem andInputStreamWithCustomerData: (ReadStream on: 'Cobayo,Hernan,0,smallTalk,cuis
 A,Henderson,712,Red Bark Ln,1122,Nevada').
 	
 	self should: [importer importCustomers]
 	raise: Error - MessageNotUnderstood 
 	withExceptionDo:[:anError |
 		self assert: anError messageText equals: importer invalidRecord.
-		"self assert: (self sNotImportedCustomerWithName: 'Hernan')."
+		self assert: self sessionIsEmpty.
 		]
 	! !
+
+
+!ImportTest methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:55'!
+sessionIsEmpty
+	^customerSystem isEmpty.! !
+
+
+!ImportTest methodsFor: 'tear down' stamp: 'eaam 11/19/2023 20:06:55'!
+tearDown
+	customerSystem close.
+		
+	validInputStream close.! !
+
+
+!ImportTest methodsFor: 'set up' stamp: 'eaam 11/19/2023 20:07:00'!
+setUp
+
+	customerSystem := CustomerSystem newCustomerSystem .
+	customerSystem start.
+	validInputStream :=  ReadStream on: 'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'.! !
+
+
+!ImportTest methodsFor: 'private' stamp: 'eaam 11/19/2023 20:06:55'!
+getAllCustomersWithIDType: theIDTypeOfTheCustomers andIDNumber: theIDNumberOfTheCustomers 
+
+	^ customerSystem 
+		select: [:aCustomer | (aCustomer hasIdentificationType: theIDTypeOfTheCustomers) and:[ aCustomer hasIdentificationNumber: theIDNumberOfTheCustomers]] 
+		ofType: Customer! !
 
 
 !classDefinition: #Address category: 'CustomerImporter'!
@@ -373,6 +445,11 @@ firstName: aName
 
 	firstName := aName! !
 
+!Customer methodsFor: 'name' stamp: 'eaam 11/19/2023 19:34:36'!
+hasIdentificationType: aIDType
+	^aIDType = identificationType
+! !
+
 !Customer methodsFor: 'name' stamp: 'HAW 5/22/2022 00:19:29'!
 lastName
 
@@ -417,17 +494,22 @@ initialize
 addressAt: aStreetToSearchFor ifNone: aBlockIfNone 
 	^addresses detect: [:anAddress | anAddress isInStreet: aStreetToSearchFor ] ifNone: aBlockIfNone.! !
 
+!Customer methodsFor: 'testing' stamp: 'eaam 11/19/2023 19:35:30'!
+hasIdentificationNumber: aIDNumber
+	^aIDNumber = identificationNumber 
+! !
+
 
 !classDefinition: #CustomerImporter category: 'CustomerImporter'!
 Object subclass: #CustomerImporter
-	instanceVariableNames: 'session inputStream line newCustomer newAddress record'
+	instanceVariableNames: 'customerSystem inputStream line newCustomer newAddress record'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!CustomerImporter methodsFor: 'initialization' stamp: 'S D 11/14/2023 01:45:22'!
-initializeForDatabaseSessionToRecordOn: aSession andInputStreamWithCustomerData: anInputStream
-	session := aSession.
+!CustomerImporter methodsFor: 'initialization' stamp: 'eaam 11/19/2023 20:02:28'!
+initializeForCustomerSystemToRecordOn: aSession andInputStreamWithCustomerData: anInputStream
+	customerSystem := aSession.
 	inputStream := anInputStream.! !
 
 
@@ -472,7 +554,7 @@ importAddress
 			newAddress zipCode: record fifth asNumber .
 			newAddress province: record sixth! !
 
-!CustomerImporter methodsFor: 'record creation auxiliaries' stamp: 'eaam 11/16/2023 20:50:16'!
+!CustomerImporter methodsFor: 'record creation auxiliaries' stamp: 'eaam 11/19/2023 20:02:28'!
 importCustomer
 
 	((record size = 5 )not) ifTrue: [self error: self invalidCustomerRecord].
@@ -483,7 +565,7 @@ importCustomer
 			newCustomer lastName: record third.
 			newCustomer identificationType: record fourth.
 			newCustomer identificationNumber: record fifth.
-			session persist: newCustomer! !
+			customerSystem addCustomer: newCustomer! !
 
 !CustomerImporter methodsFor: 'record creation auxiliaries' stamp: 'eaam 11/16/2023 21:01:01'!
 importRecord
@@ -520,9 +602,139 @@ recordHasValidType
 CustomerImporter class
 	instanceVariableNames: ''!
 
-!CustomerImporter class methodsFor: 'instance creation' stamp: 'S D 11/14/2023 01:45:47'!
-forDatabaseSessionToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: anInputStreamToReadFrom 
-	^self new initializeForDatabaseSessionToRecordOn: aSessionToRecordDataOn andInputStreamWithCustomerData: anInputStreamToReadFrom ! !
+!CustomerImporter class methodsFor: 'instance creation' stamp: 'eaam 11/19/2023 20:01:54'!
+forCustomerSystemToRecordOn: aCustomerSystemToRecordDataOn andInputStreamWithCustomerData: anInputStreamToReadFrom 
+	^self new initializeForCustomerSystemToRecordOn: aCustomerSystemToRecordDataOn andInputStreamWithCustomerData: anInputStreamToReadFrom ! !
+
+
+!classDefinition: #CustomerSystem category: 'CustomerImporter'!
+Object subclass: #CustomerSystem
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:14:30'!
+addCustomer: anObject
+
+	self subclassResponsibility! !
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:12:08'!
+beginTransaction
+	self subclassResponsibility .! !
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:30'!
+close
+
+	self subclassResponsibility! !
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:38'!
+isEmpty
+
+	self subclassResponsibility! !
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:42'!
+select: aCondition ofType: aType
+
+	self subclassResponsibility! !
+
+!CustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:17:45'!
+selectAllOfType: aType
+
+	self subclassResponsibility! !
+
+
+!CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:17:50'!
+start
+
+	self subclassResponsibility! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CustomerSystem class' category: 'CustomerImporter'!
+CustomerSystem class
+	instanceVariableNames: ''!
+
+!CustomerSystem class methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 20:03:09'!
+newCustomerSystem
+	^Enviroment current createSystem .! !
+
+
+!classDefinition: #PersistentCustomerSystem category: 'CustomerImporter'!
+CustomerSystem subclass: #PersistentCustomerSystem
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:36:37'!
+addCustomer: anObject 
+	session persist: anObject.! !
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:16:11'!
+close
+	session commit.
+	session close.! !
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 18:22:26'!
+initialize
+	 
+	session := DataBaseSession for: (Array with: Address with: Customer).! !
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:07:02'!
+isEmpty
+	^session isEmpty .! !
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:02:33'!
+select: aCondition ofType: aType
+	^session select: aCondition ofType: aType.! !
+
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 18:28:40'!
+selectAllOfType: aType 
+	^session selectAllOfType: aType.! !
+
+
+
+!PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:15:39'!
+start
+	session beginTransaction.! !
+
+
+!classDefinition: #TransientCustomerSystem category: 'CustomerImporter'!
+CustomerSystem subclass: #TransientCustomerSystem
+	instanceVariableNames: 'dataCollection'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!TransientCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:25:25'!
+close! !
+
+!TransientCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 20:06:06'!
+isEmpty
+	^dataCollection isEmpty.! !
+
+!TransientCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:20:19'!
+start! !
+
+
+!TransientCustomerSystem methodsFor: 'initialization' stamp: 'eaam 11/19/2023 20:06:06'!
+initialize
+	 
+	dataCollection := OrderedCollection new.! !
+
+
+!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:06'!
+addCustomer: anObject 
+	dataCollection add: anObject.! !
+
+!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 19:40:56'!
+select: aCondition ofType: aType
+	^(self selectAllOfType: aType) select: aCondition.! !
+
+!TransientCustomerSystem methodsFor: 'category-name' stamp: 'eaam 11/19/2023 20:06:06'!
+selectAllOfType: aType 
+	^dataCollection select:[:anObject | anObject class = aType].! !
 
 
 !classDefinition: #DataBaseSession category: 'CustomerImporter'!
@@ -564,7 +776,7 @@ objectsOfType: aType
 
 	^ tables at: aType ifAbsent: [ #() ]! !
 
-!DataBaseSession methodsFor: 'persistence - private' stamp: 'HAW 5/22/2022 00:19:29'!
+!DataBaseSession methodsFor: 'persistence - private' stamp: 'eaam 11/19/2023 19:13:54'!
 persistAddressesOf: anObjectWithAddresses
 
 	anObjectWithAddresses addresses do: [ :anAddress | self persist: anAddress ]
@@ -586,7 +798,7 @@ newIdFor: anObject
 	^id! !
 
 
-!DataBaseSession methodsFor: 'persistance' stamp: 'HAW 5/22/2022 00:19:29'!
+!DataBaseSession methodsFor: 'persistance' stamp: 'eaam 11/19/2023 19:13:54'!
 persist: anObject
 
 	| table |
@@ -611,6 +823,11 @@ selectAllOfType: aType
 
 	self delay.
 	^(self objectsOfType: aType) copy ! !
+
+
+!DataBaseSession methodsFor: 'testing' stamp: 'eaam 11/19/2023 14:04:33'!
+isEmpty
+	^tables isEmpty.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
