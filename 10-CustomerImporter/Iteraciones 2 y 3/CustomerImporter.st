@@ -19,6 +19,11 @@ Enviroment class
 current
 	^(self subclasses detect: [:anEnviroment | anEnviroment isCurrent]) new.! !
 
+!Enviroment class methodsFor: 'as yet unclassified' stamp: 'eaam 11/23/2023 12:27:33'!
+isCurrent
+
+	self subclassResponsibility! !
+
 
 !classDefinition: #Development category: 'CustomerImporter'!
 Enviroment subclass: #Development

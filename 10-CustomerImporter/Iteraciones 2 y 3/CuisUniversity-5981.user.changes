@@ -12234,3 +12234,54 @@ PASSED!
 PASSED!
 
 ----QUIT----(23 November 2023 02:17:33) CuisUniversity-5981.image priorSource: 10428584!
+
+----STARTUP---- (23 November 2023 12:26:12) as /home/ezfloat/ing-software-1-c2-2023/xd3/linux64/linux64/CuisUniversity-5981.image!
+
+!Enviroment class methodsFor: 'as yet unclassified' stamp: 'eaam 11/23/2023 12:27:33'!
+isCurrent
+
+	self subclassResponsibility! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'eaam 11/23/2023 12:27:46'!
+PASSED!
+
+----QUIT----(23 November 2023 12:28:09) CuisUniversity-5981.image priorSource: 10477330!
