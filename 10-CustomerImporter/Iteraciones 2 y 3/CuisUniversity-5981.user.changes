@@ -11968,3 +11968,269 @@ PASSED!
 PASSED!
 
 ----QUIT----(22 November 2023 19:00:55) CuisUniversity-5981.image priorSource: 10340871!
+
+----STARTUP---- (23 November 2023 02:02:44) as C:\Users\sofia\Documents\smalltalk\windows64\CuisUniversity-5981.image!
+
+
+----End fileIn of C:\Users\sofia\Documents\smalltalk\windows64\CustomerImporter.st----!
+!PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31' overrides: 50658360!
+beginTransaction
+	self subclassResponsibility .! !
+!TransientCustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31' overrides: 50658360!
+beginTransaction
+	self subclassResponsibility .! !
+!CustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31' prior: 50658360!
+beginTransaction
+
+	self subclassResponsibility! !
+!CustomerSystem methodsFor: 'initialization' stamp: 'S D 11/23/2023 02:05:09' overrides: 16920235!
+initialize
+
+	self subclassResponsibility! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:06:04'!
+assertAddress: anAddressToCompare hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/23/2023 02:06:05' prior: 50657785!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer firstAddressesOfCustomer secondAddressesOfCustomer |
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
+
+	self assertAddress: firstAddressesOfCustomer hasProvince: 'BsAs' andStreetNumber: 3322 andStreetName: 'San Martin' andZipCode: 1636 andTown: 'Olivos'.
+	
+	self assertAddress: secondAddressesOfCustomer hasProvince: 'Buenos Aires' andStreetNumber: 		888 andStreetName: 'Maipu' andZipCode: 1122 andTown: 'Florida' .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'S D 11/23/2023 02:06:05' prior: 50657811!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA' .
+! !
+
+!methodRemoval: ImportTest #assertAddress:haveProvince:andStreetNumber:andStreetName:andZipCode:andTown: stamp: 'S D 11/23/2023 02:06:05'!
+assertAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
+
+	self assert: anAddressToCompare province equals: aProvinceToCheck .
+	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
+	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
+	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
+	self assert: anAddressToCompare town equals: aTownToCheck .!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:06:38'!
+keyword1: listOfCustomerAddresses
+
+	^ self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:06:38' prior: 50658681!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self keyword1: listOfCustomerAddresses .
+! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:07:54' prior: 50658728!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA'! !
+
+!methodRemoval: ImportTest #keyword1: stamp: 'S D 11/23/2023 02:07:55'!
+keyword1: listOfCustomerAddresses
+
+	^ self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:08:04' prior: 50658742!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:08:08' prior: 50658767!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer listOfCustomerAddresses |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
+	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
+	
+	self assertAddress: listOfCustomerAddresses hasProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:10:41'!
+assertAddressExistsWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:11:31' prior: 50658802!
+assertAddressExistsWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:12:41'!
+assertCustomer: theOwnerOfTheAddress assertAddressExistsWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
+
+!methodRemoval: ImportTest #assertAddressExistsWithProvince:andStreetName:andStreetNumber:andZipCode:andTown: stamp: 'S D 11/23/2023 02:12:41'!
+assertAddressExistsWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:12:54'!
+assertCustomer: theOwnerOfTheAddress hasAddressWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
+
+!methodRemoval: ImportTest #assertCustomer:assertAddressExistsWithProvince:andStreetName:andStreetNumber:andZipCode:andTown: stamp: 'S D 11/23/2023 02:12:54'!
+assertCustomer: theOwnerOfTheAddress assertAddressExistsWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:13:21' prior: 50658856!
+assertCustomer: theOwnerOfTheAddress hasAddressWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+	
+	address := theOwnerOfTheAddress addressAt: 'Alem' ifNone: [self fail.].
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:13:29' prior: 50658889!
+assertCustomer: theOwnerOfTheAddress hasAddressWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+	
+	address := theOwnerOfTheAddress addressAt: aStreetNameToCheck ifNone: [self fail.].
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:14:23' prior: 50658785!
+test05JuanPerezDataIsImportedCorrectly
+
+	| customer |
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.	
+	self assertCustomer: customer hasAddressWithProvince: 'CABA'  andStreetName: 'Alem' andStreetNumber: 1122 andZipCode: 1001 andTown: 'CABA'! !
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/23/2023 02:14:28'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:15:35' prior: 50658654!
+test04PepeSanchezDataIsImportedCorrectly
+
+	| customer |
+
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
+	
+	self assertCustomer: customer hasAddressWithProvince: 'BsAs' andStreetName: 'San Martin' andStreetNumber: 3322 andZipCode: 1636 andTown: 'Olivos'.
+	
+	self assertCustomer: customer hasAddressWithProvince: 'Buenos Aires' andStreetName: 'Maipu' andStreetNumber: 		888 andZipCode: 1122 andTown: 'Florida' .
+! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'S D 11/23/2023 02:16:28'!
+PASSED!
+!Integration class methodsFor: 'as yet unclassified' stamp: 'S D 11/23/2023 02:16:48' prior: 50657637!
+isCurrent
+	^(Smalltalk at: #env) = 'int'! !
+
+!testRun: #ImportTest #test01ImportAddsTheCorrectNumberOfCustomers stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test02PepeSanchezIsImportedCorrectly stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test03JuanPerezIsImportedCorrectly stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test04PepeSanchezDataIsImportedCorrectly stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test05JuanPerezDataIsImportedCorrectly stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test06FailImportingWhenCustomerRecordHasLessThanFiveParameters stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test07FailImportingWhenCustomerRecordHasMoreThanFiveParameters stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test08FailImportingWhenAddressRecordHasLessThanFiveParameters stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test09FailImportingWhenAddressRecordHasMoreThanFiveParameters stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test10FailImportingWhenRecordHasAnInvalidType stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test11FailImportingWhenRecordHasEmptyLine stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test12FailImportingWhenAddressHasNoAssociatedCustomer stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test13FailImportingWhenAddressRecordTypeIsNotA stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+!testRun: #ImportTest #test14FailImportingWhenCustomerRecordTypeIsNotC stamp: 'S D 11/23/2023 02:17:23'!
+PASSED!
+
+----QUIT----(23 November 2023 02:17:33) CuisUniversity-5981.image priorSource: 10428584!

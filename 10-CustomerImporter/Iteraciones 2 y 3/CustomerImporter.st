@@ -5,7 +5,7 @@ TestCase subclass: #Enviroment
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!Enviroment methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:57:19'!
+!Enviroment methodsFor: 'customer system creation' stamp: 'eaam 11/19/2023 19:57:19'!
 createSystem
 	^self subclassResponsibility.! !
 
@@ -27,7 +27,7 @@ Enviroment subclass: #Development
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!Development methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:57:47'!
+!Development methodsFor: 'customer system creation' stamp: 'eaam 11/19/2023 19:57:47'!
 createSystem
 	^TransientCustomerSystem new.! !
 
@@ -49,7 +49,7 @@ Enviroment subclass: #Integration
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!Integration methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:58:39'!
+!Integration methodsFor: 'customer system creation' stamp: 'eaam 11/19/2023 19:58:39'!
 createSystem
 	^PersistentCustomerSystem new.! !
 
@@ -59,9 +59,9 @@ createSystem
 Integration class
 	instanceVariableNames: ''!
 
-!Integration class methodsFor: 'as yet unclassified' stamp: 'eaam 11/19/2023 19:52:19'!
+!Integration class methodsFor: 'as yet unclassified' stamp: 'S D 11/23/2023 02:16:48'!
 isCurrent
-	^Development isCurrent not.! !
+	^(Smalltalk at: #env) = 'int'! !
 
 
 !classDefinition: #ImportTest category: 'CustomerImporter'!
@@ -71,14 +71,23 @@ TestCase subclass: #ImportTest
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/22/2023 18:20:26'!
-assertAddress: anAddressToCompare haveProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:06:04'!
+assertAddress: anAddressToCompare hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  
 
 	self assert: anAddressToCompare province equals: aProvinceToCheck .
 	self assert: anAddressToCompare streetNumber equals: aStreetNumberToCheck .
 	self assert: anAddressToCompare streetName equals: aStreetNameToCheck .
 	self assert: anAddressToCompare zipCode equals: aZipCodeToCheck .
 	self assert: anAddressToCompare town equals: aTownToCheck .! !
+
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:13:29'!
+assertCustomer: theOwnerOfTheAddress hasAddressWithProvince: aProvinceToCheck andStreetName: aStreetNameToCheck andStreetNumber: aStreetNumberToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck
+
+	| address |
+	
+	address := theOwnerOfTheAddress addressAt: aStreetNameToCheck ifNone: [self fail.].
+
+	self assertAddress: address hasProvince: aProvinceToCheck andStreetNumber: aStreetNumberToCheck andStreetName: aStreetNameToCheck andZipCode: aZipCodeToCheck andTown: aTownToCheck  ! !
 
 !ImportTest methodsFor: 'tests' stamp: 'eaam 11/22/2023 18:19:12'!
 assertCustomer: aCustomerToCompare haveFirstName: aFirstNameToCheck andLastName: aLastNameToCheck andIDType: anIDTypeToCheck andIDNumber: anIDNumberToCheck  
@@ -152,30 +161,26 @@ test03JuanPerezIsImportedCorrectly
 
 	self assertCustomer: customer haveFirstName: 'Juan' andLastName: 'Perez' andIDType: 'C' andIDNumber: '23-25666777-9'.! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/22/2023 18:20:26'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:15:35'!
 test04PepeSanchezDataIsImportedCorrectly
 
-	| customer firstAddressesOfCustomer secondAddressesOfCustomer |
+	| customer |
 
-	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
+	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
 	customer := self getCustomerWithIDType: 'D' andIDNumber: '22333444'.
-	firstAddressesOfCustomer := customer addressAt: 'San Martin' ifNone: [self fail.].	secondAddressesOfCustomer := customer addressAt: 'Maipu' ifNone: [self fail.].
-
-	self assertAddress: firstAddressesOfCustomer haveProvince: 'BsAs' andStreetNumber: 3322 andStreetName: 'San Martin' andZipCode: 1636 andTown: 'Olivos'.
 	
-	self assertAddress: secondAddressesOfCustomer haveProvince: 'Buenos Aires' andStreetNumber: 		888 andStreetName: 'Maipu' andZipCode: 1122 andTown: 'Florida' .
+	self assertCustomer: customer hasAddressWithProvince: 'BsAs' andStreetName: 'San Martin' andStreetNumber: 3322 andZipCode: 1636 andTown: 'Olivos'.
+	
+	self assertCustomer: customer hasAddressWithProvince: 'Buenos Aires' andStreetName: 'Maipu' andStreetNumber: 		888 andZipCode: 1122 andTown: 'Florida' .
 ! !
 
-!ImportTest methodsFor: 'tests' stamp: 'eaam 11/22/2023 18:20:26'!
+!ImportTest methodsFor: 'tests' stamp: 'S D 11/23/2023 02:14:23'!
 test05JuanPerezDataIsImportedCorrectly
 
-	| customer listOfCustomerAddresses |
+	| customer |
 	self importCustomersForReadStream: validInputStream forSystem: customerSystem .
-	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.
-	listOfCustomerAddresses := customer addressAt: 'Alem' ifNone: [self fail.].
-	
-	self assertAddress: listOfCustomerAddresses haveProvince: 'CABA' andStreetNumber: 1122 andStreetName: 'Alem' andZipCode: 1001 andTown: 'CABA' .
-! !
+	customer := self getCustomerWithIDType: 'C' andIDNumber: '23-25666777-9'.	
+	self assertCustomer: customer hasAddressWithProvince: 'CABA'  andStreetName: 'Alem' andStreetNumber: 1122 andZipCode: 1001 andTown: 'CABA'! !
 
 !ImportTest methodsFor: 'tests' stamp: 'eaam 11/22/2023 18:45:12'!
 test06FailImportingWhenCustomerRecordHasLessThanFiveParameters
@@ -283,7 +288,6 @@ A,Henderson,712,Red Bark Ln,1122,Nevada').
 	self forImporter: importer 
 	shouldImportCustomersRaiseAnErrorErrorMessage: importer invalidRecord
 	withCondition: [self assert: self customerSystemDataIsEmpty] .! !
-
 
 
 !ImportTest methodsFor: 'tear down' stamp: 'eaam 11/19/2023 20:06:55'!
@@ -617,9 +621,10 @@ selectAllOfType: aType
 	self subclassResponsibility! !
 
 
-!CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:12:08'!
+!CustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31'!
 beginTransaction
-	self subclassResponsibility .! !
+
+	self subclassResponsibility! !
 
 !CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:17:30'!
 close
@@ -628,6 +633,12 @@ close
 
 !CustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:17:50'!
 start
+
+	self subclassResponsibility! !
+
+
+!CustomerSystem methodsFor: 'initialization' stamp: 'S D 11/23/2023 02:05:09'!
+initialize
 
 	self subclassResponsibility! !
 
@@ -672,6 +683,10 @@ selectAllOfType: aType
 	^session selectAllOfType: aType.! !
 
 
+!PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31'!
+beginTransaction
+	self subclassResponsibility .! !
+
 !PersistentCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:16:11'!
 close
 	session commit.
@@ -688,6 +703,10 @@ CustomerSystem subclass: #TransientCustomerSystem
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
+
+!TransientCustomerSystem methodsFor: 'transaction management' stamp: 'S D 11/23/2023 02:04:31'!
+beginTransaction
+	self subclassResponsibility .! !
 
 !TransientCustomerSystem methodsFor: 'transaction management' stamp: 'eaam 11/19/2023 19:25:25'!
 close! !
